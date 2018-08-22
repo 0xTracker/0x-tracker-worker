@@ -1,0 +1,51 @@
+{
+  "name": "0x-tracker-worker",
+  "version": "1.0.0",
+  "description": "0x Tracker worker process which handles various ETF tasks related to trades and other website data.",
+  "main": "src/index.js",
+  "scripts": {
+    "check-licenses": "license-checker --onlyAllow \"MIT;ISC;BSD-2-Clause;Apache-2.0;LGPL-3.0;Unlicense;BSD-3-Clause;MPL-2.0;Public Domain;WTFPL;CC0-1.0;CC-BY-3.0;BSD*;BSD;Custom: https://secure.travis-ci.org/defunctzombie/node-uuid.png\" --summary",
+    "lint": "eslint .",
+    "precommit": "lint-staged",
+    "start": "node .",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://cbovis@github.com/cbovis/0x-tracker-worker.git"
+  },
+  "keywords": [
+    "ethereum",
+    "0x",
+    "web3"
+  ],
+  "author": "Craig Bovis",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/cbovis/0x-tracker-worker/issues"
+  },
+  "homepage": "https://github.com/cbovis/0x-tracker-worker#readme",
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "3.0.1",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-prettier": "2.6.2",
+    "husky": "0.14.3",
+    "jest": "^23.5.0",
+    "license-checker": "20.2.0",
+    "lint-staged": "7.2.2",
+    "prettier": "1.14.2"
+  },
+  "dependencies": {
+    "bugsnag": "^2.4.3",
+    "config": "^2.0.1",
+    "dotenv-safe": "^6.0.0",
+    "lodash": "^4.17.10",
+    "signale": "^1.2.1"
+  }
+}

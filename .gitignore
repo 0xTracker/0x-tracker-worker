@@ -1,0 +1,12 @@
+# Logs
+npm-debug.log*
+
+# Test coverage
+coverage
+
+# Dependencies
+node_modules/
+
+# Local config
+.env
+config/local.js
