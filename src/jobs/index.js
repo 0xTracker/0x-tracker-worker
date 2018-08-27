@@ -1,8 +1,10 @@
 const _ = require('lodash');
 
+const createFills = require('./create-fills');
 const getNewArticles = require('./get-new-articles');
 
 const jobFns = {
+  createFills,
   getNewArticles,
 };
 

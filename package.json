@@ -42,14 +42,22 @@
     "prettier": "1.14.2"
   },
   "dependencies": {
+    "bignumber.js": "^7.2.1",
+    "bluebird": "^3.5.1",
     "bugsnag": "^2.4.3",
     "cheerio": "^1.0.0-rc.2",
     "config": "^2.0.1",
     "dotenv-safe": "^6.0.0",
+    "jest-fetch-mock": "^1.6.5",
     "lodash": "^4.17.10",
+    "memory-cache": "^0.2.0",
+    "moment": "^2.22.2",
+    "moment-round": "^1.0.1",
     "mongoose": "^5.2.9",
+    "ms": "^2.1.1",
     "promise-poller": "^1.6.0",
     "rss-parser": "^3.4.3",
-    "signale": "^1.2.1"
+    "signale": "^1.2.1",
+    "web3": "^0.20.7"
   }
 }

@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return all relayers 1`] = `
+Object {
+  "bambooRelay": Object {
+    "feeRecipients": Array [
+      "0x5dd835a893734b8d556eccf87800b76dda5aedc5",
+    ],
+    "id": "bambooRelay",
+    "lookupId": 1,
+  },
+  "ddex": Object {
+    "id": "ddex",
+    "lookupId": 2,
+    "takerAddresses": Array [
+      "0xe269e891a2ec8585a378882ffa531141205e92e9",
+    ],
+  },
+  "ercDex": Object {
+    "feeRecipients": Array [
+      "fred",
+      "flintstone",
+    ],
+    "id": "ercDex",
+    "lookupId": 3,
+  },
+  "idtExchange": Object {
+    "feeRecipients": Array [
+      "0xeb71bad396acaa128aeadbc7dbd59ca32263de01",
+    ],
+    "id": "idtExchange",
+    "lookupId": 4,
+  },
+  "ledgerDex": Object {
+    "feeRecipients": Array [
+      "0x4524baa98f9a3b9dec57caae7633936ef96bd708",
+    ],
+    "id": "ledgerDex",
+    "lookupId": 12,
+  },
+  "openRelay": Object {
+    "feeRecipients": Array [
+      "0xc22d5b2951db72b44cfb8089bb8cd374a3c354ea",
+    ],
+    "id": "openRelay",
+    "lookupId": 5,
+  },
+  "paradex": Object {
+    "id": "paradex",
+    "lookupId": 6,
+    "takerAddresses": Array [
+      "0x4969358e80cdc3d74477d7447bffa3b2e2acbe92",
+      "0xd2045edc40199019e221d71c0913343f7908d0d5",
+    ],
+  },
+  "radarRelay": Object {
+    "feeRecipients": Array [
+      "0xa258b39954cef5cb142fd567a46cddb31a670124",
+    ],
+    "id": "radarRelay",
+    "lookupId": 7,
+  },
+  "sharkRelay": Object {
+    "feeRecipients": Array [
+      "0x55890b06f0877a01bb5349d93b202961f8e27a9b",
+    ],
+    "id": "sharkRelay",
+    "lookupId": 8,
+  },
+  "starBit": Object {
+    "feeRecipients": Array [
+      "0x8124071f810d533ff63de61d0c98db99eeb99d64",
+    ],
+    "id": "starBit",
+    "lookupId": 9,
+  },
+  "theOcean": Object {
+    "feeRecipients": Array [
+      "0x7219612be7036d1bfa933e16ca1246008f38c5fe",
+    ],
+    "id": "theOcean",
+    "lookupId": 13,
+  },
+  "tokenJar": Object {
+    "feeRecipients": Array [
+      "0x5e150a33ffa97a8d22f59c77ae5487b089ef62e9",
+    ],
+    "id": "tokenJar",
+    "lookupId": 10,
+  },
+  "tokenlon": Object {
+    "feeRecipients": Array [
+      "0x6f7ae872e995f98fcd2a7d3ba17b7ddfb884305f",
+    ],
+    "id": "tokenlon",
+    "lookupId": 11,
+  },
+}
+`;

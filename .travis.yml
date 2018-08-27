@@ -4,5 +4,6 @@ cache:
     - 'node_modules'
 install: npm install
 script:
-  - npm run lint
   - npm run check-licenses
+  - npm run lint
+  - npm test

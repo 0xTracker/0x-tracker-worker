@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return Bamboo Relay when fee recipient matches 1`] = `
+Object {
+  "feeRecipients": Array [
+    "0x5dd835a893734b8d556eccf87800b76dda5aedc5",
+  ],
+  "id": "bambooRelay",
+  "lookupId": 1,
+}
+`;
+
+exports[`should return DDEX when taker address matches 1`] = `
+Object {
+  "id": "ddex",
+  "lookupId": 2,
+  "takerAddresses": Array [
+    "0xe269e891a2ec8585a378882ffa531141205e92e9",
+  ],
+}
+`;
