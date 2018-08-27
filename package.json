@@ -43,9 +43,13 @@
   },
   "dependencies": {
     "bugsnag": "^2.4.3",
+    "cheerio": "^1.0.0-rc.2",
     "config": "^2.0.1",
     "dotenv-safe": "^6.0.0",
     "lodash": "^4.17.10",
+    "mongoose": "^5.2.9",
+    "promise-poller": "^1.6.0",
+    "rss-parser": "^3.4.3",
     "signale": "^1.2.1"
   }
 }
