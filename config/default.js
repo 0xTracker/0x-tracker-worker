@@ -18,6 +18,7 @@ module.exports = {
   pollingIntervals: {
     default: 5000,
     getNewArticles: 60000,
+    setRelayerForFills: 60000,
   },
   web3: {
     endpoint: `https://mainnet.infura.io/${process.env.INFURA_API_KEY}`,
