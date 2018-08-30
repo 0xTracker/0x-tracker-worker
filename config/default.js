@@ -9,6 +9,7 @@ module.exports = {
   },
   jobs: {
     createFills: {
+      batchSize: 100,
     },
     updateFillStatuses: {
       batchSize: 100,

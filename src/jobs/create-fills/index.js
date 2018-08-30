@@ -1,5 +1,4 @@
 const bluebird = require('bluebird');
-const config = require('config');
 const signale = require('signale');
 
 const createFill = require('./create-fill');
@@ -8,14 +7,13 @@ const MissingBlockError = require('./missing-block-error');
 
 const logger = signale.scope('create fills');
 
-const createFills = async () => {
-  const maxChunkSize = config.get('jobs.createFills.maxChunkSize');
+const createFills = async ({ batchSize }) => {
   const events = await Event.find({
     fillCreated: { $in: [false, null] },
     protocolVersion: 1,
   })
     .sort({ blockNumber: -1 })
-    .limit(maxChunkSize);
+    .limit(batchSize);
 
   logger.info(`found ${events.length} events without associated fills`);
 
