@@ -13,7 +13,6 @@ module.exports = {
     },
   ],
   rules: {
-    'no-console': 'off',
     'no-underscore-dangle': 'off',
     'import/prefer-default-export': 'warn',
   },
