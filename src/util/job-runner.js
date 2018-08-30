@@ -1,10 +1,16 @@
 const _ = require('lodash');
+const config = require('config');
 const withRetry = require('promise-poller').default;
 
 const runJob = async ({ fn, interval, maxRetries }, options) => {
+  const configKey = `jobs.${fn.name}`;
+  const jobConfig = config.has(configKey)
+    ? config.util.toObject(config.get(configKey))
+    : {};
+
   try {
     await withRetry({
-      taskFn: fn,
+      taskFn: () => fn(jobConfig),
       interval,
       retries: maxRetries,
       progressCallback: options.onError,

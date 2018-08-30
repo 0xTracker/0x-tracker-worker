@@ -9,7 +9,9 @@ module.exports = {
   },
   jobs: {
     createFills: {
-      maxChunkSize: 100,
+    },
+    updateFillStatuses: {
+      batchSize: 100,
     },
   },
   maxRetries: {
