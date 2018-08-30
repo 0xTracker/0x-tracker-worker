@@ -5,7 +5,7 @@ const signale = require('signale');
 const { logError } = require('../../util/error-logger');
 
 const endpoint = 'https://api.ercdex.com/api/fees/recipients/1';
-const logger = signale.scope('caching');
+const logger = signale.scope('erc dex recipient cache');
 
 let recipients = [];
 

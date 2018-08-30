@@ -31,7 +31,7 @@ const setRelayerForFills = async () => {
   );
 
   if (modifiedCount === 0) {
-    logger.info('unable to set relayer for any fills');
+    logger.info('relayer did not need setting for any fills');
   } else {
     logger.success(`set relayer for ${modifiedCount} fills`);
   }
