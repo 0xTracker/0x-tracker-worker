@@ -14,6 +14,7 @@ const { runJobs } = require('./util/job-runner');
 const db = require('./util/db');
 const ercDexRecipientCache = require('./relayers/erc-dex/recipient-cache');
 const errorLogger = require('./util/error-logger');
+const ethplorer = require('./util/ethplorer');
 const tokenCache = require('./tokens/token-cache');
 const web3 = require('./util/ethereum/web3');
 
@@ -22,6 +23,7 @@ errorLogger.configure({
 });
 db.connect(config.get('database.connectionString'));
 web3.configure({ endpoint: config.get('web3.endpoint') });
+ethplorer.configure({ apiKey: config.get('ethplorer.apiKey') });
 
 const jobs = getJobs({
   maxRetries: config.get('maxRetries'),

@@ -11,6 +11,9 @@ module.exports = {
   ercDex: {
     feeRecipientPollingInterval: ms('1 minute'),
   },
+  ethplorer: {
+    apiKey: process.env.ETHPLORER_API_KEY,
+  },
   jobs: {
     createFills: {
       batchSize: 100,
