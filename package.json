@@ -42,6 +42,7 @@
     "prettier": "1.14.2"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bignumber.js": "^7.2.1",
     "bluebird": "^3.5.1",
     "bugsnag": "^2.4.3",

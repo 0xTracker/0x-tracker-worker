@@ -12,6 +12,7 @@ const config = require('config');
 const { getJobs } = require('./jobs');
 const { runJobs } = require('./util/job-runner');
 const db = require('./util/db');
+const ercDexRecipientCache = require('./relayers/erc-dex/recipient-cache');
 const errorLogger = require('./util/error-logger');
 const tokenCache = require('./tokens/token-cache');
 const web3 = require('./util/ethereum/web3');
@@ -27,8 +28,14 @@ const jobs = getJobs({
   pollingIntervals: config.get('pollingIntervals'),
 });
 
-tokenCache
-  .initialise()
+Promise.all([
+  ercDexRecipientCache.loadRecipients().then(() => {
+    ercDexRecipientCache.startPolling(
+      config.get('ercDex.feeRecipientPollingInterval'),
+    );
+  }),
+  tokenCache.initialise(),
+])
   .then(() => {
     runJobs(jobs, {
       onError: (retriesRemaining, error) => {
