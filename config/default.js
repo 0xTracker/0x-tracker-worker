@@ -27,6 +27,7 @@ module.exports = {
   },
   pollingIntervals: {
     default: ms('5 seconds'),
+    getMissingTokenImages: ms('1 minute'),
     getNewArticles: ms('1 minute'),
     setRelayerForFills: ms('1 minute'),
   },
