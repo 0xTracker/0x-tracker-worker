@@ -18,6 +18,9 @@ module.exports = {
     createFills: {
       batchSize: 100,
     },
+    updateFillRates: {
+      batchSize: 100,
+    },
     updateFillStatuses: {
       batchSize: 100,
     },
