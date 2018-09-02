@@ -5,6 +5,7 @@ const getMissingTokenImages = require('./get-missing-token-images');
 const getMissingTokens = require('./get-missing-tokens');
 const getNewArticles = require('./get-new-articles');
 const setRelayerForFills = require('./set-relayer-for-fills');
+const updateFillPrices = require('./update-fill-prices');
 const updateFillRates = require('./update-fill-rates');
 const updateFillStatuses = require('./update-fill-statuses');
 
@@ -14,6 +15,7 @@ const jobFns = {
   getMissingTokens,
   getNewArticles,
   setRelayerForFills,
+  updateFillPrices,
   updateFillRates,
   updateFillStatuses,
 };

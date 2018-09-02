@@ -50,6 +50,7 @@
     "cheerio": "^1.0.0-rc.2",
     "config": "^2.0.1",
     "dotenv-safe": "^6.0.0",
+    "flat": "^4.1.0",
     "lodash": "^4.17.10",
     "memory-cache": "^0.2.0",
     "moment": "^2.22.2",
@@ -58,6 +59,7 @@
     "ms": "^2.1.1",
     "promise-poller": "^1.6.0",
     "rss-parser": "^3.4.3",
+    "seamless-immutable": "^7.1.4",
     "signale": "^1.2.1",
     "web3": "^0.20.7"
   }
