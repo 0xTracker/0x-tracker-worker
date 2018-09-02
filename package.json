@@ -44,7 +44,7 @@
   "dependencies": {
     "0x.js": "^0.38.6",
     "axios": "^0.18.0",
-    "bignumber.js": "^5.0.0",
+    "bignumber.js": "^7.0.0",
     "bluebird": "^3.5.1",
     "bugsnag": "^2.4.3",
     "cheerio": "^1.0.0-rc.2",
