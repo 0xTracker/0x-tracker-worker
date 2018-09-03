@@ -7,7 +7,6 @@ const getRelayerForFill = require('../../fills/get-relayer-for-fill');
 const getRoundedDates = require('./get-rounded-dates');
 const MissingBlockError = require('./missing-block-error');
 const tokenCache = require('../../tokens/token-cache');
-const web3 = require('../../util/ethereum/web3');
 
 const saveFill = async event => {
   const {
@@ -46,7 +45,7 @@ const saveFill = async event => {
 
   const fill = {
     blockHash,
-    blockNumber: web3.getClient().toDecimal(blockNumber),
+    blockNumber: parseInt(blockNumber, 16),
     date,
     feeRecipient,
     logIndex,

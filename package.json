@@ -42,7 +42,8 @@
     "prettier": "1.14.2"
   },
   "dependencies": {
-    "0x.js": "^0.38.6",
+    "@0xproject/subproviders": "^2.0.1",
+    "@0xproject/web3-wrapper": "^2.0.1",
     "axios": "^0.18.0",
     "bignumber.js": "^5.0.0",
     "bluebird": "^3.5.1",
@@ -60,7 +61,6 @@
     "promise-poller": "^1.6.0",
     "rss-parser": "^3.4.3",
     "seamless-immutable": "^7.1.4",
-    "signale": "^1.2.1",
-    "web3": "^0.20.7"
+    "signale": "^1.2.1"
   }
 }

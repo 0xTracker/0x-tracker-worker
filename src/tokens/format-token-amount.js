@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { ZeroEx } = require('0x.js');
+const { Web3Wrapper } = require('@0xproject/web3-wrapper');
 const BigNumber = require('bignumber.js');
 
 module.exports = (amount, token) => {
@@ -9,5 +9,5 @@ module.exports = (amount, token) => {
 
   const bigNumber = new BigNumber(amount.toString());
 
-  return ZeroEx.toUnitAmount(bigNumber, token.decimals);
+  return Web3Wrapper.toUnitAmount(bigNumber, token.decimals);
 };

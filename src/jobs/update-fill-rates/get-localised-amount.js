@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { ZeroEx } = require('0x.js');
+const { Web3Wrapper } = require('@0xproject/web3-wrapper');
 
 const getBaseToken = require('../../fills/get-base-token');
 const getTokenAmount = require('../../fills/get-token-amount');
@@ -20,7 +20,10 @@ const getLocalisedAmount = (fill, tokens, rates) => {
     return null;
   }
 
-  const unitAmount = ZeroEx.toUnitAmount(baseTokenAmount, baseToken.decimals);
+  const unitAmount = Web3Wrapper.toUnitAmount(
+    baseTokenAmount,
+    baseToken.decimals,
+  );
   const localisedAmount = unitAmount.times(conversionRate).toNumber();
 
   return localisedAmount;

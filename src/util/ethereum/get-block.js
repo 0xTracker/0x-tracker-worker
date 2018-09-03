@@ -1,8 +1,7 @@
-const bluebird = require('bluebird');
 const memoryCache = require('memory-cache');
 const ms = require('ms');
 
-const { getClient } = require('./web3');
+const web3 = require('./web3');
 
 const getBlock = async blockHash => {
   const cacheKey = `blocks.${blockHash}`;
@@ -14,10 +13,8 @@ const getBlock = async blockHash => {
 
   let block;
 
-  const web3GetBlock = bluebird.promisify(getClient().eth.getBlock);
-
   try {
-    block = await web3GetBlock(blockHash);
+    block = await web3.getClient().getBlockAsync(blockHash);
   } catch (error) {
     return null;
   }
