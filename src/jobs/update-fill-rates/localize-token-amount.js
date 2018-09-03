@@ -1,6 +1,6 @@
 const _ = require('lodash');
+const { BigNumber } = require('@0xproject/utils');
 const { Web3Wrapper } = require('@0xproject/web3-wrapper');
-const BigNumber = require('bignumber.js');
 
 const normalizeSymbol = require('../../tokens/normalize-symbol');
 

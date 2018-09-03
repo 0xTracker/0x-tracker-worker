@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const { BigNumber } = require('@0xproject/utils');
 const { Web3Wrapper } = require('@0xproject/web3-wrapper');
 
 const getBaseToken = require('../../fills/get-base-token');
@@ -21,7 +22,7 @@ const getLocalisedAmount = (fill, tokens, rates) => {
   }
 
   const unitAmount = Web3Wrapper.toUnitAmount(
-    baseTokenAmount,
+    new BigNumber(baseTokenAmount),
     baseToken.decimals,
   );
   const localisedAmount = unitAmount.times(conversionRate).toNumber();
