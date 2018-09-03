@@ -4,7 +4,7 @@ const {
 } = require('@0xproject/subproviders');
 const { Web3Wrapper } = require('@0xproject/web3-wrapper');
 
-let client;
+let wrapper;
 
 const configure = ({ endpoint }) => {
   const providerEngine = new Web3ProviderEngine();
@@ -12,9 +12,9 @@ const configure = ({ endpoint }) => {
   providerEngine.addProvider(new RPCSubprovider(endpoint));
   providerEngine.start();
 
-  client = new Web3Wrapper(providerEngine);
+  wrapper = new Web3Wrapper(providerEngine);
 };
 
-const getClient = () => client;
+const getWrapper = () => wrapper;
 
-module.exports = { configure, getClient };
+module.exports = { configure, getWrapper };

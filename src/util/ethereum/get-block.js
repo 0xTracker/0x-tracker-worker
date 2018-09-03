@@ -14,7 +14,7 @@ const getBlock = async blockHash => {
   let block;
 
   try {
-    block = await web3.getClient().getBlockAsync(blockHash);
+    block = await web3.getWrapper().getBlockAsync(blockHash);
   } catch (error) {
     return null;
   }
