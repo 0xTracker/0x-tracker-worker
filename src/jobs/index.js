@@ -8,6 +8,7 @@ const setRelayerForFills = require('./set-relayer-for-fills');
 const updateFillPrices = require('./update-fill-prices');
 const updateFillRates = require('./update-fill-rates');
 const updateFillStatuses = require('./update-fill-statuses');
+const updateTokenPrices = require('./update-token-prices');
 
 const jobFns = {
   createFills,
@@ -18,6 +19,7 @@ const jobFns = {
   updateFillPrices,
   updateFillRates,
   updateFillStatuses,
+  updateTokenPrices,
 };
 
 const getJobs = ({ maxRetries, pollingIntervals }) =>
