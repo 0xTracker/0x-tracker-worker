@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const { FILL_STATUS } = require('../constants');
+
 const { Schema } = mongoose;
 
 const schema = Schema({
@@ -18,6 +20,11 @@ const schema = Schema({
   feeRecipient: { type: String, index: true },
   logIndex: { type: Number, index: true },
   maker: { type: String, index: true },
+  makerAsset: {
+    assetProxyId: String,
+    tokenAddress: String,
+    tokenId: Number,
+  },
   makerAmount: Number,
   makerFee: Number,
   makerToken: { type: String, index: true },
@@ -27,6 +34,7 @@ const schema = Schema({
     taker: Number,
     saved: { default: false, type: Boolean, index: true },
   },
+  protocolVersion: Number,
   rates: {
     data: Schema.Types.Mixed,
     saved: { default: false, type: Boolean, index: true },
@@ -38,11 +46,17 @@ const schema = Schema({
     hour: { type: Date, index: -1 },
     minute: { type: Date, index: -1 },
   },
+  senderAddress: String,
   status: {
-    default: 0, // pending
+    default: FILL_STATUS.PENDING,
     type: Number,
   },
   taker: { type: String, index: true },
+  takerAsset: {
+    assetProxyId: String,
+    tokenAddress: String,
+    tokenId: Number,
+  },
   takerAmount: Number,
   takerFee: Number,
   takerToken: { type: String, index: true },

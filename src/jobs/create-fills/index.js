@@ -10,7 +10,6 @@ const logger = signale.scope('create fills');
 const createFills = async ({ batchSize, processOldestFirst }) => {
   const events = await Event.find({
     fillCreated: { $in: [false, null] },
-    protocolVersion: 1,
   })
     .sort({ blockNumber: processOldestFirst ? 1 : -1 })
     .limit(batchSize);
