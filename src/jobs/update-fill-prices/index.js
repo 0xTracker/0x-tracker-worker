@@ -11,7 +11,7 @@ const tokenCache = require('../../tokens/token-cache');
 
 const logger = signale.scope('update fill prices');
 
-const updateFillPrices = async ({ batchSize }) => {
+const updateFillPrices = async ({ batchSize, processOldestFirst }) => {
   const fills = await Fill.find(
     {
       'rates.saved': true,
@@ -21,7 +21,7 @@ const updateFillPrices = async ({ batchSize }) => {
     },
     '_id conversions date makerAmount makerToken relayerId takerAmount takerToken',
   )
-    .sort({ date: -1 })
+    .sort({ date: processOldestFirst ? 1 : -1 })
     .limit(batchSize);
 
   if (fills.length === 0) {

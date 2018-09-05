@@ -13,7 +13,7 @@ const tokenCache = require('../../tokens/token-cache');
 
 const logger = signale.scope('update fill rates');
 
-const updateFillRates = async ({ batchSize }) => {
+const updateFillRates = async ({ batchSize, processOldestFirst }) => {
   const tokens = tokenCache.getTokens();
   const baseTokens = getTokenAddresses(BASE_TOKENS);
 
@@ -24,7 +24,7 @@ const updateFillRates = async ({ batchSize }) => {
       { takerToken: { $in: baseTokens } },
     ],
   })
-    .sort({ date: -1 })
+    .sort({ date: processOldestFirst ? 1 : -1 })
     .limit(batchSize)
     .lean();
 

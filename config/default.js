@@ -17,15 +17,19 @@ module.exports = {
   jobs: {
     createFills: {
       batchSize: 100,
+      processOldestFirst: true,
     },
     updateFillPrices: {
       batchSize: 250,
+      processOldestFirst: true,
     },
     updateFillRates: {
       batchSize: 100,
+      processOldestFirst: true,
     },
     updateFillStatuses: {
       batchSize: 100,
+      processOldestFirst: true,
     },
   },
   maxRetries: {
