@@ -19,3 +19,17 @@ it('should return formatted amount', () => {
 
   expect(amount).toEqual(new BigNumber(22));
 });
+
+it('should format tiny amount', () => {
+  const amount = formatTokenAmount(1, { decimals: 18 });
+
+  expect(amount).toEqual(new BigNumber(0.000000000000000001));
+});
+
+it('should format large amount', () => {
+  const amount = formatTokenAmount(100000000000000000000000000, {
+    decimals: 18,
+  });
+
+  expect(amount).toEqual(new BigNumber(100000000));
+});
