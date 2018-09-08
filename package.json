@@ -61,6 +61,6 @@
     "promise-poller": "1.6.0",
     "rss-parser": "3.4.3",
     "seamless-immutable": "7.1.4",
-    "signale": "1.2.1"
+    "signale": "1.3.0"
   }
 }
