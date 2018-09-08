@@ -46,7 +46,7 @@
     "@0xproject/web3-wrapper": "2.0.1",
     "axios": "0.18.0",
     "bignumber.js": "7.2.1",
-    "bluebird": "3.5.1",
+    "bluebird": "3.5.2",
     "bugsnag": "2.4.3",
     "cheerio": "1.0.0-rc.2",
     "config": "2.0.1",
