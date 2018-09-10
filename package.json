@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://cbovis@github.com/cbovis/0x-tracker-worker.git"
+    "url": "git+https://github.com/0xTracker/0x-tracker-worker.git"
   },
   "keywords": [
     "ethereum",
@@ -25,9 +25,9 @@
   "author": "Craig Bovis",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/cbovis/0x-tracker-worker/issues"
+    "url": "https://github.com/0xTracker/0x-tracker-worker/issues"
   },
-  "homepage": "https://github.com/cbovis/0x-tracker-worker#readme",
+  "homepage": "https://0xtracker.com",
   "devDependencies": {
     "eslint": "5.4.0",
     "eslint-config-airbnb-base": "13.1.0",
