@@ -14,9 +14,9 @@ const logError = error => {
   logger.error(error);
 };
 
-const configure = ({ bugsnagToken }) => {
+const configure = ({ appVersion, bugsnagToken }) => {
   if (_.isString(bugsnagToken)) {
-    bugsnag.register(bugsnagToken);
+    bugsnag.register(bugsnagToken, { appVersion });
     useBugsnag = true;
   }
 
