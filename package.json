@@ -63,5 +63,8 @@
     "rss-parser": "3.4.3",
     "seamless-immutable": "7.1.4",
     "signale": "1.3.0"
+  },
+  "engines": {
+    "npm": "6.x.x"
   }
 }
