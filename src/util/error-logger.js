@@ -18,10 +18,10 @@ const configure = ({ appVersion, bugsnagToken }) => {
   if (_.isString(bugsnagToken)) {
     bugsnag.register(bugsnagToken, { appVersion });
     useBugsnag = true;
+  } else {
+    process.on('uncaughtException', logger.error);
+    process.on('unhandledRejection', logger.error);
   }
-
-  process.on('uncaughtException', logError);
-  process.on('unhandledRejection', logError);
 };
 
 module.exports = {
