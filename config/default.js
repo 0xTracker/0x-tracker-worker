@@ -2,7 +2,7 @@ const _ = require('lodash');
 const ms = require('ms');
 
 module.exports = {
-  appVersion: process.env.HEROKU_RELEASE_VERSION,
+  appVersion: _.get(process.env, 'HEROKU_RELEASE_VERSION', null),
   bugsnag: {
     token: _.get(process.env, 'BUGSNAG_TOKEN', null),
   },
