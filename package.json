@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "precommit": "lint-staged",
     "start": "node .",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
   "lint-staged": {
