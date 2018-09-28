@@ -39,7 +39,7 @@
     "@0xproject/order-utils": "1.0.2",
     "@0xproject/subproviders": "2.0.2",
     "@0xproject/utils": "1.0.8",
-    "@0xproject/web3-wrapper": "2.0.2",
+    "@0xproject/web3-wrapper": "2.0.3",
     "axios": "0.18.0",
     "bignumber.js": "7.2.1",
     "bluebird": "3.5.2",
