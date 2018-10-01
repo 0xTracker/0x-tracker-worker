@@ -1,10 +1,8 @@
 module.exports = {
-  env: {
-    jest: true,
-  },
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
-  globals: {
-    fetch: true,
+  env: {
+    node: true,
+    jest: true,
   },
   overrides: [
     {
