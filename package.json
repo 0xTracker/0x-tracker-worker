@@ -38,7 +38,7 @@
   "dependencies": {
     "@0xproject/order-utils": "1.0.6",
     "@0xproject/subproviders": "2.0.6",
-    "@0xproject/utils": "2.0.0",
+    "@0xproject/utils": "2.0.1",
     "@0xproject/web3-wrapper": "3.0.2",
     "axios": "0.18.0",
     "bignumber.js": "7.2.1",
