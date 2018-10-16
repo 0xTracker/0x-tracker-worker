@@ -4,16 +4,17 @@ const signale = require('signale');
 
 const { logError } = require('../../util/error-logger');
 
-const endpoint = 'https://api.ercdex.com/api/fees/recipients/1';
+const endpoint = 'https://app.ercdex.com/api/v2/fee_recipients';
 const logger = signale.scope('erc dex recipient cache');
 
-let recipients = [];
+let cachedRecipients = [];
 
 const loadRecipients = async () => {
   const response = await axios.get(endpoint);
+  const recipients = _.get(response, 'data.records');
 
-  if (_.isArray(response.data)) {
-    recipients = response.data;
+  if (_.isArray(recipients)) {
+    cachedRecipients = recipients;
   } else {
     logError(
       `Invalid response received when fetching ERC dEX fee recipients:\r\n\r\n${response}`,
@@ -33,6 +34,6 @@ const startPolling = interval => {
   );
 };
 
-const getRecipients = () => _.clone(recipients);
+const getRecipients = () => _.clone(cachedRecipients);
 
 module.exports = { getRecipients, loadRecipients, startPolling };
