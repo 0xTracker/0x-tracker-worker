@@ -12,7 +12,7 @@ describe('getRecipients', () => {
   });
 
   it('should return loaded recipients', async () => {
-    axios.get.mockResolvedValueOnce({ data: ['a', 'b', 'c'] });
+    axios.get.mockResolvedValueOnce({ data: { records: ['a', 'b', 'c'] } });
 
     await loadRecipients();
 
