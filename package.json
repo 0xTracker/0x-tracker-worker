@@ -54,7 +54,7 @@
     "moment-round": "1.0.1",
     "mongoose": "5.3.7",
     "ms": "2.1.1",
-    "promise-poller": "1.6.0",
+    "promise-poller": "1.7.0",
     "rss-parser": "3.5.2",
     "seamless-immutable": "7.1.4",
     "signale": "1.3.0"
