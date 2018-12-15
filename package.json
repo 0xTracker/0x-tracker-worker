@@ -50,7 +50,7 @@
     "flat": "4.1.0",
     "lodash": "4.17.11",
     "memory-cache": "0.2.0",
-    "moment": "2.22.2",
+    "moment": "2.23.0",
     "moment-round": "1.0.1",
     "mongoose": "5.3.7",
     "ms": "2.1.1",
