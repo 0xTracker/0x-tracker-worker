@@ -64,7 +64,7 @@ module.exports = {
     lookupId: 14,
   },
   tokenmom: {
-    feeRecipients: ['0x4a821aa1affbf7ee89a245bf750d1d7374e77409'],
+    takerAddresses: ['0x4a821aa1affbf7ee89a245bf750d1d7374e77409'],
     lookupId: 15,
   },
   guDecks: {
