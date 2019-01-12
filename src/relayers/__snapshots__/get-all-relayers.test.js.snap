@@ -112,11 +112,11 @@ Object {
     "lookupId": 11,
   },
   "tokenmom": Object {
-    "feeRecipients": Array [
-      "0x4a821aa1affbf7ee89a245bf750d1d7374e77409",
-    ],
     "id": "tokenmom",
     "lookupId": 15,
+    "takerAddresses": Array [
+      "0x4a821aa1affbf7ee89a245bf750d1d7374e77409",
+    ],
   },
 }
 `;
