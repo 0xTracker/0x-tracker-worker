@@ -16,7 +16,10 @@ module.exports = {
   },
   openRelay: {
     lookupId: 5,
-    feeRecipients: ['0xc22d5b2951db72b44cfb8089bb8cd374a3c354ea'],
+    feeRecipients: [
+      '0xc22d5b2951db72b44cfb8089bb8cd374a3c354ea',
+      '0x89db81c2dc4adaf10a93705b69289d479d576635',
+    ],
   },
   paradex: {
     lookupId: 6,
@@ -35,7 +38,10 @@ module.exports = {
   },
   starBit: {
     lookupId: 9,
-    feeRecipients: ['0x8124071f810d533ff63de61d0c98db99eeb99d64'],
+    feeRecipients: [
+      '0x8124071f810d533ff63de61d0c98db99eeb99d64',
+      '0xc370d2a5920344aa6b7d8d11250e3e861434cbdd',
+    ],
   },
   tokenJar: {
     lookupId: 10,
@@ -52,5 +58,17 @@ module.exports = {
   theOcean: {
     lookupId: 13,
     feeRecipients: ['0x7219612be7036d1bfa933e16ca1246008f38c5fe'],
+  },
+  boxSwap: {
+    feeRecipients: ['0x66a836664adc7c525c0cc4527dee8619d4faf669'],
+    lookupId: 14,
+  },
+  tokenmom: {
+    feeRecipients: ['0x4a821aa1affbf7ee89a245bf750d1d7374e77409'],
+    lookupId: 15,
+  },
+  guDecks: {
+    feeRecipients: ['0x013ec57d1237e7727f818b1a35e3506f754304e4'],
+    lookupId: 16,
   },
 };

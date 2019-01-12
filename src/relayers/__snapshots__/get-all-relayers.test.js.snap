@@ -9,6 +9,13 @@ Object {
     "id": "bambooRelay",
     "lookupId": 1,
   },
+  "boxSwap": Object {
+    "feeRecipients": Array [
+      "0x66a836664adc7c525c0cc4527dee8619d4faf669",
+    ],
+    "id": "boxSwap",
+    "lookupId": 14,
+  },
   "ddex": Object {
     "id": "ddex",
     "lookupId": 2,
@@ -23,6 +30,13 @@ Object {
     ],
     "id": "ercDex",
     "lookupId": 3,
+  },
+  "guDecks": Object {
+    "feeRecipients": Array [
+      "0x013ec57d1237e7727f818b1a35e3506f754304e4",
+    ],
+    "id": "guDecks",
+    "lookupId": 16,
   },
   "idtExchange": Object {
     "feeRecipients": Array [
@@ -41,6 +55,7 @@ Object {
   "openRelay": Object {
     "feeRecipients": Array [
       "0xc22d5b2951db72b44cfb8089bb8cd374a3c354ea",
+      "0x89db81c2dc4adaf10a93705b69289d479d576635",
     ],
     "id": "openRelay",
     "lookupId": 5,
@@ -70,6 +85,7 @@ Object {
   "starBit": Object {
     "feeRecipients": Array [
       "0x8124071f810d533ff63de61d0c98db99eeb99d64",
+      "0xc370d2a5920344aa6b7d8d11250e3e861434cbdd",
     ],
     "id": "starBit",
     "lookupId": 9,
@@ -94,6 +110,13 @@ Object {
     ],
     "id": "tokenlon",
     "lookupId": 11,
+  },
+  "tokenmom": Object {
+    "feeRecipients": Array [
+      "0x4a821aa1affbf7ee89a245bf750d1d7374e77409",
+    ],
+    "id": "tokenmom",
+    "lookupId": 15,
   },
 }
 `;
