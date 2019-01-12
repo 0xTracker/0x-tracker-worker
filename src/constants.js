@@ -1,5 +1,5 @@
 module.exports = {
-  BASE_TOKENS: ['WETH', 'DAI'], // ordered by priority e.g. in ETH/DAI pair ETH is the base token
+  BASE_TOKENS: ['WETH', 'DAI', 'USDC'], // ordered by priority e.g. in ETH/DAI pair ETH is the base token
   FILL_STATUS: {
     FAILED: 2,
     PENDING: 0,
