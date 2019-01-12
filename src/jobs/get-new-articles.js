@@ -11,6 +11,7 @@ const logger = signale.scope('get new articles');
 const feedUrls = {
   '0xproject': 'https://medium.com/feed/0x-project',
   amadeus: 'https://medium.com/feed/amadeus-relay',
+  boxSwap: 'https://medium.com/feed/boxswap',
   ddex: 'https://medium.com/feed/ddex',
   ercdex: 'https://medium.com/feed/ercdex',
   ethfinex: 'https://medium.com/feed/ethfinex',
@@ -22,6 +23,8 @@ const feedUrls = {
   radarrelay: 'https://medium.com/feed/@RadarRelay',
   sharkRelay: 'https://medium.com/feed/sharkrelay',
   theOcean: 'https://medium.com/feed/@theoceantrade',
+  tokenmom: 'https://medium.com/feed/@tokenmmom',
+  veil: 'https://medium.com/feed/veil-blog',
 };
 
 const getNewArticles = async () => {
