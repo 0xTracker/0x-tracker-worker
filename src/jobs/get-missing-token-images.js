@@ -14,10 +14,10 @@ const getMissingTokenImages = async () => {
   logger.pending('fetching images from Trust Wallet repository');
 
   const response = await axios.get(
-    'https://api.github.com/repos/TrustWallet/tokens/contents/tokens',
+    'https://api.github.com/repos/TrustWallet/tokens/git/trees/77ed2e2e6b8728826b3cbc9bc583a1583a79128c',
   );
 
-  if (!_.isArray(response.data)) {
+  if (!_.isArray(_.get(response, 'data.tree'))) {
     throw new Error(
       'Data returned by Trust Wallet repository was in unexpected format',
     );
@@ -25,9 +25,11 @@ const getMissingTokenImages = async () => {
 
   const operations = flow(
     map(token => {
-      const image = _.find(response.data, { name: `${token.address}.png` });
+      const image = _.find(response.data.tree, {
+        path: `${token.address}.png`,
+      });
 
-      if (_.isUndefined(image) || token.imageUrl === image.download_url) {
+      if (_.isUndefined(image) || token.imageUrl !== null) {
         return null;
       }
 
@@ -35,7 +37,11 @@ const getMissingTokenImages = async () => {
         updateOne: {
           filter: { _id: token._id },
           update: {
-            $set: { imageUrl: image.download_url },
+            $set: {
+              imageUrl: `https://raw.githubusercontent.com/TrustWallet/tokens/master/tokens/${
+                token.address
+              }.png`,
+            },
           },
         },
       };
