@@ -71,4 +71,12 @@ module.exports = {
     feeRecipients: ['0x013ec57d1237e7727f818b1a35e3506f754304e4'],
     lookupId: 16,
   },
+  instex: {
+    feeRecipients: ['0x3151e8Ab9bFE754AdA6682b9d75906E06a18A741'],
+    lookupId: 17,
+  },
+  veil: {
+    takerAddresses: ['0xdf1bc6498338135de5ffdbcb98817d81e2665912'],
+    lookupId: 18,
+  },
 };
