@@ -72,7 +72,7 @@ module.exports = {
     lookupId: 16,
   },
   instex: {
-    feeRecipients: ['0x3151e8Ab9bFE754AdA6682b9d75906E06a18A741'],
+    feeRecipients: ['0x3151e8ab9bfe754ada6682b9d75906e06a18a741'],
     lookupId: 17,
   },
   veil: {

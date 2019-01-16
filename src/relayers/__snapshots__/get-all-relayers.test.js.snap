@@ -47,7 +47,7 @@ Object {
   },
   "instex": Object {
     "feeRecipients": Array [
-      "0x3151e8Ab9bFE754AdA6682b9d75906E06a18A741",
+      "0x3151e8ab9bfe754ada6682b9d75906e06a18a741",
     ],
     "id": "instex",
     "lookupId": 17,
