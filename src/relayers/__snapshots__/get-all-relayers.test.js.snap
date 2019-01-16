@@ -45,6 +45,13 @@ Object {
     "id": "idtExchange",
     "lookupId": 4,
   },
+  "instex": Object {
+    "feeRecipients": Array [
+      "0x3151e8Ab9bFE754AdA6682b9d75906E06a18A741",
+    ],
+    "id": "instex",
+    "lookupId": 17,
+  },
   "ledgerDex": Object {
     "feeRecipients": Array [
       "0x4524baa98f9a3b9dec57caae7633936ef96bd708",
@@ -116,6 +123,13 @@ Object {
     "lookupId": 15,
     "takerAddresses": Array [
       "0x4a821aa1affbf7ee89a245bf750d1d7374e77409",
+    ],
+  },
+  "veil": Object {
+    "id": "veil",
+    "lookupId": 18,
+    "takerAddresses": Array [
+      "0xdf1bc6498338135de5ffdbcb98817d81e2665912",
     ],
   },
 }
