@@ -19,9 +19,13 @@ const getSymbolsForFill = (fill, tokens) => {
 };
 
 const getRatesForFill = async (fill, tokens) => {
+  const baseTokenSymbols = _(BASE_TOKENS)
+    .values()
+    .uniq()
+    .value();
   const fillSymbols = getSymbolsForFill(fill, tokens);
   const symbolsForRates = _.intersection(
-    ['ZRX', ...BASE_TOKENS.map(normalizeSymbol)],
+    ['ZRX', ...baseTokenSymbols],
     fillSymbols,
   );
 

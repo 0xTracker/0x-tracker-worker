@@ -2,42 +2,62 @@ const getBaseToken = require('./get-base-token');
 
 const tokens = {
   '0x123': { decimals: 18, symbol: 'ZRX' },
-  '0x6789': { decimals: 18, symbol: 'WETH' },
-  '0x546389': { decimals: 18, symbol: 'DAI' },
+  '0x2956356cd2a2bf3202f771f50d3d14a367b48070': {
+    address: '0x2956356cd2a2bf3202f771f50d3d14a367b48070',
+    decimals: 18,
+    symbol: 'WETH',
+  },
+  '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359': {
+    address: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+    decimals: 18,
+    symbol: 'DAI',
+  },
   '0x7866': { decimals: 18, symbol: 'OMG' },
 };
 
 it('should return WETH in WETH/OMG pair', () => {
   const fill = {
     makerToken: '0x7866',
-    takerToken: '0x6789',
+    takerToken: '0x2956356cd2a2bf3202f771f50d3d14a367b48070',
   };
 
-  const amount = getBaseToken(fill, tokens);
+  const token = getBaseToken(fill, tokens);
 
-  expect(amount).toEqual({ decimals: 18, symbol: 'WETH' });
+  expect(token).toEqual({
+    address: '0x2956356cd2a2bf3202f771f50d3d14a367b48070',
+    decimals: 18,
+    symbol: 'WETH',
+  });
 });
 
-it('should return WETH in WETH/DAI pair', () => {
+it('should return DAI in WETH/DAI pair', () => {
   const fill = {
-    makerToken: '0x546389',
-    takerToken: '0x6789',
+    makerToken: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+    takerToken: '0x2956356cd2a2bf3202f771f50d3d14a367b48070',
   };
 
-  const amount = getBaseToken(fill, tokens);
+  const token = getBaseToken(fill, tokens);
 
-  expect(amount).toEqual({ decimals: 18, symbol: 'WETH' });
+  expect(token).toEqual({
+    address: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+    decimals: 18,
+    symbol: 'DAI',
+  });
 });
 
 it('should return DAI in DAI/OMG pair', () => {
   const fill = {
-    makerToken: '0x546389',
+    makerToken: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
     takerToken: '0x7866',
   };
 
-  const amount = getBaseToken(fill, tokens);
+  const token = getBaseToken(fill, tokens);
 
-  expect(amount).toEqual({ decimals: 18, symbol: 'DAI' });
+  expect(token).toEqual({
+    address: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+    decimals: 18,
+    symbol: 'DAI',
+  });
 });
 
 it('should return null in ZRX/OMG pair', () => {
@@ -46,9 +66,9 @@ it('should return null in ZRX/OMG pair', () => {
     takerToken: '0x7866',
   };
 
-  const amount = getBaseToken(fill, tokens);
+  const token = getBaseToken(fill, tokens);
 
-  expect(amount).toBeNull();
+  expect(token).toBeNull();
 });
 
 it('should return null when maker token unrecognised', () => {
@@ -57,9 +77,9 @@ it('should return null when maker token unrecognised', () => {
     takerToken: '0x7866',
   };
 
-  const amount = getBaseToken(fill, tokens);
+  const token = getBaseToken(fill, tokens);
 
-  expect(amount).toBeNull();
+  expect(token).toBeNull();
 });
 
 it('should return null when taker token unrecognised', () => {
@@ -68,7 +88,7 @@ it('should return null when taker token unrecognised', () => {
     takerToken: '0x8937498723',
   };
 
-  const amount = getBaseToken(fill, tokens);
+  const token = getBaseToken(fill, tokens);
 
-  expect(amount).toBeNull();
+  expect(token).toBeNull();
 });
