@@ -26,7 +26,7 @@ const getRatesForFill = async (fill, tokens) => {
   const fillSymbols = getSymbolsForFill(fill, tokens);
   const symbolsForRates = _.intersection(
     ['ZRX', ...baseTokenSymbols],
-    fillSymbols,
+    fillSymbols.map(normalizeSymbol),
   );
 
   const rates = await Promise.all(

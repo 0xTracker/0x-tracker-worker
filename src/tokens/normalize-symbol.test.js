@@ -18,4 +18,10 @@ describe('shared/tokens/normalize-symbol', () => {
 
     expect(normalized).toBe('FUCK');
   });
+
+  it('returns ETH when symbol is VEIL ETH', () => {
+    const normalized = normalizeSymbol('VEIL ETH');
+
+    expect(normalized).toBe('ETH');
+  });
 });
