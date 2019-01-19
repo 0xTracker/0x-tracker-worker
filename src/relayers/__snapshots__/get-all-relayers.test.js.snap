@@ -23,6 +23,13 @@ Object {
       "0xe269e891a2ec8585a378882ffa531141205e92e9",
     ],
   },
+  "emoon": Object {
+    "feeRecipients": Array [
+      "0xb0d7398d779ee9ffc727d2d5b045a5b441da8233",
+    ],
+    "id": "emoon",
+    "lookupId": 19,
+  },
   "ercDex": Object {
     "feeRecipients": Array [
       "fred",
