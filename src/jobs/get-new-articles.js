@@ -14,6 +14,7 @@ const feedUrls = {
   amadeus: 'https://medium.com/feed/amadeus-relay',
   boxSwap: 'https://medium.com/feed/boxswap',
   ddex: 'https://medium.com/feed/ddex',
+  emoon: 'https://medium.com/@emoonmarket',
   ercdex: 'https://medium.com/feed/ercdex',
   ethfinex: 'https://medium.com/feed/ethfinex',
   dharma: 'https://medium.com/feed/dharma-blog',
