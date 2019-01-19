@@ -7,17 +7,18 @@ const getBaseToken = (fill, tokens) => {
 
   return (
     _(BASE_TOKENS)
+      .keys()
       .map(baseToken => {
         if (
           _.has(tokens, makerToken) &&
-          tokens[makerToken].symbol === baseToken
+          tokens[makerToken].address === baseToken
         ) {
           return tokens[makerToken];
         }
 
         if (
           _.has(tokens, takerToken) &&
-          tokens[takerToken].symbol === baseToken
+          tokens[takerToken].address === baseToken
         ) {
           return tokens[takerToken];
         }

@@ -1,5 +1,6 @@
 require('moment-round');
 
+const _ = require('lodash');
 const bluebird = require('bluebird');
 const signale = require('signale');
 
@@ -7,7 +8,6 @@ const { BASE_TOKENS, ZRX_TOKEN_ADDRESS } = require('../../constants');
 const Fill = require('../../model/fill');
 const getLocalisedAmount = require('./get-localised-amount');
 const getRatesForFill = require('./get-rates-for-fill');
-const getTokenAddresses = require('../../tokens/get-token-addresses');
 const localizeTokenAmount = require('./localize-token-amount');
 const tokenCache = require('../../tokens/token-cache');
 
@@ -15,7 +15,7 @@ const logger = signale.scope('update fill rates');
 
 const updateFillRates = async ({ batchSize, processOldestFirst }) => {
   const tokens = tokenCache.getTokens();
-  const baseTokens = getTokenAddresses(BASE_TOKENS);
+  const baseTokens = _.keys(BASE_TOKENS);
 
   const fills = await Fill.find({
     'rates.saved': { $in: [null, false] },
