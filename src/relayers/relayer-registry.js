@@ -79,4 +79,8 @@ module.exports = {
     takerAddresses: ['0xdf1bc6498338135de5ffdbcb98817d81e2665912'],
     lookupId: 18,
   },
+  emoon: {
+    feeRecipients: ['0xb0d7398d779ee9ffc727d2d5b045a5b441da8233'],
+    lookupId: 19,
+  },
 };
