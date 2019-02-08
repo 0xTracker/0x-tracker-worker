@@ -5,6 +5,7 @@ module.exports = {
   },
   ddex: {
     lookupId: 2,
+    orderMatcher: true,
     takerAddresses: ['0xe269e891a2ec8585a378882ffa531141205e92e9'],
   },
   ercDex: {
@@ -23,6 +24,7 @@ module.exports = {
   },
   paradex: {
     lookupId: 6,
+    orderMatcher: true,
     takerAddresses: [
       '0x4969358e80cdc3d74477d7447bffa3b2e2acbe92',
       '0xd2045edc40199019e221d71c0913343f7908d0d5',
@@ -38,6 +40,7 @@ module.exports = {
   },
   starBit: {
     lookupId: 9,
+    orderMatcher: true,
     feeRecipients: [
       '0x8124071f810d533ff63de61d0c98db99eeb99d64',
       '0xc370d2a5920344aa6b7d8d11250e3e861434cbdd',
@@ -57,6 +60,7 @@ module.exports = {
   },
   theOcean: {
     lookupId: 13,
+    orderMatcher: true,
     feeRecipients: ['0x7219612be7036d1bfa933e16ca1246008f38c5fe'],
   },
   boxSwap: {
@@ -64,8 +68,9 @@ module.exports = {
     lookupId: 14,
   },
   tokenmom: {
-    takerAddresses: ['0x4a821aa1affbf7ee89a245bf750d1d7374e77409'],
     lookupId: 15,
+    orderMatcher: true,
+    takerAddresses: ['0x4a821aa1affbf7ee89a245bf750d1d7374e77409'],
   },
   guDecks: {
     feeRecipients: ['0x013ec57d1237e7727f818b1a35e3506f754304e4'],
@@ -84,7 +89,8 @@ module.exports = {
     lookupId: 19,
   },
   fordex: {
-    takerAddresses: ['0x853da5cecc1ea601ab978c2001565a0377a7dca6'],
     lookupId: 20,
+    orderMatcher: true,
+    takerAddresses: ['0x853da5cecc1ea601ab978c2001565a0377a7dca6'],
   },
 };

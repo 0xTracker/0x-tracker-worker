@@ -19,6 +19,7 @@ Object {
   "ddex": Object {
     "id": "ddex",
     "lookupId": 2,
+    "orderMatcher": true,
     "takerAddresses": Array [
       "0xe269e891a2ec8585a378882ffa531141205e92e9",
     ],
@@ -41,6 +42,7 @@ Object {
   "fordex": Object {
     "id": "fordex",
     "lookupId": 20,
+    "orderMatcher": true,
     "takerAddresses": Array [
       "0x853da5cecc1ea601ab978c2001565a0377a7dca6",
     ],
@@ -84,6 +86,7 @@ Object {
   "paradex": Object {
     "id": "paradex",
     "lookupId": 6,
+    "orderMatcher": true,
     "takerAddresses": Array [
       "0x4969358e80cdc3d74477d7447bffa3b2e2acbe92",
       "0xd2045edc40199019e221d71c0913343f7908d0d5",
@@ -110,6 +113,7 @@ Object {
     ],
     "id": "starBit",
     "lookupId": 9,
+    "orderMatcher": true,
   },
   "theOcean": Object {
     "feeRecipients": Array [
@@ -117,6 +121,7 @@ Object {
     ],
     "id": "theOcean",
     "lookupId": 13,
+    "orderMatcher": true,
   },
   "tokenJar": Object {
     "feeRecipients": Array [
@@ -135,6 +140,7 @@ Object {
   "tokenmom": Object {
     "id": "tokenmom",
     "lookupId": 15,
+    "orderMatcher": true,
     "takerAddresses": Array [
       "0x4a821aa1affbf7ee89a245bf750d1d7374e77409",
     ],

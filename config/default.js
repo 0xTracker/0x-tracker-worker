@@ -41,6 +41,7 @@ module.exports = {
     getMissingTokenImages: ms('1 minute'),
     getNewArticles: ms('1 minute'),
     setRelayerForFills: ms('1 minute'),
+    updateTokenStats: ms('1 minute'),
   },
   web3: {
     endpoint: `https://mainnet.infura.io/${process.env.INFURA_API_KEY}`,
