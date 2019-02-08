@@ -14,6 +14,7 @@ exports[`should return DDEX when taker address matches 1`] = `
 Object {
   "id": "ddex",
   "lookupId": 2,
+  "orderMatcher": true,
   "takerAddresses": Array [
     "0xe269e891a2ec8585a378882ffa531141205e92e9",
   ],
