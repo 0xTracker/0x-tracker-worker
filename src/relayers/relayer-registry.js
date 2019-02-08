@@ -83,4 +83,8 @@ module.exports = {
     feeRecipients: ['0xb0d7398d779ee9ffc727d2d5b045a5b441da8233'],
     lookupId: 19,
   },
+  fordex: {
+    takerAddresses: ['0x853da5cecc1ea601ab978c2001565a0377a7dca6'],
+    lookupId: 20,
+  },
 };
