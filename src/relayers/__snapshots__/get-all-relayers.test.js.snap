@@ -38,6 +38,13 @@ Object {
     "id": "ercDex",
     "lookupId": 3,
   },
+  "fordex": Object {
+    "id": "fordex",
+    "lookupId": 20,
+    "takerAddresses": Array [
+      "0x853da5cecc1ea601ab978c2001565a0377a7dca6",
+    ],
+  },
   "guDecks": Object {
     "feeRecipients": Array [
       "0x013ec57d1237e7727f818b1a35e3506f754304e4",
