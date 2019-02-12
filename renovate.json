@@ -1,5 +1,22 @@
 {
   "extends": ["config:base"],
   "prHourlyLimit": 0,
-  "rebaseStalePrs": true
+  "rebaseStalePrs": true,
+  "packageRules": [
+    {
+      "packageNames": ["lint-staged", "husky"],
+      "groupName": "dev environment packages"
+    },
+    {
+      "packageNames": ["prettier"],
+      "packagePatterns": ["^eslint"],
+      "groupName": "linting packages",
+      "automerge": true
+    },
+    {
+      "packagePatterns": ["^jest"],
+      "groupName": "testing packages",
+      "automerge": true
+    }
+  ]
 }
