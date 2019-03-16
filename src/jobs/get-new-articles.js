@@ -13,7 +13,6 @@ const feedUrls = {
   '0xtracker': 'https://medium.com/feed/0x-tracker',
   amadeus: 'https://medium.com/feed/amadeus-relay',
   boxSwap: 'https://medium.com/feed/boxswap',
-  ddex: 'https://medium.com/feed/ddex',
   emoon: 'https://medium.com/feed/@emoonmarket',
   ercdex: 'https://medium.com/feed/ercdex',
   ethfinex: 'https://medium.com/feed/ethfinex',
