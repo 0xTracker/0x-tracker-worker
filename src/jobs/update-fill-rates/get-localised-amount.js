@@ -1,6 +1,6 @@
 const _ = require('lodash');
-const { BigNumber } = require('@0xproject/utils');
-const { Web3Wrapper } = require('@0xproject/web3-wrapper');
+const { BigNumber } = require('@0x/utils');
+const { Web3Wrapper } = require('@0x/web3-wrapper');
 
 const getBaseToken = require('../../fills/get-base-token');
 const getTokenAmount = require('../../fills/get-token-amount');

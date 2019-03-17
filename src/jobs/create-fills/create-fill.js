@@ -1,4 +1,4 @@
-const { assetDataUtils } = require('@0xproject/order-utils');
+const { assetDataUtils } = require('@0x/order-utils');
 
 const _ = require('lodash');
 
