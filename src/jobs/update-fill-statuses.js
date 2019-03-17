@@ -30,7 +30,7 @@ const updateFillStatuses = async ({ batchSize, processOldestFirst }) => {
     }
 
     const status =
-      receipt.status === '0x0' ? FILL_STATUS.FAILED : FILL_STATUS.SUCCESSFUL;
+      receipt.status === 1 ? FILL_STATUS.SUCCESSFUL : FILL_STATUS.FAILED;
 
     await Fill.updateOne({ _id: fill._id }, { status });
 
