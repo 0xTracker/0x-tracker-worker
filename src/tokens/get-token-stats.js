@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const BigNumber = require('bignumber.js');
+const { BigNumber } = require('@0xproject/utils');
 
 const Fill = require('../model/fill');
 const getAllRelayers = require('../relayers/get-all-relayers');

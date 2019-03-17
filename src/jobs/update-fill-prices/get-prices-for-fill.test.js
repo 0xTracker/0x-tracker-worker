@@ -1,4 +1,4 @@
-const BigNumber = require('bignumber.js');
+const { BigNumber } = require('@0xproject/utils');
 
 const getPricesForFill = require('./get-prices-for-fill');
 
