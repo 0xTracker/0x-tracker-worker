@@ -55,7 +55,7 @@
     "mongoose": "5.4.19",
     "ms": "2.1.1",
     "promise-poller": "1.7.0",
-    "rss-parser": "3.5.4",
+    "rss-parser": "3.7.0",
     "seamless-immutable": "7.1.4",
     "signale": "1.4.0"
   },
