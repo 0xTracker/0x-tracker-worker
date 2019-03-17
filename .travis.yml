@@ -2,13 +2,8 @@ branches:
   only:
     - master
 language: node_js
-cache:
-  directories:
-    - 'node_modules'
-install:
-  - npm install
-  - npm install -g codecov
+cache: npm
 script:
   - npm run lint
   - npm test
-  - codecov
+  - npx codecov
