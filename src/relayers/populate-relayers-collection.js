@@ -10,13 +10,11 @@ const populateRelayers = async () => {
   logger.pending('populating relayers collection');
 
   const relayers = getAllRelayers();
-  const operations = _.map(relayers, ({ lookupId }) => ({
+  const operations = _.map(relayers, relayer => ({
     updateOne: {
-      filter: { lookupId },
+      filter: { lookupId: relayer.lookupId },
       update: {
-        $set: {
-          lookupId,
-        },
+        $set: relayer,
       },
       upsert: true,
     },
