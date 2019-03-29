@@ -9,20 +9,28 @@ const getTransactionReceipt = require('../util/ethereum/get-transaction-receipt'
 const logger = signale.scope('update fill statuses');
 
 const updateFillStatuses = async ({ batchSize, processOldestFirst }) => {
+  logger.time('fetch pending fills');
+
   const fills = await Fill.find({ status: FILL_STATUS.PENDING })
     .sort({ date: processOldestFirst ? 1 : -1 })
     .limit(batchSize)
     .lean();
+
+  logger.timeEnd('fetch pending fills');
 
   if (fills.length === 0) {
     logger.info('no pending fills were found');
     return;
   }
 
-  logger.pending(`updating status of ${fills.length} fills`);
+  logger.time(`update status of ${fills.length} fills`);
 
   await bluebird.mapSeries(fills, async fill => {
+    logger.time(`fetch transaction receipt: ${fill.transactionHash}`);
+
     const receipt = await getTransactionReceipt(fill.transactionHash);
+
+    logger.timeEnd(`fetch transaction receipt: ${fill.transactionHash}`);
 
     if (receipt === null) {
       logger.warn(`no receipt found for ${fill.transactionHash}`);
@@ -30,18 +38,18 @@ const updateFillStatuses = async ({ batchSize, processOldestFirst }) => {
     }
 
     const status =
-      receipt.status === 1 ? FILL_STATUS.SUCCESSFUL : FILL_STATUS.FAILED;
+      receipt.status === 0 ? FILL_STATUS.FAILED : FILL_STATUS.SUCCESSFUL;
+
+    const statusText = findKey(FILL_STATUS, value => value === status);
+
+    logger.time(`set status of fill ${fill._id} to ${statusText}`);
 
     await Fill.updateOne({ _id: fill._id }, { status });
 
-    logger.success(
-      `set status to ${findKey(FILL_STATUS, value => value === status)} for ${
-        fill.transactionHash
-      }`,
-    );
+    logger.timeEnd(`set status of fill ${fill._id} to ${statusText}`);
   });
 
-  logger.success(`updated status of ${fills.length} fills`);
+  logger.timeEnd(`update status of ${fills.length} fills`);
 };
 
 module.exports = updateFillStatuses;

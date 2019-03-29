@@ -6,17 +6,25 @@ Object {
     "0x5dd835a893734b8d556eccf87800b76dda5aedc5",
   ],
   "id": "bambooRelay",
+  "imageUrl": "https://0xtracker.com/assets/logos/bamboo-relay.png",
   "lookupId": 1,
+  "name": "Bamboo Relay",
+  "slug": "bamboo-relay",
+  "url": "https://bamboorelay.com/",
 }
 `;
 
 exports[`should return DDEX when taker address matches 1`] = `
 Object {
   "id": "ddex",
+  "imageUrl": "https://0xtracker.com/assets/logos/ddex.png",
   "lookupId": 2,
+  "name": "DDEX",
   "orderMatcher": true,
+  "slug": "ddex",
   "takerAddresses": Array [
     "0xe269e891a2ec8585a378882ffa531141205e92e9",
   ],
+  "url": "https://ddex.io",
 }
 `;
