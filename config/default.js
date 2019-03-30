@@ -44,6 +44,6 @@ module.exports = {
     updateTokenStats: ms('1 minute'),
   },
   web3: {
-    endpoint: `https://mainnet.infura.io/${process.env.INFURA_API_KEY}`,
+    endpoint: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
   },
 };
