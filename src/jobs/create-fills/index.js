@@ -1,9 +1,13 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
 
+const {
+  MissingBlockError,
+  UnsupportedAssetError,
+  UnsupportedProtocolError,
+} = require('../../errors');
 const createFill = require('./create-fill');
 const Event = require('../../model/event');
-const MissingBlockError = require('./missing-block-error');
 
 const logger = signale.scope('create fills');
 
@@ -16,25 +20,39 @@ const createFills = async ({ batchSize, processOldestFirst }) => {
 
   logger.info(`found ${events.length} events without associated fills`);
 
-  try {
-    await bluebird.mapSeries(events, async event => {
-      logger.pending(
-        `creating fill for log #${event.logIndex} of ${event.transactionHash}`,
-      );
+  await bluebird.mapSeries(events, async event => {
+    logger.pending(
+      `creating fill for log #${event.logIndex} of ${event.transactionHash}`,
+    );
 
+    try {
       await createFill(event);
 
       logger.success(
         `created fill for log #${event.logIndex} of ${event.transactionHash}`,
       );
-    });
-  } catch (error) {
-    if (error instanceof MissingBlockError) {
-      logger.warn(`unable to create fill due to missing block`);
-    } else {
-      throw error;
+    } catch (error) {
+      if (error instanceof MissingBlockError) {
+        logger.warn(
+          `Unable to create fill for event ${event.id} due to missing block`,
+        );
+      } else if (error instanceof UnsupportedAssetError) {
+        logger.warn(
+          `Unable to create fill for event ${
+            event.id
+          } due to unsupported asset`,
+        );
+      } else if (error instanceof UnsupportedProtocolError) {
+        logger.warn(
+          `Unable to create fill for event ${
+            event.id
+          } due to unsupported protocol`,
+        );
+      } else {
+        throw error;
+      }
     }
-  }
+  });
 };
 
 module.exports = createFills;

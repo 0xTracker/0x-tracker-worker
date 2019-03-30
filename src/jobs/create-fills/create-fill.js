@@ -2,21 +2,39 @@ const { assetDataUtils } = require('@0x/order-utils');
 
 const _ = require('lodash');
 
+const {
+  MissingBlockError,
+  UnsupportedAssetError,
+  UnsupportedProtocolError,
+} = require('../../errors');
 const Event = require('../../model/event');
 const Fill = require('../../model/fill');
 const getBlock = require('../../util/ethereum/get-block');
 const getRelayerForFill = require('../../fills/get-relayer-for-fill');
 const getRoundedDates = require('./get-rounded-dates');
-const MissingBlockError = require('./missing-block-error');
 const tokenCache = require('../../tokens/token-cache');
 
-const decodeAssetData = assetData => {
-  const asset = assetDataUtils.decodeAssetDataOrThrow(assetData);
+const decodeAssetData = encodedData => {
+  const {
+    decodeAssetDataOrThrow,
+    isERC20AssetData,
+    isERC721AssetData,
+  } = assetDataUtils;
 
-  return {
-    ...asset,
-    tokenId: _.has(asset, 'tokenId') ? asset.tokenId.toNumber() : undefined,
-  };
+  const assetData = decodeAssetDataOrThrow(encodedData);
+
+  if (isERC20AssetData(assetData)) {
+    return assetData;
+  }
+
+  if (isERC721AssetData(assetData)) {
+    return {
+      ...assetData,
+      tokenId: assetData.tokenId.toNumber(),
+    };
+  }
+
+  return null; // Unsupported asset type
 };
 
 const normaliseFillArguments = (args, protocolVersion) => {
@@ -40,6 +58,14 @@ const normaliseFillArguments = (args, protocolVersion) => {
     const makerAsset = decodeAssetData(args.makerAssetData);
     const takerAsset = decodeAssetData(args.takerAssetData);
 
+    if (makerAsset === null) {
+      throw new UnsupportedAssetError(`Event has unsupported maker asset`);
+    }
+
+    if (takerAsset === null) {
+      throw new UnsupportedAssetError(`Event has unsupported taker asset`);
+    }
+
     return {
       feeRecipient: args.feeRecipientAddress,
       filledMakerTokenAmount: args.makerAssetFilledAmount,
@@ -57,10 +83,12 @@ const normaliseFillArguments = (args, protocolVersion) => {
     };
   }
 
-  throw new Error(`Unrecognised protocol version: ${protocolVersion}`);
+  throw new UnsupportedProtocolError(
+    `Event has unrecognised protocol version: ${protocolVersion}`,
+  );
 };
 
-const saveFill = async event => {
+const createFill = async event => {
   const { protocolVersion } = event;
   const {
     args,
@@ -130,4 +158,4 @@ const saveFill = async event => {
   await Event.updateOne({ _id: event._id }, { fillCreated: true });
 };
 
-module.exports = saveFill;
+module.exports = createFill;
