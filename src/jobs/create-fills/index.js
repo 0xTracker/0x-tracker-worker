@@ -7,16 +7,16 @@ const {
   UnsupportedProtocolError,
 } = require('../../errors');
 const createFill = require('./create-fill');
-const Event = require('../../model/event');
+const getUnprocessedEvents = require('./get-unprocessed-events');
+const persistFill = require('./persist-fill');
 
 const logger = signale.scope('create fills');
 
 const createFills = async ({ batchSize, processOldestFirst }) => {
-  const events = await Event.find({
-    fillCreated: { $in: [false, null] },
-  })
-    .sort({ blockNumber: processOldestFirst ? 1 : -1 })
-    .limit(batchSize);
+  const events = await getUnprocessedEvents(
+    batchSize,
+    processOldestFirst ? 1 : -1,
+  );
 
   logger.info(`found ${events.length} events without associated fills`);
 
@@ -26,7 +26,9 @@ const createFills = async ({ batchSize, processOldestFirst }) => {
     );
 
     try {
-      await createFill(event);
+      const fill = await createFill(event);
+
+      await persistFill(event, fill);
 
       logger.success(
         `created fill for log #${event.logIndex} of ${event.transactionHash}`,
