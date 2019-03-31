@@ -7,7 +7,13 @@ const decodeAssetData = encodedData => {
     isERC721AssetData,
   } = assetDataUtils;
 
-  const assetData = decodeAssetDataOrThrow(encodedData);
+  let assetData;
+
+  try {
+    assetData = decodeAssetDataOrThrow(encodedData);
+  } catch (error) {
+    return null;
+  }
 
   if (isERC20AssetData(assetData)) {
     return assetData;
