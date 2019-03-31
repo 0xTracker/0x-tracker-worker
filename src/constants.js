@@ -11,6 +11,13 @@ module.exports = {
     '0x53b04999c1ff2d77fcdde98935bb936a67209e4c': 'ETH', // Veil Ether
     '0x61b9898c9b60a159fc91ae8026563cd226b7a0c1': 'ETH', // Ethfinex Ether
   },
+  SYMBOL_MAPPINGS: {
+    DAIW: 'DAI',
+    ETHW: 'ETH',
+    USDTW: 'USDT',
+    'VEIL ETH': 'ETH',
+    WETH: 'ETH',
+  },
   FILL_STATUS: {
     FAILED: 2,
     PENDING: 0,
