@@ -1,4 +1,5 @@
-const _ = require('lodash');
+const { SYMBOL_MAPPINGS } = require('../constants');
 
-module.exports = symbol =>
-  _.includes(['WETH', 'VEIL ETH'], symbol) ? 'ETH' : symbol.toUpperCase();
+module.exports = symbol => {
+  return SYMBOL_MAPPINGS[symbol] || symbol.toUpperCase();
+};
