@@ -6,6 +6,9 @@ module.exports = {
   bugsnag: {
     token: _.get(process.env, 'BUGSNAG_TOKEN', null),
   },
+  cryptoCompare: {
+    apiKey: process.env.CRYPTO_COMPARE_API_KEY,
+  },
   database: {
     connectionString: process.env.CONNECTION_STRING,
   },
