@@ -1,5 +1,5 @@
 require('dotenv-safe').config({
-  example: '.env.example',
+  allowEmptyValues: true,
 });
 
 const signale = require('signale');
