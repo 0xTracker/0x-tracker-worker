@@ -38,36 +38,38 @@ const getMissingTokens = async () => {
   logger.pending(`fetching ${missingTokens.length} missing tokens`);
 
   await bluebird.mapSeries(missingTokens, address =>
-    getTokenInfo(address).then(async tokenInfo => {
-      if (tokenInfo === null) {
-        logger.warn(`no token info found for ${address}`);
-        return;
-      }
+    getTokenInfo(address)
+      .then(async tokenInfo => {
+        if (tokenInfo === null) {
+          logger.warn(`no token info found for ${address}`);
+          return;
+        }
 
-      const token = _.pick(tokenInfo, [
-        'address',
-        'name',
-        'symbol',
-        'decimals',
-      ]);
+        const token = _.pick(tokenInfo, [
+          'address',
+          'name',
+          'symbol',
+          'decimals',
+        ]);
 
-      await Token.create(token);
-      await Promise.all([
-        Fill.updateMany(
-          { makerToken: token.address },
-          { $set: { 'tokenSaved.maker': true } },
-        ),
-        Fill.updateMany(
-          { takerToken: token.address },
-          { $set: { 'tokenSaved.taker': true } },
-        ),
-      ]);
+        await Token.create(token);
+        await Promise.all([
+          Fill.updateMany(
+            { makerToken: token.address },
+            { $set: { 'tokenSaved.maker': true } },
+          ),
+          Fill.updateMany(
+            { takerToken: token.address },
+            { $set: { 'tokenSaved.taker': true } },
+          ),
+        ]);
 
-      logger.success(`saved ${token.symbol} token`);
-      tokenCache.addToken(token);
-
-      await bluebird.delay(3000);
-    }),
+        logger.success(`saved ${token.symbol} token`);
+        tokenCache.addToken(token);
+      })
+      .then(() => {
+        return bluebird.delay(3000);
+      }),
   );
 };
 
