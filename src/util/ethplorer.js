@@ -12,6 +12,7 @@ const configure = config => {
 const getTokenInfo = async address => {
   const endpoint = `https://api.ethplorer.io/getTokenInfo/${address}?apiKey=${apiKey}`;
   const response = await axios.get(endpoint);
+
   const { data } = response;
 
   if (data.error) {
@@ -29,8 +30,9 @@ const getTokenInfo = async address => {
   }
 
   return {
-    ...data,
+    address: data.address,
     decimals: _.toNumber(data.decimals),
+    name: data.name,
     symbol: data.symbol.toUpperCase(),
   };
 };
