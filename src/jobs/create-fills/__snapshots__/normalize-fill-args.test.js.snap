@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normalizeFillArgs should normalize args for V2 event with recognized assets 1`] = `
+Object {
+  "feeRecipient": "0x0000000000000000000000000000000000000000",
+  "filledMakerTokenAmount": 1,
+  "filledTakerTokenAmount": 100000000000000,
+  "maker": "0x5b50fb8281cb679a3102d3de22dd05a1ad895e8f",
+  "makerAsset": Object {
+    "assetProxyId": "0x02571792",
+    "tokenAddress": "0x06012c8cf97bead5deae237070f9587f8e7a266d",
+    "tokenId": 862718,
+  },
+  "makerToken": "0x06012c8cf97bead5deae237070f9587f8e7a266d",
+  "orderHash": "0xb0d28d8c36f40322408b3ff4ac41d2bf6ac6c834633763d3b42831d50e30b455",
+  "paidMakerFee": 0,
+  "paidTakerFee": 0,
+  "senderAddress": "0xf3f694cbe3a1042a886ce923fab00ca649e6a89b",
+  "taker": "0xf3f694cbe3a1042a886ce923fab00ca649e6a89b",
+  "takerAsset": Object {
+    "assetProxyId": "0xf47261b0",
+    "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+  },
+  "takerToken": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+}
+`;
