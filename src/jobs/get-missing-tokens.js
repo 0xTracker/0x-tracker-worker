@@ -66,7 +66,7 @@ const getMissingTokens = async () => {
       logger.success(`saved ${token.symbol} token`);
       tokenCache.addToken(token);
 
-      await bluebird.delay(200);
+      await bluebird.delay(3000);
     }),
   );
 };

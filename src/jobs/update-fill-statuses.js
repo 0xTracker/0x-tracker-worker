@@ -32,7 +32,7 @@ const updateFillStatuses = async ({ batchSize, processOldestFirst }) => {
 
     logger.timeEnd(`fetch transaction receipt: ${fill.transactionHash}`);
 
-    if (receipt === null) {
+    if (receipt === undefined) {
       logger.warn(`no receipt found for ${fill.transactionHash}`);
       return;
     }
