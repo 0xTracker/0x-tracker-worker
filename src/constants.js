@@ -9,7 +9,14 @@ module.exports = {
     '0xe495bcacaf29a0eb00fb67b86e9cd2a994dd55d8': 'ETH', // Wrapped Ether
     '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2': 'ETH', // Wrapped Ether
     '0x53b04999c1ff2d77fcdde98935bb936a67209e4c': 'ETH', // Veil Ether
-    '0x61b9898c9b60a159fc91ae8026563cd226b7a0c1': 'ETH', // Ethfinex Ether
+    '0xaa7427d8f17d87a28f5e1ba3adbb270badbe1011': 'ETH', // Ethfinex Ether
+  },
+  SYMBOL_MAPPINGS: {
+    DAIW: 'DAI',
+    ETHW: 'ETH',
+    USDTW: 'USDT',
+    'VEIL ETH': 'ETH',
+    WETH: 'ETH',
   },
   FILL_STATUS: {
     FAILED: 2,

@@ -24,4 +24,22 @@ describe('shared/tokens/normalize-symbol', () => {
 
     expect(normalized).toBe('ETH');
   });
+
+  it('returns ETH when symbol is ETHW', () => {
+    const normalized = normalizeSymbol('ETHW');
+
+    expect(normalized).toBe('ETH');
+  });
+
+  it('returns DAI when symbol is DAIW', () => {
+    const normalized = normalizeSymbol('DAIW');
+
+    expect(normalized).toBe('DAI');
+  });
+
+  it('returns USDT when symbol is USDTW', () => {
+    const normalized = normalizeSymbol('USDTW');
+
+    expect(normalized).toBe('USDT');
+  });
 });
