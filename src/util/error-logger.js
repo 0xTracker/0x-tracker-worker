@@ -6,9 +6,9 @@ let useBugsnag = false;
 
 const logger = signale.scope('application');
 
-const logError = error => {
+const logError = (error, metaData) => {
   if (useBugsnag) {
-    bugsnag.notify(error);
+    bugsnag.notify(error, { metaData });
   }
 
   logger.error(error);

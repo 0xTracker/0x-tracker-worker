@@ -38,7 +38,9 @@ const getNewArticles = async () => {
         const parser = new Parser();
         result = await parser.parseURL(url);
       } catch (error) {
-        logError(new Error(`Failed to parse feed: ${url}`));
+        logError(new Error(`Failed to parse feed: ${url}`), {
+          reason: error.message,
+        });
 
         return { id: feedId, items: [] };
       }
