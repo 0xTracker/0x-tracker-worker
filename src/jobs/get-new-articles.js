@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const bluebird = require('bluebird');
 const cheerio = require('cheerio');
 const Parser = require('rss-parser');
 const signale = require('signale');
@@ -28,26 +29,30 @@ const feedUrls = {
 };
 
 const getNewArticles = async () => {
-  // throw new Error('boom');
-  const feeds = await Promise.all(
-    _.map(_.keys(feedUrls), async feedId => {
-      const url = feedUrls[feedId];
+  logger.time('fetch rss feeds');
 
-      let result;
-      try {
-        const parser = new Parser();
-        result = await parser.parseURL(url);
-      } catch (error) {
-        logError(new Error(`Failed to parse feed: ${url}`), {
-          reason: error.message,
-        });
+  const feeds = await bluebird.mapSeries(_.keys(feedUrls), async feedId => {
+    const url = feedUrls[feedId];
 
-        return { id: feedId, items: [] };
-      }
+    let result;
+    try {
+      const parser = new Parser();
+      result = await parser.parseURL(url);
+    } catch (error) {
+      logError(new Error(`Failed to parse feed: ${url}`), {
+        reason: error.message,
+      });
 
-      return { id: feedId, items: result.items };
-    }),
-  );
+      return { id: feedId, items: [] };
+    }
+
+    await bluebird.delay(500);
+
+    return { id: feedId, items: result.items };
+  });
+
+  logger.timeEnd('fetch rss feeds');
+  logger.info(`fetched ${feeds.length} rss feeds`);
 
   const articleGuids = _(feeds)
     .map(feed => feed.items.map(item => item.guid))
