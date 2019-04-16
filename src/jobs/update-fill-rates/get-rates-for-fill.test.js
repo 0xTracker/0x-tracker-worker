@@ -32,6 +32,7 @@ it('should get rates for fill with WETH as base token', async () => {
 
   const rates = await getRatesForFill(fill, tokens);
 
+  expect(getRates).toHaveBeenCalledTimes(2);
   expect(rates).toEqual({
     ETH: { USD: 520.4 },
     ZRX: { USD: 1.3 },

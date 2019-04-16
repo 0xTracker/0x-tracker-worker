@@ -19,11 +19,15 @@ const callApi = async url => {
     response = await axios.get(url);
   } catch (error) {
     logError(error);
+
     return null;
   }
 
-  // TODO: Log error messages
   if (response.data.Response === 'Error') {
+    logError('Error when calling CryptoCompare API', {
+      response,
+    });
+
     return null;
   }
 
