@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const moment = require('moment');
 const signale = require('signale');
 
@@ -11,6 +12,7 @@ const updateTokenStatsForPeriod = async (period, dateFrom) => {
 
   const tokenStats = await getTokenStats(dateFrom, new Date());
   const tokensWithStats = tokenStats.map(stat => stat.token);
+  const totalVolume = _.sumBy(tokenStats, 'volume.USD');
 
   const updateOperations = tokenStats
     .map(stat => ({
@@ -21,6 +23,8 @@ const updateTokenStatsForPeriod = async (period, dateFrom) => {
             [`stats.${period}`]: {
               trades: stat.trades,
               volume: stat.volume,
+              volumeShare:
+                totalVolume === 0 ? 0 : (stat.volume.USD / totalVolume) * 100,
             },
           },
         },
