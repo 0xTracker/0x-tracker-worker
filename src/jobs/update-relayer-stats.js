@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const moment = require('moment');
 const signale = require('signale');
 
@@ -11,6 +12,7 @@ const updateRelayerStatsForPeriod = async (period, dateFrom) => {
 
   const relayerStats = await getRelayerStats(dateFrom, new Date());
   const relayersWithStats = relayerStats.map(stat => stat.relayerId);
+  const totalVolume = _.sumBy(relayerStats, 'volume');
 
   const updateOperations = relayerStats
     .map(stat => ({
@@ -22,6 +24,8 @@ const updateRelayerStatsForPeriod = async (period, dateFrom) => {
               fees: { USD: stat.fees.USD, ZRX: stat.fees.ZRX.toString() },
               trades: stat.trades,
               volume: stat.volume,
+              volumeShare:
+                totalVolume === 0 ? 0 : (stat.volume / totalVolume) * 100,
             },
           },
         },

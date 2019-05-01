@@ -2,6 +2,15 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+const statsShape = {
+  trades: Number,
+  volume: {
+    token: String,
+    USD: Number,
+  },
+  volumeShare: { type: Number, index: true },
+};
+
 const schema = Schema({
   address: { type: String, index: true, unique: true },
   decimals: Number,
@@ -15,13 +24,9 @@ const schema = Schema({
     lastPrice: Number,
   },
   stats: {
-    '1y': {
-      trades: { index: true, type: Number },
-      volume: {
-        token: Number,
-        USD: { index: true, type: Number },
-      },
-    },
+    '1m': statsShape,
+    '7d': statsShape,
+    '24h': statsShape,
   },
   symbol: String,
 });
