@@ -89,7 +89,10 @@ module.exports = {
     url: 'https://tokenjar.io/',
   },
   tokenlon: {
-    feeRecipients: ['0x6f7ae872e995f98fcd2a7d3ba17b7ddfb884305f'],
+    feeRecipients: [
+      '0x6f7ae872e995f98fcd2a7d3ba17b7ddfb884305f',
+      '0xb9e29984fe50602e7a619662ebed4f90d93824c7',
+    ],
     imageUrl: 'https://0xtracker.com/assets/logos/tokenlon.png',
     lookupId: 11,
     name: 'Tokenlon',
