@@ -4,6 +4,7 @@ module.exports = {
     '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359': 'DAI', // DAI Stablecoin
     '0xd9ebebfdab08c643c5f2837632de920c70a56247': 'DAI', // Ethfinex DAI
     '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': 'USDC', // USD Coin
+    '0xdac17f958d2ee523a2206206994597c13d831ec7': 'USDT', // Tether
     '0x1a9b2d827f26b7d7c18fec4c1b27c1e8deeba26e': 'USDT', // Ethfinex Tether
     '0x2956356cd2a2bf3202f771f50d3d14a367b48070': 'ETH', // Wrapped Ether
     '0xe495bcacaf29a0eb00fb67b86e9cd2a994dd55d8': 'ETH', // Wrapped Ether
