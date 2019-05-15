@@ -1,5 +1,6 @@
 const _ = require('lodash');
 
+const cacheStats = require('./cache-stats');
 const createFills = require('./create-fills');
 const getMissingTokenImages = require('./get-missing-token-images');
 const getMissingTokens = require('./get-missing-tokens');
@@ -13,6 +14,7 @@ const updateTokenPrices = require('./update-token-prices');
 const updateTokenStats = require('./update-token-stats');
 
 const jobFns = {
+  cacheStats,
   createFills,
   getMissingTokenImages,
   getMissingTokens,
