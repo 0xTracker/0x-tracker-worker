@@ -40,6 +40,7 @@ module.exports = {
     default: 10,
   },
   pollingIntervals: {
+    cacheStats: ms('1 minute'),
     default: ms('5 seconds'),
     getMissingTokenImages: ms('1 minute'),
     getMissingTokens: ms('1 minute'),
