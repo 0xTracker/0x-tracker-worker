@@ -27,8 +27,8 @@ const cacheStats = async () => {
   logger.success('cached 24h network stats');
 
   logger.time('compute relayer stats');
-  const relayerStats = await getRelayerStats();
-  logger.time('compute relayer stats');
+  const relayerStats = await getRelayerStats(dateFrom, dateTo);
+  logger.timeEnd('compute relayer stats');
 
   await CacheEntry.updateOne(
     { key: 'relayerStats.24h' },
