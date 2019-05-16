@@ -18,7 +18,7 @@ const schema = Schema({
   },
   date: { type: Date, index: -1 },
   feeRecipient: { type: String, index: true },
-  logIndex: { type: Number, index: true },
+  logIndex: Number,
   maker: { type: String, index: true },
   makerAsset: {
     assetProxyId: String,
@@ -28,7 +28,7 @@ const schema = Schema({
   makerAmount: Number,
   makerFee: Number,
   makerToken: { type: String, index: true },
-  orderHash: String,
+  orderHash: { type: String, index: true },
   prices: {
     maker: Number,
     taker: Number,
@@ -41,12 +41,12 @@ const schema = Schema({
   },
   relayerId: { type: Number, index: true },
   roundedDates: {
-    day: { type: Date, index: -1 },
-    halfHour: { type: Date, index: -1 },
-    hour: { type: Date, index: -1 },
-    minute: { type: Date, index: -1 },
+    day: Date,
+    halfHour: Date,
+    hour: Date,
+    minute: Date,
   },
-  senderAddress: String,
+  senderAddress: { type: String, index: true },
   status: {
     default: FILL_STATUS.PENDING,
     type: Number,
