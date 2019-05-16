@@ -18,7 +18,7 @@ const schema = Schema({
   },
   date: { type: Date, index: -1 },
   feeRecipient: { type: String, index: true },
-  logIndex: { type: Number, index: true },
+  logIndex: Number,
   maker: { type: String, index: true },
   makerAsset: {
     assetProxyId: String,
