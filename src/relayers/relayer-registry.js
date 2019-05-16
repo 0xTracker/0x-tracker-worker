@@ -1,6 +1,9 @@
 module.exports = {
   bambooRelay: {
-    feeRecipients: ['0x5dd835a893734b8d556eccf87800b76dda5aedc5'],
+    feeRecipients: [
+      '0x5dd835a893734b8d556eccf87800b76dda5aedc5',
+      '0xc898fbee1cc94c0ff077faa5449915a506eff384',
+    ],
     imageUrl: 'https://0xtracker.com/assets/logos/bamboo-relay.png',
     lookupId: 1,
     name: 'Bamboo Relay',
