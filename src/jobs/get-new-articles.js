@@ -12,18 +12,15 @@ const logger = signale.scope('get new articles');
 const feedUrls = {
   '0xproject': 'https://medium.com/feed/0x-project',
   '0xtracker': 'https://medium.com/feed/0x-tracker',
-  amadeus: 'https://medium.com/feed/amadeus-relay',
   boxSwap: 'https://medium.com/feed/boxswap',
   emoon: 'https://medium.com/feed/@emoonmarket',
   ercdex: 'https://medium.com/feed/ercdex',
   ethfinex: 'https://medium.com/feed/ethfinex',
-  dharma: 'https://medium.com/feed/dharma-blog',
   dYdX: 'https://medium.com/feed/dydxderivatives',
   ledgerDex: 'https://medium.com/feed/ledgerdex',
   openRelay: 'https://blog.openrelay.xyz/feed.xml',
   paradex: 'https://medium.com/feed/paradex',
   radarrelay: 'https://medium.com/feed/@RadarRelay',
-  sharkRelay: 'https://medium.com/feed/sharkrelay',
   theOcean: 'https://medium.com/feed/@theoceantrade',
   veil: 'https://medium.com/feed/veil-blog',
 };
