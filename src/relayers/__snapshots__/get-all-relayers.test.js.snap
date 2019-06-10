@@ -60,6 +60,17 @@ Object {
     "slug": "erc-dex",
     "url": "https://ercdex.com",
   },
+  "etherBlockchain": Object {
+    "feeRecipients": Array [
+      "0x2a5f5f36c20d7e56358db78bbfac0bace25c1198",
+    ],
+    "id": "etherBlockchain",
+    "imageUrl": "https://0xtracker.com/assets/logos/ether-blockchain.png",
+    "lookupId": 22,
+    "name": "EtherBlockchain.io",
+    "slug": "ether-blockchain",
+    "url": "https://www.etherblockchain.io/",
+  },
   "ethfinex": Object {
     "feeRecipients": Array [
       "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1",

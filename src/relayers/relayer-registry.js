@@ -185,4 +185,12 @@ module.exports = {
     feeRecipients: ['0x61b9898c9b60a159fc91ae8026563cd226b7a0c1'],
     url: 'https://www.ethfinex.com/',
   },
+  etherBlockchain: {
+    imageUrl: 'https://0xtracker.com/assets/logos/ether-blockchain.png',
+    lookupId: 22,
+    name: 'EtherBlockchain.io',
+    slug: 'ether-blockchain',
+    feeRecipients: ['0x2a5f5f36c20d7e56358db78bbfac0bace25c1198'],
+    url: 'https://www.etherblockchain.io/',
+  },
 };
