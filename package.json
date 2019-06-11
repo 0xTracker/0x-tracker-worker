@@ -42,7 +42,7 @@
     "@0x/web3-wrapper": "6.0.2",
     "axios": "0.18.0",
     "bignumber.js": "8.1.1",
-    "bluebird": "3.5.3",
+    "bluebird": "3.5.5",
     "bugsnag": "2.4.3",
     "cheerio": "1.0.0-rc.2",
     "config": "3.0.1",
