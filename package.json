@@ -40,7 +40,7 @@
     "@0x/subproviders": "4.0.2",
     "@0x/utils": "4.2.2",
     "@0x/web3-wrapper": "6.0.2",
-    "axios": "0.18.0",
+    "axios": "0.18.1",
     "bignumber.js": "8.1.1",
     "bluebird": "3.5.3",
     "bugsnag": "2.4.3",
