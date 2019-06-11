@@ -193,4 +193,12 @@ module.exports = {
     feeRecipients: ['0x2a5f5f36c20d7e56358db78bbfac0bace25c1198'],
     url: 'https://www.etherblockchain.io/',
   },
+  marketProtocolExchange: {
+    imageUrl: 'https://0xtracker.com/assets/logos/market-protocol-exchange.png',
+    lookupId: 23,
+    name: 'MARKET Protocol Exchange',
+    slug: 'market-protocol-exchange',
+    feeRecipients: ['0x8752d14a086cee9b8c108611ba9aefe04042c9f9'],
+    url: 'https://mpexchange.io/',
+  },
 };

@@ -136,6 +136,17 @@ Object {
     "slug": "ledger-dex",
     "url": "https://ledgerdex.com",
   },
+  "marketProtocolExchange": Object {
+    "feeRecipients": Array [
+      "0x8752d14a086cee9b8c108611ba9aefe04042c9f9",
+    ],
+    "id": "marketProtocolExchange",
+    "imageUrl": "https://0xtracker.com/assets/logos/market-protocol-exchange.png",
+    "lookupId": 23,
+    "name": "MARKET Protocol Exchange",
+    "slug": "market-protocol-exchange",
+    "url": "https://mpexchange.io/",
+  },
   "openRelay": Object {
     "feeRecipients": Array [
       "0xc22d5b2951db72b44cfb8089bb8cd374a3c354ea",
