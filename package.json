@@ -33,7 +33,7 @@
     "husky": "2.1.0",
     "jest": "24.8.0",
     "lint-staged": "8.1.5",
-    "prettier": "1.17.1"
+    "prettier": "1.18.2"
   },
   "dependencies": {
     "@0x/order-utils": "7.0.2",
