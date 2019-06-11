@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@0x/order-utils": "7.0.2",
-    "@0x/subproviders": "4.0.2",
+    "@0x/subproviders": "4.1.0",
     "@0x/utils": "4.2.2",
     "@0x/web3-wrapper": "6.0.2",
     "axios": "0.18.0",
