@@ -83,9 +83,7 @@ const getNewArticles = async () => {
   }
 
   logger.info(
-    `${articleGuids.length} articles were found, ${
-      newArticles.length
-    } of them are new`,
+    `${articleGuids.length} articles were found, ${newArticles.length} of them are new`,
   );
   logger.pending(`adding ${newArticles.length} new articles`);
 

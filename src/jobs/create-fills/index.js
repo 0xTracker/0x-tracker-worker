@@ -40,15 +40,11 @@ const createFills = async ({ batchSize, processOldestFirst }) => {
         );
       } else if (error instanceof UnsupportedAssetError) {
         logger.warn(
-          `Unable to create fill for event ${
-            event.id
-          } due to unsupported asset`,
+          `Unable to create fill for event ${event.id} due to unsupported asset`,
         );
       } else if (error instanceof UnsupportedProtocolError) {
         logger.warn(
-          `Unable to create fill for event ${
-            event.id
-          } due to unsupported protocol`,
+          `Unable to create fill for event ${event.id} due to unsupported protocol`,
         );
       } else {
         throw error;
