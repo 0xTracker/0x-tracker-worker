@@ -38,9 +38,7 @@ const getMissingTokenImages = async () => {
           filter: { _id: token._id },
           update: {
             $set: {
-              imageUrl: `https://raw.githubusercontent.com/TrustWallet/tokens/master/tokens/${
-                token.address
-              }.png`,
+              imageUrl: `https://raw.githubusercontent.com/TrustWallet/tokens/master/tokens/${token.address}.png`,
             },
           },
         },
