@@ -51,7 +51,7 @@ const updateRelayerMetrics = async () => {
           metric.date,
           {
             lastUpdated: Date.now(),
-            timeTaken: null,
+            timeTaken: null, // TODO: Calculate and store time taken
           },
           session,
         );
