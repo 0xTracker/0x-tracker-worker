@@ -88,8 +88,8 @@ const getUnboundedDates = async metricType => {
   return [startOfToday, ...lastUpdated.map(metadata => metadata.date)];
 };
 
-const getDatesForMetricsJob = async () => {
-  const dates = await getUnboundedDates();
+const getDatesForMetricsJob = async metricType => {
+  const dates = await getUnboundedDates(metricType);
 
   // No fills exist, signal job to bail out
   if (dates === null) {
