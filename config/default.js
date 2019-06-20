@@ -46,7 +46,7 @@ module.exports = {
     getMissingTokens: ms('1 minute'),
     getNewArticles: ms('1 minute'),
     setRelayerForFills: ms('1 minute'),
-    updateRelayerMetrics: ms('30 seconds'),
+    updateRelayerMetrics: ms('10 seconds'),
     updateRelayerStats: ms('1 minute'),
     updateTokenPrices: ms('1 minute'),
     updateTokenStats: ms('1 minute'),
