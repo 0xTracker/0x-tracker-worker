@@ -8,13 +8,12 @@ const withTransaction = async func => {
   try {
     await func(session);
     await session.commitTransaction();
+    session.endSession();
   } catch (error) {
     await session.abortTransaction();
-
+    session.endSession();
     throw error;
   }
-
-  session.endSession();
 };
 
 module.exports = withTransaction;
