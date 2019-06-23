@@ -21,18 +21,14 @@ const createFills = async ({ batchSize, processOldestFirst }) => {
   logger.info(`found ${events.length} events without associated fills`);
 
   await bluebird.mapSeries(events, async event => {
-    logger.pending(
-      `creating fill for log #${event.logIndex} of ${event.transactionHash}`,
-    );
+    logger.pending(`created fill for event ${event.id}`);
 
     try {
       const fill = await createFill(event);
 
       await persistFill(event, fill);
 
-      logger.success(
-        `created fill for log #${event.logIndex} of ${event.transactionHash}`,
-      );
+      logger.success(`created fill for event ${event.id}`);
     } catch (error) {
       if (error instanceof MissingBlockError) {
         logger.warn(
