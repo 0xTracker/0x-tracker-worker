@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const metricShape = {
   date: Date,
+  fees: {
+    USD: Number,
+    ZRX: Number,
+  },
   fillCount: Number,
   fillVolume: Number,
   tradeCount: Number,

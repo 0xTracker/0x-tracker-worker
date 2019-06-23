@@ -40,6 +40,12 @@ const computeRelayerMetrics = async date => {
             date: '$date',
           },
         },
+        feesUSD: {
+          $add: ['$conversions.USD.makerFee', '$conversions.USD.takerFee'],
+        },
+        feesZRX: {
+          $add: ['$makerFee', '$takerFee'],
+        },
         relayerId: 1,
         value: '$conversions.USD.amount',
       },
@@ -72,6 +78,8 @@ const computeRelayerMetrics = async date => {
             day: '$dateParts.day',
           },
         },
+        feesUSD: 1,
+        feesZRX: 1,
         value: 1,
         relayerId: 1,
       },
@@ -85,6 +93,12 @@ const computeRelayerMetrics = async date => {
           dateToHour: '$dateToHour',
           dateToMinute: '$dateToMinute',
           relayerId: '$relayerId',
+        },
+        feesUSD: {
+          $sum: '$feesUSD',
+        },
+        feesZRX: {
+          $sum: '$feesZRX',
         },
         fillCount: {
           $sum: 1,
@@ -110,6 +124,8 @@ const computeRelayerMetrics = async date => {
     {
       $project: {
         _id: 1,
+        feesUSD: 1,
+        feesZRX: 1,
         fillCount: 1,
         fillVolume: 1,
         relayer: {
@@ -122,6 +138,8 @@ const computeRelayerMetrics = async date => {
     {
       $project: {
         _id: 1,
+        feesUSD: 1,
+        feesZRX: 1,
         fillCount: 1,
         fillVolume: 1,
         tradeCount: {
@@ -153,6 +171,12 @@ const computeRelayerMetrics = async date => {
           dateToHour: '$_id.dateToHour',
           relayerId: '$_id.relayerId',
         },
+        feesZRX: {
+          $sum: '$feesZRX',
+        },
+        feesUSD: {
+          $sum: '$feesUSD',
+        },
         fillCount: {
           $sum: '$fillCount',
         },
@@ -162,6 +186,10 @@ const computeRelayerMetrics = async date => {
         minutes: {
           $addToSet: {
             date: '$_id.dateToMinute',
+            fees: {
+              USD: '$feesUSD',
+              ZRX: '$feesZRX',
+            },
             fillCount: '$fillCount',
             fillVolume: '$fillVolume',
             tradeCount: '$tradeCount',
@@ -184,6 +212,12 @@ const computeRelayerMetrics = async date => {
           dateToDay: '$_id.dateToDay',
           relayerId: '$_id.relayerId',
         },
+        feesUSD: {
+          $sum: '$feesUSD',
+        },
+        feesZRX: {
+          $sum: '$feesZRX',
+        },
         fillCount: {
           $sum: '$fillCount',
         },
@@ -193,6 +227,10 @@ const computeRelayerMetrics = async date => {
         hours: {
           $addToSet: {
             date: '$_id.dateToHour',
+            fees: {
+              USD: '$feesUSD',
+              ZRX: '$feesZRX',
+            },
             fillCount: '$fillCount',
             fillVolume: '$fillVolume',
             minutes: '$minutes',
@@ -214,6 +252,10 @@ const computeRelayerMetrics = async date => {
       $project: {
         _id: 0,
         date: '$_id.dateToDay',
+        fees: {
+          USD: '$feesUSD',
+          ZRX: '$feesZRX',
+        },
         fillCount: 1,
         fillVolume: 1,
         hours: 1,
@@ -238,6 +280,10 @@ const computeRelayerMetrics = async date => {
     return [
       {
         date: startOfDay,
+        fees: {
+          USD: 0,
+          ZRX: 0,
+        },
         fillCount: 0,
         fillVolume: 0,
         tradeCount: 0,
