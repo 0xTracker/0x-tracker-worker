@@ -4,7 +4,7 @@ const moment = require('moment');
 const Fill = require('../model/fill');
 const MetricsJobMetadata = require('../model/metrics-job-metadata');
 
-const getMinDate = async () => {
+const getFirstFillDate = async () => {
   const firstFill = await Fill.findOne().sort({ date: 1 });
 
   // If no fills exist then signal callee to bail out
@@ -18,7 +18,7 @@ const getMinDate = async () => {
     .toDate();
 };
 
-const getMaxDate = async () => {
+const getLastFillDate = async () => {
   const lastFill = await Fill.findOne().sort({ date: -1 });
 
   if (lastFill === null) {
@@ -43,15 +43,15 @@ const datePlusDays = (date, numberOfDays) => {
   ];
 };
 
-const getUnboundedDates = async metricType => {
+const getUnboundedDates = async (metricType, lastFillDate) => {
   // Find the last date for which metrics were computed
-  const lastProcessed = await MetricsJobMetadata.findOne({ metricType }).sort({
+  const lastComputed = await MetricsJobMetadata.findOne({ metricType }).sort({
     date: -1,
   });
 
   // If no metrics have been computed then try to backfill the first 10 days
-  if (lastProcessed === null) {
-    const minDate = await getMinDate();
+  if (lastComputed === null) {
+    const minDate = await getFirstFillDate();
 
     if (minDate === null) {
       return null;
@@ -61,22 +61,24 @@ const getUnboundedDates = async metricType => {
     return datePlusDays(minDate, 9);
   }
 
-  const startOfToday = moment
-    .utc()
-    .startOf('day')
-    .toDate();
-
-  // If last processed date was before today then backfill the next 10 days
-  if (lastProcessed.date < startOfToday) {
+  // If last computed date was before last fill then backfill the next 10 days
+  if (lastComputed.date < lastFillDate) {
     const nextDate = moment
-      .utc(lastProcessed.date)
+      .utc(lastComputed.date)
       .add(1, 'days')
       .toDate();
 
     return datePlusDays(nextDate, 9);
   }
 
-  const lastUpdated = await MetricsJobMetadata.find({
+  const startOfToday = moment
+    .utc()
+    .startOf('day')
+    .toDate();
+
+  // All dates have been computed so fallback to recomputing metrics for today
+  // and the 9 most stale dates.
+  const mostStale = await MetricsJobMetadata.find({
     date: { $ne: startOfToday },
     metricType,
   })
@@ -85,20 +87,19 @@ const getUnboundedDates = async metricType => {
     })
     .limit(9);
 
-  return [startOfToday, ...lastUpdated.map(metadata => metadata.date)];
+  return [startOfToday, ...mostStale.map(metadata => metadata.date)];
 };
 
 const getDatesForMetricsJob = async metricType => {
-  const dates = await getUnboundedDates(metricType);
+  const lastFillDate = await getLastFillDate();
+  const dates = await getUnboundedDates(metricType, lastFillDate);
 
   // No fills exist, signal job to bail out
   if (dates === null) {
     return null;
   }
 
-  const maxDate = await getMaxDate();
-
-  return dates.filter(date => date <= maxDate);
+  return dates.filter(date => date <= lastFillDate);
 };
 
 module.exports = getDatesForMetricsJob;
