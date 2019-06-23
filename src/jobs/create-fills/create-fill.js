@@ -49,7 +49,7 @@ const createFill = async event => {
 
   const fill = {
     blockHash,
-    blockNumber: parseInt(blockNumber, 16),
+    blockNumber,
     date,
     feeRecipient,
     logIndex,
