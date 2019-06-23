@@ -36,17 +36,18 @@ const updateRelayerMetrics = async () => {
 
   const metrics = _.flatten(results);
 
+  logger.time('persist metrics');
   await withTransaction(async session => {
     await Promise.all([
-      ...metrics.map(metric => {
-        return RelayerMetric.updateOne(
+      ...metrics.map(async metric => {
+        await RelayerMetric.updateOne(
           { date: metric.date, relayerId: metric.relayerId },
           { $set: metric },
           { session, upsert: true },
         );
       }),
-      ...metrics.map(metric => {
-        return updateMetricsJobMetadata(
+      ...metrics.map(async metric => {
+        await updateMetricsJobMetadata(
           'relayer',
           metric.date,
           {
@@ -58,6 +59,7 @@ const updateRelayerMetrics = async () => {
       }),
     ]);
   });
+  logger.timeEnd('persist metrics');
 
   logger.success(
     `updated relayer metrics for dates: ${_.join(
