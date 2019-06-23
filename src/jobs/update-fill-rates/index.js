@@ -23,6 +23,8 @@ const updateFillRates = async ({ batchSize, processOldestFirst }) => {
       { makerToken: { $in: baseTokens } },
       { takerToken: { $in: baseTokens } },
     ],
+    'tokenSaved.maker': true,
+    'tokenSaved.taker': true,
   })
     .sort({ date: processOldestFirst ? 1 : -1 })
     .limit(batchSize)
