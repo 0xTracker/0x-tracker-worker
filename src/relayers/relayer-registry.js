@@ -201,4 +201,12 @@ module.exports = {
     feeRecipients: ['0x8752d14a086cee9b8c108611ba9aefe04042c9f9'],
     url: 'https://mpexchange.io/',
   },
+  veriDex: {
+    imageUrl: 'https://0xtracker.com/assets/logos/veridex.png',
+    lookupId: 24,
+    name: 'VeriDEX',
+    slug: 'veridex',
+    feeRecipients: ['0x5265bde27f57e738be6c1f6ab3544e82cdc92a8f'],
+    url: 'https://dex.verisafe.io/',
+  },
 };
