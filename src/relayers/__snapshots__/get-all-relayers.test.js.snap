@@ -265,5 +265,16 @@ Object {
     ],
     "url": "https://veil.co/",
   },
+  "veriDex": Object {
+    "feeRecipients": Array [
+      "0x5265bde27f57e738be6c1f6ab3544e82cdc92a8f",
+    ],
+    "id": "veriDex",
+    "imageUrl": "https://0xtracker.com/assets/logos/veridex.png",
+    "lookupId": 24,
+    "name": "VeriDEX",
+    "slug": "veridex",
+    "url": "https://dex.verisafe.io/",
+  },
 }
 `;
