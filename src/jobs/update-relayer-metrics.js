@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const bluebird = require('bluebird');
 const moment = require('moment');
 const signale = require('signale');
 
@@ -38,26 +39,23 @@ const updateRelayerMetrics = async () => {
 
   logger.time('persist metrics');
   await withTransaction(async session => {
-    await Promise.all([
-      ...metrics.map(async metric => {
-        await RelayerMetric.updateOne(
-          { date: metric.date, relayerId: metric.relayerId },
-          { $set: metric },
-          { session, upsert: true },
-        );
-      }),
-      ...metrics.map(async metric => {
-        await updateMetricsJobMetadata(
-          'relayer',
-          metric.date,
-          {
-            lastUpdated: Date.now(),
-            timeTaken: null, // TODO: Calculate and store time taken
-          },
-          session,
-        );
-      }),
-    ]);
+    await bluebird.mapSeries(metrics, async metric => {
+      await RelayerMetric.updateOne(
+        { date: metric.date, relayerId: metric.relayerId },
+        { $set: metric },
+        { session, upsert: true },
+      );
+
+      await updateMetricsJobMetadata(
+        'relayer',
+        metric.date,
+        {
+          lastUpdated: Date.now(),
+          timeTaken: null, // TODO: Calculate and store time taken
+        },
+        session,
+      );
+    });
   });
   logger.timeEnd('persist metrics');
 

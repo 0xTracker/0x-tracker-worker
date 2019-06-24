@@ -1,6 +1,10 @@
 const _ = require('lodash');
+
 const config = require('config');
+const signale = require('signale');
 const withRetry = require('promise-poller').default;
+
+const logger = signale.scope('job runner');
 
 const runJob = async ({ fn, interval, maxRetries }, options) => {
   const configKey = `jobs.${fn.name}`;
@@ -10,7 +14,11 @@ const runJob = async ({ fn, interval, maxRetries }, options) => {
 
   try {
     await withRetry({
-      taskFn: () => fn(jobConfig),
+      taskFn: async () => {
+        logger.time(`run ${fn.name} job`);
+        await fn(jobConfig);
+        logger.timeEnd(`run ${fn.name} job`);
+      },
       interval,
       retries: maxRetries,
       progressCallback: options.onError,
