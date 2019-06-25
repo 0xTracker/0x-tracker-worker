@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const metricShape = {
-  date: Date,
+  date: { index: true, type: Date },
   fees: {
     USD: Number,
     ZRX: Number,
@@ -14,7 +14,6 @@ const metricShape = {
 
 const schema = mongoose.Schema({
   ...metricShape,
-  date: { index: true, type: Date },
   relayerId: { index: true, type: Number },
   hours: [
     {
