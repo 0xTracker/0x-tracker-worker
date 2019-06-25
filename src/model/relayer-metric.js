@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const metricShape = {
-  date: Date,
+  date: { index: true, type: Date },
   fees: {
     USD: Number,
     ZRX: Number,
