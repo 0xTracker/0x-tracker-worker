@@ -111,10 +111,10 @@ const computeTokenMetrics = async date => {
         fillCount: {
           $sum: 1,
         },
-        tokenValue: {
+        tokenVolume: {
           $sum: '$tokenValue',
         },
-        usdValue: {
+        usdVolume: {
           $sum: '$usdValue',
         },
       },
@@ -135,15 +135,15 @@ const computeTokenMetrics = async date => {
           $addToSet: {
             date: '$_id.dateToMinute',
             fillCount: '$fillCount',
-            tokenValue: '$tokenValue',
-            usdValue: '$usdValue',
+            tokenVolume: '$tokenVolume',
+            usdVolume: '$usdVolume',
           },
         },
-        tokenValue: {
-          $sum: '$tokenValue',
+        tokenVolume: {
+          $sum: '$tokenVolume',
         },
-        usdValue: {
-          $sum: '$usdValue',
+        usdVolume: {
+          $sum: '$usdVolume',
         },
       },
     },
@@ -163,15 +163,15 @@ const computeTokenMetrics = async date => {
             date: '$_id.dateToHour',
             fillCount: '$fillCount',
             minutes: '$minutes',
-            tokenValue: '$tokenValue',
-            usdValue: '$usdValue',
+            tokenVolume: '$tokenVolume',
+            usdVolume: '$usdVolume',
           },
         },
-        tokenValue: {
-          $sum: '$tokenValue',
+        tokenVolume: {
+          $sum: '$tokenVolume',
         },
-        usdValue: {
-          $sum: '$usdValue',
+        usdVolume: {
+          $sum: '$usdVolume',
         },
       },
     },
@@ -184,8 +184,8 @@ const computeTokenMetrics = async date => {
         hours: 1,
         _id: 0,
         tokenAddress: '$_id.tokenAddress',
-        tokenValue: 1,
-        usdValue: 1,
+        tokenVolume: 1,
+        usdVolume: 1,
       },
     },
   ]);
