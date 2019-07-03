@@ -209,4 +209,12 @@ module.exports = {
     feeRecipients: ['0x5265bde27f57e738be6c1f6ab3544e82cdc92a8f'],
     url: 'https://dex.verisafe.io/',
   },
+  merchcoinsExchange: {
+    imageUrl: 'https://0xtracker.com/assets/logos/merchcoins.png',
+    lookupId: 25,
+    name: 'Merchcoins Exchange',
+    slug: 'merchcoins-exchange',
+    feeRecipients: ['0x584860fe460a16cd11e6fdebb2e77146d1835be8'],
+    url: 'https://merchcoins.com/',
+  },
 };
