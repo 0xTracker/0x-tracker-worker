@@ -147,6 +147,17 @@ Object {
     "slug": "market-protocol-exchange",
     "url": "https://mpexchange.io/",
   },
+  "merchcoinsExchange": Object {
+    "feeRecipients": Array [
+      "0x584860fe460a16cd11e6fdebb2e77146d1835be8",
+    ],
+    "id": "merchcoinsExchange",
+    "imageUrl": "https://0xtracker.com/assets/logos/merchcoins.png",
+    "lookupId": 25,
+    "name": "Merchcoins Exchange",
+    "slug": "merchcoins-exchange",
+    "url": "https://merchcoins.com/",
+  },
   "openRelay": Object {
     "feeRecipients": Array [
       "0xc22d5b2951db72b44cfb8089bb8cd374a3c354ea",
