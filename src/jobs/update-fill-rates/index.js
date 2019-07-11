@@ -23,8 +23,6 @@ const updateFillRates = async ({ batchSize, processOldestFirst }) => {
       { makerToken: { $in: baseTokens } },
       { takerToken: { $in: baseTokens } },
     ],
-    'tokenSaved.maker': true,
-    'tokenSaved.taker': true,
   })
     .sort({ date: processOldestFirst ? 1 : -1 })
     .limit(batchSize)
@@ -40,7 +38,7 @@ const updateFillRates = async ({ batchSize, processOldestFirst }) => {
   const zrxToken = tokens[ZRX_TOKEN_ADDRESS];
 
   await bluebird.mapSeries(fills, async fill => {
-    const rates = await getRatesForFill(fill, tokens);
+    const rates = await getRatesForFill(fill);
 
     if (rates === null) {
       logger.warn(`unable to get rates for ${fill._id}`);
