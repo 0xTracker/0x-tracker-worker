@@ -10,7 +10,7 @@ const withTransaction = require('../util/with-transaction');
 
 const logger = signale.scope('update relayer metrics');
 
-const updateRelayerMetrics = async () => {
+const cacheRelayerMetrics = async () => {
   const dates = await getDatesForMetricsJob('relayer');
 
   if (dates === null) {
@@ -70,4 +70,4 @@ const updateRelayerMetrics = async () => {
   );
 };
 
-module.exports = updateRelayerMetrics;
+module.exports = cacheRelayerMetrics;
