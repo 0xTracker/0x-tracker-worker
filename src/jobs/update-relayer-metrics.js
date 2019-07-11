@@ -30,16 +30,18 @@ const updateRelayerMetrics = async () => {
 
   logger.time('persist metrics');
   await withTransaction(async session => {
-    await RelayerMetric.bulkWrite(
-      metrics.map(metric => ({
-        updateOne: {
-          filter: { date: metric.date, relayerId: metric.relayerId },
-          update: { $set: metric },
-          upsert: true,
-        },
-      })),
-      { session },
-    );
+    if (metrics.length > 0) {
+      await RelayerMetric.bulkWrite(
+        metrics.map(metric => ({
+          updateOne: {
+            filter: { date: metric.date, relayerId: metric.relayerId },
+            update: { $set: metric },
+            upsert: true,
+          },
+        })),
+        { session },
+      );
+    }
 
     await MetricsJobMetadata.bulkWrite(
       dates.map(date => ({
