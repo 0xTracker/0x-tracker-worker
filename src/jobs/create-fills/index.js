@@ -7,6 +7,7 @@ const {
   UnsupportedProtocolError,
 } = require('../../errors');
 const createFill = require('./create-fill');
+const ensureTokenExists = require('../../tokens/ensure-token-exists');
 const getUnprocessedEvents = require('./get-unprocessed-events');
 const persistFill = require('./persist-fill');
 
@@ -25,6 +26,14 @@ const createFills = async ({ batchSize, processOldestFirst }) => {
 
     try {
       const fill = await createFill(event);
+
+      if (await ensureTokenExists(fill.makerToken)) {
+        logger.success(`created token: ${fill.makerToken}`);
+      }
+
+      if (await ensureTokenExists(fill.takerToken)) {
+        logger.success(`created token: ${fill.takerToken}`);
+      }
 
       await persistFill(event, fill);
 

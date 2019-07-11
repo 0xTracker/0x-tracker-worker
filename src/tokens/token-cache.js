@@ -8,7 +8,7 @@ let keyedTokens = {};
 const logger = signale.scope('token cache');
 
 const initialise = async () => {
-  const tokens = await Token.find().lean();
+  const tokens = await Token.find({ resolved: { $in: [null, true] } }).lean();
 
   keyedTokens = _.keyBy(tokens, 'address');
 
