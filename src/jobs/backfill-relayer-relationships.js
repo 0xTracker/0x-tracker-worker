@@ -6,7 +6,7 @@ const getAllRelayers = require('../relayers/get-all-relayers');
 
 const logger = signale.scope('set relayer for fills');
 
-const setRelayerForFills = async () => {
+const backfillRelayerRelationships = async () => {
   const relayers = getAllRelayers();
 
   const results = await Promise.all(
@@ -37,4 +37,4 @@ const setRelayerForFills = async () => {
   }
 };
 
-module.exports = setRelayerForFills;
+module.exports = backfillRelayerRelationships;

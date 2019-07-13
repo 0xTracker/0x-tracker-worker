@@ -10,7 +10,7 @@ const withTransaction = require('../util/with-transaction');
 
 const logger = signale.scope('update relayer metrics');
 
-const updateRelayerMetrics = async () => {
+const cacheRelayerMetrics = async () => {
   const dates = await getDatesForMetricsJob('relayer');
 
   if (dates === null) {
@@ -30,16 +30,18 @@ const updateRelayerMetrics = async () => {
 
   logger.time('persist metrics');
   await withTransaction(async session => {
-    await RelayerMetric.bulkWrite(
-      metrics.map(metric => ({
-        updateOne: {
-          filter: { date: metric.date, relayerId: metric.relayerId },
-          update: { $set: metric },
-          upsert: true,
-        },
-      })),
-      { session },
-    );
+    if (metrics.length > 0) {
+      await RelayerMetric.bulkWrite(
+        metrics.map(metric => ({
+          updateOne: {
+            filter: { date: metric.date, relayerId: metric.relayerId },
+            update: { $set: metric },
+            upsert: true,
+          },
+        })),
+        { session },
+      );
+    }
 
     await MetricsJobMetadata.bulkWrite(
       dates.map(date => ({
@@ -68,4 +70,4 @@ const updateRelayerMetrics = async () => {
   );
 };
 
-module.exports = updateRelayerMetrics;
+module.exports = cacheRelayerMetrics;

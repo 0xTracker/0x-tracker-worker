@@ -23,6 +23,7 @@ const schema = Schema({
     },
     lastPrice: Number,
   },
+  resolved: { type: Boolean, index: true },
   stats: {
     '1m': statsShape,
     '7d': statsShape,

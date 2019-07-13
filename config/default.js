@@ -20,7 +20,7 @@ module.exports = {
   },
   jobs: {
     createFills: {
-      batchSize: 500,
+      batchSize: 100,
       processOldestFirst: true,
     },
     updateFillPrices: {
@@ -52,6 +52,6 @@ module.exports = {
     updateTokenStats: ms('1 minute'),
   },
   web3: {
-    endpoint: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    endpoint: `https://cloudflare-eth.com`,
   },
 };

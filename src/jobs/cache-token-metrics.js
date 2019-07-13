@@ -30,16 +30,18 @@ const cacheTokenMetrics = async () => {
 
   logger.time('persist metrics');
   await withTransaction(async session => {
-    await TokenMetric.bulkWrite(
-      metrics.map(metric => ({
-        updateOne: {
-          filter: { date: metric.date, tokenAddress: metric.tokenAddress },
-          update: { $set: metric },
-          upsert: true,
-        },
-      })),
-      { session },
-    );
+    if (metrics.length > 0) {
+      await TokenMetric.bulkWrite(
+        metrics.map(metric => ({
+          updateOne: {
+            filter: { date: metric.date, tokenAddress: metric.tokenAddress },
+            update: { $set: metric },
+            upsert: true,
+          },
+        })),
+        { session },
+      );
+    }
 
     await MetricsJobMetadata.bulkWrite(
       dates.map(date => ({
