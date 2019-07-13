@@ -41,7 +41,7 @@ The project also has support for the following development tools which you may w
 
 ## 🐣 Getting Started
 
-Run `cp .env.example .env` to create a local environment file, then get yourself an [Infura API key](https://infura.io/register) and add it to your .env file. Update the connection string as well if necessary.
+Run `cp .env.example .env` to create a local environment file, then update the local database connection string if necessary.
 
 Run `npm i` to install dependencies and then run `npm start`/`nodemon` to start the worker process. If the database already contains events extracted with [0x Event Extractor](https://github.com/0xTracker/0x-event-extractor) then you should start to see fills, tokens etc. being populated in the MongoDB database.
 
