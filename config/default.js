@@ -40,16 +40,15 @@ module.exports = {
     default: 10,
   },
   pollingIntervals: {
-    cacheStats: ms('1 minute'),
+    cacheTokenStats: ms('1 minute'),
     default: ms('5 seconds'),
     getMissingTokenImages: ms('1 minute'),
-    getMissingTokens: ms('1 minute'),
     getNewArticles: ms('1 minute'),
+    resolveTokens: ms('1 minute'),
     setRelayerForFills: ms('1 minute'),
     updateRelayerMetrics: ms('10 seconds'),
     updateRelayerStats: ms('1 minute'),
     updateTokenPrices: ms('1 minute'),
-    updateTokenStats: ms('1 minute'),
   },
   web3: {
     endpoint: `https://cloudflare-eth.com`,
