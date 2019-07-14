@@ -48,7 +48,7 @@ const updateRelayerStatsForPeriod = async (period, dateFrom) => {
 };
 
 const updateRelayerStats = async () => {
-  Promise.all([
+  await Promise.all([
     updateRelayerStatsForPeriod(
       '24h',
       moment()
