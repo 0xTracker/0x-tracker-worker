@@ -3,7 +3,6 @@ const _ = require('lodash');
 const { MissingBlockError } = require('../../errors');
 const getBlock = require('../../util/ethereum/get-block');
 const getRelayerForFill = require('../../fills/get-relayer-for-fill');
-const getRoundedDates = require('./get-rounded-dates');
 const normalizeFillArgs = require('./normalize-fill-args');
 const tokenCache = require('../../tokens/token-cache');
 
@@ -61,7 +60,6 @@ const createFill = async event => {
     orderHash,
     protocolVersion,
     relayerId: _.get(relayer, 'lookupId'),
-    roundedDates: getRoundedDates(date),
     senderAddress,
     taker,
     takerAmount: filledTakerTokenAmount,

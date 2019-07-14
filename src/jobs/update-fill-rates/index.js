@@ -1,5 +1,3 @@
-require('moment-round');
-
 const _ = require('lodash');
 const bluebird = require('bluebird');
 const signale = require('signale');
