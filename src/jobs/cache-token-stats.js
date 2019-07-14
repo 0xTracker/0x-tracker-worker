@@ -49,7 +49,7 @@ const persistTokenStatsForPeriod = async (period, tokenStats) => {
   logger.timeEnd(`persist ${period} token stats`);
 };
 
-const updateTokenStats = async () => {
+const cacheTokenStats = async () => {
   await Promise.all([
     async () => {
       logger.time('compute 24h token stats');
@@ -81,4 +81,4 @@ const updateTokenStats = async () => {
   ]);
 };
 
-module.exports = updateTokenStats;
+module.exports = cacheTokenStats;
