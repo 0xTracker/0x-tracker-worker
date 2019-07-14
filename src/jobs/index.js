@@ -2,7 +2,6 @@ const _ = require('lodash');
 
 const backfillRelayerRelationships = require('./backfill-relayer-relationships');
 const cacheRelayerMetrics = require('./cache-relayer-metrics');
-const cacheStats = require('./cache-stats');
 const cacheTokenMetrics = require('./cache-token-metrics');
 const createFills = require('./create-fills');
 const getMissingTokenImages = require('./get-missing-token-images');
@@ -18,7 +17,6 @@ const updateTokenStats = require('./update-token-stats');
 const jobFns = {
   backfillRelayerRelationships,
   cacheRelayerMetrics,
-  cacheStats,
   cacheTokenMetrics,
   createFills,
   getMissingTokenImages,
