@@ -3,6 +3,7 @@ const _ = require('lodash');
 const backfillRelayerRelationships = require('./backfill-relayer-relationships');
 const cacheRelayerMetrics = require('./cache-relayer-metrics');
 const cacheTokenMetrics = require('./cache-token-metrics');
+const cacheTokenStats = require('./cache-token-stats');
 const createFills = require('./create-fills');
 const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
@@ -12,12 +13,12 @@ const updateFillRates = require('./update-fill-rates');
 const updateFillStatuses = require('./update-fill-statuses');
 const updateRelayerStats = require('./update-relayer-stats');
 const updateTokenPrices = require('./update-token-prices');
-const updateTokenStats = require('./update-token-stats');
 
 const jobFns = {
   backfillRelayerRelationships,
   cacheRelayerMetrics,
   cacheTokenMetrics,
+  cacheTokenStats,
   createFills,
   getMissingTokenImages,
   getNewArticles,
@@ -27,7 +28,6 @@ const jobFns = {
   updateFillStatuses,
   updateRelayerStats,
   updateTokenPrices,
-  updateTokenStats,
 };
 
 const getJobs = ({ maxRetries, pollingIntervals }) =>
