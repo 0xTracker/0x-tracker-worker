@@ -40,12 +40,6 @@ const schema = Schema({
     saved: { default: false, type: Boolean, index: true },
   },
   relayerId: { type: Number, index: true },
-  roundedDates: {
-    day: Date,
-    halfHour: Date,
-    hour: Date,
-    minute: Date,
-  },
   senderAddress: { type: String, index: true },
   status: {
     default: FILL_STATUS.PENDING,
