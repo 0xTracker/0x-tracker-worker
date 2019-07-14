@@ -20,7 +20,7 @@ module.exports = {
   },
   jobs: {
     createFills: {
-      batchSize: 100,
+      batchSize: 200,
       processOldestFirst: true,
     },
     updateFillPrices: {
