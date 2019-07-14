@@ -3,8 +3,14 @@ const moment = require('moment');
 const TokenMetric = require('../model/token-metric');
 
 const computeTokenStatsForDates = async (dateFrom, dateTo) => {
-  const dayFrom = moment.utc(dateFrom).startOf('day');
-  const dayTo = moment.utc(dateTo).endOf('day');
+  const dayFrom = moment
+    .utc(dateFrom)
+    .startOf('day')
+    .toDate();
+  const dayTo = moment
+    .utc(dateTo)
+    .endOf('day')
+    .toDate();
 
   const baseQuery = {
     date: {
