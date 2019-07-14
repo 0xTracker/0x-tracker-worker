@@ -51,15 +51,15 @@ const persistTokenStatsForPeriod = async (period, tokenStats) => {
 
 const cacheTokenStats = async () => {
   await Promise.all([
-    async () => {
+    (async () => {
       logger.time('compute 24h token stats');
       const stats = await compute24HourTokenStats();
       logger.timeEnd('compute 24h token stats');
 
       await persistTokenStatsForPeriod('24h', stats);
-    },
-    async () => {
-      const dateTo = moment.utc().toDate();
+    })(),
+    (async () => {
+      const dateTo = moment.utc();
       const dateFrom = moment.utc(dateTo).subtract(7, 'days');
 
       logger.time('compute 7d token stats');
@@ -67,9 +67,9 @@ const cacheTokenStats = async () => {
       logger.timeEnd('compute 7d token stats');
 
       await persistTokenStatsForPeriod('7d', stats);
-    },
-    async () => {
-      const dateTo = moment.utc().toDate();
+    })(),
+    (async () => {
+      const dateTo = moment.utc();
       const dateFrom = moment.utc(dateTo).subtract(1, 'months');
 
       logger.time('compute 1m token stats');
@@ -77,7 +77,7 @@ const cacheTokenStats = async () => {
       logger.timeEnd('compute 1m token stats');
 
       await persistTokenStatsForPeriod('1m', stats);
-    },
+    })(),
   ]);
 };
 
