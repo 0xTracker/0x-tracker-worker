@@ -8,21 +8,23 @@ const getPrices = require('./get-prices-for-fill');
 const getRelayerPrices = require('./get-relayer-prices');
 const Relayer = require('../../model/relayer');
 const tokenCache = require('../../tokens/token-cache');
+const withTransaction = require('../../util/with-transaction');
 
-const logger = signale.scope('update fill prices');
+const logger = signale.scope('derive fill prices');
 
-const updateFillPrices = async ({ batchSize, processOldestFirst }) => {
+const deriveFillPrices = async ({ batchSize }) => {
   const fills = await Fill.find(
     {
-      'rates.saved': true,
+      // Determine whether prices can be derived
+      'conversions.USD.amount': { $ne: null },
       'tokenSaved.maker': true,
       'tokenSaved.taker': true,
+
+      // Determine whether prices have already been derived
       'prices.saved': { $in: [null, false] },
     },
     '_id conversions date makerAmount makerToken relayerId takerAmount takerToken',
-  )
-    .sort({ date: processOldestFirst ? 1 : -1 })
-    .limit(batchSize);
+  ).limit(batchSize);
 
   if (fills.length === 0) {
     logger.info('no fills were found without prices');
@@ -40,7 +42,7 @@ const updateFillPrices = async ({ batchSize, processOldestFirst }) => {
   )(fills);
 
   if (fillPrices.length === 0) {
-    logger.warn(`unable to generate prices for ${fillPrices.length} fills`);
+    logger.warn(`unable to derive prices for ${fillPrices.length} fills`);
     return;
   }
 
@@ -79,14 +81,15 @@ const updateFillPrices = async ({ batchSize, processOldestFirst }) => {
     },
   }));
 
-  // TODO: Investigate using the new MongoDB transactions feature to ensure consistency
-  await Fill.bulkWrite(fillOperations);
+  await withTransaction(async session => {
+    await Fill.bulkWrite(fillOperations, { session });
 
-  if (relayerOperations.length > 0) {
-    await Relayer.bulkWrite(relayerOperations);
-  }
+    if (relayerOperations.length > 0) {
+      await Relayer.bulkWrite(relayerOperations, { session });
+    }
+  });
 
-  logger.success(`updated prices for ${fillPrices.length} fills`);
+  logger.success(`derived prices of ${fillPrices.length} fills`);
 };
 
-module.exports = updateFillPrices;
+module.exports = deriveFillPrices;

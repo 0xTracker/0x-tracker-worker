@@ -10,9 +10,9 @@ const schema = Schema({
   conversions: {
     USD: {
       amount: Number,
-      makerFee: Number,
+      makerFee: { type: Number, index: true },
       makerPrice: Number,
-      takerFee: Number,
+      takerFee: { type: Number, index: true },
       takerPrice: Number,
     },
   },
@@ -37,7 +37,6 @@ const schema = Schema({
   protocolVersion: Number,
   rates: {
     data: Schema.Types.Mixed,
-    saved: { default: false, type: Boolean, index: true },
   },
   relayerId: { type: Number, index: true },
   senderAddress: { type: String, index: true },
@@ -55,13 +54,15 @@ const schema = Schema({
   takerFee: Number,
   takerToken: { type: String, index: true },
   tokenSaved: {
-    maker: { type: Boolean, index: true },
-    taker: { type: Boolean, index: true },
+    maker: Boolean,
+    taker: Boolean,
   },
   transactionHash: { type: String, index: true },
 });
 
 schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
+schema.index({ makerFee: 1, takerFee: 1 });
+schema.index({ 'conversions.USD.amount': 1, makerToken: 1, takerToken: 1 });
 
 const Model = mongoose.model('Fill', schema);
 

@@ -19,13 +19,20 @@ module.exports = {
     apiKey: process.env.ETHPLORER_API_KEY,
   },
   jobs: {
+    convertFees: {
+      apiDelayMs: 100,
+      batchSize: 100,
+    },
     createFills: {
       batchSize: 500,
       processOldestFirst: true,
     },
-    updateFillPrices: {
+    deriveFillPrices: {
       batchSize: 250,
-      processOldestFirst: true,
+    },
+    determineFillValues: {
+      apiDelayMs: 100,
+      batchSize: 100,
     },
     updateFillRates: {
       batchSize: 100,
