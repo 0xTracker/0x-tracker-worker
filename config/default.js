@@ -19,6 +19,10 @@ module.exports = {
     apiKey: process.env.ETHPLORER_API_KEY,
   },
   jobs: {
+    convertFees: {
+      apiDelayMs: 100,
+      batchSize: 100,
+    },
     createFills: {
       batchSize: 500,
       processOldestFirst: true,

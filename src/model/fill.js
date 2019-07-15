@@ -10,9 +10,9 @@ const schema = Schema({
   conversions: {
     USD: {
       amount: Number,
-      makerFee: Number,
+      makerFee: { type: Number, index: true },
       makerPrice: Number,
-      takerFee: Number,
+      takerFee: { type: Number, index: true },
       takerPrice: Number,
     },
   },
@@ -62,6 +62,7 @@ const schema = Schema({
 });
 
 schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
+schema.index({ makerFee: 1, takerFee: 1 });
 
 const Model = mongoose.model('Fill', schema);
 
