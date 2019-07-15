@@ -14,11 +14,12 @@ const initialise = async tokens => {
     }).lean();
 
     keyedTokens = _.keyBy(loadedTokens, 'address');
+    logger.success(
+      `initialised token cache with ${loadedTokens.length} tokens`,
+    );
   } else {
     keyedTokens = _.keyBy(tokens, 'address');
   }
-
-  logger.success(`initialised token cache with ${tokens.length} tokens`);
 };
 
 const getTokens = () => _.clone(keyedTokens);
