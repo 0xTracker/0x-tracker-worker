@@ -27,13 +27,12 @@ module.exports = {
       batchSize: 500,
       processOldestFirst: true,
     },
+    deriveFillPrices: {
+      batchSize: 250,
+    },
     determineFillValues: {
       apiDelayMs: 100,
       batchSize: 100,
-    },
-    updateFillPrices: {
-      batchSize: 250,
-      processOldestFirst: true,
     },
     updateFillRates: {
       batchSize: 100,
