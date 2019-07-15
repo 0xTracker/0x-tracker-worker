@@ -46,9 +46,17 @@ const createFill = async event => {
     takerAddress: taker,
   });
 
+  const conversions =
+    paidMakerFee + paidTakerFee === 0
+      ? {
+          USD: { makerFee: 0, takerFee: 0 },
+        }
+      : undefined;
+
   const fill = {
     blockHash,
     blockNumber,
+    conversions,
     date,
     feeRecipient,
     logIndex,
