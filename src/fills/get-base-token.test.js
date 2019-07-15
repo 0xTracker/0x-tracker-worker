@@ -1,4 +1,5 @@
 const getBaseToken = require('./get-base-token');
+const tokenCache = require('../tokens/token-cache');
 
 const tokens = {
   '0x123': { decimals: 18, symbol: 'ZRX' },
@@ -14,6 +15,10 @@ const tokens = {
   },
   '0x7866': { decimals: 18, symbol: 'OMG' },
 };
+
+beforeAll(() => {
+  tokenCache.initialise(tokens);
+});
 
 it('should return WETH in WETH/OMG pair', () => {
   const fill = {

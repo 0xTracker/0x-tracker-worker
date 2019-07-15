@@ -7,10 +7,16 @@ let keyedTokens = {};
 
 const logger = signale.scope('token cache');
 
-const initialise = async () => {
-  const tokens = await Token.find({ resolved: { $in: [null, true] } }).lean();
+const initialise = async tokens => {
+  if (tokens === undefined) {
+    const loadedTokens = await Token.find({
+      resolved: { $in: [null, true] },
+    }).lean();
 
-  keyedTokens = _.keyBy(tokens, 'address');
+    keyedTokens = _.keyBy(loadedTokens, 'address');
+  } else {
+    keyedTokens = _.keyBy(tokens, 'address');
+  }
 
   logger.success(`initialised token cache with ${tokens.length} tokens`);
 };
