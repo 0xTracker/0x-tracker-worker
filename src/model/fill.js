@@ -63,6 +63,7 @@ const schema = Schema({
 
 schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
 schema.index({ makerFee: 1, takerFee: 1 });
+schema.index({ 'conversions.USD.amount': 1, makerToken: 1, takerToken: 1 });
 
 const Model = mongoose.model('Fill', schema);
 

@@ -27,6 +27,10 @@ module.exports = {
       batchSize: 500,
       processOldestFirst: true,
     },
+    determineFillValues: {
+      apiDelayMs: 100,
+      batchSize: 100,
+    },
     updateFillPrices: {
       batchSize: 250,
       processOldestFirst: true,

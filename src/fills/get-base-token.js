@@ -1,33 +1,20 @@
 const _ = require('lodash');
 
 const { BASE_TOKENS } = require('../constants');
+const { getToken } = require('../tokens/token-cache');
 
-const getBaseToken = (fill, tokens) => {
-  const { makerToken, takerToken } = fill;
+const getBaseToken = fill => {
+  const address = _(BASE_TOKENS)
+    .keys()
+    .find(baseToken => {
+      return fill.makerToken === baseToken || fill.takerToken === baseToken;
+    });
 
-  return (
-    _(BASE_TOKENS)
-      .keys()
-      .map(baseToken => {
-        if (
-          _.has(tokens, makerToken) &&
-          tokens[makerToken].address === baseToken
-        ) {
-          return tokens[makerToken];
-        }
+  if (address === undefined) {
+    return null;
+  }
 
-        if (
-          _.has(tokens, takerToken) &&
-          tokens[takerToken].address === baseToken
-        ) {
-          return tokens[takerToken];
-        }
-
-        return null;
-      })
-      .compact()
-      .head() || null
-  );
+  return getToken(address);
 };
 
 module.exports = getBaseToken;
