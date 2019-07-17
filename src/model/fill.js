@@ -5,6 +5,15 @@ const { FILL_STATUS } = require('../constants');
 const { Schema } = mongoose;
 
 const schema = Schema({
+  assets: [
+    {
+      actor: Number,
+      amount: Number,
+      tokenAddress: String,
+      tokenId: Number,
+      tokenResolved: Boolean,
+    },
+  ],
   blockHash: String,
   blockNumber: Number,
   conversions: {
@@ -17,6 +26,7 @@ const schema = Schema({
     },
   },
   date: { type: Date, index: -1 },
+  eventId: { type: Schema.Types.ObjectId, index: true },
   feeRecipient: { type: String, index: true },
   logIndex: Number,
   maker: { type: String, index: true },

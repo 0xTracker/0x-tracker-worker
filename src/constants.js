@@ -19,6 +19,10 @@ module.exports = {
     'VEIL ETH': 'ETH',
     WETH: 'ETH',
   },
+  FILL_ACTOR: {
+    MAKER: 0,
+    TAKER: 1,
+  },
   FILL_STATUS: {
     FAILED: 2,
     PENDING: 0,

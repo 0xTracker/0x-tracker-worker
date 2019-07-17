@@ -18,6 +18,7 @@ const createFill = async event => {
   } = event.data;
 
   const {
+    assets,
     feeRecipient,
     filledMakerTokenAmount,
     filledTakerTokenAmount,
@@ -54,10 +55,12 @@ const createFill = async event => {
       : undefined;
 
   const fill = {
+    assets,
     blockHash,
     blockNumber,
     conversions,
     date,
+    eventId: event._id,
     feeRecipient,
     logIndex,
     maker,
