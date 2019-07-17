@@ -9,7 +9,7 @@ const schema = Schema({
     {
       actor: Number,
       amount: Number,
-      tokenAddress: String,
+      tokenAddress: { type: String, index: true },
       tokenId: Number,
       tokenResolved: Boolean,
     },
