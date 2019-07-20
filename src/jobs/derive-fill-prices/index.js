@@ -3,6 +3,7 @@ const { compact, flow, map } = require('lodash/fp');
 const flattenObject = require('flat');
 const signale = require('signale');
 
+const { FILL_ACTOR } = require('../../constants');
 const Fill = require('../../model/fill');
 const getPrices = require('./get-prices-for-fill');
 const getRelayerPrices = require('./get-relayer-prices');
@@ -12,19 +13,17 @@ const withTransaction = require('../../util/with-transaction');
 
 const logger = signale.scope('derive fill prices');
 
+// This job is currently very poorly written. Once assets have been migrated
+// to the assets field and makerPrice/takerPrice have been deprecated, it can be cleaned up.
 const deriveFillPrices = async ({ batchSize }) => {
-  const fills = await Fill.find(
-    {
-      // Determine whether prices can be derived
-      'conversions.USD.amount': { $ne: null },
-      'tokenSaved.maker': true,
-      'tokenSaved.taker': true,
-
-      // Determine whether prices have already been derived
-      'prices.saved': { $in: [null, false] },
-    },
-    '_id conversions date makerAmount makerToken relayerId takerAmount takerToken',
-  ).limit(batchSize);
+  logger.time('fetch batch of fills');
+  const fills = await Fill.find({
+    hasValue: true,
+    'prices.saved': false,
+    'tokenSaved.maker': true,
+    'tokenSaved.taker': true,
+  }).limit(batchSize);
+  logger.timeEnd('fetch batch of fills');
 
   if (fills.length === 0) {
     logger.info('no fills were found without prices');
@@ -69,11 +68,9 @@ const deriveFillPrices = async ({ batchSize }) => {
       filter: { _id: fill._id },
       update: {
         $set: {
-          'conversions.USD.makerPrice': prices.maker.localised.USD,
-          'conversions.USD.takerPrice': prices.taker.localised.USD,
+          'conversions.USD.makerPrice': prices.maker.USD,
+          'conversions.USD.takerPrice': prices.taker.USD,
           prices: {
-            maker: prices.maker.token.toNumber(),
-            taker: prices.taker.token.toNumber(),
             saved: true,
           },
         },
@@ -83,6 +80,54 @@ const deriveFillPrices = async ({ batchSize }) => {
 
   await withTransaction(async session => {
     await Fill.bulkWrite(fillOperations, { session });
+
+    // Set maker asset prices
+    await Promise.all(
+      fillPrices
+        .filter(({ fill }) => fill.assets !== undefined)
+        .map(async ({ fill, prices }) => {
+          await Fill.updateOne(
+            { _id: fill.id },
+            {
+              $set: {
+                'assets.$[element].price': prices.maker,
+              },
+            },
+            {
+              arrayFilters: [
+                {
+                  'element.actor': FILL_ACTOR.MAKER,
+                },
+              ],
+              session,
+            },
+          );
+        }),
+    );
+
+    // Set taker asset prices
+    await Promise.all(
+      fillPrices
+        .filter(({ fill }) => fill.assets !== undefined)
+        .map(async ({ fill, prices }) => {
+          await Fill.updateOne(
+            { _id: fill.id },
+            {
+              $set: {
+                'assets.$[element].price': prices.taker,
+              },
+            },
+            {
+              arrayFilters: [
+                {
+                  'element.actor': FILL_ACTOR.TAKER,
+                },
+              ],
+              session,
+            },
+          );
+        }),
+    );
 
     if (relayerOperations.length > 0) {
       await Relayer.bulkWrite(relayerOperations, { session });

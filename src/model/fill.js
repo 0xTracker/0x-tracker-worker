@@ -82,6 +82,14 @@ schema.index({ hasValue: -1, makerToken: 1, takerToken: 1 });
 // Used by format-asset-amounts job
 schema.index({ 'assets.formattedAmount': 1, 'assets.tokenResolved': -1 });
 
+// Used by derive-fill-prices job
+schema.index({
+  hasValue: -1,
+  'prices.saved': 1,
+  'tokenSaved.maker': -1,
+  'tokenSaved.taker': -1,
+});
+
 const Model = mongoose.model('Fill', schema);
 
 module.exports = Model;
