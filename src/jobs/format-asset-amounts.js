@@ -13,6 +13,10 @@ const formatAssetAmounts = async ({ batchSize }) => {
   }).limit(batchSize);
   logger.timeEnd('fetch batch of fills');
 
+  if (fills.length === 0) {
+    logger.info('no fills were found without formatted amounts');
+  }
+
   await Promise.all(
     fills.map(async fill => {
       fill.assets.forEach(asset => {
