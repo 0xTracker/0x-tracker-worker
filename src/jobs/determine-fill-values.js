@@ -22,12 +22,10 @@ const getTokenValue = (fill, baseToken) => {
 
 const determineFillValues = async ({ apiDelayMs, batchSize }) => {
   const baseTokens = _.keys(BASE_TOKENS);
+
+  logger.time('fetch batch of fills');
   const fills = await Fill.find({
-    'conversions.USD.amount': null,
-
-    // TODO: Interogate assets field instead once set for all fills:
-    // 'assets.tokenAddress': { $in: baseTokens },
-
+    hasValue: false,
     $or: [
       { makerToken: { $in: baseTokens } },
       { takerToken: { $in: baseTokens } },
@@ -35,6 +33,7 @@ const determineFillValues = async ({ apiDelayMs, batchSize }) => {
   })
     .limit(batchSize)
     .lean();
+  logger.timeEnd('fetch batch of fills');
 
   logger.info(`found ${fills.length} measurable fills without a value`);
 
@@ -83,6 +82,7 @@ const determineFillValues = async ({ apiDelayMs, batchSize }) => {
           $set: {
             'conversions.USD.amount': usdValue,
             [`rates.data.${normalisedSymbol}.USD`]: conversionRate,
+            hasValue: true,
           },
         },
         {

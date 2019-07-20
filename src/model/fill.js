@@ -31,6 +31,7 @@ const schema = Schema({
   date: { type: Date, index: -1 },
   eventId: { type: Schema.Types.ObjectId, index: true },
   feeRecipient: { type: String, index: true },
+  hasValue: { default: false, type: Boolean },
   logIndex: Number,
   maker: { type: String, index: true },
   makerAsset: {
@@ -75,7 +76,9 @@ const schema = Schema({
 
 schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
 schema.index({ makerFee: 1, takerFee: 1 });
-schema.index({ 'conversions.USD.amount': 1, makerToken: 1, takerToken: 1 });
+
+// Used by determine-fill-values job
+schema.index({ hasValue: -1, makerToken: 1, takerToken: 1 });
 
 const Model = mongoose.model('Fill', schema);
 
