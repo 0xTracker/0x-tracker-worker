@@ -15,7 +15,7 @@ const schema = Schema({
       },
       tokenAddress: { type: String, index: true },
       tokenId: Number,
-      tokenResolved: Boolean,
+      tokenResolved: { default: false, type: Boolean },
     },
   ],
   blockHash: String,
@@ -30,7 +30,7 @@ const schema = Schema({
     },
   },
   date: { type: Date, index: -1 },
-  eventId: { type: Schema.Types.ObjectId, index: true },
+  eventId: Schema.Types.ObjectId,
   feeRecipient: { type: String, index: true },
   hasValue: { default: false, type: Boolean },
   logIndex: Number,
@@ -45,9 +45,7 @@ const schema = Schema({
   makerToken: { type: String, index: true },
   orderHash: { type: String, index: true },
   prices: {
-    maker: Number,
-    taker: Number,
-    saved: { default: false, type: Boolean, index: true },
+    saved: { default: false, type: Boolean },
   },
   protocolVersion: Number,
   rates: {
