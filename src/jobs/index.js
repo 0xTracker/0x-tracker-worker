@@ -10,6 +10,7 @@ const deriveFillPrices = require('./derive-fill-prices');
 const determineFillValues = require('./determine-fill-values');
 const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
+const migrateAssets = require('./migrate-assets');
 const resolveTokens = require('./resolve-tokens');
 const updateFillStatuses = require('./update-fill-statuses');
 const updateRelayerStats = require('./update-relayer-stats');
@@ -26,6 +27,7 @@ const jobFns = {
   determineFillValues,
   getMissingTokenImages,
   getNewArticles,
+  migrateAssets,
   resolveTokens,
   updateFillStatuses,
   updateRelayerStats,

@@ -1,19 +1,20 @@
-const { BigNumber } = require('@0x/utils');
-
 const getPricesForFill = require('./get-prices-for-fill');
+const tokenCache = require('../../tokens/token-cache');
 
-const tokens = {
-  '0x4689a4e169eb39cc9078c0940e21ff1aa8a39b9c': {
+const tokens = [
+  {
+    address: '0x4689a4e169eb39cc9078c0940e21ff1aa8a39b9c',
     decimals: 18,
     name: 'Proton Token',
     symbol: 'PTT',
   },
-  '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2': {
+  {
+    address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
     name: 'Wrapped Ether',
     symbol: 'WETH',
     decimals: 18,
   },
-};
+];
 
 const simpleFill = {
   conversions: {
@@ -26,6 +27,10 @@ const simpleFill = {
   takerAmount: 40107028070000000000,
   takerToken: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
 };
+
+beforeAll(() => {
+  tokenCache.initialise(tokens);
+});
 
 it('should return null when localised amount not set', () => {
   const fill = {
@@ -62,20 +67,10 @@ it('should return prices', () => {
 
   expect(prices).toEqual({
     maker: {
-      token: new BigNumber(
-        '0.000004407365721978021978021978021978021978021978021978021978021978021978021978',
-      ),
-      localised: {
-        USD: 0.0021217940058746595,
-      },
+      USD: 0.0021217940058746595,
     },
     taker: {
-      token: new BigNumber(
-        '226892.902264348703212204872800489203636972446460304382258857306551858904663040020656',
-      ),
-      localised: {
-        USD: 481.4200000000001,
-      },
+      USD: 481.4200000000001,
     },
   });
 });

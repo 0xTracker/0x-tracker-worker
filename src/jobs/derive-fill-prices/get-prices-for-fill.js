@@ -1,16 +1,17 @@
 const _ = require('lodash');
 
+const { getToken } = require('../../tokens/token-cache');
 const formatTokenAmount = require('../../tokens/format-token-amount');
 
-const getPricesForFill = (fill, tokens) => {
-  const localisedAmount = _.get(fill, 'conversions.USD.amount', null);
+const getPricesForFill = fill => {
+  const value = _.get(fill, 'conversions.USD.amount', null);
 
-  if (localisedAmount === null) {
+  if (value === null) {
     return null;
   }
 
-  const makerToken = tokens[fill.makerToken];
-  const takerToken = tokens[fill.takerToken];
+  const makerToken = getToken(fill.makerToken);
+  const takerToken = getToken(fill.takerToken);
 
   if (_.some([makerToken, takerToken], _.isUndefined)) {
     return null;
@@ -21,16 +22,10 @@ const getPricesForFill = (fill, tokens) => {
 
   return {
     maker: {
-      token: takerAmount.dividedBy(makerAmount),
-      localised: {
-        USD: localisedAmount / makerAmount,
-      },
+      USD: value / makerAmount,
     },
     taker: {
-      token: makerAmount.dividedBy(takerAmount),
-      localised: {
-        USD: localisedAmount / takerAmount,
-      },
+      USD: value / takerAmount,
     },
   };
 };

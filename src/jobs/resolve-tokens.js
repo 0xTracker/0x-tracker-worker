@@ -54,6 +54,24 @@ const resolveTokens = async () => {
         { $set: { 'tokenSaved.taker': true } },
         { session },
       );
+      await Fill.updateMany(
+        {
+          'assets.tokenAddress': address,
+        },
+        {
+          $set: {
+            'assets.$[element].tokenResolved': true,
+          },
+        },
+        {
+          arrayFilters: [
+            {
+              'element.tokenAddress': address,
+            },
+          ],
+          session,
+        },
+      );
     });
 
     logger.success(`resolved token details for ${resolvedToken.symbol}`);

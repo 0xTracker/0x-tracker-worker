@@ -11,14 +11,10 @@ const fillPrices = [
     },
     prices: {
       maker: {
-        localised: {
-          USD: 5,
-        },
+        USD: 5,
       },
       taker: {
-        localised: {
-          USD: 8,
-        },
+        USD: 8,
       },
     },
   },
@@ -31,14 +27,10 @@ const fillPrices = [
     },
     prices: {
       maker: {
-        localised: {
-          USD: 5.2,
-        },
+        USD: 5.2,
       },
       taker: {
-        localised: {
-          USD: 8.7,
-        },
+        USD: 8.7,
       },
     },
   },
@@ -52,14 +44,10 @@ const fillPrices = [
     },
     prices: {
       maker: {
-        localised: {
-          USD: 5.123,
-        },
+        USD: 5.123,
       },
       taker: {
-        localised: {
-          USD: 8.76,
-        },
+        USD: 8.76,
       },
     },
   },
@@ -73,14 +61,10 @@ const fillPrices = [
     },
     prices: {
       maker: {
-        localised: {
-          USD: 5.9,
-        },
+        USD: 5.9,
       },
       taker: {
-        localised: {
-          USD: 89.5,
-        },
+        USD: 89.5,
       },
     },
   },

@@ -32,4 +32,14 @@ const addToken = token => {
   logger.success(`added ${token.symbol} to token cache`);
 };
 
-module.exports = { addToken, getToken, getTokens, initialise };
+const checkTokenResolved = tokenAddress => {
+  return _.has(keyedTokens, tokenAddress);
+};
+
+module.exports = {
+  addToken,
+  checkTokenResolved,
+  getToken,
+  getTokens,
+  initialise,
+};

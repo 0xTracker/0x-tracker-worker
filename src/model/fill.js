@@ -5,6 +5,19 @@ const { FILL_STATUS } = require('../constants');
 const { Schema } = mongoose;
 
 const schema = Schema({
+  assets: [
+    {
+      actor: Number,
+      amount: Number,
+      price: {
+        USD: Number,
+      },
+      tokenAddress: { type: String, index: true },
+      tokenId: Number,
+      tokenResolved: { default: false, type: Boolean },
+    },
+  ],
+  assetsMigrated: { type: Boolean, index: true },
   blockHash: String,
   blockNumber: Number,
   conversions: {
@@ -17,7 +30,9 @@ const schema = Schema({
     },
   },
   date: { type: Date, index: -1 },
+  eventId: Schema.Types.ObjectId,
   feeRecipient: { type: String, index: true },
+  hasValue: { default: false, type: Boolean },
   logIndex: Number,
   maker: { type: String, index: true },
   makerAsset: {
@@ -30,9 +45,7 @@ const schema = Schema({
   makerToken: { type: String, index: true },
   orderHash: { type: String, index: true },
   prices: {
-    maker: Number,
-    taker: Number,
-    saved: { default: false, type: Boolean, index: true },
+    saved: { default: false, type: Boolean },
   },
   protocolVersion: Number,
   rates: {
@@ -62,7 +75,17 @@ const schema = Schema({
 
 schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
 schema.index({ makerFee: 1, takerFee: 1 });
-schema.index({ 'conversions.USD.amount': 1, makerToken: 1, takerToken: 1 });
+
+// Used by determine-fill-values job
+schema.index({ hasValue: -1, makerToken: 1, takerToken: 1 });
+
+// Used by derive-fill-prices job
+schema.index({
+  hasValue: -1,
+  'prices.saved': 1,
+  'tokenSaved.maker': -1,
+  'tokenSaved.taker': -1,
+});
 
 const Model = mongoose.model('Fill', schema);
 

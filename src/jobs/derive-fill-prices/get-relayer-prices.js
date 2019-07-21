@@ -13,11 +13,11 @@ const buildRelayerPrices = reduce(
             [fill.relayerId || null]: {
               [fill.makerToken]: {
                 lastTrade: { id: fill.id, date: fill.date },
-                lastPrice: prices.maker.localised.USD,
+                lastPrice: prices.maker.USD,
               },
               [fill.takerToken]: {
                 lastTrade: { id: fill.id, date: fill.date },
-                lastPrice: prices.taker.localised.USD,
+                lastPrice: prices.taker.USD,
               },
             },
           },
