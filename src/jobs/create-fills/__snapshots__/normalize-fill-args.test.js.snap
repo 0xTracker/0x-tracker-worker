@@ -2,6 +2,20 @@
 
 exports[`normalizeFillArgs should normalize args for V1 event 1`] = `
 Object {
+  "assets": Array [
+    Object {
+      "actor": 0,
+      "amount": 1292498732163907300,
+      "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "tokenResolved": false,
+    },
+    Object {
+      "actor": 1,
+      "amount": 4.2620995342647e+23,
+      "tokenAddress": "0x58a4884182d9e835597f405e5f258290e46ae7c2",
+      "tokenResolved": false,
+    },
+  ],
   "feeRecipient": "0xe269e891a2ec8585a378882ffa531141205e92e9",
   "filledMakerTokenAmount": 1292498732163907300,
   "filledTakerTokenAmount": 4.2620995342647e+23,
@@ -17,6 +31,22 @@ Object {
 
 exports[`normalizeFillArgs should normalize args for V2 event with recognized assets 1`] = `
 Object {
+  "assets": Array [
+    Object {
+      "actor": 0,
+      "amount": 1,
+      "tokenAddress": "0x06012c8cf97bead5deae237070f9587f8e7a266d",
+      "tokenId": 862718,
+      "tokenResolved": false,
+    },
+    Object {
+      "actor": 1,
+      "amount": 100000000000000,
+      "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+      "tokenId": undefined,
+      "tokenResolved": false,
+    },
+  ],
   "feeRecipient": "0x0000000000000000000000000000000000000000",
   "filledMakerTokenAmount": 1,
   "filledTakerTokenAmount": 100000000000000,
