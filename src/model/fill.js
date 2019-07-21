@@ -9,7 +9,6 @@ const schema = Schema({
     {
       actor: Number,
       amount: Number,
-      formattedAmount: { default: null, type: Number },
       price: {
         USD: Number,
       },
@@ -79,9 +78,6 @@ schema.index({ makerFee: 1, takerFee: 1 });
 
 // Used by determine-fill-values job
 schema.index({ hasValue: -1, makerToken: 1, takerToken: 1 });
-
-// Used by format-asset-amounts job
-schema.index({ 'assets.formattedAmount': 1, 'assets.tokenResolved': -1 });
 
 // Used by derive-fill-prices job
 schema.index({

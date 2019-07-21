@@ -8,7 +8,6 @@ const convertFees = require('./convert-fees');
 const createFills = require('./create-fills');
 const deriveFillPrices = require('./derive-fill-prices');
 const determineFillValues = require('./determine-fill-values');
-const formatAssetAmounts = require('./format-asset-amounts');
 const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
 const migrateAssets = require('./migrate-assets');
@@ -26,7 +25,6 @@ const jobFns = {
   createFills,
   deriveFillPrices,
   determineFillValues,
-  formatAssetAmounts,
   getMissingTokenImages,
   getNewArticles,
   migrateAssets,

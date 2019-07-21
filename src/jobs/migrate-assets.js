@@ -4,7 +4,6 @@ const signale = require('signale');
 const { getToken } = require('../tokens/token-cache');
 const { FILL_ACTOR } = require('../constants');
 const Fill = require('../model/fill');
-const formatTokenAmount = require('../tokens/format-token-amount');
 
 const logger = signale.scope('migrate assets');
 
@@ -18,10 +17,6 @@ const buildAssets = fill => {
     {
       actor: FILL_ACTOR.MAKER,
       amount: fill.makerAmount,
-      formattedAmount:
-        makerToken !== undefined
-          ? formatTokenAmount(fill.makerAmount, makerToken)
-          : undefined,
       price:
         makerPrice !== undefined
           ? {
@@ -35,10 +30,6 @@ const buildAssets = fill => {
     {
       actor: FILL_ACTOR.TAKER,
       amount: fill.takerAmount,
-      formattedAmount:
-        takerToken !== undefined
-          ? formatTokenAmount(fill.takerAmount, takerToken)
-          : undefined,
       price:
         takerPrice !== undefined
           ? {
