@@ -18,6 +18,7 @@ const schema = Schema({
       tokenResolved: { default: false, type: Boolean },
     },
   ],
+  assetsMigrated: { type: Boolean, index: true },
   blockHash: String,
   blockNumber: Number,
   conversions: {

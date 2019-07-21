@@ -56,6 +56,7 @@ const createFill = async event => {
 
   const fill = {
     assets,
+    assetsMigrated: true,
     blockHash,
     blockNumber,
     conversions,
