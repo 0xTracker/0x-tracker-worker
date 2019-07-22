@@ -73,11 +73,14 @@ const schema = Schema({
   transactionHash: { type: String, index: true },
 });
 
+// Used for data integrity
 schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
-schema.index({ makerFee: 1, takerFee: 1 });
+
+// Used for fetching fills associated with a particular relayer
+schema.index({ relayerId: 1, date: -1 });
 
 // Used by determine-fill-values job
-schema.index({ hasValue: -1, makerToken: 1, takerToken: 1 });
+schema.index({ hasValue: 1, makerToken: 1, takerToken: 1 });
 
 // Used by derive-fill-prices job
 schema.index({
