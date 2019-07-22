@@ -57,7 +57,7 @@ module.exports = {
     cacheRelayerMetrics: ms('10 seconds'),
     cacheTokenMetrics: ms('10 seconds'),
     cacheTokenStats: ms('1 minute'),
-    default: ms('5 seconds'),
+    default: ms('30 seconds'),
     getMissingTokenImages: ms('1 minute'),
     getNewArticles: ms('1 minute'),
     resolveTokens: ms('1 minute'),
