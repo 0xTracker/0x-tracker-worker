@@ -26,10 +26,7 @@ const determineFillValues = async ({ apiDelayMs, batchSize }) => {
   logger.time('fetch batch of fills');
   const fills = await Fill.find({
     hasValue: false,
-    $or: [
-      { makerToken: { $in: baseTokens } },
-      { takerToken: { $in: baseTokens } },
-    ],
+    'assets.tokenAddress': { $in: baseTokens },
   })
     .limit(batchSize)
     .lean();
@@ -76,6 +73,7 @@ const determineFillValues = async ({ apiDelayMs, batchSize }) => {
     const usdValue = tokenValue * conversionRate;
 
     await withTransaction(async session => {
+      logger.time(`persist value for fill ${fill._id}`);
       await Fill.updateOne(
         { _id: fill._id },
         {
@@ -89,8 +87,10 @@ const determineFillValues = async ({ apiDelayMs, batchSize }) => {
           session,
         },
       );
+      logger.timeEnd(`persist value for fill ${fill._id}`);
 
       if (fill.assets !== null) {
+        logger.time(`persist base token price for fill ${fill._id}`);
         await Fill.updateOne(
           { _id: fill._id },
           {
@@ -107,6 +107,7 @@ const determineFillValues = async ({ apiDelayMs, batchSize }) => {
             session,
           },
         );
+        logger.timeEnd(`persist base token price for fill ${fill._id}`);
       }
     });
 
