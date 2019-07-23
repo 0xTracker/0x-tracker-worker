@@ -10,7 +10,7 @@ const createFills = require('./create-fills');
 const determineFillValues = require('./determine-fill-values');
 const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
-// const resolveTokens = require('./resolve-tokens');
+const resolveTokens = require('./resolve-tokens');
 const updateFillStatuses = require('./update-fill-statuses');
 const updateRelayerStats = require('./update-relayer-stats');
 const updateTokenPrices = require('./update-token-prices');
@@ -26,7 +26,7 @@ const jobFns = {
   determineFillValues,
   getMissingTokenImages,
   getNewArticles,
-  // resolveTokens,
+  resolveTokens,
   updateFillStatuses,
   updateRelayerStats,
   updateTokenPrices,
