@@ -34,12 +34,6 @@ module.exports = {
       apiDelayMs: 100,
       batchSize: 100,
     },
-    formatAssetAmounts: {
-      batchSize: 100,
-    },
-    migrateAssets: {
-      batchSize: 250,
-    },
     updateFillRates: {
       batchSize: 100,
       processOldestFirst: true,
