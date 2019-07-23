@@ -4,10 +4,10 @@ const Token = require('../model/token');
 
 // Ensures the specified token exists by creating a new document
 // if one does not already exist.
-const ensureTokenExists = async address => {
+const ensureTokenExists = async (address, type) => {
   const result = await Token.updateOne(
     { address },
-    { $setOnInsert: { address, resolved: false } },
+    { $setOnInsert: { address, resolved: false, type } },
     { upsert: true },
   );
 

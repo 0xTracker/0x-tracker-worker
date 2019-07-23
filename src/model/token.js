@@ -12,7 +12,7 @@ const statsShape = {
 };
 
 const schema = Schema({
-  address: { type: String, index: true, unique: true },
+  address: String,
   decimals: Number,
   imageUrl: { type: String, trim: true },
   name: String,
@@ -23,14 +23,19 @@ const schema = Schema({
     },
     lastPrice: Number,
   },
-  resolved: { type: Boolean, index: true },
+  resolved: Boolean,
   stats: {
     '1m': statsShape,
     '7d': statsShape,
     '24h': statsShape,
   },
   symbol: String,
+  type: Number,
 });
+
+schema.index({ address: 1 }, { unique: true });
+schema.index({ resolved: 1 });
+schema.index({ type: 1 });
 
 const Model = mongoose.model('Token', schema);
 

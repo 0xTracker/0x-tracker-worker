@@ -26,13 +26,14 @@ const createFills = async ({ batchSize }) => {
     try {
       const fill = await createFill(event);
 
-      if (await ensureTokenExists(fill.makerToken)) {
-        logger.success(`created token: ${fill.makerToken}`);
-      }
-
-      if (await ensureTokenExists(fill.takerToken)) {
-        logger.success(`created token: ${fill.takerToken}`);
-      }
+      // Ensure any new tokens are added to the tokens collection
+      await Promise.all(
+        fill.assets.map(async asset => {
+          if (await ensureTokenExists(asset.tokenAddress, asset.tokenType)) {
+            logger.success(`created token: ${asset.tokenAddress}`);
+          }
+        }),
+      );
 
       logger.time(`persist fill for event ${event._id}`);
       await persistFill(event, fill);

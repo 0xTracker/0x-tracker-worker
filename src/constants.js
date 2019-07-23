@@ -31,5 +31,9 @@ module.exports = {
     PENDING: 0,
     SUCCESSFUL: 1,
   },
+  TOKEN_TYPE: {
+    ERC20: 0,
+    ERC721: 1,
+  },
   ZRX_TOKEN_ADDRESS: '0xe41d2489571d322189246dafa5ebde1f4699f498',
 };
