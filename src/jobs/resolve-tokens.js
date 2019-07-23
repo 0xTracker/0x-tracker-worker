@@ -28,6 +28,7 @@ const resolveTokens = async () => {
 
     if (resolvedToken === null) {
       logger.warn(`no token info found for ${address}`);
+      await bluebird.delay(3000);
       return;
     }
 
