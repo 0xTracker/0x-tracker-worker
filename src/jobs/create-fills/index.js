@@ -35,7 +35,9 @@ const createFills = async ({ batchSize, processOldestFirst }) => {
         logger.success(`created token: ${fill.takerToken}`);
       }
 
+      logger.time(`persist fill for event ${event._id}`);
       await persistFill(event, fill);
+      logger.timeEnd(`persist fill for event ${event._id}`);
 
       logger.timeEnd(`create fill for event ${event.id}`);
     } catch (error) {
