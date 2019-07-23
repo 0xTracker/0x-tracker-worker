@@ -8,16 +8,15 @@ const {
 } = require('../../errors');
 const createFill = require('./create-fill');
 const ensureTokenExists = require('../../tokens/ensure-token-exists');
-const getUnprocessedEvents = require('./get-unprocessed-events');
+const Event = require('../../model/event');
 const persistFill = require('./persist-fill');
 
 const logger = signale.scope('create fills');
 
-const createFills = async ({ batchSize, processOldestFirst }) => {
-  const events = await getUnprocessedEvents(
-    batchSize,
-    processOldestFirst ? 1 : -1,
-  );
+const createFills = async ({ batchSize }) => {
+  const events = await Event.find({
+    fillCreated: { $in: [false, null] },
+  }).limit(batchSize);
 
   logger.info(`found ${events.length} events without associated fills`);
 
