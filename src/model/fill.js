@@ -79,7 +79,7 @@ schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
 schema.index({ relayerId: 1, date: -1 });
 
 // Used by determine-fill-values job
-schema.index({ hasValue: 1, makerToken: 1, takerToken: 1 });
+schema.index({ hasValue: 1, 'assets.tokenAddress': 1 });
 
 // Used by derive-fill-prices job
 schema.index({
