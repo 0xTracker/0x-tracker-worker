@@ -34,13 +34,8 @@ module.exports = {
       apiDelayMs: 100,
       batchSize: 100,
     },
-    updateFillRates: {
-      batchSize: 100,
-      processOldestFirst: true,
-    },
     updateFillStatuses: {
       batchSize: 100,
-      processOldestFirst: true,
     },
   },
   maxRetries: {
@@ -51,7 +46,7 @@ module.exports = {
     cacheRelayerMetrics: ms('10 seconds'),
     cacheTokenMetrics: ms('10 seconds'),
     cacheTokenStats: ms('1 minute'),
-    default: ms('30 seconds'),
+    default: ms('5 seconds'),
     getMissingTokenImages: ms('1 minute'),
     getNewArticles: ms('1 minute'),
     resolveTokens: ms('1 minute'),

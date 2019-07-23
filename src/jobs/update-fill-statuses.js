@@ -8,11 +8,10 @@ const getTransactionReceipt = require('../util/ethereum/get-transaction-receipt'
 
 const logger = signale.scope('update fill statuses');
 
-const updateFillStatuses = async ({ batchSize, processOldestFirst }) => {
+const updateFillStatuses = async ({ batchSize }) => {
   logger.time('fetch pending fills');
 
   const fills = await Fill.find({ status: FILL_STATUS.PENDING })
-    .sort({ date: processOldestFirst ? 1 : -1 })
     .limit(batchSize)
     .lean();
 
