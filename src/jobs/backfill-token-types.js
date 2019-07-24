@@ -39,7 +39,7 @@ const backfillTokenTypes = async () => {
         fill.protocolVersion === null
       ) {
         tokenType = TOKEN_TYPE.ERC20;
-      } else if (fill.makerAsset.address === token.address) {
+      } else if (fill.makerAsset.tokenAddress === token.address) {
         tokenType = getTokenType(fill.makerAsset.assetProxyId);
       } else {
         tokenType = getTokenType(fill.takerAsset.assetProxyId);
