@@ -30,7 +30,7 @@ const schema = mongoose.Schema({
   url: String,
 });
 
-schema.index({ slug: 1, unique: true });
+schema.index({ slug: 1 }, { unique: true });
 
 const Model = mongoose.model('Relayer', schema);
 
