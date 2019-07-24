@@ -48,7 +48,7 @@
     "config": "3.1.0",
     "dotenv-safe": "6.1.0",
     "flat": "4.1.0",
-    "lodash": "4.17.13",
+    "lodash": "4.17.15",
     "memory-cache": "0.2.0",
     "moment": "2.24.0",
     "moment-round": "1.0.1",
