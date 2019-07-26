@@ -8,8 +8,10 @@ const logger = signale.scope('mongodb');
 mongoose.Promise = global.Promise;
 
 module.exports = {
-  connect: connectionString => {
-    mongoose.connect(connectionString);
+  connect: (connectionString, options = {}) => {
+    mongoose.connect(connectionString, {
+      poolSize: options.poolSize,
+    });
 
     mongoose.connection.on('connected', () => {
       logger.success('database connection established');
