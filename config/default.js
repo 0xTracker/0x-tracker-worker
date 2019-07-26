@@ -11,6 +11,7 @@ module.exports = {
   },
   database: {
     connectionString: process.env.CONNECTION_STRING,
+    poolSize: process.env.POOL_SIZE || 30,
   },
   ercDex: {
     feeRecipientPollingInterval: ms('1 minute'),
