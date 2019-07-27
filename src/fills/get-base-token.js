@@ -6,9 +6,7 @@ const { getToken } = require('../tokens/token-cache');
 const getBaseToken = fill => {
   const address = _(BASE_TOKENS)
     .keys()
-    .find(baseToken => {
-      return fill.makerToken === baseToken || fill.takerToken === baseToken;
-    });
+    .find(tokenAddress => _.some(fill.assets, { tokenAddress }));
 
   if (address === undefined) {
     return null;
