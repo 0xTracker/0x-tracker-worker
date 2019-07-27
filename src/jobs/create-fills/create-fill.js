@@ -23,14 +23,12 @@ const createFill = async event => {
     filledMakerTokenAmount,
     filledTakerTokenAmount,
     maker,
-    makerAsset,
     makerToken,
     orderHash,
     paidMakerFee,
     paidTakerFee,
     senderAddress,
     taker,
-    takerAsset,
     takerToken,
   } = normalizeFillArgs(args, protocolVersion);
 
@@ -66,7 +64,6 @@ const createFill = async event => {
     logIndex,
     maker,
     makerAmount: filledMakerTokenAmount,
-    makerAsset,
     makerFee: paidMakerFee,
     makerToken,
     orderHash,
@@ -75,7 +72,6 @@ const createFill = async event => {
     senderAddress,
     taker,
     takerAmount: filledTakerTokenAmount,
-    takerAsset,
     takerFee: paidTakerFee,
     takerToken,
     tokenSaved: {

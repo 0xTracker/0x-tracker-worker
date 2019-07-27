@@ -44,14 +44,12 @@ const normalizeFillArgs = (args, protocolVersion = 1) => {
       filledMakerTokenAmount: args.makerAssetFilledAmount, // TODO: Deprecate in favor of assets
       filledTakerTokenAmount: args.takerAssetFilledAmount, // TODO: Deprecate in favor of assets
       maker: args.makerAddress,
-      makerAsset, // TODO: Deprecate in favor of assets
       makerToken: _.get(makerAsset, 'tokenAddress'), // TODO: Deprecate in favor of assets
       orderHash: args.orderHash,
       paidMakerFee: args.makerFeePaid,
       paidTakerFee: args.takerFeePaid,
       senderAddress: args.senderAddress,
       taker: args.takerAddress,
-      takerAsset, // TODO: Deprecate in favor of assets
       takerToken: _.get(takerAsset, 'tokenAddress'), // TODO: Deprecate in favor of assets
     };
   }

@@ -63,13 +63,11 @@ const deriveFillPrices = async ({ batchSize }) => {
     compact(),
   )(relayerPrices);
 
-  const fillOperations = fillPrices.map(({ fill, prices }) => ({
+  const fillOperations = fillPrices.map(({ fill }) => ({
     updateOne: {
       filter: { _id: fill._id },
       update: {
         $set: {
-          'conversions.USD.makerPrice': prices.maker.USD,
-          'conversions.USD.takerPrice': prices.taker.USD,
           prices: {
             saved: true,
           },

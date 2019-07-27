@@ -23,9 +23,7 @@ const schema = Schema({
     USD: {
       amount: Number,
       makerFee: { type: Number, index: true },
-      makerPrice: Number,
       takerFee: { type: Number, index: true },
-      takerPrice: Number,
     },
   },
   date: { type: Date, index: -1 },
@@ -34,11 +32,6 @@ const schema = Schema({
   hasValue: { default: false, type: Boolean },
   logIndex: Number,
   maker: { type: String, index: true },
-  makerAsset: {
-    assetProxyId: String,
-    tokenAddress: String,
-    tokenId: Number,
-  },
   makerAmount: Number,
   makerFee: Number,
   makerToken: { type: String, index: true },
@@ -57,11 +50,6 @@ const schema = Schema({
     type: Number,
   },
   taker: { type: String, index: true },
-  takerAsset: {
-    assetProxyId: String,
-    tokenAddress: String,
-    tokenId: Number,
-  },
   takerAmount: Number,
   takerFee: Number,
   takerToken: { type: String, index: true },
