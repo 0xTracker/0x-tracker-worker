@@ -50,7 +50,7 @@ const schema = Schema({
   rates: {
     data: Schema.Types.Mixed,
   },
-  relayerId: { type: Number, index: true },
+  relayerId: Number,
   senderAddress: { type: String, index: true },
   status: {
     default: FILL_STATUS.PENDING,
@@ -77,6 +77,9 @@ schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
 
 // Used for fetching fills associated with a particular relayer
 schema.index({ relayerId: 1, date: -1 });
+
+// Used for fetching fills associated with a particular token
+schema.index({ 'assets.tokenAddress': 1, date: -1 });
 
 // Used by determine-fill-values job
 schema.index({ hasValue: 1, 'assets.tokenAddress': 1 });
