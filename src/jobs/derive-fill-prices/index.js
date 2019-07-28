@@ -20,8 +20,9 @@ const deriveFillPrices = async ({ batchSize }) => {
   const fills = await Fill.find({
     hasValue: true,
     'prices.saved': false,
-    'tokenSaved.maker': true,
-    'tokenSaved.taker': true,
+    assets: {
+      $all: [{ tokenResolved: true }],
+    },
   }).limit(batchSize);
   logger.timeEnd('fetch batch of fills');
 

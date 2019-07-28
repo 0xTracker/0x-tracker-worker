@@ -46,16 +46,6 @@ const resolveTokens = async () => {
         { session },
       );
       await Fill.updateMany(
-        { makerToken: address },
-        { $set: { 'tokenSaved.maker': true } },
-        { session },
-      );
-      await Fill.updateMany(
-        { takerToken: address },
-        { $set: { 'tokenSaved.taker': true } },
-        { session },
-      );
-      await Fill.updateMany(
         {
           'assets.tokenAddress': address,
         },

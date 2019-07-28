@@ -4,7 +4,6 @@ const { MissingBlockError } = require('../../errors');
 const getBlock = require('../../util/ethereum/get-block');
 const getRelayerForFill = require('../../fills/get-relayer-for-fill');
 const normalizeFillArgs = require('./normalize-fill-args');
-const tokenCache = require('../../tokens/token-cache');
 
 const createFill = async event => {
   const { protocolVersion } = event;
@@ -39,7 +38,6 @@ const createFill = async event => {
   }
 
   const date = new Date(block.timestamp * 1000);
-  const tokens = tokenCache.getTokens();
   const relayer = getRelayerForFill({
     feeRecipient,
     takerAddress: taker,
@@ -74,10 +72,6 @@ const createFill = async event => {
     takerAmount: filledTakerTokenAmount,
     takerFee: paidTakerFee,
     takerToken,
-    tokenSaved: {
-      maker: _.has(tokens, makerToken),
-      taker: _.has(tokens, takerToken),
-    },
     transactionHash,
   };
 
