@@ -19,16 +19,12 @@ const createFill = async event => {
   const {
     assets,
     feeRecipient,
-    filledMakerTokenAmount,
-    filledTakerTokenAmount,
     maker,
-    makerToken,
     orderHash,
     paidMakerFee,
     paidTakerFee,
     senderAddress,
     taker,
-    takerToken,
   } = normalizeFillArgs(args, protocolVersion);
 
   const block = await getBlock(blockHash);
@@ -61,17 +57,13 @@ const createFill = async event => {
     feeRecipient,
     logIndex,
     maker,
-    makerAmount: filledMakerTokenAmount,
     makerFee: paidMakerFee,
-    makerToken,
     orderHash,
     protocolVersion,
     relayerId: _.get(relayer, 'lookupId'),
     senderAddress,
     taker,
-    takerAmount: filledTakerTokenAmount,
     takerFee: paidTakerFee,
-    takerToken,
     transactionHash,
   };
 

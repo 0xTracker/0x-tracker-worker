@@ -32,9 +32,7 @@ const schema = Schema({
   hasValue: { default: false, type: Boolean },
   logIndex: Number,
   maker: String,
-  makerAmount: Number,
   makerFee: Number,
-  makerToken: String,
   orderHash: String,
   prices: {
     saved: { default: false, type: Boolean },
@@ -50,9 +48,7 @@ const schema = Schema({
     type: Number,
   },
   taker: String,
-  takerAmount: Number,
   takerFee: Number,
-  takerToken: String,
   transactionHash: String,
 });
 
