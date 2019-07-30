@@ -6,7 +6,7 @@ const cacheTokenMetrics = require('./cache-token-metrics');
 const cacheTokenStats = require('./cache-token-stats');
 const convertFees = require('./convert-fees');
 const createFills = require('./create-fills');
-// const deriveFillPrices = require('./derive-fill-prices');
+const deriveFillPrices = require('./derive-fill-prices');
 const determineFillValues = require('./determine-fill-values');
 const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
@@ -22,7 +22,7 @@ const jobFns = {
   cacheTokenStats,
   convertFees,
   createFills,
-  // deriveFillPrices,
+  deriveFillPrices,
   determineFillValues,
   getMissingTokenImages,
   getNewArticles,

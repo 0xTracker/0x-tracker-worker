@@ -22,8 +22,10 @@ beforeAll(() => {
 
 it('should return WETH in WETH/OMG pair', () => {
   const fill = {
-    makerToken: '0x7866',
-    takerToken: '0x2956356cd2a2bf3202f771f50d3d14a367b48070',
+    assets: [
+      { tokenAddress: '0x7866' },
+      { tokenAddress: '0x2956356cd2a2bf3202f771f50d3d14a367b48070' },
+    ],
   };
 
   const token = getBaseToken(fill, tokens);
@@ -37,8 +39,10 @@ it('should return WETH in WETH/OMG pair', () => {
 
 it('should return DAI in WETH/DAI pair', () => {
   const fill = {
-    makerToken: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
-    takerToken: '0x2956356cd2a2bf3202f771f50d3d14a367b48070',
+    assets: [
+      { tokenAddress: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359' },
+      { tokenAddress: '0x2956356cd2a2bf3202f771f50d3d14a367b48070' },
+    ],
   };
 
   const token = getBaseToken(fill, tokens);
@@ -52,8 +56,10 @@ it('should return DAI in WETH/DAI pair', () => {
 
 it('should return DAI in DAI/OMG pair', () => {
   const fill = {
-    makerToken: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
-    takerToken: '0x7866',
+    assets: [
+      { tokenAddress: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359' },
+      { tokenAddress: '0x7866' },
+    ],
   };
 
   const token = getBaseToken(fill, tokens);
@@ -67,8 +73,7 @@ it('should return DAI in DAI/OMG pair', () => {
 
 it('should return null in ZRX/OMG pair', () => {
   const fill = {
-    makerToken: '0x123',
-    takerToken: '0x7866',
+    assets: [{ tokenAddress: '0x123' }, { tokenAddress: '0x7866' }],
   };
 
   const token = getBaseToken(fill, tokens);
@@ -78,8 +83,7 @@ it('should return null in ZRX/OMG pair', () => {
 
 it('should return null when maker token unrecognised', () => {
   const fill = {
-    makerToken: '0x982374897',
-    takerToken: '0x7866',
+    assets: [{ tokenAddress: '0x982374897' }, { tokenAddress: '0x7866' }],
   };
 
   const token = getBaseToken(fill, tokens);
@@ -89,8 +93,7 @@ it('should return null when maker token unrecognised', () => {
 
 it('should return null when taker token unrecognised', () => {
   const fill = {
-    makerToken: '0x123',
-    takerToken: '0x8937498723',
+    assets: [{ tokenAddress: '0x123' }, { tokenAddress: '0x8937498723' }],
   };
 
   const token = getBaseToken(fill, tokens);

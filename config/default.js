@@ -29,7 +29,7 @@ module.exports = {
       processOldestFirst: true,
     },
     deriveFillPrices: {
-      batchSize: 250,
+      batchSize: 50,
     },
     determineFillValues: {
       apiDelayMs: 100,
@@ -44,12 +44,12 @@ module.exports = {
   },
   pollingIntervals: {
     backfillRelayerRelationships: ms('1 minute'),
-    cacheRelayerMetrics: ms('10 seconds'),
-    cacheTokenMetrics: ms('10 seconds'),
+    cacheRelayerMetrics: ms('1 minute'),
+    cacheTokenMetrics: ms('1 minute'),
     cacheTokenStats: ms('1 minute'),
-    default: ms('5 seconds'),
+    default: ms('30 seconds'),
     getMissingTokenImages: ms('1 minute'),
-    getNewArticles: ms('1 minute'),
+    getNewArticles: ms('10 minutes'),
     resolveTokens: ms('1 minute'),
     updateRelayerStats: ms('1 minute'),
     updateTokenPrices: ms('1 minute'),

@@ -6,28 +6,32 @@ const formatTokenAmount = require('../../tokens/format-token-amount');
 const getPricesForFill = fill => {
   const value = _.get(fill, 'conversions.USD.amount', null);
 
+  // Guard against assets being incorrectly flagged with hasValue=true
   if (value === null) {
     return null;
   }
 
-  const makerToken = getToken(fill.makerToken);
-  const takerToken = getToken(fill.takerToken);
-
-  if (_.some([makerToken, takerToken], _.isUndefined)) {
+  // Guard against assets being incorrectly flagged with tokenResolved=true
+  if (
+    _.some(fill.assets, asset => getToken(asset.tokenAddress) === undefined)
+  ) {
     return null;
   }
 
-  const makerAmount = formatTokenAmount(fill.makerAmount, makerToken);
-  const takerAmount = formatTokenAmount(fill.takerAmount, takerToken);
+  const pricedAssets = _.map(fill.assets, asset => {
+    const token = getToken(asset.tokenAddress);
+    const tokenAmount = formatTokenAmount(asset.amount, token);
+    const price = value / tokenAmount;
 
-  return {
-    maker: {
-      USD: value / makerAmount,
-    },
-    taker: {
-      USD: value / takerAmount,
-    },
-  };
+    return {
+      price: {
+        USD: price,
+      },
+      tokenAddress: asset.tokenAddress,
+    };
+  });
+
+  return pricedAssets;
 };
 
 module.exports = getPricesForFill;

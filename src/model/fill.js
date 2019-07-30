@@ -12,7 +12,7 @@ const schema = Schema({
       price: {
         USD: Number,
       },
-      tokenAddress: { type: String, index: true },
+      tokenAddress: String,
       tokenId: Number,
       tokenResolved: { default: false, type: Boolean },
     },
@@ -22,27 +22,18 @@ const schema = Schema({
   conversions: {
     USD: {
       amount: Number,
-      makerFee: { type: Number, index: true },
-      makerPrice: Number,
-      takerFee: { type: Number, index: true },
-      takerPrice: Number,
+      makerFee: Number,
+      takerFee: Number,
     },
   },
-  date: { type: Date, index: -1 },
+  date: Date,
   eventId: Schema.Types.ObjectId,
-  feeRecipient: { type: String, index: true },
+  feeRecipient: String,
   hasValue: { default: false, type: Boolean },
   logIndex: Number,
-  maker: { type: String, index: true },
-  makerAsset: {
-    assetProxyId: String,
-    tokenAddress: String,
-    tokenId: Number,
-  },
-  makerAmount: Number,
+  maker: String,
   makerFee: Number,
-  makerToken: { type: String, index: true },
-  orderHash: { type: String, index: true },
+  orderHash: String,
   prices: {
     saved: { default: false, type: Boolean },
   },
@@ -51,28 +42,35 @@ const schema = Schema({
     data: Schema.Types.Mixed,
   },
   relayerId: Number,
-  senderAddress: { type: String, index: true },
+  senderAddress: String,
   status: {
     default: FILL_STATUS.PENDING,
     type: Number,
   },
-  taker: { type: String, index: true },
-  takerAsset: {
-    assetProxyId: String,
-    tokenAddress: String,
-    tokenId: Number,
-  },
-  takerAmount: Number,
+  taker: String,
   takerFee: Number,
-  takerToken: { type: String, index: true },
-  tokenSaved: {
-    maker: Boolean,
-    taker: Boolean,
-  },
-  transactionHash: { type: String, index: true },
+  transactionHash: String,
 });
 
-// Used for data integrity
+// TODO: Work out what this index was for. Sorting?
+schema.index({ date: -1 });
+
+// Used for searching fills
+schema.index({ feeRecipient: 1 });
+schema.index({ maker: 1 });
+schema.index({ orderHash: 1 });
+schema.index({ senderAddress: 1 });
+schema.index({ taker: 1 });
+schema.index({ transactionHash: 1 });
+
+// Used for fetching fills related to a particular token
+schema.index({ 'assets.tokenAddress': 1, date: -1 });
+
+// Used by convert-fees job
+schema.index({ 'conversions.USD.makerFee': 1 });
+schema.index({ 'conversions.USD.takerFee': 1 });
+
+// Used to enforce data integrity
 schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
 
 // Used for fetching fills associated with a particular relayer
@@ -88,8 +86,7 @@ schema.index({ hasValue: 1, 'assets.tokenAddress': 1 });
 schema.index({
   hasValue: -1,
   'prices.saved': 1,
-  'tokenSaved.maker': -1,
-  'tokenSaved.taker': -1,
+  'assets.tokenResolved': -1,
 });
 
 // Used by update-fill-statuses job

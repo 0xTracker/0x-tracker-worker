@@ -31,21 +31,7 @@ const computeTokenMetrics = async date => {
       },
     },
 
-    // Create an in-memory document for both maker and taker addresses
-    {
-      $addFields: {
-        assets: [
-          {
-            amount: '$makerAmount',
-            tokenAddress: '$makerToken',
-          },
-          {
-            amount: '$takerAmount',
-            tokenAddress: '$takerToken',
-          },
-        ],
-      },
-    },
+    // Expand the assets field ready for aggregation
     {
       $unwind: {
         path: '$assets',

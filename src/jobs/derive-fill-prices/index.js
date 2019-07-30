@@ -1,140 +1,106 @@
 const _ = require('lodash');
-const { compact, flow, map } = require('lodash/fp');
-const flattenObject = require('flat');
+const bluebird = require('bluebird');
 const signale = require('signale');
 
-const { FILL_ACTOR } = require('../../constants');
 const Fill = require('../../model/fill');
 const getPrices = require('./get-prices-for-fill');
-const getRelayerPrices = require('./get-relayer-prices');
-const Relayer = require('../../model/relayer');
-const tokenCache = require('../../tokens/token-cache');
+const Token = require('../../model/token');
 const withTransaction = require('../../util/with-transaction');
 
 const logger = signale.scope('derive fill prices');
 
-// This job is currently very poorly written. Once assets have been migrated
-// to the assets field and makerPrice/takerPrice have been deprecated, it can be cleaned up.
+// TODO: Rewrite this job to support multi-asset fills
 const deriveFillPrices = async ({ batchSize }) => {
   logger.time('fetch batch of fills');
   const fills = await Fill.find({
     hasValue: true,
     'prices.saved': false,
-    'tokenSaved.maker': true,
-    'tokenSaved.taker': true,
+    assets: {
+      $all: [{ $elemMatch: { tokenResolved: true } }],
+    },
   }).limit(batchSize);
   logger.timeEnd('fetch batch of fills');
 
+  logger.info(`found ${fills.length} fills which need their prices derived`);
+
   if (fills.length === 0) {
-    logger.info('no fills were found without prices');
     return;
   }
 
-  const tokens = tokenCache.getTokens();
+  await bluebird.mapSeries(fills, async fill => {
+    const pricedAssets = getPrices(fill);
 
-  const fillPrices = flow(
-    map(fill => {
-      const prices = getPrices(fill, tokens);
-      return prices === null ? null : { fill, prices };
-    }),
-    compact,
-  )(fills);
-
-  if (fillPrices.length === 0) {
-    logger.warn(`unable to derive prices for ${fillPrices.length} fills`);
-    return;
-  }
-
-  const relayers = await Relayer.find();
-  const relayerPrices = getRelayerPrices(fillPrices, relayers);
-  const mapWithKey = map.convert({ cap: false });
-
-  const relayerOperations = flow(
-    mapWithKey((prices, lookupId) => ({
-      updateOne: {
-        filter: { lookupId: _.toNumber(lookupId) },
-        update: {
-          $set: flattenObject({
-            prices,
-          }),
-        },
-      },
-    })),
-    compact(),
-  )(relayerPrices);
-
-  const fillOperations = fillPrices.map(({ fill, prices }) => ({
-    updateOne: {
-      filter: { _id: fill._id },
-      update: {
-        $set: {
-          'conversions.USD.makerPrice': prices.maker.USD,
-          'conversions.USD.takerPrice': prices.taker.USD,
-          prices: {
-            saved: true,
-          },
-        },
-      },
-    },
-  }));
-
-  await withTransaction(async session => {
-    await Fill.bulkWrite(fillOperations, { session });
-
-    // Set maker asset prices
-    await Promise.all(
-      fillPrices
-        .filter(({ fill }) => fill.assets !== undefined)
-        .map(async ({ fill, prices }) => {
-          await Fill.updateOne(
-            { _id: fill.id },
-            {
-              $set: {
-                'assets.$[element].price': prices.maker,
-              },
-            },
-            {
-              arrayFilters: [
-                {
-                  'element.actor': FILL_ACTOR.MAKER,
-                },
-              ],
-              session,
-            },
-          );
-        }),
-    );
-
-    // Set taker asset prices
-    await Promise.all(
-      fillPrices
-        .filter(({ fill }) => fill.assets !== undefined)
-        .map(async ({ fill, prices }) => {
-          await Fill.updateOne(
-            { _id: fill.id },
-            {
-              $set: {
-                'assets.$[element].price': prices.taker,
-              },
-            },
-            {
-              arrayFilters: [
-                {
-                  'element.actor': FILL_ACTOR.TAKER,
-                },
-              ],
-              session,
-            },
-          );
-        }),
-    );
-
-    if (relayerOperations.length > 0) {
-      await Relayer.bulkWrite(relayerOperations, { session });
+    if (pricedAssets === null) {
+      logger.warn(`unable to derive prices for fill ${fill._id}`);
     }
-  });
 
-  logger.success(`derived prices of ${fillPrices.length} fills`);
+    await withTransaction(async session => {
+      // Set the price of all assets belonging to the fill
+      await bluebird.mapSeries(pricedAssets, async pricedAsset => {
+        await Fill.updateOne(
+          { _id: fill._id },
+          {
+            $set: {
+              'assets.$[asset].price': pricedAsset.price,
+            },
+          },
+          {
+            arrayFilters: [{ 'asset.tokenAddress': pricedAsset.tokenAddress }],
+            session,
+          },
+        );
+
+        logger.debug(
+          `set price of ${pricedAsset.tokenAddress} to ${pricedAsset.price.USD} on ${fill._id}`,
+        );
+      });
+
+      // Flag the fill as having its prices saved
+      await Fill.updateOne(
+        { _id: fill._id },
+        { $set: { 'prices.saved': true } },
+        { session },
+      );
+
+      // If this trade is verified (associated with a known relayer) then update
+      // token prices where applicable.
+      if (_.isNumber(fill.relayerId)) {
+        await bluebird.mapSeries(
+          pricedAssets,
+          async ({ price, tokenAddress }) => {
+            const result = await Token.updateOne(
+              {
+                address: tokenAddress,
+                $or: [
+                  {
+                    'price.lastTrade.date': null,
+                  },
+                  {
+                    'price.lastTrade.date': { $lt: fill.date },
+                  },
+                ],
+              },
+              {
+                $set: {
+                  price: {
+                    lastTrade: { id: fill.id, date: fill.date },
+                    lastPrice: price.USD,
+                  },
+                },
+              },
+              { session },
+            );
+
+            if (result.nModified > 0) {
+              logger.debug(`updated price of token ${tokenAddress}`);
+            }
+          },
+        );
+      }
+    });
+
+    logger.success(`derived prices for fill ${fill._id}`);
+  });
 };
 
 module.exports = deriveFillPrices;

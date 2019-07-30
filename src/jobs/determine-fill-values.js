@@ -13,11 +13,11 @@ const withTransaction = require('../util/with-transaction');
 const logger = signale.scope('determine fill values');
 
 const getTokenValue = (fill, baseToken) => {
-  if (fill.makerToken === baseToken.address) {
-    return formatTokenAmount(fill.makerAmount, baseToken);
-  }
+  const baseAsset = fill.assets.find(
+    asset => asset.tokenAddress === baseToken.address,
+  );
 
-  return formatTokenAmount(fill.takerAmount, baseToken);
+  return formatTokenAmount(baseAsset.amount, baseToken);
 };
 
 const determineFillValues = async ({ apiDelayMs, batchSize }) => {
@@ -73,13 +73,11 @@ const determineFillValues = async ({ apiDelayMs, batchSize }) => {
     const usdValue = tokenValue * conversionRate;
 
     await withTransaction(async session => {
-      logger.time(`persist value for fill ${fill._id}`);
       await Fill.updateOne(
         { _id: fill._id },
         {
           $set: {
             'conversions.USD.amount': usdValue,
-            [`rates.data.${normalisedSymbol}.USD`]: conversionRate,
             hasValue: true,
           },
         },
@@ -87,28 +85,22 @@ const determineFillValues = async ({ apiDelayMs, batchSize }) => {
           session,
         },
       );
-      logger.timeEnd(`persist value for fill ${fill._id}`);
-
-      if (fill.assets !== null) {
-        logger.time(`persist base token price for fill ${fill._id}`);
-        await Fill.updateOne(
-          { _id: fill._id },
-          {
-            $set: {
-              'assets.$[asset].price.USD': conversionRate,
+      await Fill.updateOne(
+        { _id: fill._id },
+        {
+          $set: {
+            'assets.$[asset].price.USD': conversionRate,
+          },
+        },
+        {
+          arrayFilters: [
+            {
+              'asset.tokenAddress': baseToken.address,
             },
-          },
-          {
-            arrayFilters: [
-              {
-                'asset.tokenAddress': baseToken.address,
-              },
-            ],
-            session,
-          },
-        );
-        logger.timeEnd(`persist base token price for fill ${fill._id}`);
-      }
+          ],
+          session,
+        },
+      );
     });
 
     logger.success(`determined fill value for ${fill._id}`);
