@@ -32,6 +32,7 @@ const deriveFillPrices = async ({ batchSize }) => {
 
     if (pricedAssets === null) {
       logger.warn(`unable to derive prices for fill ${fill._id}`);
+      return;
     }
 
     await withTransaction(async session => {
