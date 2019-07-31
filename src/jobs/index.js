@@ -13,7 +13,6 @@ const getNewArticles = require('./get-new-articles');
 const resolveTokens = require('./resolve-tokens');
 const updateFillStatuses = require('./update-fill-statuses');
 const updateRelayerStats = require('./update-relayer-stats');
-const updateTokenPrices = require('./update-token-prices');
 
 const jobFns = {
   // backfillRelayerRelationships,
@@ -29,7 +28,6 @@ const jobFns = {
   resolveTokens,
   updateFillStatuses,
   updateRelayerStats,
-  updateTokenPrices,
 };
 
 const getJobs = ({ maxRetries, pollingIntervals }) =>
