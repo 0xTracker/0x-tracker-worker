@@ -52,7 +52,6 @@ module.exports = {
     getNewArticles: ms('10 minutes'),
     resolveTokens: ms('1 minute'),
     updateRelayerStats: ms('1 minute'),
-    updateTokenPrices: ms('1 minute'),
   },
   web3: {
     endpoint: `https://cloudflare-eth.com`,

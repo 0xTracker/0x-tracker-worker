@@ -1,20 +1,17 @@
-const { find, isArray } = require('lodash');
+const _ = require('lodash');
 
 const getAllRelayers = require('../relayers/get-all-relayers');
 
 const getRelayerForFill = ({ feeRecipient, takerAddress }) => {
   const relayers = getAllRelayers();
-
-  return (
-    find(
-      relayers,
-      relayer =>
-        (isArray(relayer.takerAddresses) &&
-          relayer.takerAddresses.includes(takerAddress)) ||
-        (isArray(relayer.feeRecipients) &&
-          relayer.feeRecipients.includes(feeRecipient)),
-    ) || null
+  const matchingRelayer = _.find(
+    relayers,
+    relayer =>
+      _.includes(relayer.takerAddresses, takerAddress) ||
+      _.includes(relayer.feeRecipients, feeRecipient),
   );
+
+  return matchingRelayer || null;
 };
 
 module.exports = getRelayerForFill;
