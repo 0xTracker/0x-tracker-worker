@@ -16,7 +16,7 @@ const deriveFillPrices = async ({ batchSize }) => {
     hasValue: true,
     'prices.saved': false,
     assets: {
-      $all: [{ $elemMatch: { tokenResolved: true } }],
+      $not: { $elemMatch: { tokenResolved: false } },
     },
   }).limit(batchSize);
   logger.timeEnd('fetch batch of fills');
