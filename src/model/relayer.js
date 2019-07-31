@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
-
 const statsShape = {
   fees: {
     USD: Number,
@@ -19,7 +17,6 @@ const schema = mongoose.Schema({
   lookupId: { type: Number, index: true },
   name: String,
   orderMatcher: Boolean,
-  prices: Schema.Types.Mixed,
   slug: String,
   stats: {
     '24h': statsShape,
