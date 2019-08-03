@@ -9,9 +9,7 @@ const fetchUnmeasuredFills = async batchSize => {
     hasValue: false,
     'assets.tokenAddress': { $in: baseTokenAddresses },
     immeasurable: { $in: [null, false] },
-  })
-    .limit(batchSize)
-    .lean();
+  }).limit(batchSize);
 
   return fills;
 };

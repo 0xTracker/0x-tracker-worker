@@ -1,3 +1,4 @@
+const bluebird = require('bluebird');
 const signale = require('signale');
 
 const checkIsFillMeasurable = require('./check-is-fill-measurable');
@@ -17,28 +18,26 @@ const measureFills = async ({ batchSize }) => {
     return;
   }
 
-  await Promise.all(
-    fills.map(async fill => {
-      const isFillMeasurable = checkIsFillMeasurable(fill);
+  await bluebird.mapSeries(fills, async fill => {
+    const isFillMeasurable = checkIsFillMeasurable(fill);
 
-      if (isFillMeasurable) {
-        const isFillReady = checkIsFillReady(fill);
+    if (isFillMeasurable) {
+      const isFillReady = checkIsFillReady(fill);
 
-        if (isFillReady === false) {
-          logger.warn(`fill ${fill._id} is not ready for measurement`);
-          return;
-        }
-
-        await measureFill(fill);
-
-        logger.success(`measured and saved value of fill ${fill._id}`);
-      } else {
-        await markFillAsImmeasurable(fill._id);
-
-        logger.info(`marked fill ${fill._id} as immeasurable`);
+      if (isFillReady === false) {
+        logger.warn(`fill ${fill._id} is not ready for measurement`);
+        return;
       }
-    }),
-  );
+
+      await measureFill(fill);
+
+      logger.success(`measured and saved value of fill ${fill._id}`);
+    } else {
+      await markFillAsImmeasurable(fill._id);
+
+      logger.info(`marked fill ${fill._id} as immeasurable`);
+    }
+  });
 };
 
 module.exports = measureFills;
