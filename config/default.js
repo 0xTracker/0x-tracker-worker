@@ -21,18 +21,15 @@ module.exports = {
   },
   jobs: {
     convertFees: {
-      apiDelayMs: 100,
       batchSize: 100,
     },
     createFills: {
       batchSize: 500,
-      processOldestFirst: true,
     },
     deriveFillPrices: {
       batchSize: 50,
     },
-    determineFillValues: {
-      apiDelayMs: 100,
+    measureFills: {
       batchSize: 100,
     },
     updateFillStatuses: {
