@@ -30,6 +30,7 @@ const schema = Schema({
   eventId: Schema.Types.ObjectId,
   feeRecipient: String,
   hasValue: { default: false, type: Boolean },
+  immeasurable: { default: false, type: Boolean },
   logIndex: Number,
   maker: String,
   makerFee: Number,
@@ -80,7 +81,7 @@ schema.index({ relayerId: 1, date: -1 });
 schema.index({ 'assets.tokenAddress': 1, date: -1 });
 
 // Used by determine-fill-values job
-schema.index({ hasValue: 1, 'assets.tokenAddress': 1 });
+schema.index({ hasValue: 1, 'assets.tokenAddress': 1, immeasurable: -1 });
 
 // Used by derive-fill-prices job
 schema.index({

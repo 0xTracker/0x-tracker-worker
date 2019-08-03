@@ -7,9 +7,9 @@ const cacheTokenStats = require('./cache-token-stats');
 const convertFees = require('./convert-fees');
 const createFills = require('./create-fills');
 const deriveFillPrices = require('./derive-fill-prices');
-const determineFillValues = require('./determine-fill-values');
 const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
+const measureFills = require('./measure-fills');
 const resolveTokens = require('./resolve-tokens');
 const updateFillStatuses = require('./update-fill-statuses');
 const updateRelayerStats = require('./update-relayer-stats');
@@ -22,9 +22,9 @@ const jobFns = {
   convertFees,
   createFills,
   deriveFillPrices,
-  determineFillValues,
   getMissingTokenImages,
   getNewArticles,
+  measureFills,
   resolveTokens,
   updateFillStatuses,
   updateRelayerStats,

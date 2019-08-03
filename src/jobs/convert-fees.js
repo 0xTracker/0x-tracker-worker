@@ -20,7 +20,7 @@ const convertAmount = (amount, conversionRate) => {
   return formattedAmount * conversionRate;
 };
 
-const convertFees = async ({ apiDelayMs, batchSize }) => {
+const convertFees = async ({ batchSize }) => {
   // Fetch a batch of fills for processing where the maker or taker
   // fee have not yet been converted.
   const fills = await Fill.find({
@@ -76,9 +76,6 @@ const convertFees = async ({ apiDelayMs, batchSize }) => {
       );
 
       logger.success(`Converted fees for fill ${fill._id}`);
-
-      // limit the number of API requests made per second to avoid errors
-      await bluebird.delay(apiDelayMs);
     }
   });
 };
