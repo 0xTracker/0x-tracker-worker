@@ -44,7 +44,7 @@ const getPrice = async (symbol, date) => {
 
   // The Cryptocompare API rate limits at 20 requests per second. We artificially
   // limit to 10 requests per second (one every one hundred milliseconds) to be safe.
-  bluebird.delay(100);
+  await bluebird.delay(100);
 
   if (price === null) {
     return null;
