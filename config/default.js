@@ -27,7 +27,7 @@ module.exports = {
       batchSize: 500,
     },
     deriveFillPrices: {
-      batchSize: 50,
+      batchSize: 100,
     },
     measureFills: {
       batchSize: 100,
