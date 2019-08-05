@@ -1,4 +1,4 @@
-const getMeasurableActor = require('./get-measurable-actor');
+const getMeasurableActor = require('../../fills/get-measurable-actor');
 
 const checkIsFillReady = fill => {
   const measurableActor = getMeasurableActor(fill);

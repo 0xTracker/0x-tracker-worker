@@ -1,4 +1,4 @@
-const { FILL_ACTOR } = require('../../constants');
+const { FILL_ACTOR } = require('../constants');
 const getMeasurableActor = require('./get-measurable-actor');
 
 describe('get measurable actor', () => {

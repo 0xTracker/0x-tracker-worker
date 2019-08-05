@@ -1,4 +1,4 @@
-const { BASE_TOKENS, FILL_ACTOR } = require('../../constants');
+const { BASE_TOKENS, FILL_ACTOR } = require('../constants');
 
 const baseTokenAddresses = Object.keys(BASE_TOKENS);
 
