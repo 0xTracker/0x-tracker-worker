@@ -6,6 +6,8 @@ const formatTokenAmount = require('../../tokens/format-token-amount');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getMeasurableActor = require('../../fills/get-measurable-actor');
 const normalizeSymbol = require('../../tokens/normalize-symbol');
+const persistTokenPrices = require('./persist-token-prices');
+const withTransaction = require('../../util/with-transaction');
 
 const logger = signale.scope('measure fill');
 
@@ -13,6 +15,7 @@ const measureFill = async fill => {
   const measurableActor = getMeasurableActor(fill);
 
   let totalValue = 0;
+  const tokenPrices = {};
 
   await bluebird.mapSeries(fill.assets, async asset => {
     if (asset.actor === measurableActor) {
@@ -38,6 +41,8 @@ const measureFill = async fill => {
         );
       }
 
+      tokenPrices[token.address] = conversionRate;
+
       asset.set('price.USD', conversionRate);
 
       logger.debug(
@@ -50,7 +55,11 @@ const measureFill = async fill => {
 
   fill.set('conversions.USD.amount', totalValue);
   fill.set('hasValue', true);
-  await fill.save();
+
+  await withTransaction(async session => {
+    await fill.save({ session });
+    await persistTokenPrices(tokenPrices, fill, session);
+  });
 
   logger.debug(`set value of fill ${fill._id} to ${totalValue}`);
 };
