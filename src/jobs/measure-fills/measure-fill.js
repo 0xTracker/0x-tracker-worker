@@ -9,7 +9,7 @@ const normalizeSymbol = require('../../tokens/normalize-symbol');
 const persistTokenPrices = require('./persist-token-prices');
 const withTransaction = require('../../util/with-transaction');
 
-const logger = signale.scope('measure fill');
+const logger = signale.scope('measure fills > measure fill');
 
 const measureFill = async fill => {
   const measurableActor = getMeasurableActor(fill);
