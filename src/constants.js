@@ -26,6 +26,10 @@ module.exports = {
     MAKER: 0,
     TAKER: 1,
   },
+  FILL_PRICING_STATUS: {
+    PRICED: 0,
+    UNPRICEABLE: 1,
+  },
   FILL_STATUS: {
     FAILED: 2,
     PENDING: 0,

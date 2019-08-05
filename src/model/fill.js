@@ -35,9 +35,7 @@ const schema = Schema({
   maker: String,
   makerFee: Number,
   orderHash: String,
-  prices: {
-    saved: { default: false, type: Boolean },
-  },
+  pricingStatus: Number,
   protocolVersion: Number,
   rates: {
     data: Schema.Types.Mixed,
@@ -86,7 +84,7 @@ schema.index({ hasValue: 1, 'assets.tokenAddress': 1, immeasurable: -1 });
 // Used by derive-fill-prices job
 schema.index({
   hasValue: -1,
-  'prices.saved': 1,
+  pricingStatus: 1,
   'assets.tokenResolved': -1,
 });
 
