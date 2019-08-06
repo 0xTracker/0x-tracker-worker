@@ -217,4 +217,23 @@ module.exports = {
     feeRecipients: ['0x584860fe460a16cd11e6fdebb2e77146d1835be8'],
     url: 'https://merchcoins.com/',
   },
+  oc2Dex: {
+    imageUrl: 'https://0xtracker.com/assets/logos/oc2-dex.png',
+    lookupId: 26,
+    name: 'Oc2 DEX',
+    slug: 'oc2-dex',
+    feeRecipients: [
+      '0x1af29de80f743be444aa195e2cae38ee9bc74c4c',
+      '0x879047421625b87b5895ef1ac0d9dbd241805aa3',
+    ],
+    url: 'https://oc2realm.com/',
+  },
+  bit2MeDex: {
+    imageUrl: 'https://0xtracker.com/assets/logos/bit2me-dex.png',
+    lookupId: 27,
+    name: 'Bit2Me DEX',
+    slug: 'bit2me-dex',
+    feeRecipients: ['0x1b38d2613698488cbac0e7d21abb2fdbbe1d6704'],
+    url: 'https://bit2me.com/dex/',
+  },
 };
