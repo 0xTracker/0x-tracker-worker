@@ -15,6 +15,9 @@ const schema = Schema({
       tokenAddress: String,
       tokenId: Number,
       tokenResolved: { default: false, type: Boolean },
+      value: {
+        USD: Number,
+      },
     },
   ],
   blockHash: String,
