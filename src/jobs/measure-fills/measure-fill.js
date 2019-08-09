@@ -43,13 +43,16 @@ const measureFill = async fill => {
 
       tokenPrices[token.address] = conversionRate;
 
+      const assetValue = amount * conversionRate;
+
       asset.set('price.USD', conversionRate);
+      asset.set('value.USD', assetValue);
 
       logger.debug(
         `set price of token ${token.address} to ${conversionRate} on fill ${fill._id}`,
       );
 
-      totalValue += amount * conversionRate;
+      totalValue += assetValue;
     }
   });
 
