@@ -48,7 +48,7 @@ const computeTokenMetrics = async date => {
         },
         tokenAddress: '$assets.tokenAddress',
         tokenValue: '$assets.amount',
-        usdValue: '$conversions.USD.amount',
+        usdValue: '$assets.value.USD',
       },
     },
 
