@@ -42,7 +42,6 @@ Object {
       "actor": 1,
       "amount": 100000000000000,
       "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
-      "tokenId": undefined,
       "tokenResolved": false,
       "tokenType": 0,
     },

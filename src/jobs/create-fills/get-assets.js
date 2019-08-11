@@ -1,67 +1,13 @@
-const { FILL_ACTOR, TOKEN_TYPE } = require('../../constants');
-const { checkTokenResolved } = require('../../tokens/token-cache');
-const decodeAssetData = require('./decode-asset-data');
-
-const getTokenType = assetProxyId => {
-  return {
-    '0xf47261b0': TOKEN_TYPE.ERC20,
-    '0x02571792': TOKEN_TYPE.ERC721,
-  }[assetProxyId];
-};
+const getV1Assets = require('./get-v1-assets');
+const getV2Assets = require('./get-v2-assets');
 
 const getAssets = (eventArgs, protocolVersion) => {
   if (protocolVersion === 1) {
-    return [
-      {
-        actor: FILL_ACTOR.MAKER,
-        amount: eventArgs.filledMakerTokenAmount,
-        tokenAddress: eventArgs.makerToken,
-        tokenResolved: checkTokenResolved(eventArgs.makerToken),
-        tokenType: TOKEN_TYPE.ERC20,
-      },
-      {
-        actor: FILL_ACTOR.TAKER,
-        amount: eventArgs.filledTakerTokenAmount,
-        tokenAddress: eventArgs.takerToken,
-        tokenResolved: checkTokenResolved(eventArgs.takerToken),
-        tokenType: TOKEN_TYPE.ERC20,
-      },
-    ];
+    return getV1Assets(eventArgs);
   }
 
   if (protocolVersion === 2) {
-    const {
-      makerAssetData,
-      makerAssetFilledAmount,
-      takerAssetData,
-      takerAssetFilledAmount,
-    } = eventArgs;
-
-    const makerAsset = decodeAssetData(makerAssetData);
-    const takerAsset = decodeAssetData(takerAssetData);
-
-    if (makerAsset === null || takerAsset === null) {
-      return null;
-    }
-
-    return [
-      {
-        actor: FILL_ACTOR.MAKER,
-        amount: makerAssetFilledAmount,
-        tokenAddress: makerAsset.tokenAddress,
-        tokenId: makerAsset.tokenId,
-        tokenResolved: checkTokenResolved(makerAsset.tokenAddress),
-        tokenType: getTokenType(makerAsset.assetProxyId),
-      },
-      {
-        actor: FILL_ACTOR.TAKER,
-        amount: takerAssetFilledAmount,
-        tokenAddress: takerAsset.tokenAddress,
-        tokenId: takerAsset.tokenId,
-        tokenResolved: checkTokenResolved(takerAsset.tokenAddress),
-        tokenType: getTokenType(takerAsset.assetProxyId),
-      },
-    ];
+    return getV2Assets(eventArgs);
   }
 
   return null; // Unrecognised protocol version
