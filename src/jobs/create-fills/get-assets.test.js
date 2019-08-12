@@ -160,3 +160,24 @@ it('should get assets for V2 event with multi-asset data', () => {
     },
   ]);
 });
+
+it('should return null when one of the assets data is corrupt', () => {
+  const eventArgs = {
+    makerAddress: '0x9193ed9cbf94d109667c3d5659caffe21b4197bc',
+    feeRecipientAddress: '0x0000000000000000000000000000000000000000',
+    takerAddress: '0xdf1bc6498338135de5ffdbcb98817d81e2665912',
+    senderAddress: '0xdf1bc6498338135de5ffdbcb98817d81e2665912',
+    makerAssetFilledAmount: 1,
+    takerAssetFilledAmount: 46810278916603824.0,
+    makerFeePaid: 0,
+    takerFeePaid: 0,
+    orderHash:
+      '0xc9a69b17a479155016a724a250a6093903bcaafa318e757eab2c7fc6d5ca3edd',
+    makerAssetData: 'fubar',
+    takerAssetData:
+      '0xf47261b000000000000000000000000053b04999c1ff2d77fcdde98935bb936a67209e4c',
+  };
+  const assets = getAssets(eventArgs, 2);
+
+  expect(assets).toBeNull();
+});
