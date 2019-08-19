@@ -41,6 +41,7 @@ module.exports = {
   },
   pollingIntervals: {
     backfillRelayerRelationships: ms('1 minute'),
+    cacheAddressMetrics: ms('1 minute'),
     cacheRelayerMetrics: ms('1 minute'),
     cacheTokenMetrics: ms('1 minute'),
     cacheTokenStats: ms('1 minute'),
