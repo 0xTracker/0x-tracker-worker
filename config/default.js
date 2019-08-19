@@ -52,6 +52,6 @@ module.exports = {
     updateRelayerStats: ms('1 minute'),
   },
   web3: {
-    endpoint: `https://cloudflare-eth.com`,
+    endpoint: process.env.WEB3_ENDPOINT,
   },
 };
