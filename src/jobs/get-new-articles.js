@@ -18,10 +18,12 @@ const feedUrls = {
   ethfinex: 'https://medium.com/feed/ethfinex',
   dYdX: 'https://medium.com/feed/dydxderivatives',
   ledgerDex: 'https://medium.com/feed/ledgerdex',
+  oc2Dex: 'https://medium.com/feed/oc2-realm',
   openRelay: 'https://blog.openrelay.xyz/feed.xml',
   paradex: 'https://medium.com/feed/paradex',
-  radarrelay: 'https://medium.com/feed/@RadarRelay',
+  radarrelay: 'https://medium.com/feed/radartech',
   theOcean: 'https://medium.com/feed/@theoceantrade',
+  tokenlon: 'https://medium.com/feed/imtoken/tagged/tokenlon',
   veil: 'https://medium.com/feed/veil-blog',
 };
 
