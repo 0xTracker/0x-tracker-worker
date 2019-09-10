@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 
+const { Schema } = mongoose;
+
 const metricShape = {
   date: Date,
-  fillCount: Number,
-  fillVolume: Number,
+  fillCount: Schema.Types.Mixed,
+  fillVolume: Schema.Types.Mixed,
 };
 
-const schema = mongoose.Schema({
+const schema = Schema({
   ...metricShape,
   address: String,
   date: { index: 1, type: Date },
