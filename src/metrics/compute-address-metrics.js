@@ -34,10 +34,7 @@ const computeAddressMetrics = async date => {
     // Extract rows for both maker and taker addresses
     {
       $addFields: {
-        addresses: [
-          { type: 'maker', value: '$maker' },
-          { type: 'taker', value: '$taker' },
-        ],
+        addresses: ['$maker', '$taker'],
       },
     },
     {
@@ -54,41 +51,8 @@ const computeAddressMetrics = async date => {
             date: '$date',
           },
         },
-        address: '$addresses.value',
-        fillCount: {
-          maker: {
-            $cond: {
-              if: { $eq: ['$addresses.type', 'maker'] },
-              then: { $literal: 1 },
-              else: { $literal: 0 },
-            },
-          },
-          taker: {
-            $cond: {
-              if: { $eq: ['$addresses.type', 'taker'] },
-              then: { $literal: 1 },
-              else: { $literal: 0 },
-            },
-          },
-          total: { $literal: 1 },
-        },
-        fillVolume: {
-          maker: {
-            $cond: {
-              if: { $eq: ['$addresses.type', 'maker'] },
-              then: '$conversions.USD.amount',
-              else: { $literal: 0 },
-            },
-          },
-          taker: {
-            $cond: {
-              if: { $eq: ['$addresses.type', 'taker'] },
-              then: '$conversions.USD.amount',
-              else: { $literal: 0 },
-            },
-          },
-          total: '$conversions.USD.amount',
-        },
+        address: '$addresses',
+        fillVolume: '$conversions.USD.amount',
       },
     },
     {
@@ -118,7 +82,6 @@ const computeAddressMetrics = async date => {
             day: '$dateParts.day',
           },
         },
-        fillCount: 1,
         fillVolume: 1,
       },
     },
@@ -132,23 +95,11 @@ const computeAddressMetrics = async date => {
           dateToHour: '$dateToHour',
           dateToMinute: '$dateToMinute',
         },
-        fillCountMaker: {
-          $sum: '$fillCount.maker',
+        fillCount: {
+          $sum: 1,
         },
-        fillCountTaker: {
-          $sum: '$fillCount.taker',
-        },
-        fillCountTotal: {
-          $sum: '$fillCount.total',
-        },
-        fillVolumeMaker: {
-          $sum: '$fillVolume.maker',
-        },
-        fillVolumeTaker: {
-          $sum: '$fillVolume.taker',
-        },
-        fillVolumeTotal: {
-          $sum: '$fillVolume.total',
+        fillVolume: {
+          $sum: '$fillVolume',
         },
       },
     },
@@ -161,6 +112,9 @@ const computeAddressMetrics = async date => {
           dateToDay: '$_id.dateToDay',
           dateToHour: '$_id.dateToHour',
         },
+        fillCount: {
+          $sum: '$fillCount',
+        },
         minutes: {
           $addToSet: {
             date: '$_id.dateToMinute',
@@ -168,23 +122,8 @@ const computeAddressMetrics = async date => {
             fillVolume: '$fillVolume',
           },
         },
-        fillCountMaker: {
-          $sum: '$fillCountMaker',
-        },
-        fillCountTaker: {
-          $sum: '$fillCountTaker',
-        },
-        fillCountTotal: {
-          $sum: '$fillCountTotal',
-        },
-        fillVolumeMaker: {
-          $sum: '$fillVolumeMaker',
-        },
-        fillVolumeTaker: {
-          $sum: '$fillVolumeTaker',
-        },
-        fillVolumeTotal: {
-          $sum: '$fillVolumeTotal',
+        fillVolume: {
+          $sum: '$fillVolume',
         },
       },
     },
@@ -196,6 +135,9 @@ const computeAddressMetrics = async date => {
           dateToDay: '$_id.dateToDay',
           address: '$_id.address',
         },
+        fillCount: {
+          $sum: '$fillCount',
+        },
         hours: {
           $addToSet: {
             date: '$_id.dateToHour',
@@ -204,23 +146,8 @@ const computeAddressMetrics = async date => {
             fillVolume: '$fillVolume',
           },
         },
-        fillCountMaker: {
-          $sum: '$fillCountMaker',
-        },
-        fillCountTaker: {
-          $sum: '$fillCountTaker',
-        },
-        fillCountTotal: {
-          $sum: '$fillCountTotal',
-        },
-        fillVolumeMaker: {
-          $sum: '$fillVolumeMaker',
-        },
-        fillVolumeTaker: {
-          $sum: '$fillVolumeTaker',
-        },
-        fillVolumeTotal: {
-          $sum: '$fillVolumeTotal',
+        fillVolume: {
+          $sum: '$fillVolume',
         },
       },
     },
@@ -231,16 +158,8 @@ const computeAddressMetrics = async date => {
         _id: 0,
         address: '$_id.address',
         date: '$_id.dateToDay',
-        fillCount: {
-          maker: '$fillCountMaker',
-          taker: '$fillCountTaker',
-          total: '$fillCountTotal',
-        },
-        fillVolume: {
-          maker: '$fillVolumeMaker',
-          taker: '$fillVolumeTaker',
-          total: '$fillVolumeTotal',
-        },
+        fillCount: 1,
+        fillVolume: 1,
         hours: 1,
       },
     },
@@ -249,7 +168,7 @@ const computeAddressMetrics = async date => {
     {
       $sort: {
         date: -1,
-        'fillVolume.total': -1,
+        fillVolume: -1,
       },
     },
   ]);
