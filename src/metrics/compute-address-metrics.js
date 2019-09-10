@@ -59,32 +59,32 @@ const computeAddressMetrics = async date => {
           maker: {
             $cond: {
               if: { $eq: ['$addresses.type', 'maker'] },
-              then: 1,
-              else: 0,
+              then: { $literal: 1 },
+              else: { $literal: 0 },
             },
           },
           taker: {
             $cond: {
               if: { $eq: ['$addresses.type', 'taker'] },
-              then: 1,
-              else: 0,
+              then: { $literal: 1 },
+              else: { $literal: 0 },
             },
           },
-          total: 1,
+          total: { $literal: 1 },
         },
         fillVolume: {
           maker: {
             $cond: {
               if: { $eq: ['$addresses.type', 'maker'] },
               then: '$conversions.USD.amount',
-              else: 0,
+              else: { $literal: 0 },
             },
           },
           taker: {
             $cond: {
               if: { $eq: ['$addresses.type', 'taker'] },
               then: '$conversions.USD.amount',
-              else: 0,
+              else: { $literal: 0 },
             },
           },
           total: '$conversions.USD.amount',
