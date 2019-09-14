@@ -177,13 +177,13 @@ module.exports = {
     takerAddresses: ['0x853da5cecc1ea601ab978c2001565a0377a7dca6'],
     url: 'https://www.fordex.co',
   },
-  ethfinex: {
-    imageUrl: 'https://0xtracker.com/assets/logos/ethfinex.png',
+  deversifi: {
+    imageUrl: 'https://0xtracker.com/assets/logos/deversifi.png',
     lookupId: 21,
-    name: 'Ethfinex',
-    slug: 'ethfinex',
+    name: 'DeversiFi',
+    slug: 'deversifi',
     feeRecipients: ['0x61b9898c9b60a159fc91ae8026563cd226b7a0c1'],
-    url: 'https://www.ethfinex.com/',
+    url: 'https://www.deversifi.com/',
   },
   etherBlockchain: {
     imageUrl: 'https://0xtracker.com/assets/logos/ether-blockchain.png',

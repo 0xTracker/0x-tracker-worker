@@ -48,6 +48,17 @@ Object {
     ],
     "url": "https://ddex.io",
   },
+  "deversifi": Object {
+    "feeRecipients": Array [
+      "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1",
+    ],
+    "id": "deversifi",
+    "imageUrl": "https://0xtracker.com/assets/logos/deversifi.png",
+    "lookupId": 21,
+    "name": "DeversiFi",
+    "slug": "deversifi",
+    "url": "https://www.deversifi.com/",
+  },
   "emoon": Object {
     "feeRecipients": Array [
       "0xb0d7398d779ee9ffc727d2d5b045a5b441da8233",
@@ -81,17 +92,6 @@ Object {
     "name": "EtherBlockchain.io",
     "slug": "ether-blockchain",
     "url": "https://www.etherblockchain.io/",
-  },
-  "ethfinex": Object {
-    "feeRecipients": Array [
-      "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1",
-    ],
-    "id": "ethfinex",
-    "imageUrl": "https://0xtracker.com/assets/logos/ethfinex.png",
-    "lookupId": 21,
-    "name": "Ethfinex",
-    "slug": "ethfinex",
-    "url": "https://www.ethfinex.com/",
   },
   "fordex": Object {
     "id": "fordex",
