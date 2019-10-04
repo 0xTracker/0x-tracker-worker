@@ -265,6 +265,17 @@ Object {
     "slug": "token-jar",
     "url": "https://tokenjar.io/",
   },
+  "tokenTrove": Object {
+    "feeRecipients": Array [
+      "0x0d056bb17ad4df5593b93a1efc29cb35ba4aa38d",
+    ],
+    "id": "tokenTrove",
+    "imageUrl": "https://0xtracker.com/assets/logos/token-trove.png",
+    "lookupId": 28,
+    "name": "TokenTrove",
+    "slug": "token-trove",
+    "url": "https://tokentrove.io",
+  },
   "tokenlon": Object {
     "feeRecipients": Array [
       "0x6f7ae872e995f98fcd2a7d3ba17b7ddfb884305f",
