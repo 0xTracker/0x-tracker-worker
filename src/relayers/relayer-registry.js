@@ -236,4 +236,12 @@ module.exports = {
     feeRecipients: ['0x1b38d2613698488cbac0e7d21abb2fdbbe1d6704'],
     url: 'https://bit2me.com/dex/',
   },
+  tokenTrove: {
+    imageUrl: 'https://0xtracker.com/assets/logos/token-trove.png',
+    lookupId: 28,
+    name: 'TokenTrove',
+    slug: 'token-trove',
+    feeRecipients: ['0x0d056bb17ad4df5593b93a1efc29cb35ba4aa38d'],
+    url: 'https://tokentrove.io',
+  },
 };
