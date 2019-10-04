@@ -137,7 +137,10 @@ module.exports = {
     url: 'https://tokenmom.com',
   },
   guDecks: {
-    feeRecipients: ['0x013ec57d1237e7727f818b1a35e3506f754304e4'],
+    feeRecipients: [
+      '0x013ec57d1237e7727f818b1a35e3506f754304e4',
+      '0xd9c3ed92520a2f3076a9bd5ea9d4a2c2a0cf6457',
+    ],
     imageUrl: 'https://0xtracker.com/assets/logos/gudecks.png',
     lookupId: 16,
     name: 'GUDecks',
