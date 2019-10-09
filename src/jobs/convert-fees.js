@@ -9,6 +9,8 @@ const getConversionRate = require('../rates/get-conversion-rate');
 
 const logger = signale.scope('convert fees');
 
+const SUPPORTED_VERSIONS = [1, 2];
+
 const convertAmount = (amount, conversionRate) => {
   if (amount === 0) {
     return 0;
@@ -28,6 +30,7 @@ const convertFees = async ({ batchSize }) => {
       { 'conversions.USD.makerFee': null },
       { 'conversions.USD.takerFee': null },
     ],
+    protocolVersion: { $in: SUPPORTED_VERSIONS },
   })
     .limit(batchSize)
     .lean();
