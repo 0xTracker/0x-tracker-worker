@@ -13,9 +13,12 @@ const persistFill = require('./persist-fill');
 
 const logger = signale.scope('create fills');
 
+const SUPPORTED_VERSIONS = [1, 2];
+
 const createFills = async ({ batchSize }) => {
   const events = await Event.find({
     fillCreated: { $in: [false, null] },
+    protocolVersion: { $in: SUPPORTED_VERSIONS },
   }).limit(batchSize);
 
   logger.info(`found ${events.length} events without associated fills`);
