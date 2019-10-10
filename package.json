@@ -52,7 +52,7 @@
     "memory-cache": "0.2.0",
     "moment": "2.24.0",
     "moment-round": "1.0.1",
-    "mongoose": "5.6.0",
+    "mongoose": "5.7.4",
     "ms": "2.1.2",
     "promise-poller": "1.7.0",
     "rss-parser": "3.7.1",
