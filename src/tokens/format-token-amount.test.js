@@ -14,7 +14,7 @@ it('should return unformatted amount when token does not have decimals', () => {
   expect(amount).toBe(12);
 });
 
-it('should return formatted amount', () => {
+it('should return formatted amount for token', () => {
   const amount = formatTokenAmount(22000000000000000000, { decimals: 18 });
 
   expect(amount).toEqual(new BigNumber(22));
@@ -32,4 +32,10 @@ it('should format large amount', () => {
   });
 
   expect(amount).toEqual(new BigNumber(100000000));
+});
+
+it('should return formatted amount for decimals', () => {
+  const amount = formatTokenAmount(22000000000000000000, 18);
+
+  expect(amount).toEqual(new BigNumber(22));
 });

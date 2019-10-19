@@ -26,6 +26,7 @@ const schema = Schema({
     USD: {
       amount: Number,
       makerFee: Number,
+      protocolFee: Number,
       takerFee: Number,
     },
   },
@@ -39,6 +40,7 @@ const schema = Schema({
   makerFee: Number,
   orderHash: String,
   pricingStatus: Number,
+  protocolFee: Number,
   protocolVersion: Number,
   rates: {
     data: Schema.Types.Mixed,
@@ -71,6 +73,7 @@ schema.index({ 'assets.tokenAddress': 1, date: -1 });
 // Used by convert-fees job
 schema.index({ 'conversions.USD.makerFee': 1 });
 schema.index({ 'conversions.USD.takerFee': 1 });
+schema.index({ 'conversions.USD.protocolFee': 1, protocolVersion: 1 });
 
 // Used to enforce data integrity
 schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });

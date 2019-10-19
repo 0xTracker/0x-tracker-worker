@@ -23,6 +23,9 @@ module.exports = {
     convertFees: {
       batchSize: 100,
     },
+    convertProtocolFees: {
+      batchSize: 100,
+    },
     createFills: {
       batchSize: 500,
     },
