@@ -15,13 +15,7 @@ module.exports = {
     '0xaa7427d8f17d87a28f5e1ba3adbb270badbe1011': 'ETH', // Ethfinex Ether
     '0x50cb61afa3f023d17276dcfb35abf85c710d1cff': 'ETH', // Ethfinex Ether V2
   },
-  SYMBOL_MAPPINGS: {
-    DAIW: 'DAI',
-    ETHW: 'ETH',
-    USDTW: 'USDT',
-    'VEIL ETH': 'ETH',
-    WETH: 'ETH',
-  },
+  ETH_TOKEN_DECIMALS: 18,
   FILL_ACTOR: {
     MAKER: 0,
     TAKER: 1,
@@ -34,6 +28,13 @@ module.exports = {
     FAILED: 2,
     PENDING: 0,
     SUCCESSFUL: 1,
+  },
+  SYMBOL_MAPPINGS: {
+    DAIW: 'DAI',
+    ETHW: 'ETH',
+    USDTW: 'USDT',
+    'VEIL ETH': 'ETH',
+    WETH: 'ETH',
   },
   TOKEN_TYPE: {
     ERC20: 0,
