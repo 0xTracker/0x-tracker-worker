@@ -23,6 +23,7 @@ const createFill = async event => {
     orderHash,
     paidMakerFee,
     paidTakerFee,
+    protocolFeePaid,
     senderAddress,
     taker,
   } = normalizeFillArgs(args, protocolVersion);
@@ -58,6 +59,7 @@ const createFill = async event => {
     maker,
     makerFee: paidMakerFee,
     orderHash,
+    protocolFee: protocolFeePaid,
     protocolVersion,
     relayerId: _.get(relayer, 'lookupId'),
     senderAddress,
