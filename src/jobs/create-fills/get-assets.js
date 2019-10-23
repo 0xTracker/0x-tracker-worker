@@ -10,7 +10,7 @@ const getAssets = (eventArgs, protocolVersion) => {
     return getV2Assets(eventArgs);
   }
 
-  return null; // Unrecognised protocol version
+  return undefined; // Unrecognised protocol version
 };
 
 module.exports = getAssets;

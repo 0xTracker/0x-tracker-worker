@@ -1,48 +1,8 @@
 const _ = require('lodash');
-const { assetDataUtils } = require('@0x/order-utils');
 
-const { FILL_ACTOR, TOKEN_TYPE } = require('../../constants');
+const { FILL_ACTOR } = require('../../constants');
 const { checkTokenResolved } = require('../../tokens/token-cache');
-
-const {
-  decodeAssetDataOrThrow,
-  isERC20AssetData,
-  isERC721AssetData,
-  isMultiAssetData,
-} = assetDataUtils;
-
-const decodeAssetData = assetData => {
-  try {
-    return decodeAssetDataOrThrow(assetData);
-  } catch (error) {
-    return null;
-  }
-};
-
-const createAssetForActor = (actor, assetData, amount) => {
-  const simpleAsset = {
-    actor,
-    amount,
-    tokenAddress: assetData.tokenAddress,
-  };
-
-  if (isERC20AssetData(assetData)) {
-    return {
-      ...simpleAsset,
-      tokenType: TOKEN_TYPE.ERC20,
-    };
-  }
-
-  if (isERC721AssetData(assetData)) {
-    return {
-      ...simpleAsset,
-      tokenId: assetData.tokenId.toNumber(),
-      tokenType: TOKEN_TYPE.ERC721,
-    };
-  }
-
-  return null; // Unrecognised asset
-};
+const parseAssetData = require('./parse-asset-data');
 
 const getAssetsForActor = (eventArgs, actor) => {
   const { amount, encodedData } =
@@ -56,27 +16,13 @@ const getAssetsForActor = (eventArgs, actor) => {
           encodedData: eventArgs.takerAssetData,
         };
 
-  const assetData = decodeAssetData(encodedData);
+  const assets = parseAssetData(encodedData, amount);
 
-  if (assetData === null) {
-    return null; // Unable to decode asset data, handle gracefully
+  if (assets === undefined) {
+    return undefined;
   }
 
-  if (isERC20AssetData(assetData) || isERC721AssetData(assetData)) {
-    return createAssetForActor(actor, assetData, amount);
-  }
-
-  if (isMultiAssetData(assetData)) {
-    const { amounts } = assetData;
-    const nestedAssetsData = assetData.nestedAssetData.map(decodeAssetData);
-    const nestedAssets = nestedAssetsData.map((nestedAssetData, index) =>
-      createAssetForActor(actor, nestedAssetData, amounts[index].toNumber()),
-    );
-
-    return nestedAssets;
-  }
-
-  return null; // Unsupported asset type
+  return assets.map(asset => ({ ...asset, actor }));
 };
 
 const getV2Assets = eventArgs => {
@@ -85,8 +31,8 @@ const getV2Assets = eventArgs => {
     .flatten()
     .value();
 
-  if (assets.some(asset => asset === null)) {
-    return null;
+  if (assets.some(asset => asset === undefined)) {
+    return undefined;
   }
 
   return assets.map(asset => ({

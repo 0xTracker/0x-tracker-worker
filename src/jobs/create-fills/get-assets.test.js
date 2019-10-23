@@ -39,7 +39,7 @@ it('should get assets for V1 event args', () => {
 it('should return null when protocol is not recognised', () => {
   const assets = getAssets(v1EventArgs, 3);
 
-  expect(assets).toBeNull();
+  expect(assets).toBeUndefined();
 });
 
 it('should get assets for V2 event with only ERC-20 assets', () => {
@@ -179,5 +179,5 @@ it('should return null when one of the assets data is corrupt', () => {
   };
   const assets = getAssets(eventArgs, 2);
 
-  expect(assets).toBeNull();
+  expect(assets).toBeUndefined();
 });

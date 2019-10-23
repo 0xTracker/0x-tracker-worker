@@ -2,6 +2,7 @@ const _ = require('lodash');
 
 const {
   UnsupportedAssetError,
+  // UnsupportedFeeError,
   UnsupportedProtocolError,
 } = require('../../errors');
 
@@ -10,9 +11,15 @@ const getAssets = require('./get-assets');
 const normalizeFillArgs = (args, protocolVersion = 1) => {
   const assets = getAssets(args, protocolVersion);
 
-  if (assets === null) {
+  if (assets === undefined) {
     throw new UnsupportedAssetError(`Event has unsupported assets`);
   }
+
+  // const fees = getFees(args, protocolVersion);
+
+  // if (fees === null) {
+  //   throw new UnsupportedFeeError(`Event has unsupported fees`);
+  // }
 
   if (protocolVersion === 1) {
     return {
