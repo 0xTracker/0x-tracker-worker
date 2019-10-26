@@ -3,21 +3,28 @@ const _ = require('lodash');
 const { MissingBlockError } = require('../../errors');
 const getBlock = require('../../util/ethereum/get-block');
 const getRelayerForFill = require('../../fills/get-relayer-for-fill');
-const normalizeFillArgs = require('./normalize-fill-args');
+const normalizeEventArgs = require('./normalize-event-args');
+
+const getBlockOrThrow = async blockHash => {
+  const block = await getBlock(blockHash);
+
+  if (block === null) {
+    throw new MissingBlockError();
+  }
+
+  return block;
+};
 
 const createFill = async event => {
-  const { protocolVersion } = event;
+  const { data, protocolVersion } = event;
+  const { args, blockHash, blockNumber, logIndex, transactionHash } = data;
 
-  const {
-    args,
-    blockHash,
-    blockNumber,
-    logIndex,
-    transactionHash,
-  } = event.data;
+  const block = await getBlockOrThrow();
+  const date = new Date(block.timestamp * 1000);
 
   const {
     assets,
+    fees,
     feeRecipient,
     maker,
     orderHash,
@@ -26,34 +33,29 @@ const createFill = async event => {
     protocolFeePaid,
     senderAddress,
     taker,
-  } = normalizeFillArgs(args, protocolVersion);
+  } = normalizeEventArgs(args, protocolVersion);
 
-  const block = await getBlock(blockHash);
-
-  if (block === null) {
-    throw new MissingBlockError();
-  }
-
-  const date = new Date(block.timestamp * 1000);
   const relayer = getRelayerForFill({
     feeRecipient,
     takerAddress: taker,
   });
 
-  const conversions =
-    paidMakerFee + paidTakerFee === 0
-      ? {
-          USD: { makerFee: 0, takerFee: 0 },
-        }
-      : undefined;
+  const feeless =
+    (paidMakerFee || 0) + (paidTakerFee || 0) === 0 ||
+    _.every(fees, { token: 0 });
 
   const fill = {
     assets,
     blockHash,
     blockNumber,
-    conversions,
+    conversions: feeless
+      ? {
+          USD: { makerFee: 0, takerFee: 0 },
+        }
+      : undefined,
     date,
     eventId: event._id,
+    fees,
     feeRecipient,
     logIndex,
     maker,

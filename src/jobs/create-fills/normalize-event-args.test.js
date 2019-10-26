@@ -1,5 +1,5 @@
 const { UnsupportedAssetError } = require('../../errors');
-const normalizeFillArgs = require('./normalize-fill-args');
+const normalizeEventArgs = require('./normalize-event-args');
 
 const simpleV2Args = {
   makerAddress: '0x5b50fb8281cb679a3102d3de22dd05a1ad895e8f',
@@ -20,7 +20,7 @@ const simpleV2Args = {
 
 describe('normalizeFillArgs', () => {
   it('should normalize args for V1 event', () => {
-    const normalized = normalizeFillArgs(
+    const normalized = normalizeEventArgs(
       {
         maker: '0x0e7c68992fe035f4ed9607866483cf6ae7db6b71',
         taker: '0xe269e891a2ec8585a378882ffa531141205e92e9',
@@ -43,20 +43,20 @@ describe('normalizeFillArgs', () => {
   });
 
   it('should normalize args for V2 event with recognized assets', () => {
-    const normalized = normalizeFillArgs(simpleV2Args, 2);
+    const normalized = normalizeEventArgs(simpleV2Args, 2);
 
     expect(normalized).toMatchSnapshot();
   });
 
   it('should throw UnsupportedAssetError when maker asset data is invalid', () => {
     expect(() => {
-      normalizeFillArgs({ ...simpleV2Args, makerAssetData: 'invalid' }, 2);
+      normalizeEventArgs({ ...simpleV2Args, makerAssetData: 'invalid' }, 2);
     }).toThrow(UnsupportedAssetError);
   });
 
   it('should throw UnsupportedAssetError when taker asset data is invalid', () => {
     expect(() => {
-      normalizeFillArgs({ ...simpleV2Args, takerAssetData: 'invalid' }, 2);
+      normalizeEventArgs({ ...simpleV2Args, takerAssetData: 'invalid' }, 2);
     }).toThrow(UnsupportedAssetError);
   });
 });

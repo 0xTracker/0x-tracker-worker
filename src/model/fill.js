@@ -32,6 +32,14 @@ const schema = Schema({
   },
   date: Date,
   eventId: Schema.Types.ObjectId,
+  fees: [
+    {
+      amount: { token: Number, USD: Number },
+      tokenAddress: String,
+      tokenId: Number,
+      traderType: Number,
+    },
+  ],
   feeRecipient: String,
   hasValue: { default: false, type: Boolean },
   immeasurable: { default: false, type: Boolean },
