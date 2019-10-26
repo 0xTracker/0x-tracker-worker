@@ -36,10 +36,10 @@ it('should get assets for V1 event args', () => {
   ]);
 });
 
-it('should return null when protocol is not recognised', () => {
+it('should return undefined when protocol is not recognised', () => {
   const assets = getAssets(v1EventArgs, 3);
 
-  expect(assets).toBeNull();
+  expect(assets).toBeUndefined();
 });
 
 it('should get assets for V2 event with only ERC-20 assets', () => {
@@ -161,7 +161,7 @@ it('should get assets for V2 event with multi-asset data', () => {
   ]);
 });
 
-it('should return null when one of the assets data is corrupt', () => {
+it('should return undefined when one of the assets data is corrupt', () => {
   const eventArgs = {
     makerAddress: '0x9193ed9cbf94d109667c3d5659caffe21b4197bc',
     feeRecipientAddress: '0x0000000000000000000000000000000000000000',
@@ -179,5 +179,5 @@ it('should return null when one of the assets data is corrupt', () => {
   };
   const assets = getAssets(eventArgs, 2);
 
-  expect(assets).toBeNull();
+  expect(assets).toBeUndefined();
 });

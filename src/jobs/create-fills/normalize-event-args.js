@@ -2,15 +2,17 @@ const _ = require('lodash');
 
 const {
   UnsupportedAssetError,
+  UnsupportedFeeError,
   UnsupportedProtocolError,
 } = require('../../errors');
 
+const extractFeesFromEventArgs = require('./extract-fees-from-event-args');
 const getAssets = require('./get-assets');
 
 const normalizeFillArgs = (args, protocolVersion = 1) => {
   const assets = getAssets(args, protocolVersion);
 
-  if (assets === null) {
+  if (assets === undefined) {
     throw new UnsupportedAssetError(`Event has unsupported assets`);
   }
 
@@ -37,6 +39,24 @@ const normalizeFillArgs = (args, protocolVersion = 1) => {
       orderHash: args.orderHash,
       paidMakerFee: args.makerFeePaid,
       paidTakerFee: args.takerFeePaid,
+      senderAddress: args.senderAddress,
+      taker: args.takerAddress,
+    };
+  }
+
+  if (protocolVersion === 3) {
+    const fees = extractFeesFromEventArgs(args, protocolVersion);
+
+    if (fees === null) {
+      throw new UnsupportedFeeError(`Event has unsupported fees`);
+    }
+
+    return {
+      assets,
+      fees,
+      feeRecipient: args.feeRecipientAddress,
+      maker: args.makerAddress,
+      orderHash: args.orderHash,
       senderAddress: args.senderAddress,
       taker: args.takerAddress,
     };

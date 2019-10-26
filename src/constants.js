@@ -40,5 +40,9 @@ module.exports = {
     ERC20: 0,
     ERC721: 1,
   },
+  TRADER_TYPE: {
+    MAKER: 0,
+    TAKER: 1,
+  },
   ZRX_TOKEN_ADDRESS: '0xe41d2489571d322189246dafa5ebde1f4699f498',
 };
