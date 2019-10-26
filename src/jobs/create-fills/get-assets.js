@@ -6,7 +6,7 @@ const getAssets = (eventArgs, protocolVersion) => {
     return getV1Assets(eventArgs);
   }
 
-  if (protocolVersion === 2) {
+  if (protocolVersion === 2 || protocolVersion === 3) {
     return getV2Assets(eventArgs);
   }
 
