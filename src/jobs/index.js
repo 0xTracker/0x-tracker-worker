@@ -2,6 +2,7 @@ const _ = require('lodash');
 
 // const backfillRelayerRelationships = require('./backfill-relayer-relationships');
 const cacheAddressMetrics = require('./cache-address-metrics');
+const cacheProtocolVersionMetrics = require('./cache-protocol-version-metrics');
 const cacheRelayerMetrics = require('./cache-relayer-metrics');
 const cacheTokenMetrics = require('./cache-token-metrics');
 const cacheTokenStats = require('./cache-token-stats');
@@ -19,6 +20,7 @@ const updateRelayerStats = require('./update-relayer-stats');
 const jobFns = {
   // backfillRelayerRelationships,
   cacheAddressMetrics,
+  cacheProtocolVersionMetrics,
   cacheRelayerMetrics,
   cacheTokenMetrics,
   cacheTokenStats,
