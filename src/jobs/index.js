@@ -34,11 +34,11 @@ const jobFns = {
   updateRelayerStats,
 };
 
-const getJobs = ({ maxRetries, pollingIntervals }) =>
+const getJobs = ({ pollingIntervals }) =>
   _.map(jobFns, (fn, jobName) => ({
     fn,
-    interval: pollingIntervals[jobName] || pollingIntervals.default,
-    maxRetries: maxRetries[jobName] || maxRetries.default,
+    maxInterval: pollingIntervals.max[jobName] || pollingIntervals.max.default,
+    minInterval: pollingIntervals.min[jobName] || pollingIntervals.min.default,
   }));
 
 module.exports = { getJobs };

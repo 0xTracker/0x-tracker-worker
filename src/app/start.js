@@ -6,7 +6,6 @@ const { runJobs } = require('../util/job-runner');
 
 const start = async () => {
   const jobs = getJobs({
-    maxRetries: config.get('maxRetries'),
     pollingIntervals: config.get('pollingIntervals'),
   });
 
