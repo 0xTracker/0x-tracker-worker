@@ -19,7 +19,7 @@ const createFill = async event => {
   const { data, protocolVersion } = event;
   const { args, blockHash, blockNumber, logIndex, transactionHash } = data;
 
-  const block = await getBlockOrThrow();
+  const block = await getBlockOrThrow(blockHash);
   const date = new Date(block.timestamp * 1000);
 
   const {
