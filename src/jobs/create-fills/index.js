@@ -6,10 +6,13 @@ const {
   UnsupportedAssetError,
   UnsupportedProtocolError,
 } = require('../../errors');
+const { JOB, QUEUE } = require('../../constants');
+const { publishJob } = require('../../queues');
 const createFill = require('./create-fill');
 const ensureTokenExists = require('../../tokens/ensure-token-exists');
 const Event = require('../../model/event');
 const persistFill = require('./persist-fill');
+const withTransaction = require('../../util/with-transaction');
 
 const logger = signale.scope('create fills');
 
@@ -38,9 +41,16 @@ const createFills = async ({ batchSize }) => {
         }),
       );
 
-      logger.time(`persist fill for event ${event._id}`);
-      await persistFill(event, fill);
-      logger.timeEnd(`persist fill for event ${event._id}`);
+      await withTransaction(async session => {
+        logger.time(`persist fill for event ${event._id}`);
+        const newFill = await persistFill(session, event, fill);
+        logger.timeEnd(`persist fill for event ${event._id}`);
+
+        publishJob(QUEUE.FILL_PROCESSING, JOB.FETCH_FILL_STATUS, {
+          fillId: newFill._id,
+          transactionHash: newFill.transactionHash,
+        });
+      });
 
       logger.timeEnd(`create fill for event ${event.id}`);
     } catch (error) {

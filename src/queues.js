@@ -1,0 +1,30 @@
+const Queue = require('bull');
+
+const queues = {};
+
+const getQueue = queueName => {
+  if (queues[queueName] === undefined) {
+    throw new Error(
+      `No queue has been initialized with the name: ${queueName}`,
+    );
+  }
+  return queues[queueName];
+};
+
+const getQueues = () => {
+  return queues;
+};
+
+const initQueues = queueNames => {
+  queueNames.forEach(queueName => {
+    queues[queueName] = new Queue(queueName, process.env.REDIS_URL);
+  });
+};
+
+const publishJob = (queueName, jobName, jobData, options) => {
+  const queue = getQueue(queueName);
+
+  queue.add(jobName, jobData, options);
+};
+
+module.exports = { getQueue, getQueues, initQueues, publishJob };

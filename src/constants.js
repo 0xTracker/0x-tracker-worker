@@ -29,6 +29,12 @@ module.exports = {
     PENDING: 0,
     SUCCESSFUL: 1,
   },
+  JOB: {
+    FETCH_FILL_STATUS: 'fetch-fill-status',
+  },
+  QUEUE: {
+    FILL_PROCESSING: 'fill-processing',
+  },
   SYMBOL_MAPPINGS: {
     DAIW: 'DAI',
     ETHW: 'ETH',
