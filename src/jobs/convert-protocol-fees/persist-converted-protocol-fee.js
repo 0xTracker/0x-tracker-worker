@@ -1,7 +1,7 @@
-const Fill = require('../../model/fill');
+const { getModel } = require('../../model');
 
 const persistConvertedProtocolFee = async (fillId, convertedProtocolFee) => {
-  await Fill.updateOne(
+  await getModel('Fill').updateOne(
     { _id: fillId },
     { $set: { 'conversions.USD.protocolFee': convertedProtocolFee } },
   );

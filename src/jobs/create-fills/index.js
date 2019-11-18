@@ -50,6 +50,9 @@ const createFills = async ({ batchSize }) => {
           fillId: newFill._id,
           transactionHash: newFill.transactionHash,
         });
+        publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL, {
+          fillId: newFill._id,
+        });
       });
 
       logger.timeEnd(`create fill for event ${event.id}`);

@@ -1,7 +1,7 @@
 const moment = require('moment');
 const signale = require('signale');
 
-const Fill = require('../model/fill');
+const { getModel } = require('../model');
 
 const logger = signale.scope('compute relayer metrics');
 
@@ -20,7 +20,7 @@ const computeRelayerMetrics = async date => {
 
   logger.time(profileLabel);
 
-  const results = await Fill.aggregate([
+  const results = await getModel('Fill').aggregate([
     // Match only fills from the specified day
     {
       $match: {

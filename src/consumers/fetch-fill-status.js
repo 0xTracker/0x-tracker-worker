@@ -2,7 +2,7 @@ const _ = require('lodash');
 const signale = require('signale');
 
 const { FILL_STATUS } = require('../constants');
-const Fill = require('../model/fill');
+const { getModel } = require('../model');
 const getTransactionReceipt = require('../util/ethereum/get-transaction-receipt');
 
 const logger = signale.scope('fetch fill status');
@@ -19,7 +19,7 @@ const fetchFillStatusConsumer = async job => {
     receipt.status === 0 ? FILL_STATUS.FAILED : FILL_STATUS.SUCCESSFUL;
   const statusText = _.findKey(FILL_STATUS, value => value === status);
 
-  await Fill.updateOne({ _id: fillId }, { status });
+  await getModel('Fill').updateOne({ _id: fillId }, { status });
 
   logger.success(`set status of fill ${fillId} to ${statusText}`);
 };

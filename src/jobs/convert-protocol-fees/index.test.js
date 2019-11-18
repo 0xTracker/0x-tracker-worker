@@ -1,5 +1,4 @@
 const convertProtocolFees = require('./');
-const Fill = require('../../model/fill');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getFillsWithUnconvertedProtocolFees = require('./get-fills-with-unconverted-protocol-fees');
 const persistConvertedProtocolFee = require('./persist-converted-protocol-fee');
@@ -23,14 +22,14 @@ describe('convert protocol fees job', () => {
 
   it('should persist converted fees when conversion rate available', async () => {
     getFillsWithUnconvertedProtocolFees.mockResolvedValue([
-      new Fill({
+      {
         _id: '5dab535fa75e77be63cfcc29',
         protocolFee: 1000000000000000,
-      }),
-      new Fill({
+      },
+      {
         _id: '5a1034e001d64f914ce91305',
         protocolFee: 2000000000000000,
-      }),
+      },
     ]);
     getConversionRate.mockResolvedValue(180);
 
@@ -51,14 +50,14 @@ describe('convert protocol fees job', () => {
 
   it('should skip fill when conversion rate cannot be fetched', async () => {
     getFillsWithUnconvertedProtocolFees.mockResolvedValue([
-      new Fill({
+      {
         _id: '5dab535fa75e77be63cfcc29',
         protocolFee: 1000000000000000,
-      }),
-      new Fill({
+      },
+      {
         _id: '5a1034e001d64f914ce91305',
         protocolFee: 2000000000000000,
-      }),
+      },
     ]);
 
     getConversionRate.mockResolvedValueOnce(undefined);

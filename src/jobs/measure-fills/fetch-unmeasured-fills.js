@@ -1,15 +1,17 @@
 const _ = require('lodash');
 
 const { BASE_TOKENS } = require('../../constants');
-const Fill = require('../../model/fill');
+const { getModel } = require('../../model');
 
 const fetchUnmeasuredFills = async batchSize => {
   const baseTokenAddresses = _.keys(BASE_TOKENS);
-  const fills = await Fill.find({
-    hasValue: false,
-    'assets.tokenAddress': { $in: baseTokenAddresses },
-    immeasurable: { $in: [null, false] },
-  }).limit(batchSize);
+  const fills = await getModel('Fill')
+    .find({
+      hasValue: false,
+      'assets.tokenAddress': { $in: baseTokenAddresses },
+      immeasurable: { $in: [null, false] },
+    })
+    .limit(batchSize);
 
   return fills;
 };

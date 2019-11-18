@@ -3,7 +3,7 @@ const bluebird = require('bluebird');
 const signale = require('signale');
 
 const { getTokenInfo } = require('../util/ethplorer');
-const Fill = require('../model/fill');
+const { getModel } = require('../model');
 const Token = require('../model/token');
 const tokenCache = require('../tokens/token-cache');
 const withTransaction = require('../util/with-transaction');
@@ -45,7 +45,7 @@ const resolveTokens = async () => {
         { $set: { ...tokenDetails, resolved: true } },
         { session },
       );
-      await Fill.updateMany(
+      await getModel('Fill').updateMany(
         {
           'assets.tokenAddress': address,
         },

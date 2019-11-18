@@ -3,12 +3,14 @@ const bluebird = require('bluebird');
 const signale = require('signale');
 
 const { FILL_STATUS } = require('../constants');
-const Fill = require('../model/fill');
+const { getModel } = require('../model');
 const getTransactionReceipt = require('../util/ethereum/get-transaction-receipt');
 
 const logger = signale.scope('update fill statuses');
 
 const updateFillStatuses = async ({ batchSize }) => {
+  const Fill = getModel('Fill');
+
   logger.time('fetch pending fills');
 
   const fills = await Fill.find({ status: FILL_STATUS.PENDING })

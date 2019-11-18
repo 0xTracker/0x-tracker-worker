@@ -1,11 +1,13 @@
 const _ = require('lodash');
 const moment = require('moment');
 
-const Fill = require('../model/fill');
+const { getModel } = require('../model');
 const MetricsJobMetadata = require('../model/metrics-job-metadata');
 
 const getFirstFillDate = async () => {
-  const firstFill = await Fill.findOne().sort({ date: 1 });
+  const firstFill = await getModel('Fill')
+    .findOne()
+    .sort({ date: 1 });
 
   // If no fills exist then signal callee to bail out
   if (firstFill === null) {
@@ -19,7 +21,9 @@ const getFirstFillDate = async () => {
 };
 
 const getLastFillDate = async () => {
-  const lastFill = await Fill.findOne().sort({ date: -1 });
+  const lastFill = await getModel('Fill')
+    .findOne()
+    .sort({ date: -1 });
 
   if (lastFill === null) {
     return null;

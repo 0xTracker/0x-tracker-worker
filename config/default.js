@@ -13,6 +13,9 @@ module.exports = {
     connectionString: process.env.CONNECTION_STRING,
     poolSize: process.env.POOL_SIZE || 30,
   },
+  elasticsearch: {
+    url: process.env.ELASTIC_SEARCH_URL,
+  },
   ercDex: {
     feeRecipientPollingInterval: ms('1 minute'),
   },
