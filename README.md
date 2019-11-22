@@ -46,7 +46,7 @@ Run `npm i` to install dependencies and then run `npm start`/`nodemon` to start 
 
 ## 🛠 Configuration
 
-Configuration is handled by a combination of [dotenv](https://github.com/motdotla/dotenv) files and [node-config](https://github.com/lorenwest/node-config). If you need to tweak anything you can either edit your .env file or create a config/local.js file with overrides for the configuration found in config/default.js.
+Configuration is handled by a combination of [dotenv](https://github.com/motdotla/dotenv) files and [node-config](https://github.com/lorenwest/node-config). If you need to tweak anything you can either edit your .env file or create a config/local.js file with overrides for the configuration found in config/default.js
 
 ## 👨‍💻 Maintainers
 
