@@ -15,5 +15,6 @@ deploy:
   app: "0x Tracker Worker"
   env: $AWS_DEPLOY_ENV
   bucket_name: $AWS_DEPLOY_BUCKET_NAME
+  wait_until_deployed: true
   on:
     branch: master
