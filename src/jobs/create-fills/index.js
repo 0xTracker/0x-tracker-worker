@@ -46,10 +46,15 @@ const createFills = async ({ batchSize }) => {
         const newFill = await persistFill(session, event, fill);
         logger.timeEnd(`persist fill for event ${event._id}`);
 
-        publishJob(QUEUE.FILL_PROCESSING, JOB.FETCH_FILL_STATUS, {
-          fillId: newFill._id,
-          transactionHash: newFill.transactionHash,
-        });
+        publishJob(
+          QUEUE.FILL_PROCESSING,
+          JOB.FETCH_FILL_STATUS,
+          {
+            fillId: newFill._id,
+            transactionHash: newFill.transactionHash,
+          },
+          { removeOnComplete: true },
+        );
       });
 
       logger.timeEnd(`create fill for event ${event.id}`);
