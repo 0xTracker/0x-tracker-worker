@@ -105,6 +105,17 @@ Object {
     ],
     "url": "https://www.fordex.co",
   },
+  "godsUnchained": Object {
+    "id": "godsUnchained",
+    "imageUrl": "https://0xtracker.com/assets/logos/gods-unchained.png",
+    "lookupId": 29,
+    "name": "Gods Unchained",
+    "senderAddresses": Array [
+      "0xb04239b53806ab31141e6cd47c63fb3480cac908",
+    ],
+    "slug": "gods-unchained",
+    "url": "https://godsunchained.com/market",
+  },
   "guDecks": Object {
     "feeRecipients": Array [
       "0x013ec57d1237e7727f818b1a35e3506f754304e4",
