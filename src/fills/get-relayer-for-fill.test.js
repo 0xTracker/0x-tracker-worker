@@ -27,3 +27,10 @@ it('should return Bamboo Relay when fee recipient matches', () => {
 
   expect(relayer).toMatchSnapshot();
 });
+
+it('should return Gods Unchained when sender address matches', () => {
+  const fill = { senderAddress: '0xb04239b53806ab31141e6cd47c63fb3480cac908' };
+  const relayer = getRelayerForFill(fill);
+
+  expect(relayer.name).toBe('Gods Unchained');
+});

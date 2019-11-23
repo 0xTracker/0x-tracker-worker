@@ -248,4 +248,12 @@ module.exports = {
     feeRecipients: ['0x0d056bb17ad4df5593b93a1efc29cb35ba4aa38d'],
     url: 'https://tokentrove.io',
   },
+  godsUnchained: {
+    imageUrl: 'https://0xtracker.com/assets/logos/gods-unchained.png',
+    lookupId: 29,
+    name: 'Gods Unchained',
+    slug: 'gods-unchained',
+    senderAddresses: ['0xb04239b53806ab31141e6cd47c63fb3480cac908'],
+    url: 'https://godsunchained.com/market',
+  },
 };
