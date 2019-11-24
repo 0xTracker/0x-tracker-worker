@@ -1,16 +1,13 @@
 const Event = require('../../model/event');
 const Fill = require('../../model/fill');
-const withTransaction = require('../../util/with-transaction');
 
-const persistFill = async (event, fill) => {
-  await withTransaction(async session => {
-    await Fill.create([fill], { session });
-    await Event.updateOne(
-      { _id: event._id },
-      { fillCreated: true },
-      { session },
-    );
-  });
+const persistFill = async (session, event, fill) => {
+  const results = await Fill.create([fill], { session });
+  const newFill = results[0];
+
+  await Event.updateOne({ _id: event._id }, { fillCreated: true }, { session });
+
+  return newFill;
 };
 
 module.exports = persistFill;

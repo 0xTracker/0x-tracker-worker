@@ -1,22 +1,14 @@
-// const config = require('config');
-
+const { QUEUE } = require('../constants');
+const { initQueues } = require('../queues');
 const configure = require('./configure');
-// const ercDexRecipientCache = require('../relayers/erc-dex/recipient-cache');
 const populateRelayersCollection = require('../relayers/populate-relayers-collection');
 const tokenCache = require('../tokens/token-cache');
 
 const initialise = async () => {
   configure();
+  initQueues(Object.values(QUEUE));
 
-  await Promise.all([
-    // ercDexRecipientCache.loadRecipients().then(() => {
-    //   ercDexRecipientCache.startPolling(
-    //     config.get('ercDex.feeRecipientPollingInterval'),
-    //   );
-    // }),
-    tokenCache.initialise(),
-    populateRelayersCollection(),
-  ]);
+  await Promise.all([tokenCache.initialise(), populateRelayersCollection()]);
 };
 
 module.exports = initialise;
