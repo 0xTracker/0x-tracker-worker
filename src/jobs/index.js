@@ -13,7 +13,6 @@ const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
 const measureFills = require('./measure-fills');
 const resolveTokens = require('./resolve-tokens');
-const updateFillStatuses = require('./update-fill-statuses');
 const updateRelayerStats = require('./update-relayer-stats');
 
 const jobFns = {
@@ -30,7 +29,6 @@ const jobFns = {
   getNewArticles,
   measureFills,
   resolveTokens,
-  updateFillStatuses,
   updateRelayerStats,
 };
 

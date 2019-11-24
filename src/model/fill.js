@@ -102,9 +102,6 @@ schema.index({
   'assets.tokenResolved': -1,
 });
 
-// Used by update-fill-statuses job
-schema.index({ status: 1 });
-
 const Model = mongoose.model('Fill', schema);
 
 module.exports = Model;
