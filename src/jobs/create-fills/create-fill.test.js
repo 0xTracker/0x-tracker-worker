@@ -157,7 +157,7 @@ describe('createFill', () => {
       makerFee: undefined,
       orderHash:
         '0x8739c67a2a559205a7c8c7b24713ec21f35fed8b565a225a998375b1dae1bb14',
-      protocolFee: undefined,
+      protocolFee: 100000000000,
       protocolVersion: 3,
       relayerId: undefined,
       senderAddress: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
