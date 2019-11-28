@@ -16,7 +16,7 @@ const withTransaction = require('../../util/with-transaction');
 
 const logger = signale.scope('create fills');
 
-const SUPPORTED_VERSIONS = [1, 2];
+const SUPPORTED_VERSIONS = [1, 2, 3];
 
 const createFills = async ({ batchSize }) => {
   const events = await Event.find({
