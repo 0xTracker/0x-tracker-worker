@@ -14,7 +14,6 @@ const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
 const measureFills = require('./measure-fills');
 const resolveTokens = require('./resolve-tokens');
-const updateFillStatuses = require('./update-fill-statuses');
 const updateRelayerStats = require('./update-relayer-stats');
 
 const jobFns = {
@@ -32,15 +31,14 @@ const jobFns = {
   getNewArticles,
   measureFills,
   resolveTokens,
-  updateFillStatuses,
   updateRelayerStats,
 };
 
-const getJobs = ({ maxRetries, pollingIntervals }) =>
+const getJobs = ({ pollingIntervals }) =>
   _.map(jobFns, (fn, jobName) => ({
     fn,
-    interval: pollingIntervals[jobName] || pollingIntervals.default,
-    maxRetries: maxRetries[jobName] || maxRetries.default,
+    maxInterval: pollingIntervals.max[jobName] || pollingIntervals.max.default,
+    minInterval: pollingIntervals.min[jobName] || pollingIntervals.min.default,
   }));
 
 module.exports = { getJobs };

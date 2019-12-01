@@ -57,6 +57,7 @@ const normalizeFillArgs = (args, protocolVersion = 1) => {
       feeRecipient: args.feeRecipientAddress,
       maker: args.makerAddress,
       orderHash: args.orderHash,
+      protocolFeePaid: args.protocolFeePaid,
       senderAddress: args.senderAddress,
       taker: args.takerAddress,
     };
