@@ -16,5 +16,6 @@ deploy:
   env: $AWS_DEPLOY_ENV
   bucket: $AWS_DEPLOY_BUCKET_NAME
   edge: true
+  cleanup: false
   on:
     branch: master
