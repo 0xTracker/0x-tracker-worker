@@ -26,6 +26,6 @@ const schema = mongoose.Schema({
 
 schema.index({ protocolVersion: 1, date: 1 }, { unique: true });
 
-const Model = mongoose.model('ProtocolVersionMetric', schema);
+const Model = mongoose.model('ProtocolMetric', schema);
 
 module.exports = Model;

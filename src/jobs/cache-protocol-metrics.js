@@ -2,16 +2,16 @@ const _ = require('lodash');
 const moment = require('moment');
 const signale = require('signale');
 
-const computeProtocolVersionMetrics = require('../metrics/compute-protocol-version-metrics');
+const computeProtocolMetrics = require('../metrics/compute-protocol-metrics');
 const getDatesForMetricsJob = require('../metrics/get-dates-for-metrics-job');
 const MetricsJobMetadata = require('../model/metrics-job-metadata');
-const ProtocolVersionMetric = require('../model/protocol-version-metric');
+const ProtocolMetric = require('../model/protocol-metric');
 const withTransaction = require('../util/with-transaction');
 
-const logger = signale.scope('cache protocol version metrics');
+const logger = signale.scope('cache protocol metrics');
 
-const cacheProtocolVersionMetrics = async () => {
-  const dates = await getDatesForMetricsJob('protocol-version');
+const cacheProtocolMetrics = async () => {
+  const dates = await getDatesForMetricsJob('protocol');
 
   if (dates === null) {
     logger.info('no metrics available to update');
@@ -21,7 +21,7 @@ const cacheProtocolVersionMetrics = async () => {
   logger.time('compute metrics');
   const results = await Promise.all(
     dates.map(date => {
-      return computeProtocolVersionMetrics(date);
+      return computeProtocolMetrics(date);
     }),
   );
   logger.timeEnd('compute metrics');
@@ -31,7 +31,7 @@ const cacheProtocolVersionMetrics = async () => {
   logger.time('persist metrics');
   await withTransaction(async session => {
     if (metrics.length > 0) {
-      await ProtocolVersionMetric.bulkWrite(
+      await ProtocolMetric.bulkWrite(
         metrics.map(metric => ({
           updateOne: {
             filter: {
@@ -49,11 +49,11 @@ const cacheProtocolVersionMetrics = async () => {
     await MetricsJobMetadata.bulkWrite(
       dates.map(date => ({
         updateOne: {
-          filter: { date, metricType: 'protocol-version' },
+          filter: { date, metricType: 'protocol' },
           update: {
             $set: {
               date,
-              metricType: 'protocol-version',
+              metricType: 'protocol',
               lastUpdated: Date.now(),
             },
           },
@@ -73,4 +73,4 @@ const cacheProtocolVersionMetrics = async () => {
   );
 };
 
-module.exports = cacheProtocolVersionMetrics;
+module.exports = cacheProtocolMetrics;

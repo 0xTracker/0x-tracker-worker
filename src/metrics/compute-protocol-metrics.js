@@ -3,9 +3,9 @@ const signale = require('signale');
 
 const Fill = require('../model/fill');
 
-const logger = signale.scope('compute protocol version metrics');
+const logger = signale.scope('compute protocol metrics');
 
-const computeProtocolVersionMetrics = async date => {
+const computeProtocolMetrics = async date => {
   const startOfDay = moment
     .utc(date)
     .startOf('day')
@@ -179,4 +179,4 @@ const computeProtocolVersionMetrics = async date => {
   return results;
 };
 
-module.exports = computeProtocolVersionMetrics;
+module.exports = computeProtocolMetrics;
