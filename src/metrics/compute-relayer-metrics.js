@@ -46,6 +46,8 @@ const computeRelayerMetrics = async date => {
         feesZRX: {
           $add: ['$makerFee', '$takerFee'],
         },
+        protocolFeeUSD: '$conversions.USD.protocolFee',
+        protocolFeeZRX: '$protocolFee',
         relayerId: 1,
         value: '$conversions.USD.amount',
       },
@@ -80,6 +82,8 @@ const computeRelayerMetrics = async date => {
         },
         feesUSD: 1,
         feesZRX: 1,
+        protocolFeeUSD: 1,
+        protocolFeeZRX: 1,
         value: 1,
         relayerId: 1,
       },
@@ -106,6 +110,12 @@ const computeRelayerMetrics = async date => {
         fillVolume: {
           $sum: '$value',
         },
+        protocolFeesUSD: {
+          $sum: '$protocolFeeUSD',
+        },
+        protocolFeesZRX: {
+          $sum: '$protocolFeeZRX',
+        },
       },
     },
 
@@ -128,6 +138,8 @@ const computeRelayerMetrics = async date => {
         feesZRX: 1,
         fillCount: 1,
         fillVolume: 1,
+        protocolFeesUSD: 1,
+        protocolFeesZRX: 1,
         relayer: {
           $arrayElemAt: ['$relayer', 0],
         },
@@ -142,6 +154,8 @@ const computeRelayerMetrics = async date => {
         feesZRX: 1,
         fillCount: 1,
         fillVolume: 1,
+        protocolFeesZRX: 1,
+        protocolFeesUSD: 1,
         tradeCount: {
           $cond: {
             if: '$relayer.orderMatcher',
@@ -192,9 +206,19 @@ const computeRelayerMetrics = async date => {
             },
             fillCount: '$fillCount',
             fillVolume: '$fillVolume',
+            protocolFees: {
+              USD: '$protocolFeesUSD',
+              ZRX: '$protocolFeesZRX',
+            },
             tradeCount: '$tradeCount',
             tradeVolume: '$tradeVolume',
           },
+        },
+        protocolFeesUSD: {
+          $sum: '$protocolFeesUSD',
+        },
+        protocolFeesZRX: {
+          $sum: '$protocolFeesZRX',
         },
         tradeCount: {
           $sum: '$tradeCount',
@@ -234,9 +258,19 @@ const computeRelayerMetrics = async date => {
             fillCount: '$fillCount',
             fillVolume: '$fillVolume',
             minutes: '$minutes',
+            protocolFees: {
+              USD: '$protocolFeesUSD',
+              ZRX: '$protocolFeesZRX',
+            },
             tradeCount: '$tradeCount',
             tradeVolume: '$tradeVolume',
           },
+        },
+        protocolFeesUSD: {
+          $sum: '$protocolFeesUSD',
+        },
+        protocolFeesZRX: {
+          $sum: '$protocolFeesZRX',
         },
         tradeCount: {
           $sum: '$tradeCount',
@@ -259,6 +293,10 @@ const computeRelayerMetrics = async date => {
         fillCount: 1,
         fillVolume: 1,
         hours: 1,
+        protocolFees: {
+          USD: '$protocolFeesUSD',
+          ZRX: '$protocolFeesZRX',
+        },
         relayerId: '$_id.relayerId',
         tradeCount: 1,
         tradeVolume: 1,
@@ -286,6 +324,10 @@ const computeRelayerMetrics = async date => {
         },
         fillCount: 0,
         fillVolume: 0,
+        protocolFees: {
+          USD: 0,
+          ZRX: 0,
+        },
         tradeCount: 0,
         tradeVolume: 0,
       },
