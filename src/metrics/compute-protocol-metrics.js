@@ -166,16 +166,6 @@ const computeProtocolMetrics = async date => {
 
   logger.timeEnd(profileLabel);
 
-  if (results.length === 0) {
-    return [
-      {
-        date: startOfDay,
-        fillCount: 0,
-        fillVolume: 0,
-      },
-    ];
-  }
-
   return results;
 };
 
