@@ -256,4 +256,12 @@ module.exports = {
     senderAddresses: ['0xb04239b53806ab31141e6cd47c63fb3480cac908'],
     url: 'https://godsunchained.com/market',
   },
+  udex: {
+    imageUrl: 'https://0xtracker.com/assets/logos/udex.png',
+    lookupId: 30,
+    name: 'UDEX',
+    slug: 'udex',
+    feeRecipients: ['0xa5004c8b2d64ad08a80d33ad000820d63aa2ccc9'],
+    url: 'https://fridayte.ch/',
+  },
 };
