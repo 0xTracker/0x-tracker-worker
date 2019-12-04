@@ -314,6 +314,17 @@ Object {
     ],
     "url": "https://tokenmom.com",
   },
+  "udex": Object {
+    "feeRecipients": Array [
+      "0xa5004c8b2d64ad08a80d33ad000820d63aa2ccc9",
+    ],
+    "id": "udex",
+    "imageUrl": "https://0xtracker.com/assets/logos/udex.png",
+    "lookupId": 30,
+    "name": "UDEX",
+    "slug": "udex",
+    "url": "https://fridayte.ch/",
+  },
   "veil": Object {
     "id": "veil",
     "imageUrl": "https://0xtracker.com/assets/logos/veil.png",
