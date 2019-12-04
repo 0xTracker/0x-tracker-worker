@@ -288,7 +288,7 @@ Object {
     "lookupId": 28,
     "name": "TokenTrove",
     "slug": "token-trove",
-    "url": "https://tokentrove.io",
+    "url": "https://tokentrove.com",
   },
   "tokenlon": Object {
     "feeRecipients": Array [
