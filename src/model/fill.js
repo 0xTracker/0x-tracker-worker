@@ -1,4 +1,5 @@
 const { Client } = require('@elastic/elasticsearch');
+const { AmazonConnection } = require('aws-elasticsearch-connector');
 const mongoose = require('mongoose');
 const mongoosastic = require('mongoosastic');
 
@@ -107,7 +108,16 @@ const createModel = config => {
   });
 
   schema.plugin(mongoosastic, {
-    esClient: new Client({ node: config.elasticsearchUrl }),
+    esClient: new Client({
+      node: config.elasticsearchUrl,
+      Connection: AmazonConnection,
+      awsConfig: {
+        credentials: {
+          accessKeyId: config.elasticsearchAccessKeyId,
+          secretAccessKey: config.elasticsearchAccessKeySecret,
+        },
+      },
+    }),
     indexAutomatically: false,
   });
 
