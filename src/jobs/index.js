@@ -2,6 +2,7 @@ const _ = require('lodash');
 
 // const backfillRelayerRelationships = require('./backfill-relayer-relationships');
 const cacheAddressMetrics = require('./cache-address-metrics');
+const cacheProtocolMetrics = require('./cache-protocol-metrics');
 const cacheRelayerMetrics = require('./cache-relayer-metrics');
 const cacheTokenMetrics = require('./cache-token-metrics');
 const cacheTokenStats = require('./cache-token-stats');
@@ -13,12 +14,12 @@ const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
 const measureFills = require('./measure-fills');
 const resolveTokens = require('./resolve-tokens');
-const updateFillStatuses = require('./update-fill-statuses');
 const updateRelayerStats = require('./update-relayer-stats');
 
 const jobFns = {
   // backfillRelayerRelationships,
   cacheAddressMetrics,
+  cacheProtocolMetrics,
   cacheRelayerMetrics,
   cacheTokenMetrics,
   cacheTokenStats,
@@ -30,7 +31,6 @@ const jobFns = {
   getNewArticles,
   measureFills,
   resolveTokens,
-  updateFillStatuses,
   updateRelayerStats,
 };
 

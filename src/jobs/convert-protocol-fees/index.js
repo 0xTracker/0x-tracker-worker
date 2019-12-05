@@ -26,7 +26,7 @@ const convertProtocolFees = async ({ batchSize }) => {
   await bluebird.each(fills, async fill => {
     const conversionRate = await withTimer(
       logger,
-      'Fetch USD conversion rate',
+      `Fetch ETH conversion rate for ${fill.date}`,
       async () => getConversionRate('ETH', 'USD', fill.date),
     );
 

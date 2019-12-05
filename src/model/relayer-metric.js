@@ -8,6 +8,10 @@ const metricShape = {
   },
   fillCount: Number,
   fillVolume: Number,
+  protocolFees: {
+    ETH: Number,
+    USD: Number,
+  },
   tradeCount: Number,
   tradeVolume: Number,
 };

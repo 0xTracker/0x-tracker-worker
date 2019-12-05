@@ -105,6 +105,17 @@ Object {
     ],
     "url": "https://www.fordex.co",
   },
+  "godsUnchained": Object {
+    "id": "godsUnchained",
+    "imageUrl": "https://0xtracker.com/assets/logos/gods-unchained.png",
+    "lookupId": 29,
+    "name": "Gods Unchained",
+    "senderAddresses": Array [
+      "0xb04239b53806ab31141e6cd47c63fb3480cac908",
+    ],
+    "slug": "gods-unchained",
+    "url": "https://godsunchained.com/market",
+  },
   "guDecks": Object {
     "feeRecipients": Array [
       "0x013ec57d1237e7727f818b1a35e3506f754304e4",
@@ -277,7 +288,7 @@ Object {
     "lookupId": 28,
     "name": "TokenTrove",
     "slug": "token-trove",
-    "url": "https://tokentrove.io",
+    "url": "https://tokentrove.com",
   },
   "tokenlon": Object {
     "feeRecipients": Array [
@@ -302,6 +313,17 @@ Object {
       "0x4a821aa1affbf7ee89a245bf750d1d7374e77409",
     ],
     "url": "https://tokenmom.com",
+  },
+  "udex": Object {
+    "feeRecipients": Array [
+      "0xa5004c8b2d64ad08a80d33ad000820d63aa2ccc9",
+    ],
+    "id": "udex",
+    "imageUrl": "https://0xtracker.com/assets/logos/udex.png",
+    "lookupId": 30,
+    "name": "UDEX",
+    "slug": "udex",
+    "url": "https://fridayte.ch/",
   },
   "veil": Object {
     "id": "veil",

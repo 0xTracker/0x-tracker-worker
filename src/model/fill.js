@@ -106,9 +106,6 @@ const createModel = config => {
     'assets.tokenResolved': -1,
   });
 
-  // Used by update-fill-statuses job
-  schema.index({ status: 1 });
-
   schema.plugin(mongoosastic, {
     esClient: new Client({ node: config.elasticsearchUrl }),
     indexAutomatically: false,
@@ -118,4 +115,5 @@ const createModel = config => {
 
   return Model;
 };
+
 module.exports = createModel;

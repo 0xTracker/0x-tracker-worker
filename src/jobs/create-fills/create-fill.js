@@ -37,6 +37,7 @@ const createFill = async event => {
 
   const relayer = getRelayerForFill({
     feeRecipient,
+    senderAddress,
     takerAddress: taker,
   });
 

@@ -16,7 +16,7 @@ const withTransaction = require('../../util/with-transaction');
 
 const logger = signale.scope('create fills');
 
-const SUPPORTED_VERSIONS = [1, 2];
+const SUPPORTED_VERSIONS = [1, 2, 3];
 
 const createFills = async ({ batchSize }) => {
   const events = await Event.find({
@@ -46,13 +46,24 @@ const createFills = async ({ batchSize }) => {
         const newFill = await persistFill(session, event, fill);
         logger.timeEnd(`persist fill for event ${event._id}`);
 
-        publishJob(QUEUE.FILL_PROCESSING, JOB.FETCH_FILL_STATUS, {
-          fillId: newFill._id,
-          transactionHash: newFill.transactionHash,
-        });
-        publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL, {
-          fillId: newFill._id,
-        });
+        publishJob(
+          QUEUE.FILL_PROCESSING,
+          JOB.FETCH_FILL_STATUS,
+          {
+            fillId: newFill._id,
+            transactionHash: newFill.transactionHash,
+          },
+          { removeOnComplete: true },
+        );
+
+        publishJob(
+          QUEUE.FILL_INDEXING,
+          JOB.INDEX_FILL,
+          {
+            fillId: newFill._id,
+          },
+          { removeOnComplete: true },
+        );
       });
 
       logger.timeEnd(`create fill for event ${event.id}`);

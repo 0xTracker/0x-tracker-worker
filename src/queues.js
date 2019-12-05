@@ -1,3 +1,4 @@
+const ms = require('ms');
 const Queue = require('bull');
 
 const queues = {};
@@ -21,10 +22,17 @@ const initQueues = queueNames => {
   });
 };
 
-const publishJob = (queueName, jobName, jobData, options) => {
+const publishJob = (queueName, jobName, jobData, options = {}) => {
+  const defaultOptions = {
+    attempts: 999,
+    backoff: {
+      delay: ms('10 seconds'),
+      type: 'exponential',
+    },
+  };
   const queue = getQueue(queueName);
 
-  queue.add(jobName, jobData, options);
+  queue.add(jobName, jobData, { ...defaultOptions, ...options });
 };
 
 module.exports = { getQueue, getQueues, initQueues, publishJob };

@@ -246,6 +246,22 @@ module.exports = {
     name: 'TokenTrove',
     slug: 'token-trove',
     feeRecipients: ['0x0d056bb17ad4df5593b93a1efc29cb35ba4aa38d'],
-    url: 'https://tokentrove.io',
+    url: 'https://tokentrove.com',
+  },
+  godsUnchained: {
+    imageUrl: 'https://0xtracker.com/assets/logos/gods-unchained.png',
+    lookupId: 29,
+    name: 'Gods Unchained',
+    slug: 'gods-unchained',
+    senderAddresses: ['0xb04239b53806ab31141e6cd47c63fb3480cac908'],
+    url: 'https://godsunchained.com/market',
+  },
+  udex: {
+    imageUrl: 'https://0xtracker.com/assets/logos/udex.png',
+    lookupId: 30,
+    name: 'UDEX',
+    slug: 'udex',
+    feeRecipients: ['0xa5004c8b2d64ad08a80d33ad000820d63aa2ccc9'],
+    url: 'https://fridayte.ch/',
   },
 };
