@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const mongoose = require('mongoose');
 const signale = require('signale');
 
 const { FILL_STATUS, JOB, QUEUE } = require('../constants');
@@ -11,6 +12,15 @@ const logger = signale.scope('fetch fill status');
 
 const fetchFillStatusConsumer = async job => {
   const { fillId, transactionHash } = job.data;
+
+  if (!mongoose.Types.ObjectId.isValid(fillId)) {
+    throw new Error(`Invalid fillId: ${fillId}`);
+  }
+
+  if (_.isEmpty(transactionHash)) {
+    throw new Error(`Invalid transactionHash: ${transactionHash}`);
+  }
+
   const receipt = await getTransactionReceipt(transactionHash);
 
   if (receipt === undefined) {
