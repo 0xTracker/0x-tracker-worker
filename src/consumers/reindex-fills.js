@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const bluebird = require('bluebird');
 const signale = require('signale');
 
@@ -9,6 +10,11 @@ const logger = signale.scope('reindex fills');
 
 const reindexFills = async job => {
   const { batchSize, lastFillId } = job.data;
+
+  if (!_.isFinite(batchSize) || batchSize <= 0) {
+    throw new Error(`Invalid batchSize: ${batchSize}`);
+  }
+
   const fills = await getModel('Fill')
     .find(
       lastFillId === undefined
