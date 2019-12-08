@@ -31,16 +31,26 @@ const reindexFills = async job => {
   }
 
   await bluebird.each(fills, async fill => {
-    await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL, { fillId: fill._id });
+    await publishJob(
+      QUEUE.FILL_INDEXING,
+      JOB.INDEX_FILL,
+      { fillId: fill._id },
+      { removeOnComplete: true },
+    );
   });
 
   logger.success(`reindexing scheduled for ${fills.length} fills`);
 
   if (fills.length === batchSize) {
-    await publishJob(QUEUE.FILL_INDEXING, JOB.REINDEX_FILLS, {
-      batchSize,
-      lastFillId: new Error('kaboom'),
-    });
+    await publishJob(
+      QUEUE.FILL_INDEXING,
+      JOB.REINDEX_FILLS,
+      {
+        batchSize,
+        lastFillId: fills[fills.length - 1]._id,
+      },
+      { removeOnComplete: true },
+    );
   }
 };
 
