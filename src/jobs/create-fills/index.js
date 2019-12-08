@@ -73,7 +73,9 @@ const createFills = async ({ batchSize }) => {
           `Unable to create fill for event ${event.id} due to missing block`,
         );
       } else if (error instanceof UnsupportedAssetError) {
-        // ignore
+        logger.warn(
+          `Unable to create fill for event ${event.id} due to unsupported asset`,
+        );
       } else if (error instanceof UnsupportedProtocolError) {
         logger.warn(
           `Unable to create fill for event ${event.id} due to unsupported protocol`,
