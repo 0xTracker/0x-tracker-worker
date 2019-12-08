@@ -39,7 +39,7 @@ const createModel = config => {
     fees: [
       {
         amount: { token: Number, USD: Number },
-        tokenAddress: String,
+        tokenAddress: { es_index: true, type: String },
         tokenId: Number,
         traderType: Number,
       },
