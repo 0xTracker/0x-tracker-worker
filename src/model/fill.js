@@ -108,16 +108,20 @@ const createModel = config => {
   });
 
   schema.plugin(mongoosastic, {
-    esClient: new Client({
-      node: config.elasticsearchUrl,
-      Connection: AmazonConnection,
-      awsConfig: {
-        credentials: {
-          accessKeyId: config.elasticsearchAccessKeyId,
-          secretAccessKey: config.elasticsearchAccessKeySecret,
-        },
-      },
-    }),
+    esClient: new Client(
+      config.elasticsearchAccessKeyId !== null
+        ? {
+            node: config.elasticsearchUrl,
+            Connection: AmazonConnection,
+            awsConfig: {
+              credentials: {
+                accessKeyId: config.elasticsearchAccessKeyId,
+                secretAccessKey: config.elasticsearchAccessKeySecret,
+              },
+            },
+          }
+        : { node: config.elasticsearchUrl },
+    ),
     indexAutomatically: false,
   });
 

@@ -14,8 +14,12 @@ module.exports = {
     poolSize: process.env.POOL_SIZE || 30,
   },
   elasticsearch: {
-    accessKeyId: process.env.ELASTIC_SEARCH_ACCESS_KEY_ID,
-    accessKeySecret: process.env.ELASTIC_SEARCH_ACCESS_KEY_SECRET,
+    accessKeyId: _.get(process.env, 'ELASTIC_SEARCH_ACCESS_KEY_ID', null),
+    accessKeySecret: _.get(
+      process.env,
+      'ELASTIC_SEARCH_ACCESS_KEY_SECRET',
+      null,
+    ),
     url: process.env.ELASTIC_SEARCH_URL,
   },
   ercDex: {
