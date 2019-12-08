@@ -20,6 +20,7 @@ const reindexFills = async job => {
 
   if (fills.length === 0) {
     logger.success('reindexing has been scheduled for all fills');
+    return;
   }
 
   fills.forEach(fill => {
