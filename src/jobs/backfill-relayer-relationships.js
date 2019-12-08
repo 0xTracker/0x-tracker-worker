@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const signale = require('signale');
 
-const Fill = require('../model/fill');
+const { getModel } = require('../model');
 const getAllRelayers = require('../relayers/get-all-relayers');
 
 const logger = signale.scope('set relayer for fills');
@@ -19,7 +19,7 @@ const backfillRelayerRelationships = async () => {
         relayer.takerAddresses && { taker: { $in: relayer.takerAddresses } },
       ]);
 
-      return Fill.updateMany(_.merge({}, ...query), {
+      return getModel('Fill').updateMany(_.merge({}, ...query), {
         $set: { relayerId: relayer.lookupId },
       });
     }),

@@ -1,7 +1,10 @@
-const Fill = require('../../model/fill');
+const { getModel } = require('../../model');
 
 const markFillAsImmeasurable = async fillId => {
-  await Fill.updateOne({ _id: fillId }, { $set: { immeasurable: true } });
+  await getModel('Fill').updateOne(
+    { _id: fillId },
+    { $set: { immeasurable: true } },
+  );
 };
 
 module.exports = markFillAsImmeasurable;

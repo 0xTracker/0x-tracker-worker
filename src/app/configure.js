@@ -1,5 +1,6 @@
 const config = require('config');
 
+const { createModels } = require('../model');
 const cryptoCompare = require('../util/crypto-compare');
 const db = require('../util/db');
 const errorLogger = require('../util/error-logger');
@@ -17,6 +18,11 @@ const configure = () => {
   web3.configure({ endpoint: config.get('web3.endpoint') });
   ethplorer.configure({ apiKey: config.get('ethplorer.apiKey') });
   cryptoCompare.configure({ apiKey: config.get('cryptoCompare.apiKey') });
+  createModels({
+    elasticsearchAccessKeyId: config.get('elasticsearch.accessKeyId'),
+    elasticsearchAccessKeySecret: config.get('elasticsearch.accessKeySecret'),
+    elasticsearchUrl: config.get('elasticsearch.url'),
+  });
 };
 
 module.exports = configure;

@@ -13,6 +13,15 @@ module.exports = {
     connectionString: process.env.CONNECTION_STRING,
     poolSize: process.env.POOL_SIZE || 30,
   },
+  elasticsearch: {
+    accessKeyId: _.get(process.env, 'ELASTIC_SEARCH_ACCESS_KEY_ID', null),
+    accessKeySecret: _.get(
+      process.env,
+      'ELASTIC_SEARCH_ACCESS_KEY_SECRET',
+      null,
+    ),
+    url: process.env.ELASTIC_SEARCH_URL,
+  },
   ercDex: {
     feeRecipientPollingInterval: ms('1 minute'),
   },

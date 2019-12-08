@@ -55,6 +55,15 @@ const createFills = async ({ batchSize }) => {
           },
           { removeOnComplete: true },
         );
+
+        publishJob(
+          QUEUE.FILL_INDEXING,
+          JOB.INDEX_FILL,
+          {
+            fillId: newFill._id,
+          },
+          { removeOnComplete: true },
+        );
       });
 
       logger.timeEnd(`create fill for event ${event.id}`);

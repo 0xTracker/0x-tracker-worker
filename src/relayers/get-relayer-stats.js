@@ -2,12 +2,12 @@ const _ = require('lodash');
 
 const { ZRX_TOKEN_ADDRESS } = require('../constants');
 const { getToken } = require('../tokens/token-cache');
-const Fill = require('../model/fill');
+const { getModel } = require('../model');
 const formatTokenAmount = require('../tokens/format-token-amount');
 const getAllRelayers = require('../relayers/get-all-relayers');
 
 const getRelayerStats = async (dateFrom, dateTo) => {
-  const metrics = await Fill.aggregate([
+  const metrics = await getModel('Fill').aggregate([
     {
       $match: {
         date: { $gte: new Date(dateFrom), $lte: new Date(dateTo) },

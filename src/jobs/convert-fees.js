@@ -3,7 +3,7 @@ const signale = require('signale');
 
 const { ZRX_TOKEN_ADDRESS } = require('../constants');
 const { getToken } = require('../tokens/token-cache');
-const Fill = require('../model/fill');
+const { getModel } = require('../model');
 const formatTokenAmount = require('../tokens/format-token-amount');
 const getConversionRate = require('../rates/get-conversion-rate');
 
@@ -23,6 +23,8 @@ const convertAmount = (amount, conversionRate) => {
 };
 
 const convertFees = async ({ batchSize }) => {
+  const Fill = getModel('Fill');
+
   // Fetch a batch of fills for processing where the maker or taker
   // fee have not yet been converted.
   const fills = await Fill.find({

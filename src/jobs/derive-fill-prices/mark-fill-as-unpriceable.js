@@ -1,8 +1,8 @@
 const { FILL_PRICING_STATUS } = require('../../constants');
-const Fill = require('../../model/fill');
+const { getModel } = require('../../model');
 
 const markFillAsUnpriceable = async fillId => {
-  await Fill.updateOne(
+  await getModel('Fill').updateOne(
     { _id: fillId },
     { $set: { pricingStatus: FILL_PRICING_STATUS.UNPRICEABLE } },
   );
