@@ -28,7 +28,7 @@ const createModel = config => {
     blockNumber: Number,
     conversions: {
       USD: {
-        amount: { es_indexed: true, type: Number },
+        amount: Number,
         makerFee: Number,
         protocolFee: Number,
         takerFee: Number,
