@@ -46,7 +46,7 @@ const createFills = async ({ batchSize }) => {
         const newFill = await persistFill(session, event, fill);
         logger.timeEnd(`persist fill for event ${event._id}`);
 
-        publishJob(
+        await publishJob(
           QUEUE.FILL_PROCESSING,
           JOB.FETCH_FILL_STATUS,
           {
@@ -56,7 +56,7 @@ const createFills = async ({ batchSize }) => {
           { removeOnComplete: true },
         );
 
-        publishJob(
+        await publishJob(
           QUEUE.FILL_INDEXING,
           JOB.INDEX_FILL,
           {

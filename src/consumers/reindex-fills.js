@@ -1,3 +1,4 @@
+const bluebird = require('bluebird');
 const signale = require('signale');
 
 const { publishJob } = require('../queues');
@@ -23,14 +24,14 @@ const reindexFills = async job => {
     return;
   }
 
-  fills.forEach(fill => {
-    publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL, { fillId: fill._id });
+  bluebird.each(fills, async fill => {
+    await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL, { fillId: fill._id });
   });
 
   logger.success(`reindexing scheduled for ${fills.length} fills`);
 
   if (fills.length === batchSize) {
-    publishJob(QUEUE.FILL_INDEXING, JOB.REINDEX_FILLS, {
+    await publishJob(QUEUE.FILL_INDEXING, JOB.REINDEX_FILLS, {
       batchSize,
       lastFillId: new Error('kaboom'),
     });

@@ -30,7 +30,7 @@ const initQueues = queueNames => {
   });
 };
 
-const publishJob = (queueName, jobName, jobData, options = {}) => {
+const publishJob = async (queueName, jobName, jobData, options = {}) => {
   const defaultOptions = {
     attempts: 999,
     backoff: {
@@ -40,7 +40,7 @@ const publishJob = (queueName, jobName, jobData, options = {}) => {
   };
   const queue = getQueue(queueName);
 
-  queue.add(jobName, jobData, { ...defaultOptions, ...options });
+  await queue.add(jobName, jobData, { ...defaultOptions, ...options });
 };
 
 module.exports = { getQueue, getQueues, initQueues, publishJob };
