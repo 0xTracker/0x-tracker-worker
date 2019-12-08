@@ -23,7 +23,7 @@ const fetchFillStatusConsumer = async job => {
 
   await withTransaction(async session => {
     await getModel('Fill').updateOne({ _id: fillId }, { status }, { session });
-    publishJob(
+    await publishJob(
       QUEUE.FILL_INDEXING,
       JOB.INDEX_FILL,
       {
