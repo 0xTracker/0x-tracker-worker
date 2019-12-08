@@ -24,7 +24,7 @@ const reindexFills = async job => {
     return;
   }
 
-  bluebird.each(fills, async fill => {
+  await bluebird.each(fills, async fill => {
     await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL, { fillId: fill._id });
   });
 
