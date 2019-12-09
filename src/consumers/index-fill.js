@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const signale = require('signale');
 
+const { JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
 
 const logger = signale.scope('index fill');
 
-const indexFillConsumer = async (job, done) => {
+const indexFill = async (job, done) => {
   const { fillId } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {
@@ -32,4 +33,8 @@ const indexFillConsumer = async (job, done) => {
   });
 };
 
-module.exports = indexFillConsumer;
+module.exports = {
+  fn: indexFill,
+  jobName: JOB.INDEX_FILL,
+  queueName: QUEUE.FILL_INDEXING,
+};

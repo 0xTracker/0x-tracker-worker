@@ -1,15 +1,23 @@
+const _ = require('lodash');
 const { getQueues } = require('../queues');
-const { JOB, QUEUE } = require('../constants');
 const fetchFillStatus = require('./fetch-fill-status');
 const indexFill = require('./index-fill');
 const reindexFills = require('./reindex-fills');
 
-const initQueueConsumers = () => {
+const consumers = [fetchFillStatus, indexFill, reindexFills];
+
+const initQueueConsumers = config => {
   const queues = getQueues();
 
-  queues[QUEUE.FILL_PROCESSING].process(JOB.FETCH_FILL_STATUS, fetchFillStatus);
-  queues[QUEUE.FILL_INDEXING].process(10, JOB.INDEX_FILL, indexFill);
-  queues[QUEUE.FILL_INDEXING].process(JOB.REINDEX_FILLS, reindexFills);
+  _.each(consumers, ({ fn, jobName, queueName }) => {
+    const concurrency = _.get(config, `${fn.name}.concurrency`, null);
+
+    if (concurrency === null) {
+      queues[queueName].process(jobName, fn);
+    } else {
+      queues[queueName].process(jobName, concurrency, fn);
+    }
+  });
 };
 
 module.exports = { initQueueConsumers };

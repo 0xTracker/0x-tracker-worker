@@ -10,7 +10,7 @@ const start = async () => {
     pollingIntervals: config.get('pollingIntervals'),
   });
 
-  initQueueConsumers();
+  initQueueConsumers(config.get('consumers'));
 
   await runJobs(jobs, {
     onError: (retriesRemaining, error) => {

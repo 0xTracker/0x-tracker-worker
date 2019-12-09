@@ -55,4 +55,8 @@ const reindexFills = async job => {
   }
 };
 
-module.exports = reindexFills;
+module.exports = {
+  fn: reindexFills,
+  jobName: JOB.REINDEX_FILLS,
+  queueName: QUEUE.FILL_INDEXING,
+};

@@ -10,7 +10,7 @@ const withTransaction = require('../util/with-transaction');
 
 const logger = signale.scope('fetch fill status');
 
-const fetchFillStatusConsumer = async job => {
+const fetchFillStatus = async job => {
   const { fillId, transactionHash } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {
@@ -46,4 +46,8 @@ const fetchFillStatusConsumer = async job => {
   logger.success(`set status of fill ${fillId} to ${statusText}`);
 };
 
-module.exports = fetchFillStatusConsumer;
+module.exports = {
+  fn: fetchFillStatus,
+  jobName: JOB.FETCH_FILL_STATUS,
+  queueName: QUEUE.FILL_PROCESSING,
+};

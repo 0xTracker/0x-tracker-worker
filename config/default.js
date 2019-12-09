@@ -6,6 +6,14 @@ module.exports = {
   bugsnag: {
     token: _.get(process.env, 'BUGSNAG_TOKEN', null),
   },
+  consumers: {
+    fetchFillStatus: {
+      concurrency: _.get(process.env, 'FETCH_FILL_STATUS_CONCURRENCY', null),
+    },
+    indexFill: {
+      concurrency: _.get(process.env, 'INDEX_FILL_CONCURRENCY', null),
+    },
+  },
   cryptoCompare: {
     apiKey: process.env.CRYPTO_COMPARE_API_KEY,
   },
