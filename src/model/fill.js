@@ -122,6 +122,10 @@ const createModel = config => {
     //       }
     //     : { node: config.elasticsearchUrl },
     // ),
+    bulk: {
+      size: 1000, // preferred number of docs to bulk index
+      delay: 1000, // milliseconds to wait for enough docs to meet size constraint
+    },
     esClient: new Client({ node: config.elasticsearchUrl }),
     indexAutomatically: false,
   });
