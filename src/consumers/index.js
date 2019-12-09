@@ -8,7 +8,7 @@ const initQueueConsumers = () => {
   const queues = getQueues();
 
   queues[QUEUE.FILL_PROCESSING].process(JOB.FETCH_FILL_STATUS, fetchFillStatus);
-  queues[QUEUE.FILL_INDEXING].process(JOB.INDEX_FILL, indexFill);
+  queues[QUEUE.FILL_INDEXING].process(10, JOB.INDEX_FILL, indexFill);
   queues[QUEUE.FILL_INDEXING].process(JOB.REINDEX_FILLS, reindexFills);
 };
 
