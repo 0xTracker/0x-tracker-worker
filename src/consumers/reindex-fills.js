@@ -35,7 +35,7 @@ const reindexFills = async job => {
       QUEUE.FILL_INDEXING,
       JOB.INDEX_FILL,
       { fillId: fill._id },
-      { removeOnComplete: true },
+      // { removeOnComplete: true },
     );
   });
 
@@ -49,7 +49,7 @@ const reindexFills = async job => {
         batchSize,
         lastFillId: fills[fills.length - 1]._id,
       },
-      { removeOnComplete: true },
+      // { removeOnComplete: true },
     );
   }
 };
