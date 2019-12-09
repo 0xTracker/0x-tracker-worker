@@ -22,6 +22,7 @@ const reindexFills = async job => {
         : {
             _id: { $gt: lastFillId },
           },
+      '_id',
     )
     .limit(batchSize);
 
