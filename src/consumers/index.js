@@ -1,10 +1,14 @@
 const _ = require('lodash');
 const { getQueues } = require('../queues');
 const fetchFillStatus = require('./fetch-fill-status');
-const indexFill = require('./index-fill');
-const reindexFills = require('./reindex-fills');
+// const indexFill = require('./index-fill');
+// const reindexFills = require('./reindex-fills');
 
-const consumers = [fetchFillStatus, indexFill, reindexFills];
+const consumers = [
+  fetchFillStatus,
+  // indexFill,
+  // reindexFills,
+];
 
 const initQueueConsumers = config => {
   const queues = getQueues();
