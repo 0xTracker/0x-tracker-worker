@@ -19,7 +19,13 @@ const configure = () => {
   web3.configure({ endpoint: config.get('web3.endpoint') });
   ethplorer.configure({ apiKey: config.get('ethplorer.apiKey') });
   cryptoCompare.configure({ apiKey: config.get('cryptoCompare.apiKey') });
-  elasticsearch.configure({ node: config.get('elasticsearch.url') });
+  elasticsearch.configure({
+    node: config.get('elasticsearch.url'),
+    auth: {
+      username: config.get('elasticsearch.username'),
+      password: config.get('elasticsearch.password'),
+    },
+  });
   createModels();
 };
 
