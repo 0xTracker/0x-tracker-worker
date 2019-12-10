@@ -19,8 +19,8 @@ const models = {
   Token,
 };
 
-const createModels = ({ elasticsearchUrl }) => {
-  models.Fill = createFillModel({ elasticsearchUrl });
+const createModels = () => {
+  models.Fill = createFillModel();
 };
 
 const getModel = name => {

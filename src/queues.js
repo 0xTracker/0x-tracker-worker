@@ -19,10 +19,6 @@ const getQueues = () => {
 const initQueues = queueNames => {
   queueNames.forEach(queueName => {
     queues[queueName] = new Queue(queueName, {
-      // limiter: {
-      //   max: 1, // Max number of jobs processed
-      //   duration: 100, // per duration in milliseconds
-      // },
       redis: {
         host: process.env.REDIS_URL,
       },

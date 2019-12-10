@@ -1,13 +1,10 @@
-const { Client } = require('@elastic/elasticsearch');
-// const { AmazonConnection } = require('aws-elasticsearch-connector');
 const mongoose = require('mongoose');
-const mongoosastic = require('mongoosastic');
 
 const { FILL_STATUS } = require('../constants');
 
 const { Schema } = mongoose;
 
-const createModel = config => {
+const createModel = () => {
   const schema = Schema({
     assets: [
       {
@@ -16,7 +13,7 @@ const createModel = config => {
         price: {
           USD: Number,
         },
-        tokenAddress: { es_indexed: true, type: String },
+        tokenAddress: String,
         tokenId: Number,
         tokenResolved: { default: false, type: Boolean },
         value: {
@@ -34,39 +31,38 @@ const createModel = config => {
         takerFee: Number,
       },
     },
-    date: { es_indexed: true, type: Date },
+    date: Date,
     eventId: Schema.Types.ObjectId,
     fees: [
       {
         amount: { token: Number, USD: Number },
-        tokenAddress: { es_index: true, type: String },
+        tokenAddress: String,
         tokenId: Number,
         traderType: Number,
       },
     ],
-    feeRecipient: { es_indexed: true, type: String },
+    feeRecipient: String,
     hasValue: { default: false, type: Boolean },
     immeasurable: { default: false, type: Boolean },
     logIndex: Number,
-    maker: { es_indexed: true, type: String },
+    maker: String,
     makerFee: Number,
-    orderHash: { es_indexed: true, type: String },
+    orderHash: String,
     pricingStatus: Number,
     protocolFee: Number,
-    protocolVersion: { es_indexed: true, type: Number },
+    protocolVersion: Number,
     rates: {
       data: Schema.Types.Mixed,
     },
-    relayerId: { es_indexed: true, type: Number },
-    senderAddress: { es_indexed: true, type: String },
+    relayerId: Number,
+    senderAddress: String,
     status: {
       default: FILL_STATUS.PENDING,
-      es_indexed: true,
       type: Number,
     },
-    taker: { es_indexed: true, type: String },
+    taker: String,
     takerFee: Number,
-    transactionHash: { es_indexed: true, type: String },
+    transactionHash: String,
   });
 
   // TODO: Work out what this index was for. Sorting?
@@ -105,29 +101,6 @@ const createModel = config => {
     hasValue: -1,
     pricingStatus: 1,
     'assets.tokenResolved': -1,
-  });
-
-  schema.plugin(mongoosastic, {
-    // esClient: new Client(
-    //   config.elasticsearchAccessKeyId !== null
-    //     ? {
-    //         node: config.elasticsearchUrl,
-    //         Connection: AmazonConnection,
-    //         awsConfig: {
-    //           credentials: {
-    //             accessKeyId: config.elasticsearchAccessKeyId,
-    //             secretAccessKey: config.elasticsearchAccessKeySecret,
-    //           },
-    //         },
-    //       }
-    //     : { node: config.elasticsearchUrl },
-    // ),
-    bulk: {
-      size: 1000, // preferred number of docs to bulk index
-      delay: 1000, // milliseconds to wait for enough docs to meet size constraint
-    },
-    esClient: new Client({ node: config.elasticsearchUrl }),
-    indexAutomatically: false,
   });
 
   const Model = mongoose.model('Fill', schema);

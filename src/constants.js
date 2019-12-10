@@ -33,7 +33,6 @@ module.exports = {
     BULK_INDEX_FILLS: 'bulk-index-fills',
     FETCH_FILL_STATUS: 'fetch-fill-status',
     INDEX_FILL: 'index-fill',
-    REINDEX_FILLS: 'reindex-fills',
   },
   QUEUE: {
     BULK_INDEXING: 'bulk-indexing',

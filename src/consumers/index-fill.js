@@ -3,10 +3,12 @@ const signale = require('signale');
 
 const { JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
+const fillsIndex = require('../index/fills');
+const elasticsearch = require('../util/elasticsearch');
 
 const logger = signale.scope('index fill');
 
-const indexFill = async (job, done) => {
+const indexFill = async job => {
   const { fillId } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {
@@ -21,16 +23,13 @@ const indexFill = async (job, done) => {
     throw new Error(`No fill found with the id: ${fillId}`);
   }
 
-  fill.index(error => {
-    if (error) {
-      done(error);
-      return;
-    }
-
-    logger.success(`indexed fill: ${fillId}`);
-
-    done();
+  await elasticsearch.getClient().index({
+    id: fill._id,
+    index: 'fills',
+    body: fillsIndex.createDocument(fill),
   });
+
+  logger.success(`indexed fill: ${fillId}`);
 };
 
 module.exports = {
