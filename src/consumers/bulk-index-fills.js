@@ -1,11 +1,14 @@
 const _ = require('lodash');
+
 const signale = require('signale');
 
 const { publishJob } = require('../queues');
 const { JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
+const elasticsearch = require('../util/elasticsearch');
+const fillsIndex = require('../index/fills');
 
-const logger = signale.scope('reindex fills');
+const logger = signale.scope('bulk index fills');
 
 const bulkIndexFills = async job => {
   const { batchSize, lastFillId } = job.data;
@@ -29,20 +32,25 @@ const bulkIndexFills = async job => {
     return;
   }
 
-  await Promise.all(
-    fills.map(
-      fill =>
-        new Promise((resolve, reject) => {
-          fill.index(error => {
-            if (error) {
-              reject(error);
-            } else {
-              logger.success(`indexed fill: ${fill._id}`);
-              resolve();
-            }
-          });
+  const body = fills
+    .map(fill => {
+      return [
+        JSON.stringify({
+          index: {
+            _id: fill._id,
+          },
         }),
-    ),
+        JSON.stringify(fillsIndex.createDocument(fill)),
+      ].join('\n');
+    })
+    .join('\n');
+
+  await elasticsearch.getClient().bulk({ body: `${body}\n`, index: 'fills' });
+
+  logger.success(
+    `indexed ${fills.length} fills from ${fills[0]._id} to ${
+      fills[fills.length - 1]._id
+    }`,
   );
 
   if (fills.length === batchSize) {
@@ -53,8 +61,10 @@ const bulkIndexFills = async job => {
         batchSize,
         lastFillId: fills[fills.length - 1]._id,
       },
-      // { removeOnComplete: true },
+      { removeOnComplete: true },
     );
+  } else {
+    logger.success('bulk indexing has finished for all fills');
   }
 };
 
