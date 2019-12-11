@@ -11,26 +11,46 @@ const fillsIndex = require('../index/fills');
 const logger = signale.scope('bulk index fills');
 
 const bulkIndexFills = async job => {
-  const { batchSize, lastFillId } = job.data;
+  const { batchSize } = job.data;
 
   if (!_.isFinite(batchSize) || batchSize <= 0) {
     throw new Error(`Invalid batchSize: ${batchSize}`);
   }
 
-  const fills = await getModel('Fill')
+  const nextBatch = await getModel('Fill')
     .find(
-      lastFillId === undefined
+      job.data.lastFillId === undefined
         ? undefined
         : {
-            _id: { $gt: lastFillId },
+            _id: { $gt: job.data.lastFillId },
           },
+      '_id',
     )
     .limit(batchSize);
 
-  if (fills.length === 0) {
+  if (nextBatch.length === 0) {
     logger.success('bulk indexing has been scheduled for all fills');
     return;
   }
+
+  const lastFillId = nextBatch[nextBatch.length - 1]._id;
+
+  // Get on with processing the next batch whilst this one is being processed
+  // to improve batch indexing throughput.
+  if (nextBatch.length === batchSize) {
+    await publishJob(
+      QUEUE.BULK_INDEXING,
+      JOB.BULK_INDEX_FILLS,
+      {
+        batchSize,
+        lastFillId,
+      },
+      { jobId: `bulk-index-${lastFillId}` },
+    );
+  }
+
+  const fillIds = nextBatch.map(match => match._id);
+  const fills = await getModel('Fill').find({ _id: { $in: fillIds } });
 
   const body = fills
     .map(fill => {
@@ -47,24 +67,12 @@ const bulkIndexFills = async job => {
 
   await elasticsearch.getClient().bulk({ body: `${body}\n`, index: 'fills' });
 
-  const lastFill = fills[fills.length - 1];
-
   logger.success(
-    `indexed ${fills.length} fills from ${fills[0]._id} to ${lastFill._id}`,
+    `indexed ${fills.length} fills from ${fills[0]._id} to ${lastFillId}`,
   );
 
-  if (fills.length === batchSize) {
-    await publishJob(
-      QUEUE.BULK_INDEXING,
-      JOB.BULK_INDEX_FILLS,
-      {
-        batchSize,
-        lastFillId: lastFill._id,
-      },
-      { jobId: `bulk-index-${lastFill._id}` },
-    );
-  } else {
-    logger.success('bulk indexing has finished for all fills');
+  if (fills.length < batchSize) {
+    logger.success('bulk indexing has finished');
   }
 };
 

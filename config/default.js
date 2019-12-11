@@ -7,6 +7,9 @@ module.exports = {
     token: _.get(process.env, 'BUGSNAG_TOKEN', null),
   },
   consumers: {
+    bulkIndexFills: {
+      concurrency: _.get(process.env, 'BULK_INDEX_FILLS_CONCURRENCY', null),
+    },
     fetchFillStatus: {
       concurrency: _.get(process.env, 'FETCH_FILL_STATUS_CONCURRENCY', null),
     },
