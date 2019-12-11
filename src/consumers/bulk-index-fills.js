@@ -47,10 +47,10 @@ const bulkIndexFills = async job => {
 
   await elasticsearch.getClient().bulk({ body: `${body}\n`, index: 'fills' });
 
+  const lastFill = fills[fills.length - 1];
+
   logger.success(
-    `indexed ${fills.length} fills from ${fills[0]._id} to ${
-      fills[fills.length - 1]._id
-    }`,
+    `indexed ${fills.length} fills from ${fills[0]._id} to ${lastFill._id}`,
   );
 
   if (fills.length === batchSize) {
@@ -59,9 +59,9 @@ const bulkIndexFills = async job => {
       JOB.BULK_INDEX_FILLS,
       {
         batchSize,
-        lastFillId: fills[fills.length - 1]._id,
+        lastFillId: lastFill._id,
       },
-      { removeOnComplete: true },
+      { jobId: `bulk-index-${lastFill._id}` },
     );
   } else {
     logger.success('bulk indexing has finished for all fills');
