@@ -101,7 +101,7 @@ module.exports = {
     lookupId: 11,
     name: 'Tokenlon',
     slug: 'tokenlon',
-    url: 'https://tokenlon.token.im/tokenlon',
+    url: 'https://tokenlon.im/instant',
   },
   ledgerDex: {
     imageUrl: 'https://0xtracker.com/assets/logos/ledger-dex.png',
