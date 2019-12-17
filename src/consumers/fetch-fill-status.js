@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
+const ms = require('ms');
 const signale = require('signale');
 
 const { FILL_STATUS, JOB, QUEUE } = require('../constants');
@@ -39,7 +40,10 @@ const fetchFillStatus = async job => {
       {
         fillId,
       },
-      { removeOnComplete: true },
+      {
+        delay: ms('30 seconds'),
+        removeOnComplete: true,
+      },
     );
   });
 
