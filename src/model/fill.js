@@ -68,14 +68,6 @@ const createModel = () => {
   // TODO: Work out what this index was for. Sorting?
   schema.index({ date: -1 });
 
-  // Used for searching fills
-  schema.index({ feeRecipient: 1 });
-  schema.index({ maker: 1 });
-  schema.index({ orderHash: 1 });
-  schema.index({ senderAddress: 1 });
-  schema.index({ taker: 1 });
-  schema.index({ transactionHash: 1 });
-
   // Used for fetching fills related to a particular token
   schema.index({ 'assets.tokenAddress': 1, date: -1 });
 
