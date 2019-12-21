@@ -28,10 +28,9 @@ const initQueues = queueNames => {
     })
       .on('error', logError)
       .on('failed', (job, error) => {
-        logError(
-          error,
-          _.pick(job, 'id', 'data', 'opts', 'attemptsMade', 'name'),
-        );
+        logError(error, {
+          job: _.pick(job, 'id', 'data', 'opts', 'attemptsMade', 'name'),
+        });
       });
   });
 };
