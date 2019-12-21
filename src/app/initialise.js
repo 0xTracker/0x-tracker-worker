@@ -5,7 +5,7 @@ const populateRelayersCollection = require('../relayers/populate-relayers-collec
 const tokenCache = require('../tokens/token-cache');
 
 const initialise = async () => {
-  configure();
+  await configure();
   initQueues(Object.values(QUEUE));
 
   await Promise.all([tokenCache.initialise(), populateRelayersCollection()]);

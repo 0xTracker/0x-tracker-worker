@@ -8,12 +8,12 @@ const errorLogger = require('../util/error-logger');
 const ethplorer = require('../util/ethplorer');
 const web3 = require('../util/ethereum/web3');
 
-const configure = () => {
+const configure = async () => {
   errorLogger.configure({
     appVersion: config.get('appVersion'),
     bugsnagToken: config.get('bugsnag.token'),
   });
-  db.connect(config.get('database.connectionString'), {
+  await db.connect(config.get('database.connectionString'), {
     poolSize: config.get('database.poolSize'),
   });
   web3.configure({ endpoint: config.get('web3.endpoint') });
