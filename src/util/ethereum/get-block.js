@@ -11,7 +11,8 @@ const getBlock = async blockHash => {
     return cached;
   }
 
-  const block = await web3.getWrapper().getBlockIfExistsAsync(blockHash);
+  const web3Wrapper = web3.getWrapper();
+  const block = await web3Wrapper.getBlockIfExistsAsync(blockHash);
 
   if (block === undefined) {
     return null;
