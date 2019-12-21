@@ -1,5 +1,8 @@
+const _ = require('lodash');
 const ms = require('ms');
 const Queue = require('bull');
+
+const { logError } = require('./util/error-logger');
 
 const queues = {};
 
@@ -22,7 +25,14 @@ const initQueues = queueNames => {
       redis: {
         host: process.env.REDIS_URL,
       },
-    });
+    })
+      .on('error', logError)
+      .on('failed', (job, error) => {
+        logError(
+          error,
+          _.pick(job, 'id', 'data', 'opts', 'attemptsMade', 'name'),
+        );
+      });
   });
 };
 
