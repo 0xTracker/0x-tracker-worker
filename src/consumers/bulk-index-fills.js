@@ -47,6 +47,9 @@ const bulkIndexFills = async job => {
       },
       { jobId: `bulk-index-${lastFillId}` },
     );
+    logger.success(
+      `scheduled indexing of next ${batchSize} fills after ${lastFillId}`,
+    );
   }
 
   const fillIds = nextBatch.map(match => match._id);
