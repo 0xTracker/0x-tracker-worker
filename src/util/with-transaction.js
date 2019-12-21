@@ -1,17 +1,23 @@
 const mongoose = require('mongoose');
 
+const { logError } = require('../util/error-logger');
+
+const endSession = session => {
+  session.endSession(error => {
+    if (error !== null) {
+      logError(error);
+    }
+  });
+};
+
 const withTransaction = async func => {
   const session = await mongoose.startSession();
 
-  session.startTransaction();
-
   try {
-    await func(session);
-    await session.commitTransaction();
-    session.endSession();
+    await session.withTransaction(() => func(session));
+    endSession(session);
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
+    endSession(session);
     throw error;
   }
 };
