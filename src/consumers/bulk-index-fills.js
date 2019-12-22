@@ -45,7 +45,7 @@ const bulkIndexFills = async job => {
         batchSize,
         lastFillId,
       },
-      { jobId: `bulk-index-${lastFillId}` },
+      { jobId: `bulk-index-${lastFillId}`, removeOnComplete: false },
     );
     logger.success(
       `scheduled indexing of next ${batchSize} fills after ${lastFillId}`,

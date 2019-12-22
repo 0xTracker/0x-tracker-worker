@@ -1,4 +1,5 @@
 const bluebird = require('bluebird');
+const ms = require('ms');
 const signale = require('signale');
 
 const {
@@ -53,7 +54,9 @@ const createFills = async ({ batchSize }) => {
             fillId: newFill._id,
             transactionHash: newFill.transactionHash,
           },
-          { removeOnComplete: true },
+          {
+            delay: ms('5 seconds'), // Delay status fetching to ensure MongoDB changes have propagated
+          },
         );
 
         await publishJob(
@@ -62,7 +65,9 @@ const createFills = async ({ batchSize }) => {
           {
             fillId: newFill._id,
           },
-          { removeOnComplete: true },
+          {
+            delay: ms('5 seconds'), // Delay indexing to ensure MongoDB changes have propagated
+          },
         );
       });
 

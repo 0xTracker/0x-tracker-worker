@@ -1,6 +1,5 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
-const ms = require('ms');
 const signale = require('signale');
 
 const { FILL_STATUS, JOB, QUEUE } = require('../constants');
@@ -30,19 +29,16 @@ const fetchFillStatus = async job => {
   const status =
     receipt.status === 0 ? FILL_STATUS.FAILED : FILL_STATUS.SUCCESSFUL;
   const statusText = _.findKey(FILL_STATUS, value => value === status);
+  const result = await getModel('Fill').updateOne({ _id: fillId }, { status });
 
-  await getModel('Fill').updateOne({ _id: fillId }, { status });
-  await publishJob(
-    QUEUE.FILL_INDEXING,
-    JOB.INDEX_FILL,
-    {
-      fillId,
-    },
-    {
-      delay: ms('30 seconds'),
-      removeOnComplete: true,
-    },
-  );
+  if (result.modifiedCount === 0) {
+    throw new Error(`No fill found with the id: ${fillId}`);
+  }
+
+  await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL_STATUS, {
+    fillId,
+    status,
+  });
 
   logger.success(`set status of fill ${fillId} to ${statusText}`);
 };
