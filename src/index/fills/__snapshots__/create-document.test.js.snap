@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should create Elasticsearch document for fill 1`] = `
+Object {
+  "assets": Array [
+    Object {
+      "tokenAddress": "0x6b175474e89094c44da98b954eedeac495271d0f",
+    },
+    Object {
+      "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    },
+  ],
+  "date": "2019-12-23T18:15:16.000Z",
+  "feeRecipient": "0xa258b39954cef5cb142fd567a46cddb31a670124",
+  "fees": Array [],
+  "maker": "0x6924a03bb710eaf199ab6ac9f2bb148215ae9b5d",
+  "orderHash": "0xf186241e774ed0ecb6b6c101482f9a52d77caaf2db3165c9052f814e4c844f5e",
+  "protocolVersion": 2,
+  "relayerId": 7,
+  "senderAddress": "0x8018280076d7fa2caa1147e441352e8a89e1ddbe",
+  "status": 1,
+  "taker": "0x8018280076d7fa2caa1147e441352e8a89e1ddbe",
+  "transactionHash": "0x36a35ae64def8beab677435be4762bf63977000172d47096230a94922383c856",
+  "value": 658.8957691929245,
+}
+`;

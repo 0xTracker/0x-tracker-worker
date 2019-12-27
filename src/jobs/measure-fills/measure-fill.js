@@ -1,7 +1,9 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
 
+const { JOB, QUEUE } = require('../../constants');
 const { getToken } = require('../../tokens/token-cache');
+const { publishJob } = require('../../queues');
 const formatTokenAmount = require('../../tokens/format-token-amount');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getMeasurableActor = require('./get-measurable-actor');
@@ -62,6 +64,10 @@ const measureFill = async fill => {
   await withTransaction(async session => {
     await fill.save({ session });
     await persistTokenPrices(tokenPrices, fill, session);
+    await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL_VALUE, {
+      fillId: fill._id,
+      value: totalValue,
+    });
   });
 
   logger.debug(`set value of fill ${fill._id} to ${totalValue}`);

@@ -4,8 +4,15 @@ const bulkIndexFills = require('./bulk-index-fills');
 const fetchFillStatus = require('./fetch-fill-status');
 const indexFill = require('./index-fill');
 const indexFillStatus = require('./index-fill-status');
+const indexFillValue = require('./index-fill-value');
 
-const consumers = [bulkIndexFills, fetchFillStatus, indexFill, indexFillStatus];
+const consumers = [
+  bulkIndexFills,
+  fetchFillStatus,
+  indexFill,
+  indexFillStatus,
+  indexFillValue,
+];
 
 const initQueueConsumers = config => {
   const queues = getQueues();
