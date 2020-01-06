@@ -19,7 +19,7 @@ it('should exclude value property when fill is unmeasured', () => {
   expect(doc.value).toBeUndefined();
 });
 
-it('should include asset.bridgeAddress property when asset is bridged', () => {
+it('assets should include bridgeAddress property when asset is bridged', () => {
   const fill = {
     ...V2_FILL,
     assets: V2_FILL.assets.map(asset => ({
