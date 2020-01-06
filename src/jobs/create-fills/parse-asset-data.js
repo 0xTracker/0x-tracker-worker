@@ -17,34 +17,33 @@ const decodeAssetData = assetData => {
   }
 };
 
-const createAsset = (singleAssetData, amount) => {
-  const simpleAsset = {
+const createAsset = (assetData, amount) => {
+  const baseAsset = {
     amount,
-    tokenAddress: singleAssetData.tokenAddress,
+    tokenAddress: assetData.tokenAddress,
   };
 
-  if (isERC20AssetData(singleAssetData)) {
+  if (isERC20AssetData(assetData)) {
     return {
-      ...simpleAsset,
+      ...baseAsset,
       tokenType: TOKEN_TYPE.ERC20,
     };
   }
 
-  if (isERC721AssetData(singleAssetData)) {
+  if (isERC721AssetData(assetData)) {
     return {
-      ...simpleAsset,
-      tokenId: singleAssetData.tokenId.toNumber(),
+      ...baseAsset,
+      tokenId: assetData.tokenId.toNumber(),
       tokenType: TOKEN_TYPE.ERC721,
     };
   }
 
-  if (isERC20BridgeAssetData(singleAssetData)) {
+  if (isERC20BridgeAssetData(assetData)) {
     return {
-      ...simpleAsset,
-      bridged: true,
-      bridgeAddress: singleAssetData.bridgeAddress,
-      bridgeData: singleAssetData.bridgeData,
-      tokenAddress: singleAssetData.tokenAddress,
+      ...baseAsset,
+      bridgeAddress: assetData.bridgeAddress,
+      bridgeData: assetData.bridgeData,
+      tokenAddress: assetData.tokenAddress,
       tokenType: TOKEN_TYPE.ERC20,
     };
   }
