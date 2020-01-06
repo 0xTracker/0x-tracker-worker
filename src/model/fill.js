@@ -10,6 +10,8 @@ const createModel = () => {
       {
         actor: Number,
         amount: Number,
+        bridgeAddress: String,
+        bridgeData: String,
         price: {
           USD: Number,
         },
@@ -36,6 +38,8 @@ const createModel = () => {
     fees: [
       {
         amount: { token: Number, USD: Number },
+        bridgeAddress: String,
+        bridgeData: String,
         tokenAddress: String,
         tokenId: Number,
         traderType: Number,

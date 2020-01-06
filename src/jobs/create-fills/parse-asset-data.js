@@ -1,12 +1,13 @@
 const { assetDataUtils } = require('@0x/order-utils');
 const { TOKEN_TYPE } = require('../../constants');
 
-const {
-  decodeAssetDataOrThrow,
-  isERC20AssetData,
-  isERC721AssetData,
-  isMultiAssetData,
-} = assetDataUtils;
+const { decodeAssetDataOrThrow } = assetDataUtils;
+
+const isERC20AssetData = assetData => assetData.assetProxyId === '0xf47261b0';
+const isERC721AssetData = assetData => assetData.assetProxyId === '0x02571792';
+const isMultiAssetData = assetData => assetData.assetProxyId === '0x94cfcdd7';
+const isERC20BridgeAssetData = assetData =>
+  assetData.assetProxyId === '0xdc1600f3';
 
 const decodeAssetData = assetData => {
   try {
@@ -16,24 +17,34 @@ const decodeAssetData = assetData => {
   }
 };
 
-const createAsset = (singleAssetData, amount) => {
-  const simpleAsset = {
+const createAsset = (assetData, amount) => {
+  const baseAsset = {
     amount,
-    tokenAddress: singleAssetData.tokenAddress,
+    tokenAddress: assetData.tokenAddress,
   };
 
-  if (isERC20AssetData(singleAssetData)) {
+  if (isERC20AssetData(assetData)) {
     return {
-      ...simpleAsset,
+      ...baseAsset,
       tokenType: TOKEN_TYPE.ERC20,
     };
   }
 
-  if (isERC721AssetData(singleAssetData)) {
+  if (isERC721AssetData(assetData)) {
     return {
-      ...simpleAsset,
-      tokenId: singleAssetData.tokenId.toNumber(),
+      ...baseAsset,
+      tokenId: assetData.tokenId.toNumber(),
       tokenType: TOKEN_TYPE.ERC721,
+    };
+  }
+
+  if (isERC20BridgeAssetData(assetData)) {
+    return {
+      ...baseAsset,
+      bridgeAddress: assetData.bridgeAddress,
+      bridgeData: assetData.bridgeData,
+      tokenAddress: assetData.tokenAddress,
+      tokenType: TOKEN_TYPE.ERC20,
     };
   }
 
@@ -68,7 +79,11 @@ const parseAssetData = (encodedData, amount) => {
   }
 
   // When the asset data represents a single asset we can just return a single item array.
-  if (isERC20AssetData(assetData) || isERC721AssetData(assetData)) {
+  if (
+    isERC20AssetData(assetData) ||
+    isERC721AssetData(assetData) ||
+    isERC20BridgeAssetData(assetData)
+  ) {
     return [createAsset(assetData, amount)];
   }
 
