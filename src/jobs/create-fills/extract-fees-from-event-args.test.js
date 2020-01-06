@@ -42,7 +42,7 @@ describe('extractFeesFromEventArgs', () => {
     ]);
   });
 
-  it('should extract bridge fees for v3.0 fill event', () => {
+  it('should extract bridged fees for v3.0 fill event', () => {
     const args = {
       ...V3_EVENT.data.args,
       makerFeeAssetData:

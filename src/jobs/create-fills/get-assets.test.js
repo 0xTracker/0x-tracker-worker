@@ -187,7 +187,6 @@ it('should get assets for V2 event with bridged ERC20 asset data', () => {
       bridgeAddress: '0x58b7b96e170e46c07d02fac903cd1b3356b7549f',
       bridgeData:
         '0x0000000000000000000000006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000000000000000000000000000000000000000a5a2f',
-      bridged: true,
       tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
       tokenResolved: false,
       tokenType: 0,
