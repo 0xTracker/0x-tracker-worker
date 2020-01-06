@@ -4,7 +4,10 @@ const createDocument = fill => {
   const value = _.get(fill, 'conversions.USD.amount');
 
   return {
-    assets: fill.assets.map(asset => ({ tokenAddress: asset.tokenAddress })),
+    assets: fill.assets.map(asset => ({
+      bridgeAddress: asset.bridgeAddress,
+      tokenAddress: asset.tokenAddress,
+    })),
     date: fill.date,
     fees: fill.fees.map(fee => ({ tokenAddress: fee.tokenAddress })),
     feeRecipient: fill.feeRecipient,
