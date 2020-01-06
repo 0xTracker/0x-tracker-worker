@@ -10,6 +10,8 @@ const createModel = () => {
       {
         actor: Number,
         amount: Number,
+        bridgeAddress: String,
+        bridgeData: String,
         price: {
           USD: Number,
         },
