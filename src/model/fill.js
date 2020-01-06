@@ -38,6 +38,8 @@ const createModel = () => {
     fees: [
       {
         amount: { token: Number, USD: Number },
+        bridgeAddress: String,
+        bridgeData: String,
         tokenAddress: String,
         tokenId: Number,
         traderType: Number,
