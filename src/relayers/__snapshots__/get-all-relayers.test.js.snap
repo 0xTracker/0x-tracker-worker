@@ -51,6 +51,7 @@ Object {
   "deversifi": Object {
     "feeRecipients": Array [
       "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1",
+      "0xaf8ae6955d07776ab690e565ba6fbc79b8de3a5d",
     ],
     "id": "deversifi",
     "imageUrl": "https://0xtracker.com/assets/logos/deversifi.png",

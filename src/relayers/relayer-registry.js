@@ -186,7 +186,10 @@ module.exports = {
     lookupId: 21,
     name: 'DeversiFi',
     slug: 'deversifi',
-    feeRecipients: ['0x61b9898c9b60a159fc91ae8026563cd226b7a0c1'],
+    feeRecipients: [
+      '0x61b9898c9b60a159fc91ae8026563cd226b7a0c1',
+      '0xaf8ae6955d07776ab690e565ba6fbc79b8de3a5d',
+    ],
     url: 'https://www.deversifi.com/',
   },
   etherBlockchain: {
