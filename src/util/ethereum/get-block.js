@@ -12,7 +12,18 @@ const getBlock = async blockHash => {
   }
 
   const web3Wrapper = web3.getWrapper();
-  const block = await web3Wrapper.getBlockIfExistsAsync(blockHash);
+
+  const timeout = new Promise((resolve, reject) => {
+    const id = setTimeout(() => {
+      clearTimeout(id);
+      reject(new Error(`Fetching block ${blockHash} timed out after 10s`));
+    }, 10000);
+  });
+
+  const block = await Promise.race([
+    web3Wrapper.getBlockIfExistsAsync(blockHash),
+    timeout,
+  ]);
 
   if (block === undefined) {
     return null;
