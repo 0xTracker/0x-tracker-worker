@@ -5,6 +5,168 @@ const { getModel } = require('../model');
 
 const logger = signale.scope('compute relayer metrics');
 
+const computeTraderMetrics = async (dateFrom, dateTo) => {
+  const results = await getModel('Fill').aggregate([
+    {
+      $match: {
+        date: {
+          $gte: dateFrom,
+          $lte: dateTo,
+        },
+      },
+    },
+    {
+      $project: {
+        dateParts: {
+          $dateToParts: {
+            date: '$date',
+          },
+        },
+        maker: 1,
+        taker: 1,
+        relayerId: 1,
+      },
+    },
+    {
+      $project: {
+        dateToMinute: {
+          $dateFromParts: {
+            year: '$dateParts.year',
+            month: '$dateParts.month',
+            day: '$dateParts.day',
+            hour: '$dateParts.hour',
+            minute: '$dateParts.minute',
+          },
+        },
+        dateToHour: {
+          $dateFromParts: {
+            year: '$dateParts.year',
+            month: '$dateParts.month',
+            day: '$dateParts.day',
+            hour: '$dateParts.hour',
+          },
+        },
+        dateToDay: {
+          $dateFromParts: {
+            year: '$dateParts.year',
+            month: '$dateParts.month',
+            day: '$dateParts.day',
+          },
+        },
+        maker: 1,
+        taker: 1,
+        relayerId: 1,
+      },
+    },
+    {
+      $facet: {
+        activeMakers: [
+          {
+            $group: {
+              _id: {
+                maker: '$maker',
+                relayerId: '$relayerId',
+              },
+            },
+          },
+          {
+            $group: {
+              _id: '$_id.relayerId',
+              count: {
+                $sum: 1,
+              },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              relayerId: '$_id',
+              count: 1,
+            },
+          },
+        ],
+        activeTakers: [
+          {
+            $group: {
+              _id: {
+                maker: '$taker',
+                relayerId: '$relayerId',
+              },
+            },
+          },
+          {
+            $group: {
+              _id: '$_id.relayerId',
+              count: {
+                $sum: 1,
+              },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              relayerId: '$_id',
+              count: 1,
+            },
+          },
+        ],
+        activeTraders: [
+          {
+            $addFields: {
+              addresses: ['$maker', '$taker'],
+            },
+          },
+          {
+            $unwind: {
+              path: '$addresses',
+            },
+          },
+          {
+            $group: {
+              _id: {
+                maker: '$addresses',
+                relayerId: '$relayerId',
+              },
+            },
+          },
+          {
+            $group: {
+              _id: '$_id.relayerId',
+              count: {
+                $sum: 1,
+              },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              relayerId: '$_id',
+              count: 1,
+            },
+          },
+        ],
+      },
+    },
+  ]);
+
+  return results[0].activeTraders.map(item => {
+    const activeMakers = results[0].activeMakers.find(
+      makerItem => makerItem.relayerId === item.relayerId,
+    ).count;
+
+    const activeTakers = results[0].activeTakers.find(
+      takerItem => takerItem.relayerId === item.relayerId,
+    ).count;
+
+    return {
+      activeMakers,
+      activeTakers,
+      activeTraders: item.count,
+      relayerId: item.relayerId,
+    };
+  });
+};
+
 const computeRelayerMetrics = async date => {
   const startOfDay = moment
     .utc(date)
@@ -312,11 +474,16 @@ const computeRelayerMetrics = async date => {
     },
   ]);
 
+  const traderMetrics = await computeTraderMetrics(startOfDay, endOfDay);
+
   logger.timeEnd(profileLabel);
 
   if (results.length === 0) {
     return [
       {
+        activeMakers: 0,
+        activeTakers: 0,
+        activeTraders: 0,
         date: startOfDay,
         fees: {
           USD: 0,
@@ -334,7 +501,16 @@ const computeRelayerMetrics = async date => {
     ];
   }
 
-  return results;
+  return results.map(result => {
+    const tradersMetric = traderMetrics.find(
+      metric => metric.relayerId === result.relayerId,
+    );
+
+    return {
+      ...result,
+      ...tradersMetric,
+    };
+  });
 };
 
 module.exports = computeRelayerMetrics;
