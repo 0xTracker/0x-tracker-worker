@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 
 const metricShape = {
-  activeMakers: Number,
-  activeTakers: Number,
-  activeTraders: Number,
   date: { index: true, type: Date },
   fees: {
     USD: Number,
