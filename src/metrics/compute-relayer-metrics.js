@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const moment = require('moment');
 const signale = require('signale');
 
@@ -168,14 +167,28 @@ const computeTraderMetrics = async (dateFrom, dateTo) => {
   });
 };
 
-const computeBasicMetrics = async (dateFrom, dateTo) => {
+const computeRelayerMetrics = async date => {
+  const startOfDay = moment
+    .utc(date)
+    .startOf('day')
+    .toDate();
+
+  const endOfDay = moment
+    .utc(date)
+    .endOf('day')
+    .toDate();
+
+  const profileLabel = `compute metrics for ${moment(date).toISOString()}`;
+
+  logger.time(profileLabel);
+
   const results = await getModel('Fill').aggregate([
     // Match only fills from the specified day
     {
       $match: {
         date: {
-          $gte: dateFrom,
-          $lte: dateTo,
+          $gte: startOfDay,
+          $lte: endOfDay,
         },
       },
     },
@@ -461,36 +474,40 @@ const computeBasicMetrics = async (dateFrom, dateTo) => {
     },
   ]);
 
-  return results;
-};
+  const traderMetrics = await computeTraderMetrics(startOfDay, endOfDay);
 
-const computeRelayerMetrics = async date => {
-  const startOfDay = moment
-    .utc(date)
-    .startOf('day')
-    .toDate();
+  logger.timeEnd(profileLabel);
 
-  const endOfDay = moment
-    .utc(date)
-    .endOf('day')
-    .toDate();
+  if (results.length === 0) {
+    return [
+      {
+        activeMakers: 0,
+        activeTakers: 0,
+        activeTraders: 0,
+        date: startOfDay,
+        fees: {
+          USD: 0,
+          ZRX: 0,
+        },
+        fillCount: 0,
+        fillVolume: 0,
+        protocolFees: {
+          ETH: 0,
+          USD: 0,
+        },
+        tradeCount: 0,
+        tradeVolume: 0,
+      },
+    ];
+  }
 
-  logger.time(`compute metrics for ${moment(date).toISOString()}`);
-  const [basicMetrics, traderMetrics] = await Promise.all([
-    computeBasicMetrics(startOfDay, endOfDay),
-    computeTraderMetrics(startOfDay, endOfDay),
-  ]);
-  logger.timeEnd(`compute metrics for ${moment(date).toISOString()}`);
-
-  return basicMetrics.map(basicMetric => {
+  return results.map(result => {
     const tradersMetric = traderMetrics.find(
-      traderMetric =>
-        traderMetric.relayerId === basicMetric.relayerId ||
-        (_.isEmpty(traderMetric.relayerId) && _.isEmpty(basicMetric.relayerId)),
+      metric => metric.relayerId === result.relayerId,
     );
 
     return {
-      ...basicMetric,
+      ...result,
       ...tradersMetric,
     };
   });
