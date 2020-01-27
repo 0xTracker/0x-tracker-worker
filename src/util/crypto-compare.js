@@ -19,7 +19,7 @@ const callApi = async url => {
   try {
     response = await axios.get(url);
   } catch (error) {
-    logError(error);
+    logError(error, { requestUrl: url.replace(apiKey, '[REDACTED]') });
 
     return null;
   }

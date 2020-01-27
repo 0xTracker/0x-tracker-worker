@@ -11,7 +11,15 @@ const configure = config => {
 
 const getTokenInfo = async address => {
   const endpoint = `https://api.ethplorer.io/getTokenInfo/${address}?apiKey=${apiKey}`;
-  const response = await axios.get(endpoint);
+  let response;
+
+  try {
+    response = await axios.get(endpoint);
+  } catch (error) {
+    logError(error, { requestUrl: endpoint.replace(apiKey, '[REDACTED]') });
+
+    throw error;
+  }
 
   const { data } = response;
 
