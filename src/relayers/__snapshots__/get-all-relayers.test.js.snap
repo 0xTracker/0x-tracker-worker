@@ -348,5 +348,16 @@ Object {
     "slug": "veridex",
     "url": "https://dex.verisafe.io/",
   },
+  "zeroExApi": Object {
+    "feeRecipients": Array [
+      "0x1000000000000000000000000000000000000011",
+    ],
+    "id": "zeroExApi",
+    "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
+    "lookupId": 31,
+    "name": "0x API",
+    "slug": "0x-api",
+    "url": "https://0x.org/api",
+  },
 }
 `;
