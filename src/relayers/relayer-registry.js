@@ -267,4 +267,12 @@ module.exports = {
     feeRecipients: ['0xa5004c8b2d64ad08a80d33ad000820d63aa2ccc9'],
     url: 'https://fridayte.ch/',
   },
+  zeroExApi: {
+    imageUrl: 'https://0xtracker.com/assets/logos/0x.png',
+    lookupId: 31,
+    name: '0x API',
+    slug: '0x-api',
+    feeRecipients: ['0x1000000000000000000000000000000000000011'],
+    url: 'https://0x.org/api',
+  },
 };
