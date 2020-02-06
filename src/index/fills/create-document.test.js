@@ -1,5 +1,15 @@
+const timekeeper = require('timekeeper');
+
 const createDocument = require('./create-document');
 const V2_FILL = require('../../fixtures/fills/v2');
+
+beforeAll(() => {
+  timekeeper.freeze('2019-10-21T03:00:00.000Z');
+});
+
+afterAll(() => {
+  timekeeper.reset();
+});
 
 it('should create Elasticsearch document for fill', () => {
   const doc = createDocument(V2_FILL);
@@ -30,4 +40,15 @@ it('assets should include bridgeAddress property when asset is bridged', () => {
   const doc = createDocument(fill);
 
   expect(doc.assets).toMatchSnapshot();
+});
+
+it('should halve trade volume for orderMatcher fill and set tradeCountContribution to 0.5', () => {
+  const fill = {
+    ...V2_FILL,
+    relayerId: 2,
+  };
+  const doc = createDocument(fill);
+
+  expect(doc.tradeVolume).toBe(329.44788459646225);
+  expect(doc.tradeCountContribution).toBe(0.5);
 });

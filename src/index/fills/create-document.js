@@ -3,9 +3,13 @@ const _ = require('lodash');
 const relayerRegistry = require('../../relayers/relayer-registry');
 
 const isPartialTrade = relayerId => {
-  const relayer = _.isEmpty(relayerId)
-    ? null
-    : _.find(relayerRegistry, { lookupId: relayerId });
+  if (_.isNull(relayerId) || _.isUndefined(relayerId)) {
+    return false;
+  }
+
+  const relayer = _(relayerRegistry)
+    .values()
+    .find({ lookupId: relayerId });
 
   return _.get(relayer, 'orderMatcher', false);
 };
