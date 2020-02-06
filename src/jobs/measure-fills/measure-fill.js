@@ -66,6 +66,7 @@ const measureFill = async fill => {
     await persistTokenPrices(tokenPrices, fill, session);
     await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL_VALUE, {
       fillId: fill._id,
+      relayerId: fill.relayerId,
       value: totalValue,
     });
   });

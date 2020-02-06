@@ -4,11 +4,20 @@ const signale = require('signale');
 
 const { JOB, QUEUE } = require('../constants');
 const elasticsearch = require('../util/elasticsearch');
+const relayerRegistry = require('../relayers/relayer-registry');
 
 const logger = signale.scope('index fill value');
 
+const isPartialTrade = relayerId => {
+  const relayer = _.isEmpty(relayerId)
+    ? null
+    : _.find(relayerRegistry, { lookupId: relayerId });
+
+  return _.get(relayer, 'orderMatcher', false);
+};
+
 const indexFillValue = async job => {
-  const { fillId, value } = job.data;
+  const { fillId, relayerId, value } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {
     throw new Error(`Invalid fillId: ${fillId}`);
@@ -30,7 +39,12 @@ const indexFillValue = async job => {
   await elasticsearch.getClient().update({
     id: fillId,
     index: 'fills',
-    body: { doc: { value } },
+    body: {
+      doc: {
+        tradeVolume: isPartialTrade(relayerId) ? value / 2 : value,
+        value,
+      },
+    },
   });
 
   logger.success(`indexed fill value: ${fillId}`);
