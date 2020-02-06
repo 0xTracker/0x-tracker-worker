@@ -29,7 +29,12 @@ const indexFillStatus = async job => {
   await elasticsearch.getClient().update({
     id: fillId,
     index: 'fills',
-    body: { doc: { status } },
+    body: {
+      doc: {
+        status,
+        updatedAt: Date.now(),
+      },
+    },
   });
 
   logger.success(`indexed fill status: ${fillId}`);
