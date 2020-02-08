@@ -30,6 +30,8 @@ Object {
   "fees": Array [],
   "maker": "0x6924a03bb710eaf199ab6ac9f2bb148215ae9b5d",
   "orderHash": "0xf186241e774ed0ecb6b6c101482f9a52d77caaf2db3165c9052f814e4c844f5e",
+  "protocolFeeETH": undefined,
+  "protocolFeeUSD": undefined,
   "protocolVersion": 2,
   "relayerId": 7,
   "senderAddress": "0x8018280076d7fa2caa1147e441352e8a89e1ddbe",
