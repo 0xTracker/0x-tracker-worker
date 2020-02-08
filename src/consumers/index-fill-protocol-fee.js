@@ -33,7 +33,7 @@ const indexFillProtocolFee = async job => {
     body: {
       doc: {
         protocolFeeUSD: protocolFee,
-        updatedAt: Date.now(),
+        updatedAt: new Date(Date.now()).toISOString(),
       },
     },
   });

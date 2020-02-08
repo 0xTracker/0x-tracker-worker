@@ -32,7 +32,7 @@ const indexFillStatus = async job => {
     body: {
       doc: {
         status,
-        updatedAt: Date.now(),
+        updatedAt: new Date(Date.now()).toISOString(),
       },
     },
   });

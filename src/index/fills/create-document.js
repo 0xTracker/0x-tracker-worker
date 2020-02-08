@@ -37,7 +37,7 @@ const createDocument = fill => {
     status: fill.status,
     taker: fill.taker,
     transactionHash: fill.transactionHash,
-    updatedAt: Date.now(),
+    updatedAt: new Date(Date.now()).toISOString(),
     value: value === null ? undefined : value,
 
     // This field helps to compute traderCount by allowing for cardinality

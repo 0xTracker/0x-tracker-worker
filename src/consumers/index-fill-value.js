@@ -46,7 +46,7 @@ const indexFillValue = async job => {
     body: {
       doc: {
         tradeVolume: isPartialTrade(relayerId) ? value / 2 : value,
-        updatedAt: Date.now(),
+        updatedAt: new Date(Date.now()).toISOString(),
         value,
       },
     },
