@@ -1,20 +1,21 @@
+const _ = require('lodash');
 const mongoose = require('mongoose');
 const signale = require('signale');
 
-const { FILL_STATUS, JOB, QUEUE } = require('../constants');
+const { JOB, QUEUE } = require('../constants');
 const elasticsearch = require('../util/elasticsearch');
 
-const logger = signale.scope('index fill status');
+const logger = signale.scope('index fill protocol fee');
 
-const indexFillStatus = async job => {
-  const { fillId, status } = job.data;
+const indexFillProtocolFee = async job => {
+  const { fillId, protocolFee } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {
     throw new Error(`Invalid fillId: ${fillId}`);
   }
 
-  if (status !== FILL_STATUS.FAILED && status !== FILL_STATUS.SUCCESSFUL) {
-    throw new Error(`Invalid status: ${status}`);
+  if (!_.isFinite(protocolFee)) {
+    throw new Error(`Invalid value: ${protocolFee}`);
   }
 
   const exists = await elasticsearch
@@ -23,7 +24,7 @@ const indexFillStatus = async job => {
   const indexed = exists.body;
 
   if (!indexed) {
-    throw new Error(`Could not index status of fill: ${fillId}`);
+    throw new Error(`Could not index protocol fee of fill: ${fillId}`);
   }
 
   await elasticsearch.getClient().update({
@@ -31,17 +32,17 @@ const indexFillStatus = async job => {
     index: 'fills',
     body: {
       doc: {
-        status,
+        protocolFeeUSD: protocolFee,
         updatedAt: Date.now(),
       },
     },
   });
 
-  logger.success(`indexed fill status: ${fillId}`);
+  logger.success(`indexed fill protocol fee: ${fillId}`);
 };
 
 module.exports = {
-  fn: indexFillStatus,
-  jobName: JOB.INDEX_FILL_STATUS,
+  fn: indexFillProtocolFee,
+  jobName: JOB.INDEX_FILL_PROTOCOL_FEE,
   queueName: QUEUE.FILL_INDEXING,
 };
