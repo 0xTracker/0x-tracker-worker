@@ -37,7 +37,7 @@ const indexFillValue = async job => {
   const indexed = exists.body;
 
   if (!indexed) {
-    throw new Error(`Could not update value of fill: ${fillId}`);
+    throw new Error(`Could not index value of fill: ${fillId}`);
   }
 
   await elasticsearch.getClient().update({
