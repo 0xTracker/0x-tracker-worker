@@ -16,6 +16,7 @@ const isPartialTrade = relayerId => {
 
 const createDocument = fill => {
   const value = _.get(fill, 'conversions.USD.amount');
+  const protocolFeeUSD = _.get(fill, 'conversions.USD.protocolFee');
   const partialTrade = isPartialTrade(fill.relayerId);
 
   return {
@@ -28,6 +29,8 @@ const createDocument = fill => {
     feeRecipient: fill.feeRecipient,
     maker: fill.maker,
     orderHash: fill.orderHash,
+    protocolFeeETH: fill.protocolFee,
+    protocolFeeUSD,
     protocolVersion: fill.protocolVersion,
     relayerId: fill.relayerId,
     senderAddress: fill.senderAddress,
