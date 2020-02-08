@@ -1,7 +1,8 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
 
-const { ETH_TOKEN_DECIMALS } = require('../../constants');
+const { ETH_TOKEN_DECIMALS, JOB, QUEUE } = require('../../constants');
+const { publishJob } = require('../../queues');
 const formatTokenAmount = require('../../tokens/format-token-amount');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getFillsWithUnconvertedProtocolFees = require('./get-fills-with-unconverted-protocol-fees');
@@ -42,6 +43,11 @@ const convertProtocolFees = async ({ batchSize }) => {
     const convertedFee = formattedFee.times(conversionRate).toNumber();
 
     await persistConvertedProtocolFee(fill.id, convertedFee);
+
+    await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL_PROTOCOL_FEE, {
+      fillId: fill._id,
+      protocolFee: convertedFee,
+    });
   });
 };
 
