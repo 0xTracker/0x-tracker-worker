@@ -51,12 +51,16 @@ module.exports = {
     measureFills: {
       batchSize: 100,
     },
+    updateFillStatuses: {
+      batchSize: 100,
+    },
   },
   pollingIntervals: {
     max: {
       default: ms('5 minutes'),
     },
     min: {
+      backfillRelayerRelationships: ms('1 minute'),
       cacheAddressMetrics: ms('1 minute'),
       cacheProtocolMetrics: ms('1 minute'),
       cacheRelayerMetrics: ms('1 minute'),

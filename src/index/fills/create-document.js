@@ -1,23 +1,7 @@
 const _ = require('lodash');
 
-const relayerRegistry = require('../../relayers/relayer-registry');
-
-const isPartialTrade = relayerId => {
-  if (_.isNull(relayerId) || _.isUndefined(relayerId)) {
-    return false;
-  }
-
-  const relayer = _(relayerRegistry)
-    .values()
-    .find({ lookupId: relayerId });
-
-  return _.get(relayer, 'orderMatcher', false);
-};
-
 const createDocument = fill => {
   const value = _.get(fill, 'conversions.USD.amount');
-  const protocolFeeUSD = _.get(fill, 'conversions.USD.protocolFee');
-  const partialTrade = isPartialTrade(fill.relayerId);
 
   return {
     assets: fill.assets.map(asset => ({
@@ -29,25 +13,13 @@ const createDocument = fill => {
     feeRecipient: fill.feeRecipient,
     maker: fill.maker,
     orderHash: fill.orderHash,
-    protocolFeeETH: fill.protocolFee,
-    protocolFeeUSD,
     protocolVersion: fill.protocolVersion,
     relayerId: fill.relayerId,
     senderAddress: fill.senderAddress,
     status: fill.status,
     taker: fill.taker,
     transactionHash: fill.transactionHash,
-    updatedAt: Date.now(),
     value: value === null ? undefined : value,
-
-    // This field helps to compute traderCount by allowing for cardinality
-    // aggregation over maker & taker values.
-    traders: [fill.maker, fill.taker],
-
-    // These fields help to compute tradeVolume and tradeCount metrics in
-    // Elasticsearch without the need for a 'trades' index.
-    tradeVolume: partialTrade && value !== null ? value / 2 : value,
-    tradeCountContribution: partialTrade ? 0.5 : 1,
   };
 };
 

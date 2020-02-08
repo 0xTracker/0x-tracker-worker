@@ -6,7 +6,6 @@ const persistConvertedProtocolFee = require('./persist-converted-protocol-fee');
 jest.mock('./get-fills-with-unconverted-protocol-fees');
 jest.mock('./persist-converted-protocol-fee');
 jest.mock('../../rates/get-conversion-rate');
-jest.mock('../../queues');
 
 beforeEach(() => {
   jest.resetAllMocks();
