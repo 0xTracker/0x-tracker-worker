@@ -4,6 +4,7 @@
   "description": "0x Tracker worker process which handles various ETF tasks related to trades and other website data.",
   "main": "src/index.js",
   "scripts": {
+    "es:configure": "node ./scripts/elasticsearch/configure",
     "lint": "eslint .",
     "start": "node .",
     "test": "jest --coverage",
