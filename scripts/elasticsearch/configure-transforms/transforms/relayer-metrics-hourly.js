@@ -40,16 +40,6 @@ module.exports = {
             field: 'value',
           },
         },
-        makerCount: {
-          cardinality: {
-            field: 'maker.keyword',
-          },
-        },
-        takerCount: {
-          cardinality: {
-            field: 'taker.keyword',
-          },
-        },
         tradeCount: {
           sum: {
             field: 'tradeCountContribution',
@@ -58,11 +48,6 @@ module.exports = {
         tradeVolume: {
           sum: {
             field: 'tradeVolume',
-          },
-        },
-        traderCount: {
-          cardinality: {
-            field: 'traders.keyword',
           },
         },
       },

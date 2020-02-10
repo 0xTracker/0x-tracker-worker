@@ -35,11 +35,6 @@ module.exports = {
             field: 'value',
           },
         },
-        makerCount: {
-          cardinality: {
-            field: 'maker.keyword',
-          },
-        },
         protocolFeesETH: {
           sum: {
             field: 'protocolFeeETH',
@@ -50,11 +45,6 @@ module.exports = {
             field: 'protocolFeeUSD',
           },
         },
-        takerCount: {
-          cardinality: {
-            field: 'taker.keyword',
-          },
-        },
         tradeCount: {
           sum: {
             field: 'tradeCountContribution',
@@ -63,11 +53,6 @@ module.exports = {
         tradeVolume: {
           sum: {
             field: 'tradeVolume',
-          },
-        },
-        traderCount: {
-          cardinality: {
-            field: 'traders.keyword',
           },
         },
       },
