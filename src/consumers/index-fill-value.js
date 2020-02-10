@@ -8,16 +8,24 @@ const relayerRegistry = require('../relayers/relayer-registry');
 
 const logger = signale.scope('index fill value');
 
-const isPartialTrade = relayerId => {
-  if (_.isNull(relayerId) || _.isUndefined(relayerId)) {
-    return false;
-  }
-
+const isOrderMatcher = relayerId => {
   const relayer = _(relayerRegistry)
     .values()
     .find({ lookupId: relayerId });
 
   return _.get(relayer, 'orderMatcher', false);
+};
+
+const calculateTradeVolume = (value, relayerId) => {
+  if (relayerId === null || relayerId === undefined) {
+    return 0;
+  }
+
+  if (isOrderMatcher(relayerId)) {
+    return value / 2;
+  }
+
+  return value;
 };
 
 const indexFillValue = async job => {
@@ -45,7 +53,7 @@ const indexFillValue = async job => {
     index: 'fills',
     body: {
       doc: {
-        tradeVolume: isPartialTrade(relayerId) ? value / 2 : value,
+        tradeVolume: calculateTradeVolume(value, relayerId),
         updatedAt: new Date(Date.now()).toISOString(),
         value,
       },

@@ -2,11 +2,7 @@ const _ = require('lodash');
 
 const relayerRegistry = require('../../relayers/relayer-registry');
 
-const isPartialTrade = relayerId => {
-  if (_.isNull(relayerId) || _.isUndefined(relayerId)) {
-    return false;
-  }
-
+const isOrderMatcher = relayerId => {
   const relayer = _(relayerRegistry)
     .values()
     .find({ lookupId: relayerId });
@@ -14,10 +10,33 @@ const isPartialTrade = relayerId => {
   return _.get(relayer, 'orderMatcher', false);
 };
 
+const calculateTradeVolume = (value, relayerId) => {
+  if (relayerId === null || relayerId === undefined) {
+    return 0;
+  }
+
+  if (isOrderMatcher(relayerId)) {
+    return value / 2;
+  }
+
+  return value;
+};
+
+const calculateTradeCountContribution = relayerId => {
+  if (relayerId === null || relayerId === undefined) {
+    return 0;
+  }
+
+  if (isOrderMatcher(relayerId)) {
+    return 0.5;
+  }
+
+  return 1;
+};
+
 const createDocument = fill => {
   const value = _.get(fill, 'conversions.USD.amount');
   const protocolFeeUSD = _.get(fill, 'conversions.USD.protocolFee');
-  const partialTrade = isPartialTrade(fill.relayerId);
 
   return {
     assets: fill.assets.map(asset => ({
@@ -46,8 +65,8 @@ const createDocument = fill => {
 
     // These fields help to compute tradeVolume and tradeCount metrics in
     // Elasticsearch without the need for a 'trades' index.
-    tradeVolume: partialTrade && value !== null ? value / 2 : value,
-    tradeCountContribution: partialTrade ? 0.5 : 1,
+    tradeVolume: calculateTradeVolume(value, fill.relayerId),
+    tradeCountContribution: calculateTradeCountContribution(fill.relayerId),
   };
 };
 

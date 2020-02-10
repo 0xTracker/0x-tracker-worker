@@ -25,9 +25,9 @@ module.exports = {
     poolSize: process.env.POOL_SIZE || 30,
   },
   elasticsearch: {
-    password: process.env.ELASTIC_SEARCH_PASSWORD,
+    password: _.get(process.env, 'ELASTIC_SEARCH_PASSWORD', null),
     url: process.env.ELASTIC_SEARCH_URL,
-    username: process.env.ELASTIC_SEARCH_USERNAME,
+    username: _.get(process.env, 'ELASTIC_SEARCH_USERNAME', null),
   },
   ercDex: {
     feeRecipientPollingInterval: ms('1 minute'),
