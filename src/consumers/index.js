@@ -3,6 +3,7 @@ const { getQueues } = require('../queues');
 const bulkIndexFills = require('./bulk-index-fills');
 const fetchFillStatus = require('./fetch-fill-status');
 const indexFill = require('./index-fill');
+const indexFillFees = require('./index-fill-fees');
 const indexFillProtocolFee = require('./index-fill-protocol-fee');
 const indexFillStatus = require('./index-fill-status');
 const indexFillValue = require('./index-fill-value');
@@ -11,6 +12,7 @@ const consumers = [
   bulkIndexFills,
   fetchFillStatus,
   indexFill,
+  indexFillFees,
   indexFillProtocolFee,
   indexFillStatus,
   indexFillValue,

@@ -1,9 +1,10 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
 
-const { ZRX_TOKEN_ADDRESS } = require('../constants');
+const { JOB, QUEUE, ZRX_TOKEN_ADDRESS } = require('../constants');
 const { getToken } = require('../tokens/token-cache');
 const { getModel } = require('../model');
+const { publishJob } = require('../queues');
 const formatTokenAmount = require('../tokens/format-token-amount');
 const getConversionRate = require('../rates/get-conversion-rate');
 
@@ -55,6 +56,12 @@ const convertFees = async ({ batchSize }) => {
         },
       );
 
+      await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL_FEES, {
+        fillId: fill._id,
+        makerFees: 0,
+        takerFees: 0,
+      });
+
       logger.success(`Skipped fee conversion for fill ${fill._id}`);
     } else {
       logger.time(`Fetch ZRX conversion rate for ${fill.date}`);
@@ -79,6 +86,12 @@ const convertFees = async ({ batchSize }) => {
           },
         },
       );
+
+      await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL_FEES, {
+        fillId: fill._id,
+        makerFees: makerFee,
+        takerFees: takerFee,
+      });
 
       logger.success(`Converted fees for fill ${fill._id}`);
     }

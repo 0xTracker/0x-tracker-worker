@@ -1,6 +1,8 @@
 const V2_FILL = {
   _id: '5e01056923573c61d846f51d',
-  conversions: { USD: { makerFee: 0, takerFee: 0, amount: 658.8957691929245 } },
+  conversions: {
+    USD: { makerFee: 0.5, takerFee: 0.28, amount: 658.8957691929245 },
+  },
   hasValue: true,
   immeasurable: false,
   status: 1,
