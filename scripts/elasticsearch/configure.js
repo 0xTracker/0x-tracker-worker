@@ -3,6 +3,7 @@ const elasticsearch = require('@elastic/elasticsearch');
 const signale = require('signale');
 
 const configureMappings = require('./configure-mappings');
+const configureSettings = require('./configure-settings');
 const configureTransforms = require('./configure-transforms');
 
 const logger = signale.scope('configure elasticsearch');
@@ -23,4 +24,5 @@ const esClient = new elasticsearch.Client({
 Promise.all([
   configureMappings(esClient, logger),
   configureTransforms(esClient, logger),
+  configureSettings(esClient, logger),
 ]).catch(logger.error);
