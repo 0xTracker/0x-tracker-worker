@@ -7,14 +7,9 @@ const configureTransforms = async (esClient, logger) => {
       const response = await esClient.transform.getTransform();
 
       if (response.body.transforms.some(test => test.id === name)) {
-        await esClient.transform.stopTransform({
-          transform_id: name,
-          wait_for_completion: true,
-        });
+        logger.info(`transform already exists: ${name}`);
 
-        await esClient.transform.deleteTransform({
-          transform_id: name,
-        });
+        return;
       }
 
       await esClient.transform.putTransform({
