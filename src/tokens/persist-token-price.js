@@ -1,11 +1,7 @@
-const signale = require('signale');
-
 const Token = require('../model/token');
 
-const logger = signale.scope('set token prices');
-
 const persistTokenPrice = async (tokenPrice, fill, session) => {
-  const result = await Token.updateOne(
+  await Token.updateOne(
     {
       address: tokenPrice.tokenAddress,
       $or: [
@@ -27,10 +23,6 @@ const persistTokenPrice = async (tokenPrice, fill, session) => {
     },
     { session },
   );
-
-  if (result.nModified > 0) {
-    logger.debug(`updated price of token ${tokenPrice.tokenAddress}`);
-  }
 };
 
 module.exports = persistTokenPrice;
