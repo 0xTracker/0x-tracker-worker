@@ -2,6 +2,7 @@ const dotenv = require('dotenv-safe');
 const elasticsearch = require('@elastic/elasticsearch');
 const signale = require('signale');
 
+const createIndexes = require('./create-indexes');
 const configureMappings = require('./configure-mappings');
 const configureSettings = require('./configure-settings');
 const configureTransforms = require('./configure-transforms');
@@ -21,8 +22,12 @@ const esClient = new elasticsearch.Client({
 });
 
 // Run configuration
-Promise.all([
-  configureMappings(esClient, logger),
-  configureTransforms(esClient, logger),
-  configureSettings(esClient, logger),
-]).catch(logger.error);
+createIndexes(esClient, logger)
+  .then(() => {
+    return Promise.all([
+      configureMappings(esClient, logger),
+      configureTransforms(esClient, logger),
+      configureSettings(esClient, logger),
+    ]);
+  })
+  .catch(logger.error);
