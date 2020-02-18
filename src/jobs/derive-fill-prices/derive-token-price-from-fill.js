@@ -7,6 +7,10 @@ const formatTokenAmount = require('../../tokens/format-token-amount');
 const deriveTokenPriceFromFill = fill => {
   const value = _.get(fill, 'conversions.USD.amount', null);
 
+  if (value === 0) {
+    return null;
+  }
+
   if (value === null) {
     // We should not be attempting to derive from unmeasured fills.
     // This would indicate an issue in the fetch-unpriced-fills query.

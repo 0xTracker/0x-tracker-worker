@@ -1,14 +1,11 @@
 const bluebird = require('bluebird');
-const signale = require('signale');
 
 const Token = require('../../model/token');
-
-const logger = signale.scope('measure fills > persist token prices');
 
 const persistTokenPrices = async (tokenPrices, fill, session) => {
   await bluebird.mapSeries(Object.keys(tokenPrices), async tokenAddress => {
     const price = tokenPrices[tokenAddress];
-    const result = await Token.updateOne(
+    await Token.updateOne(
       {
         address: tokenAddress,
         $or: [
@@ -30,10 +27,6 @@ const persistTokenPrices = async (tokenPrices, fill, session) => {
       },
       { session },
     );
-
-    if (result.nModified > 0) {
-      logger.debug(`updated price of token ${tokenAddress}`);
-    }
   });
 };
 
