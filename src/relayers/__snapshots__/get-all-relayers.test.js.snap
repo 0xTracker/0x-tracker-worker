@@ -194,6 +194,17 @@ Object {
     "slug": "oc2-dex",
     "url": "https://oc2realm.com/",
   },
+  "oneInchExchange": Object {
+    "feeRecipients": Array [
+      "0x4d37f28d2db99e8d35a6c725a5f1749a085850a3",
+    ],
+    "id": "oneInchExchange",
+    "imageUrl": "https://0xtracker.com/assets/logos/1inch-exchange.png",
+    "lookupId": 32,
+    "name": "1inch.exchange",
+    "slug": "1inch-exchange",
+    "url": "https://1inch.exchange",
+  },
   "openRelay": Object {
     "feeRecipients": Array [
       "0xc22d5b2951db72b44cfb8089bb8cd374a3c354ea",
