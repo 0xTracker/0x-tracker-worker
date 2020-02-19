@@ -275,4 +275,12 @@ module.exports = {
     feeRecipients: ['0x1000000000000000000000000000000000000011'],
     url: 'https://0x.org/api',
   },
+  oneInchExchange: {
+    imageUrl: 'https://0xtracker.com/assets/logos/1inch-exchange.png',
+    lookupId: 32,
+    name: '1inch.exchange',
+    slug: '1inch-exchange',
+    feeRecipients: ['0x4d37f28d2db99e8d35a6c725a5f1749a085850a3'],
+    url: 'https://1inch.exchange',
+  },
 };
