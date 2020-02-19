@@ -11,7 +11,7 @@ const fillsIndex = require('../index/fills');
 const logger = signale.scope('bulk index fills');
 
 const bulkIndexFills = async job => {
-  const { batchSize } = job.data;
+  const { batchSize, query } = job.data;
 
   if (!_.isFinite(batchSize) || batchSize <= 0) {
     throw new Error(`Invalid batchSize: ${batchSize}`);
@@ -20,8 +20,9 @@ const bulkIndexFills = async job => {
   const nextBatch = await getModel('Fill')
     .find(
       job.data.lastFillId === undefined
-        ? undefined
+        ? query
         : {
+            ...JOB(query || {}),
             _id: { $gt: job.data.lastFillId },
           },
       '_id',
