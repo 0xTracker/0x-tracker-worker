@@ -194,6 +194,17 @@ Object {
     "slug": "oc2-dex",
     "url": "https://oc2realm.com/",
   },
+  "odee": Object {
+    "feeRecipients": Array [
+      "0x382310cbb159b64c2e7c5675d110202701a436dd",
+    ],
+    "id": "odee",
+    "imageUrl": "https://0xtracker.com/assets/logos/odee.png",
+    "lookupId": 33,
+    "name": "Odee",
+    "slug": "odee",
+    "url": "https://odee.com",
+  },
   "oneInchExchange": Object {
     "feeRecipients": Array [
       "0x4d37f28d2db99e8d35a6c725a5f1749a085850a3",
