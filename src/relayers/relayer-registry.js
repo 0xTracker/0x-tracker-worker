@@ -283,4 +283,12 @@ module.exports = {
     feeRecipients: ['0x4d37f28d2db99e8d35a6c725a5f1749a085850a3'],
     url: 'https://1inch.exchange',
   },
+  odee: {
+    imageUrl: 'https://0xtracker.com/assets/logos/odee.png',
+    lookupId: 33,
+    name: 'Odee',
+    slug: 'odee',
+    feeRecipients: ['0x382310cbb159b64c2e7c5675d110202701a436dd'],
+    url: 'https://odee.com',
+  },
 };
