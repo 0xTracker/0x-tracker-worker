@@ -16,22 +16,29 @@ const getTokenInfo = async address => {
   try {
     response = await axios.get(endpoint);
   } catch (error) {
+    const errorCode = _.get(error.response, 'data.error.code');
+    const errorMsg = _.get(error.response, 'data.error.message');
+
+    if (errorCode === 104 || errorCode === 150) {
+      return null;
+    }
+
+    if (errorMsg !== undefined) {
+      const wrappedError = new Error(`Error fetching token info: ${errorMsg}`);
+
+      logError(wrappedError, {
+        requestUrl: endpoint.replace(apiKey, '[REDACTED]'),
+      });
+
+      throw wrappedError;
+    }
+
     logError(error, { requestUrl: endpoint.replace(apiKey, '[REDACTED]') });
 
     throw error;
   }
 
   const { data } = response;
-
-  if (data.error) {
-    if (data.error.code !== 150) {
-      logError(
-        `Error occurred when calling ${endpoint}:\r\n\r\n${data.error.message}`,
-      );
-    }
-
-    return null;
-  }
 
   if (_.isEmpty(data.name) || _.isEmpty(data.symbol)) {
     return null;
