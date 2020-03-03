@@ -53,6 +53,7 @@ module.exports = {
   TOKEN_TYPE: {
     ERC20: 0,
     ERC721: 1,
+    ERC1155: 2,
   },
   TRADER_TYPE: {
     MAKER: 0,
