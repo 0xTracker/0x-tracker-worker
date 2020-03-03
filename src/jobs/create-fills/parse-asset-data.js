@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { assetDataUtils } = require('@0x/order-utils');
 const { TOKEN_TYPE } = require('../../constants');
 
@@ -8,6 +9,7 @@ const isERC721AssetData = assetData => assetData.assetProxyId === '0x02571792';
 const isMultiAssetData = assetData => assetData.assetProxyId === '0x94cfcdd7';
 const isERC20BridgeAssetData = assetData =>
   assetData.assetProxyId === '0xdc1600f3';
+const isERC1155AssetData = assetData => assetData.assetProxyId === '0xa7cb5fb7';
 
 const decodeAssetData = assetData => {
   try {
@@ -71,6 +73,17 @@ const extractAssets = multiAssetData => {
   return assets;
 };
 
+const extractERC1155Assets = assetData => {
+  return assetData.tokenValues.map((amount, index) => ({
+    amount: amount.toNumber(),
+    tokenAddress: assetData.tokenAddress,
+    tokenId: _.has(assetData.tokenIds, index)
+      ? assetData.tokenIds.index.toNumber()
+      : undefined,
+    tokenType: TOKEN_TYPE.ERC1155,
+  }));
+};
+
 const parseAssetData = (encodedData, amount) => {
   const assetData = decodeAssetData(encodedData);
 
@@ -85,6 +98,11 @@ const parseAssetData = (encodedData, amount) => {
     isERC20BridgeAssetData(assetData)
   ) {
     return [createAsset(assetData, amount)];
+  }
+
+  // ERC-1155 can represent multiple assets so we must extract them all.
+  if (isERC1155AssetData(assetData)) {
+    return extractERC1155Assets(assetData);
   }
 
   // When the asset data represents multiple assets we need to extract them all.
