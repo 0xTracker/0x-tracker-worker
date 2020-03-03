@@ -18,10 +18,6 @@ const getBlockOrThrow = async blockHash => {
 const createFill = async event => {
   const { data, protocolVersion } = event;
   const { args, blockHash, blockNumber, logIndex, transactionHash } = data;
-
-  const block = await getBlockOrThrow(blockHash);
-  const date = new Date(block.timestamp * 1000);
-
   const {
     assets,
     fees,
@@ -34,6 +30,9 @@ const createFill = async event => {
     senderAddress,
     taker,
   } = normalizeEventArgs(args, protocolVersion);
+
+  const block = await getBlockOrThrow(blockHash);
+  const date = new Date(block.timestamp * 1000);
 
   const relayer = getRelayerForFill({
     feeRecipient,

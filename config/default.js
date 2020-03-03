@@ -43,7 +43,7 @@ module.exports = {
       batchSize: 100,
     },
     createFills: {
-      batchSize: 500,
+      batchSize: 2000, // TODO: Lower this once ERC-1155 supported
     },
     deriveFillPrices: {
       batchSize: 100,
