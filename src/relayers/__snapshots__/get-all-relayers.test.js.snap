@@ -208,6 +208,7 @@ Object {
   "oneInchExchange": Object {
     "feeRecipients": Array [
       "0x4d37f28d2db99e8d35a6c725a5f1749a085850a3",
+      "0x68a17b587caf4f9329f0e372e3a78d23a46de6b5",
     ],
     "id": "oneInchExchange",
     "imageUrl": "https://0xtracker.com/assets/logos/1inch-exchange.png",

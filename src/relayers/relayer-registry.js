@@ -280,7 +280,10 @@ module.exports = {
     lookupId: 32,
     name: '1inch.exchange',
     slug: '1inch-exchange',
-    feeRecipients: ['0x4d37f28d2db99e8d35a6c725a5f1749a085850a3'],
+    feeRecipients: [
+      '0x4d37f28d2db99e8d35a6c725a5f1749a085850a3',
+      '0x68a17b587caf4f9329f0e372e3a78d23a46de6b5',
+    ],
     url: 'https://1inch.exchange',
   },
   odee: {
