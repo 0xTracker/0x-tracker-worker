@@ -2,8 +2,8 @@ const _ = require('lodash');
 const bluebird = require('bluebird');
 const signale = require('signale');
 
-const { getTokenInfo } = require('../util/ethplorer');
 const { getModel } = require('../model');
+const resolveToken = require('../tokens/resolve-token');
 const Token = require('../model/token');
 const tokenCache = require('../tokens/token-cache');
 const withTransaction = require('../util/with-transaction');
@@ -24,7 +24,7 @@ const resolveTokens = async () => {
 
   await bluebird.mapSeries(unresolvedTokens, async token => {
     const { address } = token;
-    const resolvedToken = await getTokenInfo(address);
+    const resolvedToken = await resolveToken(address, token.type);
 
     if (resolvedToken === null) {
       logger.warn(`no token info found for ${address}`);
