@@ -9,6 +9,7 @@ const fetchUnpricedFills = async batchSize => {
         $not: { $elemMatch: { tokenResolved: false } },
       },
     })
+    .sort({ date: -1 })
     .limit(batchSize);
 
   return fills;
