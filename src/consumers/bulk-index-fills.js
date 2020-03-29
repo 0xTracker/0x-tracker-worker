@@ -10,23 +10,33 @@ const fillsIndex = require('../index/fills');
 
 const logger = signale.scope('bulk index fills');
 
+const createQuery = (lastFillId, after, customQuery) => {
+  let query = {};
+
+  if (customQuery !== undefined) {
+    query = { ...query, ...customQuery };
+  }
+
+  if (after !== undefined) {
+    query = { ...query, date: { $gte: new Date(after) } };
+  }
+
+  if (lastFillId !== undefined) {
+    query = { ...query, _id: { $gt: lastFillId } };
+  }
+
+  return query;
+};
+
 const bulkIndexFills = async job => {
-  const { batchSize, query } = job.data;
+  const { after, batchSize, query } = job.data;
 
   if (!_.isFinite(batchSize) || batchSize <= 0) {
     throw new Error(`Invalid batchSize: ${batchSize}`);
   }
 
   const nextBatch = await getModel('Fill')
-    .find(
-      job.data.lastFillId === undefined
-        ? query
-        : {
-            ...(query || {}),
-            _id: { $gt: job.data.lastFillId },
-          },
-      '_id',
-    )
+    .find(createQuery(job.data.lastFillId, after, query), '_id')
     .limit(batchSize);
 
   if (nextBatch.length === 0) {
