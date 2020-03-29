@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const bluebird = require('bluebird');
 const ms = require('ms');
 const signale = require('signale');
@@ -55,7 +56,7 @@ const createFills = async ({ batchSize }) => {
             transactionHash: newFill.transactionHash,
           },
           {
-            delay: ms('5 seconds'), // Delay status fetching to ensure MongoDB changes have propagated
+            delay: ms('30 seconds'), // Delay status fetching to ensure MongoDB changes have propagated
           },
         );
 
@@ -66,9 +67,25 @@ const createFills = async ({ batchSize }) => {
             fillId: newFill._id,
           },
           {
-            delay: ms('5 seconds'), // Delay indexing to ensure MongoDB changes have propagated
+            delay: ms('30 seconds'), // Delay indexing to ensure MongoDB changes have propagated
           },
         );
+
+        if (_.isFinite(fill.protocolFee)) {
+          await publishJob(
+            QUEUE.FILL_PROCESSING,
+            JOB.CONVERT_PROTOCOL_FEE,
+            {
+              fillId: newFill._id,
+              fillDate: newFill.date,
+              protocolFee: newFill.protocolFee,
+            },
+            {
+              delay: ms('30 seconds'), // Delay conversion to ensure MongoDB changes have propagated
+              jobId: `convert-protocol-fee-${newFill._id}`,
+            },
+          );
+        }
       });
 
       logger.timeEnd(`create fill for event ${event.id}`);
