@@ -28,8 +28,6 @@ const getToken = tokenAddress => _.clone(keyedTokens[tokenAddress]);
 
 const addToken = token => {
   keyedTokens[token.address] = token;
-
-  logger.success(`added ${token.symbol} to token cache`);
 };
 
 const checkTokenResolved = tokenAddress => {
