@@ -22,7 +22,7 @@ const bulkIndexFills = async job => {
       job.data.lastFillId === undefined
         ? query
         : {
-            ...JOB(query || {}),
+            ...(query || {}),
             _id: { $gt: job.data.lastFillId },
           },
       '_id',
@@ -47,6 +47,7 @@ const bulkIndexFills = async job => {
         batchId,
         batchSize,
         lastFillId,
+        query,
       },
       { jobId: `bulk-index-${batchId}-${lastFillId}`, removeOnComplete: false },
     );
