@@ -69,6 +69,14 @@ module.exports = {
       updateRelayerStats: ms('1 minute'),
     },
   },
+  queues: {
+    tokenProcessing: {
+      limiter: {
+        max: 1,
+        duration: 60000,
+      },
+    },
+  },
   web3: {
     endpoint: process.env.WEB3_ENDPOINT,
   },
