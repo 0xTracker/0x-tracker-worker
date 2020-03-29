@@ -11,7 +11,7 @@ const resolveToken = require('../../tokens/resolve-token');
 const tokenCache = require('../../tokens/token-cache');
 const withTransaction = require('../../util/with-transaction');
 
-const logger = signale.scope('resolve token');
+const logger = signale.scope('fetch token metadata');
 
 const consumer = async job => {
   const { tokenAddress, tokenType } = job.data;
@@ -61,6 +61,6 @@ const consumer = async job => {
 
 module.exports = {
   fn: consumer,
-  jobName: JOB.INDEX_FILL,
-  queueName: QUEUE.FILL_INDEXING,
+  jobName: JOB.FETCH_TOKEN_METADATA,
+  queueName: QUEUE.TOKEN_METADATA,
 };
