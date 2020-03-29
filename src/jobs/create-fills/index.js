@@ -13,6 +13,7 @@ const { publishJob } = require('../../queues');
 const createFill = require('./create-fill');
 const ensureTokenExists = require('../../tokens/ensure-token-exists');
 const Event = require('../../model/event');
+const fetchTokenMetadata = require('../../tokens/fetch-token-metadata');
 const persistFill = require('./persist-fill');
 const withTransaction = require('../../util/with-transaction');
 
@@ -38,6 +39,11 @@ const createFills = async ({ batchSize }) => {
       await Promise.all(
         fill.assets.map(async asset => {
           if (await ensureTokenExists(asset.tokenAddress, asset.tokenType)) {
+            fetchTokenMetadata(
+              asset.tokenAddress,
+              asset.tokenType,
+              ms('30 seconds'),
+            );
             logger.success(`created token: ${asset.tokenAddress}`);
           }
         }),
