@@ -4,7 +4,7 @@ const signale = require('signale');
 
 const { JOB, QUEUE } = require('../../constants');
 const { getModel } = require('../../model');
-const fetchTokenMetadata = require('../../tokens/fetch-token-metadata');
+const { publishJob } = require('../../queues');
 const persistTokenMetadata = require('./persist-token-metadata');
 const resolveToken = require('../../tokens/resolve-token');
 
@@ -16,13 +16,24 @@ const logger = signale.scope('fetch token metadata');
 const consumer = async job => {
   const { tokenAddress, tokenType } = job.data;
 
-  logger.info(`attempting to fetch token metadata: ${tokenAddress}`);
+  logger.info(`fetching token metadata: ${tokenAddress}`);
 
   const resolvedToken = await resolveToken(tokenAddress, tokenType);
 
   if (resolvedToken === null) {
     logger.warn(`token metadata not found: ${tokenAddress}`);
-    await fetchTokenMetadata(tokenAddress, tokenType, ms('1 hour'));
+    publishJob(
+      QUEUE.TOKEN_PROCESSING,
+      JOB.FETCH_TOKEN_METADATA,
+      {
+        tokenAddress,
+        tokenType,
+      },
+      {
+        delay: ms('1 hour'),
+        jobId: `fetch-token-metadata-retry-${tokenAddress}`,
+      },
+    );
     return;
   }
 
@@ -62,5 +73,5 @@ const consumer = async job => {
 module.exports = {
   fn: consumer,
   jobName: JOB.FETCH_TOKEN_METADATA,
-  queueName: QUEUE.TOKEN_METADATA,
+  queueName: QUEUE.TOKEN_PROCESSING,
 };

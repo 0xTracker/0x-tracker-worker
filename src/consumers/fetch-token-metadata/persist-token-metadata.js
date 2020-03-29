@@ -9,7 +9,7 @@ const persisTokenMetadata = async (tokenAddress, tokenMetadata, session) => {
 
   // This error may indicate that the token document has not replicated
   // across all MongoDB replicas yet.
-  if (result.nModified !== 1) {
+  if (result.n !== 1) {
     throw new Error(`Could not persist metadata of token: ${tokenAddress}`);
   }
 };
