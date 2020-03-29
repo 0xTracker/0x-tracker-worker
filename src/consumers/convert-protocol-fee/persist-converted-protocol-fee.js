@@ -11,6 +11,8 @@ const persistConvertedProtocolFee = async (
     { session: dbSession },
   );
 
+  // This error may indicate that the fill document has not replicated
+  // across all MongoDB replicas yet.
   if (result.nModified !== 1) {
     throw new Error(
       `Could not persist converted protocol fee of fill: ${fillId}`,
