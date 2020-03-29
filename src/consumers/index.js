@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const { getQueues } = require('../queues');
 const bulkIndexFills = require('./bulk-index-fills');
+const convertProtocolFee = require('./convert-protocol-fee');
 const fetchFillStatus = require('./fetch-fill-status');
 const indexFill = require('./index-fill');
 const indexFillProtocolFee = require('./index-fill-protocol-fee');
@@ -9,6 +10,7 @@ const indexFillValue = require('./index-fill-value');
 
 const consumers = [
   bulkIndexFills,
+  convertProtocolFee,
   fetchFillStatus,
   indexFill,
   indexFillProtocolFee,
