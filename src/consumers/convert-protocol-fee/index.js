@@ -13,7 +13,7 @@ const withTransaction = require('../../util/with-transaction');
 const logger = signale.scope('convert protocol fees');
 
 const convertProtocolFee = async job => {
-  const { fillDate, fillId, protocolFee } = job;
+  const { fillDate, fillId, protocolFee } = job.data;
 
   logger.info(`converting protocol fee for fill: ${fillId}`);
 

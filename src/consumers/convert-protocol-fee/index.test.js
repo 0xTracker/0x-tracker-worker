@@ -21,9 +21,11 @@ describe('convert protocol fee consumer', () => {
   it('should throw an error when fillId is invalid', async () => {
     await expect(
       fn({
-        fillDate: '2020-03-29T19:30:00.000Z',
-        fillId: 'fubar',
-        protocolFee: 1000000000000000,
+        data: {
+          fillDate: '2020-03-29T19:30:00.000Z',
+          fillId: 'fubar',
+          protocolFee: 1000000000000000,
+        },
       }),
     ).rejects.toThrow(new Error('Invalid fillId: fubar'));
   });
@@ -31,9 +33,11 @@ describe('convert protocol fee consumer', () => {
   it('should throw an error when fillDate is invalid', async () => {
     await expect(
       fn({
-        fillDate: 'fubar',
-        fillId: '5dab535fa75e77be63cfcc29',
-        protocolFee: 1000000000000000,
+        data: {
+          fillDate: 'fubar',
+          fillId: '5dab535fa75e77be63cfcc29',
+          protocolFee: 1000000000000000,
+        },
       }),
     ).rejects.toThrow(new Error('Invalid fillDate: fubar'));
   });
@@ -41,9 +45,11 @@ describe('convert protocol fee consumer', () => {
   it('should throw an error when protocolFee is invalid', async () => {
     await expect(
       fn({
-        fillDate: '2020-03-29T19:30:00.000Z',
-        fillId: '5dab535fa75e77be63cfcc29',
-        protocolFee: 'fubar',
+        data: {
+          fillDate: '2020-03-29T19:30:00.000Z',
+          fillId: '5dab535fa75e77be63cfcc29',
+          protocolFee: 'fubar',
+        },
       }),
     ).rejects.toThrow(new Error('Invalid protocolFee: fubar'));
   });
@@ -52,9 +58,11 @@ describe('convert protocol fee consumer', () => {
     getConversionRate.mockResolvedValue(180);
 
     await fn({
-      fillDate: '2020-03-29T19:30:00.000Z',
-      fillId: '5dab535fa75e77be63cfcc29',
-      protocolFee: 1000000000000000,
+      data: {
+        fillDate: '2020-03-29T19:30:00.000Z',
+        fillId: '5dab535fa75e77be63cfcc29',
+        protocolFee: 1000000000000000,
+      },
     });
 
     expect(persistConvertedProtocolFee).toHaveBeenCalledTimes(1);
@@ -70,9 +78,11 @@ describe('convert protocol fee consumer', () => {
 
     await expect(
       fn({
-        fillDate: '2020-03-29T19:30:00.000Z',
-        fillId: '5dab535fa75e77be63cfcc29',
-        protocolFee: 1000000000000000,
+        data: {
+          fillDate: '2020-03-29T19:30:00.000Z',
+          fillId: '5dab535fa75e77be63cfcc29',
+          protocolFee: 1000000000000000,
+        },
       }),
     ).rejects.toThrow(
       new Error(
