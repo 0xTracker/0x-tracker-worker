@@ -99,6 +99,13 @@ const createModel = () => {
     'assets.tokenResolved': -1,
   });
 
+  schema.virtual('assets.token', {
+    ref: 'Token',
+    localField: 'assets.tokenAddress',
+    foreignField: 'address',
+    justOne: true,
+  });
+
   const Model = mongoose.model('Fill', schema);
 
   return Model;

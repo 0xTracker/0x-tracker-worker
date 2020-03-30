@@ -40,12 +40,14 @@ module.exports = {
     INDEX_FILL_PROTOCOL_FEE: 'index-fill-protocol-fee',
     INDEX_FILL_STATUS: 'index-fill-status',
     INDEX_FILL_VALUE: 'index-fill-value',
+    INDEX_TRADED_TOKENS: 'index-traded-tokens',
   },
   QUEUE: {
     BULK_INDEXING: 'bulk-indexing',
     FILL_INDEXING: 'fill-indexing',
     FILL_PROCESSING: 'fill-processing',
     TOKEN_PROCESSING: 'token-processing',
+    TRADED_TOKEN_INDEXING: 'traded-token-indexing',
   },
   SYMBOL_MAPPINGS: {
     DAIW: 'DAI',
