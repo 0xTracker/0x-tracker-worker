@@ -8,7 +8,6 @@ const deriveFillPrices = require('./derive-fill-prices');
 const getMissingTokenImages = require('./get-missing-token-images');
 const getNewArticles = require('./get-new-articles');
 const measureFills = require('./measure-fills');
-const resolveTokens = require('./resolve-tokens');
 
 const jobFns = {
   cacheAddressMetrics,
@@ -19,7 +18,6 @@ const jobFns = {
   getMissingTokenImages,
   getNewArticles,
   measureFills,
-  resolveTokens,
 };
 
 const getJobs = ({ pollingIntervals }) =>

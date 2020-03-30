@@ -19,9 +19,12 @@ const getQueues = () => {
   return queues;
 };
 
-const initQueues = queueNames => {
+const initQueues = (queueNames, config) => {
   queueNames.forEach(queueName => {
+    const queueConfig = _.get(config, _.camelCase(queueName), {});
+
     queues[queueName] = new Queue(queueName, {
+      ...queueConfig,
       redis: {
         host: process.env.REDIS_URL,
       },
