@@ -72,8 +72,8 @@ module.exports = {
   queues: {
     tokenProcessing: {
       limiter: {
-        max: 1,
-        duration: 60000,
+        max: 5,
+        duration: 1000,
       },
     },
   },
