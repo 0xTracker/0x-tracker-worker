@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const bluebird = require('bluebird');
 const ms = require('ms');
 const signale = require('signale');
@@ -8,12 +7,15 @@ const {
   UnsupportedAssetError,
   UnsupportedProtocolError,
 } = require('../../errors');
-const { JOB, QUEUE } = require('../../constants');
-const { publishJob } = require('../../queues');
+const convertProtocolFee = require('../../fills/convert-protocol-fee');
 const createFill = require('./create-fill');
 const ensureTokenExists = require('../../tokens/ensure-token-exists');
 const Event = require('../../model/event');
+const fetchFillStatus = require('../../fills/fetch-fill-status');
 const fetchTokenMetadata = require('../../tokens/fetch-token-metadata');
+const hasProtocolFee = require('../../fills/has-protocol-fee');
+const indexFill = require('../../index/index-fill');
+const indexTradedTokens = require('../../index/index-traded-tokens');
 const persistFill = require('./persist-fill');
 const withTransaction = require('../../util/with-transaction');
 
@@ -30,7 +32,7 @@ const createFills = async ({ batchSize }) => {
   logger.info(`found ${events.length} events without associated fills`);
 
   await bluebird.mapSeries(events, async event => {
-    logger.time(`create fill for event ${event.id}`);
+    logger.info(`creating fill for event ${event.id}`);
 
     try {
       const fill = await createFill(event);
@@ -50,51 +52,18 @@ const createFills = async ({ batchSize }) => {
       );
 
       await withTransaction(async session => {
-        logger.time(`persist fill for event ${event._id}`);
         const newFill = await persistFill(session, event, fill);
-        logger.timeEnd(`persist fill for event ${event._id}`);
 
-        await publishJob(
-          QUEUE.FILL_PROCESSING,
-          JOB.FETCH_FILL_STATUS,
-          {
-            fillId: newFill._id,
-            transactionHash: newFill.transactionHash,
-          },
-          {
-            delay: ms('30 seconds'), // Delay status fetching to ensure MongoDB changes have propagated
-          },
-        );
+        await fetchFillStatus(newFill._id, newFill.transactionHash, ms('30'));
+        await indexFill(newFill._id, ms('30 seconds'));
+        await indexTradedTokens(newFill);
 
-        await publishJob(
-          QUEUE.FILL_INDEXING,
-          JOB.INDEX_FILL,
-          {
-            fillId: newFill._id,
-          },
-          {
-            delay: ms('30 seconds'), // Delay indexing to ensure MongoDB changes have propagated
-          },
-        );
-
-        if (_.isFinite(fill.protocolFee)) {
-          await publishJob(
-            QUEUE.FILL_PROCESSING,
-            JOB.CONVERT_PROTOCOL_FEE,
-            {
-              fillId: newFill._id,
-              fillDate: newFill.date,
-              protocolFee: newFill.protocolFee,
-            },
-            {
-              delay: ms('30 seconds'), // Delay conversion to ensure MongoDB changes have propagated
-              jobId: `convert-protocol-fee-${newFill._id}`,
-            },
-          );
+        if (hasProtocolFee(newFill)) {
+          await convertProtocolFee(newFill, ms('30 seconds'));
         }
       });
 
-      logger.timeEnd(`create fill for event ${event.id}`);
+      logger.info(`created fill for event ${event.id}`);
     } catch (error) {
       if (error instanceof MissingBlockError) {
         logger.warn(
