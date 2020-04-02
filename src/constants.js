@@ -16,7 +16,6 @@ module.exports = {
     '0xaa7427d8f17d87a28f5e1ba3adbb270badbe1011': 'ETH', // Ethfinex Ether
     '0x50cb61afa3f023d17276dcfb35abf85c710d1cff': 'ETH', // Ethfinex Ether V2
   },
-  // TODO: Write a test to enforce decimals must be defined in constants for every base token
   BASE_TOKEN_DECIMALS: {
     '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359': 18, // DAI Stablecoin
     '0xd9ebebfdab08c643c5f2837632de920c70a56247': 18, // Ethfinex DAI
