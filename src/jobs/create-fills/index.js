@@ -54,7 +54,7 @@ const createFills = async ({ batchSize }) => {
       await withTransaction(async session => {
         const newFill = await persistFill(session, event, fill);
 
-        await fetchFillStatus(newFill._id, newFill.transactionHash, ms('30'));
+        await fetchFillStatus(newFill, ms('30 seconds'));
         await indexFill(newFill._id, ms('30 seconds'));
         await indexTradedTokens(newFill);
 

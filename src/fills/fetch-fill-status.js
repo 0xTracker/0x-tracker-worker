@@ -11,6 +11,7 @@ const fetchFillStatus = async (fill, delay) => {
     },
     {
       delay,
+      jobId: `fetch-fill-status-${fill._id}`,
     },
   );
 };

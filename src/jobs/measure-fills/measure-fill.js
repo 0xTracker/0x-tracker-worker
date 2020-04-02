@@ -1,60 +1,74 @@
 const bluebird = require('bluebird');
-const signale = require('signale');
 
-const { JOB, QUEUE } = require('../../constants');
-const { getToken } = require('../../tokens/token-cache');
-const { publishJob } = require('../../queues');
+const { BASE_TOKENS, BASE_TOKEN_DECIMALS } = require('../../constants');
 const formatTokenAmount = require('../../tokens/format-token-amount');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getMeasurableActor = require('./get-measurable-actor');
+const indexFillValue = require('../../index/index-fill-value');
+const indexTradedTokenValues = require('../../index/index-traded-token-values');
 const normalizeSymbol = require('../../tokens/normalize-symbol');
 const persistTokenPrices = require('./persist-token-prices');
 const withTransaction = require('../../util/with-transaction');
-
-const logger = signale.scope('measure fills > measure fill');
 
 const measureFill = async fill => {
   const measurableActor = getMeasurableActor(fill);
 
   let totalValue = 0;
+
   const tokenPrices = {};
+  const tokenValues = {};
 
   await bluebird.mapSeries(fill.assets, async asset => {
     if (asset.actor === measurableActor) {
-      const token = getToken(asset.tokenAddress);
+      const { tokenAddress } = asset;
+      const tokenSymbol = BASE_TOKENS[asset.tokenAddress];
+      const tokenDecimals = BASE_TOKEN_DECIMALS[asset.tokenAddress];
 
-      if (token === undefined) {
+      if (tokenSymbol === undefined) {
         throw new Error(
-          `Unable to fetch resolved token ${asset.tokenAddress} from token cache`,
+          `Could not determine symbol for base token: ${tokenAddress}`,
         );
       }
 
-      const amount = formatTokenAmount(asset.amount, token);
-      const normalizedSymbol = normalizeSymbol(token.symbol);
-      const conversionRate = await getConversionRate(
+      if (tokenDecimals === undefined) {
+        throw new Error(
+          `Could not determine decimals for base token: ${tokenAddress}`,
+        );
+      }
+
+      const tokenAmount = formatTokenAmount(asset.amount, tokenDecimals);
+      const normalizedSymbol = normalizeSymbol(tokenSymbol);
+      const tokenPrice = await getConversionRate(
         normalizedSymbol,
         'USD',
         fill.date,
       );
 
-      if (conversionRate === undefined) {
+      if (tokenPrice === undefined) {
         throw new Error(
           `Unable to fetch USD price of ${normalizedSymbol} on ${fill.date}`,
         );
       }
 
-      tokenPrices[token.address] = conversionRate;
+      const tokenAmountUSD = tokenAmount * tokenPrice;
 
-      const assetValue = amount * conversionRate;
+      tokenPrices[tokenAddress] = tokenPrice;
 
-      asset.set('price.USD', conversionRate);
-      asset.set('value.USD', assetValue);
+      asset.set('price.USD', tokenPrice);
+      asset.set('value.USD', tokenAmountUSD);
 
-      logger.debug(
-        `set price of token ${token.address} to ${conversionRate} on fill ${fill._id}`,
-      );
+      if (tokenValues[tokenAddress] === undefined) {
+        tokenValues[tokenAddress] = {
+          amount: tokenAmount.toNumber(),
+          amountUSD: tokenAmountUSD,
+          priceUSD: tokenPrice,
+        };
+      } else {
+        tokenValues[tokenAddress].amount += tokenAmount.toNumber();
+        tokenValues[tokenAddress].amountUSD += tokenAmountUSD;
+      }
 
-      totalValue += assetValue;
+      totalValue += tokenAmountUSD;
     }
   });
 
@@ -64,14 +78,9 @@ const measureFill = async fill => {
   await withTransaction(async session => {
     await fill.save({ session });
     await persistTokenPrices(tokenPrices, fill, session);
-    await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL_VALUE, {
-      fillId: fill._id,
-      relayerId: fill.relayerId,
-      value: totalValue,
-    });
+    await indexFillValue(fill, totalValue);
+    await indexTradedTokenValues(fill, tokenValues);
   });
-
-  logger.debug(`set value of fill ${fill._id} to ${totalValue}`);
 };
 
 module.exports = measureFill;

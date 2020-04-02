@@ -8,7 +8,6 @@ const formatTokenAmount = require('../../tokens/format-token-amount');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const indexProtocolFee = require('../../index/index-protocol-fee');
 const persistConvertedProtocolFee = require('./persist-converted-protocol-fee');
-const withTransaction = require('../../util/with-transaction');
 
 const logger = signale.scope('convert protocol fees');
 
@@ -38,11 +37,8 @@ const convertProtocolFee = async job => {
   const formattedFee = formatTokenAmount(protocolFee, ETH_TOKEN_DECIMALS);
   const convertedFee = formattedFee.times(conversionRate).toNumber();
 
-  // Use a database transaction to ensure consistency
-  await withTransaction(async session => {
-    await persistConvertedProtocolFee(fillId, convertedFee, session);
-    await indexProtocolFee(fillId, convertedFee);
-  });
+  await persistConvertedProtocolFee(fillId, convertedFee);
+  await indexProtocolFee(fillId, convertedFee);
 
   logger.info(`converted protocol fee for fill: ${fillId}`);
 };

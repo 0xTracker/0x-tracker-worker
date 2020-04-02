@@ -2,7 +2,15 @@ const { getModel } = require('../../model');
 
 const persistFill = async (session, event, fill) => {
   const Fill = getModel('Fill');
-  const results = await Fill.create([fill], { session });
+  const results = await Fill.create(
+    [
+      {
+        ...fill,
+        _id: event._id,
+      },
+    ],
+    { session },
+  );
   const newFill = results[0];
 
   await Fill.populate(newFill, [{ path: 'relayer' }, { path: 'assets.token' }]);
