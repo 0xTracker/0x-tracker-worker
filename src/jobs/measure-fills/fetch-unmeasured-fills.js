@@ -11,7 +11,8 @@ const fetchUnmeasuredFills = async batchSize => {
       'assets.tokenAddress': { $in: baseTokenAddresses },
       immeasurable: { $in: [null, false] },
     })
-    .limit(batchSize);
+    .limit(batchSize)
+    .populate([{ path: 'relayer' }, { path: 'assets.token' }]);
 
   return fills;
 };

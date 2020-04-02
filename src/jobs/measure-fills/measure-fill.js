@@ -5,7 +5,7 @@ const formatTokenAmount = require('../../tokens/format-token-amount');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getMeasurableActor = require('./get-measurable-actor');
 const indexFillValue = require('../../index/index-fill-value');
-const indexTradedTokenValues = require('../../index/index-traded-token-values');
+const indexTradedTokens = require('../../index/index-traded-tokens');
 const normalizeSymbol = require('../../tokens/normalize-symbol');
 const persistTokenPrices = require('./persist-token-prices');
 const withTransaction = require('../../util/with-transaction');
@@ -79,7 +79,7 @@ const measureFill = async fill => {
     await fill.save({ session });
     await persistTokenPrices(tokenPrices, fill, session);
     await indexFillValue(fill, totalValue);
-    await indexTradedTokenValues(fill, tokenValues);
+    await indexTradedTokens(fill);
   });
 };
 
