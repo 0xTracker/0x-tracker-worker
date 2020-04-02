@@ -31,7 +31,7 @@ const consumer = async job => {
             tradedAmount: tradedToken.tradedAmount,
             tradedAmountUSD: tradedToken.tradedAmountUSD,
             priceUSD: tradedToken.priceUSD,
-            updatedAt: new Date(Date.now()).toISOString(),
+            updatedAt: new Date().toISOString(),
           },
           doc_as_upsert: true,
         }),

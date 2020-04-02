@@ -10,7 +10,8 @@ const fetchUnpricedFills = async batchSize => {
       },
     })
     .sort({ date: -1 })
-    .limit(batchSize);
+    .limit(batchSize)
+    .populate([{ path: 'relayer' }, { path: 'assets.token' }]);
 
   return fills;
 };
