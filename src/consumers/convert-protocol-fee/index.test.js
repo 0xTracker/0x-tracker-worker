@@ -1,20 +1,13 @@
 const { fn } = require('./');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const persistConvertedProtocolFee = require('./persist-converted-protocol-fee');
-const withTransaction = require('../../util/with-transaction');
 
 jest.mock('./persist-converted-protocol-fee');
 jest.mock('../../rates/get-conversion-rate');
 jest.mock('../../queues');
-jest.mock('../../util/with-transaction');
-
-const stubSession = {};
 
 beforeEach(() => {
   jest.resetAllMocks();
-  withTransaction.mockImplementation(async wrappedFn => {
-    await wrappedFn(stubSession);
-  });
 });
 
 describe('convert protocol fee consumer', () => {
@@ -69,7 +62,6 @@ describe('convert protocol fee consumer', () => {
     expect(persistConvertedProtocolFee).toHaveBeenCalledWith(
       '5dab535fa75e77be63cfcc29',
       0.18,
-      stubSession,
     );
   });
 

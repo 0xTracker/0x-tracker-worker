@@ -4,8 +4,8 @@ const signale = require('signale');
 
 const { FILL_STATUS, JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
-const { publishJob } = require('../queues');
 const getTransactionReceipt = require('../util/ethereum/get-transaction-receipt');
+const indexFillStatus = require('../index/index-fill-status');
 
 const logger = signale.scope('fetch fill status');
 
@@ -31,14 +31,11 @@ const fetchFillStatus = async job => {
   const statusText = _.findKey(FILL_STATUS, value => value === status);
   const result = await getModel('Fill').updateOne({ _id: fillId }, { status });
 
-  if (result.modifiedCount === 0) {
-    throw new Error(`No fill found with the id: ${fillId}`);
+  if (result.n !== 1) {
+    throw new Error(`Could not persist status of fill: ${fillId}`);
   }
 
-  await publishJob(QUEUE.FILL_INDEXING, JOB.INDEX_FILL_STATUS, {
-    fillId,
-    status,
-  });
+  await indexFillStatus(fillId, status);
 
   logger.success(`set status of fill ${fillId} to ${statusText}`);
 };

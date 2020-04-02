@@ -23,7 +23,7 @@ const indexFillStatus = async job => {
   const indexed = exists.body;
 
   if (!indexed) {
-    throw new Error(`Could not index status of fill: ${fillId}`);
+    throw new Error(`Fill has not been indexed yet: ${fillId}`);
   }
 
   await elasticsearch.getClient().update({

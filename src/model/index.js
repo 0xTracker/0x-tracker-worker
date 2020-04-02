@@ -29,4 +29,13 @@ const getModel = name => {
   return models[name];
 };
 
-module.exports = { createModels, getModel };
+const init = async () => {
+  createModels();
+
+  await models.Article.createCollection();
+  await models.Fill.createCollection();
+  await models.Relayer.createCollection();
+  await models.Token.createCollection();
+};
+
+module.exports = { getModel, init };

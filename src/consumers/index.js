@@ -9,6 +9,7 @@ const indexFill = require('./index-fill');
 const indexFillProtocolFee = require('./index-fill-protocol-fee');
 const indexFillStatus = require('./index-fill-status');
 const indexFillValue = require('./index-fill-value');
+const indexTradedTokens = require('./index-traded-tokens');
 
 const consumers = [
   bulkIndexFills,
@@ -20,6 +21,7 @@ const consumers = [
   indexFillProtocolFee,
   indexFillStatus,
   indexFillValue,
+  indexTradedTokens,
 ];
 
 const initQueueConsumers = config => {

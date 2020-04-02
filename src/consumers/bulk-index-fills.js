@@ -82,7 +82,13 @@ const bulkIndexFills = async job => {
     })
     .join('\n');
 
-  await elasticsearch.getClient().bulk({ body: `${body}\n`, index: 'fills' });
+  const result = await elasticsearch
+    .getClient()
+    .bulk({ body: `${body}\n`, index: 'fills' });
+
+  if (result.body.errors === true) {
+    throw new Error(`Failed to bulk index fills`);
+  }
 
   logger.success(
     `indexed ${fills.length} fills from ${fills[0]._id} to ${lastFillId}`,

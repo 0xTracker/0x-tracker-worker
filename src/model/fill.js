@@ -5,69 +5,72 @@ const { FILL_STATUS } = require('../constants');
 const { Schema } = mongoose;
 
 const createModel = () => {
-  const schema = Schema({
-    assets: [
-      {
-        actor: Number,
-        amount: Number,
-        bridgeAddress: String,
-        bridgeData: String,
-        price: {
-          USD: Number,
+  const schema = Schema(
+    {
+      assets: [
+        {
+          actor: Number,
+          amount: Number,
+          bridgeAddress: String,
+          bridgeData: String,
+          price: {
+            USD: Number,
+          },
+          tokenAddress: String,
+          tokenId: Number,
+          tokenResolved: { default: false, type: Boolean },
+          value: {
+            USD: Number,
+          },
         },
-        tokenAddress: String,
-        tokenId: Number,
-        tokenResolved: { default: false, type: Boolean },
-        value: {
-          USD: Number,
+      ],
+      blockHash: String,
+      blockNumber: Number,
+      conversions: {
+        USD: {
+          amount: Number,
+          makerFee: Number,
+          protocolFee: Number,
+          takerFee: Number,
         },
       },
-    ],
-    blockHash: String,
-    blockNumber: Number,
-    conversions: {
-      USD: {
-        amount: Number,
-        makerFee: Number,
-        protocolFee: Number,
-        takerFee: Number,
+      date: Date,
+      eventId: Schema.Types.ObjectId,
+      fees: [
+        {
+          amount: { token: Number, USD: Number },
+          bridgeAddress: String,
+          bridgeData: String,
+          tokenAddress: String,
+          tokenId: Number,
+          traderType: Number,
+        },
+      ],
+      feeRecipient: String,
+      hasValue: { default: false, type: Boolean },
+      immeasurable: { default: false, type: Boolean },
+      logIndex: Number,
+      maker: String,
+      makerFee: Number,
+      orderHash: String,
+      pricingStatus: Number,
+      protocolFee: Number,
+      protocolVersion: Number,
+      rates: {
+        data: Schema.Types.Mixed,
       },
-    },
-    date: Date,
-    eventId: Schema.Types.ObjectId,
-    fees: [
-      {
-        amount: { token: Number, USD: Number },
-        bridgeAddress: String,
-        bridgeData: String,
-        tokenAddress: String,
-        tokenId: Number,
-        traderType: Number,
+      relayerId: Number,
+      senderAddress: String,
+      status: {
+        default: FILL_STATUS.PENDING,
+        type: Number,
       },
-    ],
-    feeRecipient: String,
-    hasValue: { default: false, type: Boolean },
-    immeasurable: { default: false, type: Boolean },
-    logIndex: Number,
-    maker: String,
-    makerFee: Number,
-    orderHash: String,
-    pricingStatus: Number,
-    protocolFee: Number,
-    protocolVersion: Number,
-    rates: {
-      data: Schema.Types.Mixed,
+      taker: String,
+      takerFee: Number,
+      transactionHash: String,
     },
-    relayerId: Number,
-    senderAddress: String,
-    status: {
-      default: FILL_STATUS.PENDING,
-      type: Number,
-    },
-    taker: String,
-    takerFee: Number,
-    transactionHash: String,
-  });
+    { toJSON: { virtuals: true } },
+  );
 
   // TODO: Work out what this index was for. Sorting?
   schema.index({ date: -1 });
@@ -97,6 +100,20 @@ const createModel = () => {
     hasValue: -1,
     pricingStatus: 1,
     'assets.tokenResolved': -1,
+  });
+
+  schema.virtual('assets.token', {
+    ref: 'Token',
+    localField: 'assets.tokenAddress',
+    foreignField: 'address',
+    justOne: true,
+  });
+
+  schema.virtual('relayer', {
+    ref: 'Relayer',
+    localField: 'relayerId',
+    foreignField: 'lookupId',
+    justOne: true,
   });
 
   const Model = mongoose.model('Fill', schema);

@@ -1,8 +1,5 @@
 const { FILL_ACTOR } = require('../../constants');
-const { getToken } = require('../../tokens/token-cache');
 const deriveTokenPriceFromFill = require('./derive-token-price-from-fill');
-
-jest.mock('../../tokens/token-cache');
 
 describe('derive token price from fill', () => {
   it('should throw an error when the fill has not been measured', () => {
@@ -29,7 +26,7 @@ describe('derive token price from fill', () => {
 
     expect(() => {
       deriveTokenPriceFromFill(fill);
-    }).toThrow(/Fill 5d2ed0a5284b0b440de8a3f7 has no unpriced assets/);
+    }).toThrow(/Fill has no unpriced assets: 5d2ed0a5284b0b440de8a3f7/);
   });
 
   it('should throw an error when fill has unpriced assets for both actors', () => {
@@ -50,7 +47,7 @@ describe('derive token price from fill', () => {
     expect(() => {
       deriveTokenPriceFromFill(fill);
     }).toThrow(
-      /Fill 5d2ed0a5284b0b440de8a3f7 has unpriced assets for both actors/,
+      /Fill has unpriced assets for both actors: 5d2ed0a5284b0b440de8a3f7/,
     );
   });
 
@@ -93,7 +90,7 @@ describe('derive token price from fill', () => {
     expect(tokenPrice).toBeNull();
   });
 
-  it('should throw an error when the fill relies on an unresolved token', () => {
+  it('should throw an error when the fill relies on a missing token', () => {
     const fill = {
       _id: '5d2ed0a5284b0b440de8a3f7',
       assets: [
@@ -124,8 +121,46 @@ describe('derive token price from fill', () => {
 
     expect(() => {
       deriveTokenPriceFromFill(fill);
+    }).toThrow(/Fill relies on missing token: 5d2ed0a5284b0b440de8a3f7/);
+  });
+
+  it('should throw an error when the fill relies on a token with unresolved decimals', () => {
+    const fill = {
+      _id: '5d2ed0a5284b0b440de8a3f7',
+      assets: [
+        {
+          actor: FILL_ACTOR.MAKER,
+          amount: 5000000000000000000,
+          price: { USD: 21.8 },
+          tokenAddress: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+        },
+        {
+          actor: FILL_ACTOR.MAKER,
+          amount: 5000000000000000000,
+          price: { USD: 21.8 },
+          tokenAddress: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+        },
+        {
+          actor: FILL_ACTOR.TAKER,
+          amount: 5000000000000000000,
+          token: {
+            address: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+            type: 0,
+          },
+          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+        },
+      ],
+      conversions: {
+        USD: {
+          amount: 4000,
+        },
+      },
+    };
+
+    expect(() => {
+      deriveTokenPriceFromFill(fill);
     }).toThrow(
-      /Fill 5d2ed0a5284b0b440de8a3f7 relies on unresolved token 0xe41d2489571d322189246dafa5ebde1f4699f498/,
+      /Fill relies on token with unresolved decimals: 5d2ed0a5284b0b440de8a3f7/,
     );
   });
 
@@ -148,11 +183,19 @@ describe('derive token price from fill', () => {
         {
           actor: FILL_ACTOR.TAKER,
           amount: 5000000000000000000,
+          token: {
+            address: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+            decimals: 18,
+          },
           tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         },
         {
           actor: FILL_ACTOR.TAKER,
           amount: 10000000000000000000,
+          token: {
+            address: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+            decimals: 18,
+          },
           tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         },
       ],
@@ -162,11 +205,6 @@ describe('derive token price from fill', () => {
         },
       },
     };
-
-    getToken.mockReturnValue({
-      address: '0xe41d2489571d322189246dafa5ebde1f4699f498',
-      decimals: 18,
-    });
 
     const tokenPrice = deriveTokenPriceFromFill(fill);
 
@@ -191,6 +229,10 @@ describe('derive token price from fill', () => {
         {
           actor: FILL_ACTOR.TAKER,
           amount: 5000000000000000000,
+          token: {
+            address: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+            decimals: 18,
+          },
           tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         },
       ],
@@ -200,11 +242,6 @@ describe('derive token price from fill', () => {
         },
       },
     };
-
-    getToken.mockReturnValue({
-      address: '0xe41d2489571d322189246dafa5ebde1f4699f498',
-      decimals: 18,
-    });
 
     const tokenPrice = deriveTokenPriceFromFill(fill);
 
@@ -223,6 +260,10 @@ describe('derive token price from fill', () => {
         {
           actor: FILL_ACTOR.MAKER,
           amount: 100000000000000000000,
+          token: {
+            address: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+            decimals: 18,
+          },
           tokenAddress: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
         },
         {
@@ -238,11 +279,6 @@ describe('derive token price from fill', () => {
         },
       },
     };
-
-    getToken.mockReturnValue({
-      address: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
-      decimals: 18,
-    });
 
     const tokenPrice = deriveTokenPriceFromFill(fill);
 

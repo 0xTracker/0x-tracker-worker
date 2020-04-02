@@ -1,8 +1,7 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
 
-const { ZRX_TOKEN_ADDRESS } = require('../constants');
-const { getToken } = require('../tokens/token-cache');
+const { ZRX_TOKEN_DECIMALS } = require('../constants');
 const { getModel } = require('../model');
 const formatTokenAmount = require('../tokens/format-token-amount');
 const getConversionRate = require('../rates/get-conversion-rate');
@@ -16,8 +15,7 @@ const convertAmount = (amount, conversionRate) => {
     return 0;
   }
 
-  const zrxToken = getToken(ZRX_TOKEN_ADDRESS);
-  const formattedAmount = formatTokenAmount(amount, zrxToken);
+  const formattedAmount = formatTokenAmount(amount, ZRX_TOKEN_DECIMALS);
 
   return formattedAmount * conversionRate;
 };

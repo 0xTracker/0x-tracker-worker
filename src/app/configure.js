@@ -1,11 +1,11 @@
 const config = require('config');
 
-const { createModels } = require('../model');
 const cryptoCompare = require('../util/crypto-compare');
 const db = require('../util/db');
 const elasticsearch = require('../util/elasticsearch');
 const errorLogger = require('../util/error-logger');
 const ethplorer = require('../util/ethplorer');
+const model = require('../model');
 const web3 = require('../util/ethereum/web3');
 
 const configure = async () => {
@@ -26,7 +26,7 @@ const configure = async () => {
       password: config.get('elasticsearch.password'),
     },
   });
-  createModels();
+  await model.init();
 };
 
 module.exports = configure;
