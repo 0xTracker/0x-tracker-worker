@@ -38,31 +38,37 @@ const deriveTokenPriceFromFill = fill => {
     return null;
   }
 
-  const unpricedToken = unpricedAssets[0].token;
+  const { token } = unpricedAssets[0];
 
-  if (unpricedToken === undefined) {
+  if (token === undefined) {
     // If we cannot get the token details then it isn't possible to decode the token
     // amount and calculate a price. This would indicate that either the fill is in
     // an invalid state or the fetch-unpriced-fills query is broken.
     throw new Error(`Fill relies on missing token: ${fill._id}`);
   }
 
+  if (token.decimals === undefined) {
+    throw new Error(
+      `Fill relies on token with unresolved decimals: ${fill._id}`,
+    );
+  }
+
   // We calculate the price based on the total amount of unpriced assets. All of
   // these assets will belong to the same token, which means the total amount will
   // equal 100% of the fill value.
-  const unpricedTotal = unpricedAssets.reduce(
+  const rawTotal = unpricedAssets.reduce(
     (accumulator, asset) => accumulator.plus(asset.amount),
     new BigNumber(0),
   );
 
-  const formattedAmount = formatTokenAmount(unpricedTotal, unpricedToken);
-  const price = value / formattedAmount;
+  const totalAmount = formatTokenAmount(rawTotal, token.decimals);
+  const price = value / totalAmount;
 
   return {
     price: {
       USD: price,
     },
-    tokenAddress: unpricedToken.address,
+    tokenAddress: token.address,
   };
 };
 
