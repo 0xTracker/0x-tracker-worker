@@ -58,7 +58,6 @@ module.exports = {
     INDEX_FILL_STATUS: 'index-fill-status',
     INDEX_FILL_VALUE: 'index-fill-value',
     INDEX_TRADED_TOKENS: 'index-traded-tokens',
-    INDEX_TRADED_TOKEN_VALUES: 'index-traded-token-values',
   },
   QUEUE: {
     BULK_INDEXING: 'bulk-indexing',
@@ -84,4 +83,5 @@ module.exports = {
     TAKER: 1,
   },
   ZRX_TOKEN_ADDRESS: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+  ZRX_TOKEN_DECIMALS: 18,
 };
