@@ -48,6 +48,7 @@ module.exports = {
   },
   JOB: {
     BULK_INDEX_FILLS: 'bulk-index-fills',
+    BULK_INDEX_TRADED_TOKENS: 'bulk-index-traded-tokens',
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
     FETCH_FILL_STATUS: 'fetch-fill-status',
