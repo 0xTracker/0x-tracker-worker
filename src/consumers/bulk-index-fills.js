@@ -87,7 +87,12 @@ const bulkIndexFills = async job => {
     .bulk({ body: `${body}\n`, index: 'fills' });
 
   if (result.body.errors === true) {
-    throw new Error(`Failed to bulk index fills`);
+    const errorMessage = _.get(
+      result,
+      'body.items[0].update.error.reason',
+      `Failed to bulk index fills`,
+    );
+    throw new Error(errorMessage);
   }
 
   logger.success(
