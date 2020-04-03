@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const { getQueues } = require('../queues');
 const bulkIndexFills = require('./bulk-index-fills');
+const bulkIndexTradedTokens = require('./bulk-index-traded-tokens');
 const bulkUpdateTokenMetadata = require('./bulk-update-token-metadata');
 const convertProtocolFee = require('./convert-protocol-fee');
 const fetchFillStatus = require('./fetch-fill-status');
@@ -13,6 +14,7 @@ const indexTradedTokens = require('./index-traded-tokens');
 
 const consumers = [
   bulkIndexFills,
+  bulkIndexTradedTokens,
   bulkUpdateTokenMetadata,
   convertProtocolFee,
   fetchFillStatus,
