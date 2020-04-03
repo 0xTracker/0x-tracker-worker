@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const signale = require('signale');
 
 const { JOB, QUEUE } = require('../constants');
@@ -44,7 +45,12 @@ const consumer = async job => {
     .bulk({ body: `${body}\n`, index: 'traded_tokens' });
 
   if (result.body.errors === true) {
-    throw new Error(`Failed to index traded tokens for fill: ${fillId}`);
+    const errorMessage = _.get(
+      result,
+      'body.items[0].update.error.reason',
+      `Failed to index traded tokens for fill: ${fillId}`,
+    );
+    throw new Error(errorMessage);
   }
 
   logger.info(`indexed traded tokens for fill: ${fillId}`);
