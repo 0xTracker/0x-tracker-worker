@@ -31,40 +31,18 @@ const consumer = async job => {
     .find(createQuery(job.data.lastFillId), '_id')
     .sort({ _id: 1 })
     .limit(batchSize)
+    .populate([{ path: 'relayer' }, { path: 'assets.token' }])
     .lean();
 
   if (batch.length === 0) {
-    logger.info('bulk indexing has been scheduled for all traded tokens');
+    logger.info('bulk indexing of traded tokens has finished');
     return;
   }
 
   const lastFillId = batch[batch.length - 1]._id;
   const batchId = job.data.batchId || Date.now();
 
-  // Get on with processing the next batch whilst this one is being processed
-  // to improve batch indexing throughput.
-  if (batch.length === batchSize) {
-    await publishJob(
-      QUEUE.BULK_INDEXING,
-      JOB.BULK_INDEX_TRADED_TOKENS,
-      {
-        batchId,
-        batchSize,
-        lastFillId,
-      },
-      {
-        jobId: `bulk-index-traded-tokens-${batchId}-${lastFillId}`,
-      },
-    );
-    logger.info(`scheduled indexing for next batch of traded tokens`);
-  }
-
-  const fillIds = batch.map(match => match._id);
-  const fills = await getModel('Fill')
-    .find({ _id: { $in: fillIds } })
-    .populate([{ path: 'relayer' }, { path: 'assets.token' }]);
-
-  const body = fills
+  const body = batch
     .map(fill =>
       getTradedTokens(fill)
         .map(tradedToken =>
@@ -110,10 +88,24 @@ const consumer = async job => {
     throw new Error(errorMessage);
   }
 
-  logger.info(`indexed batch of traded tokens: ${fills.length}`);
+  logger.info(`indexed batch of traded tokens: ${batch.length}`);
 
-  if (fills.length < batchSize) {
+  if (batch.length < batchSize) {
     logger.info('bulk indexing of traded tokens has finished');
+  } else {
+    await publishJob(
+      QUEUE.BULK_INDEXING,
+      JOB.BULK_INDEX_TRADED_TOKENS,
+      {
+        batchId,
+        batchSize,
+        lastFillId,
+      },
+      {
+        jobId: `bulk-index-traded-tokens-${batchId}-${lastFillId}`,
+      },
+    );
+    logger.info(`scheduled indexing for next batch of traded tokens`);
   }
 };
 
