@@ -29,6 +29,7 @@ const consumer = async job => {
 
   const batch = await getModel('Fill')
     .find(createQuery(job.data.lastFillId), '_id')
+    .sort({ _id: 1 })
     .limit(batchSize)
     .lean();
 

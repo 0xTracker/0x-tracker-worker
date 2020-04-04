@@ -37,6 +37,7 @@ const bulkIndexFills = async job => {
 
   const nextBatch = await getModel('Fill')
     .find(createQuery(job.data.lastFillId, after, query), '_id')
+    .sort({ _id: 1 })
     .limit(batchSize);
 
   if (nextBatch.length === 0) {
