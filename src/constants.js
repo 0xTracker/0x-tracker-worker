@@ -58,6 +58,8 @@ module.exports = {
     INDEX_FILL_STATUS: 'index-fill-status',
     INDEX_FILL_VALUE: 'index-fill-value',
     INDEX_TRADED_TOKENS: 'index-traded-tokens',
+    SCHEDULE_TRADED_TOKENS_BULK_INDEXING:
+      'schedule-traded-tokens-bulk-indexing',
   },
   QUEUE: {
     BULK_INDEXING: 'bulk-indexing',

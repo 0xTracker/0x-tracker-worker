@@ -2,7 +2,6 @@ const _ = require('lodash');
 
 const signale = require('signale');
 
-// const { publishJob } = require('../queues');
 const { JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
 const elasticsearch = require('../util/elasticsearch');
@@ -10,39 +9,23 @@ const getTradedTokens = require('../fills/get-traded-tokens');
 
 const logger = signale.scope('bulk index traded tokens');
 
-const createQuery = lastFillId => {
-  let query = {};
-
-  if (lastFillId !== undefined) {
-    query = { ...query, _id: { $gt: lastFillId } };
-  }
-
-  return query;
-};
-
 const consumer = async job => {
-  const { batchSize } = job.data;
+  const { fillIds } = job.data;
 
-  if (!_.isFinite(batchSize) || batchSize <= 0) {
-    throw new Error(`Invalid batchSize: ${batchSize}`);
+  if (!Array.isArray(fillIds)) {
+    throw new Error(`Invalid fillIds: ${fillIds}`);
   }
 
-  const batch = await getModel('Fill')
-    .find(createQuery(job.data.lastFillId), '_id')
-    .sort({ _id: 1 })
-    .limit(batchSize)
+  const fills = await getModel('Fill')
+    .find({ _id: { $in: fillIds } })
     .populate([{ path: 'relayer' }, { path: 'assets.token' }])
     .lean();
 
-  if (batch.length === 0) {
-    logger.info('bulk indexing of traded tokens has finished');
+  if (fills.length === 0) {
     return;
   }
 
-  // const lastFillId = batch[batch.length - 1]._id;
-  // const batchId = job.data.batchId || Date.now();
-
-  const body = batch
+  const body = fills
     .map(fill =>
       getTradedTokens(fill)
         .map(tradedToken =>
@@ -88,25 +71,7 @@ const consumer = async job => {
     throw new Error(errorMessage);
   }
 
-  logger.info(`indexed batch of traded tokens: ${batch.length}`);
-
-  if (batch.length < batchSize) {
-    logger.info('bulk indexing of traded tokens has finished');
-  } else {
-    // await publishJob(
-    //   QUEUE.BULK_INDEXING,
-    //   JOB.BULK_INDEX_TRADED_TOKENS,
-    //   {
-    //     batchId,
-    //     batchSize,
-    //     lastFillId,
-    //   },
-    //   {
-    //     jobId: `bulk-index-traded-tokens-${batchId}-${lastFillId}`,
-    //   },
-    // );
-    logger.info(`scheduled indexing for next batch of traded tokens`);
-  }
+  logger.info(`indexed batch of traded tokens: ${fills.length}`);
 };
 
 module.exports = {
