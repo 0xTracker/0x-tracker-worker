@@ -2,7 +2,7 @@ const _ = require('lodash');
 
 const signale = require('signale');
 
-const { publishJob } = require('../queues');
+// const { publishJob } = require('../queues');
 const { JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
 const elasticsearch = require('../util/elasticsearch');
@@ -39,8 +39,8 @@ const consumer = async job => {
     return;
   }
 
-  const lastFillId = batch[batch.length - 1]._id;
-  const batchId = job.data.batchId || Date.now();
+  // const lastFillId = batch[batch.length - 1]._id;
+  // const batchId = job.data.batchId || Date.now();
 
   const body = batch
     .map(fill =>
@@ -93,18 +93,18 @@ const consumer = async job => {
   if (batch.length < batchSize) {
     logger.info('bulk indexing of traded tokens has finished');
   } else {
-    await publishJob(
-      QUEUE.BULK_INDEXING,
-      JOB.BULK_INDEX_TRADED_TOKENS,
-      {
-        batchId,
-        batchSize,
-        lastFillId,
-      },
-      {
-        jobId: `bulk-index-traded-tokens-${batchId}-${lastFillId}`,
-      },
-    );
+    // await publishJob(
+    //   QUEUE.BULK_INDEXING,
+    //   JOB.BULK_INDEX_TRADED_TOKENS,
+    //   {
+    //     batchId,
+    //     batchSize,
+    //     lastFillId,
+    //   },
+    //   {
+    //     jobId: `bulk-index-traded-tokens-${batchId}-${lastFillId}`,
+    //   },
+    // );
     logger.info(`scheduled indexing for next batch of traded tokens`);
   }
 };
