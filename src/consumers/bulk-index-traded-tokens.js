@@ -8,7 +8,7 @@ const { getModel } = require('../model');
 const elasticsearch = require('../util/elasticsearch');
 const getTradedTokens = require('../fills/get-traded-tokens');
 
-const logger = signale.scope('bulk index fills');
+const logger = signale.scope('bulk index traded tokens');
 
 const createQuery = lastFillId => {
   let query = {};
