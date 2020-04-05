@@ -440,4 +440,89 @@ describe('getTradedTokens', () => {
       },
     ]);
   });
+
+  it('should have zero trade volume when fill not associated with a relayer', () => {
+    const fill = {
+      ...baseFill,
+      assets: [
+        {
+          tokenResolved: true,
+          amount: 1674924411,
+          tokenAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+          bridgeAddress: '0x533344cfdf2a3e911e2cf4c6f5ed08e791f5355f',
+          bridgeData:
+            '0x000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+          actor: 0,
+          price: {
+            USD: 1,
+          },
+          value: {
+            USD: 1674.924411,
+          },
+          token: {
+            decimals: 6,
+            type: 0,
+          },
+        },
+        {
+          tokenResolved: true,
+          amount: 7.45216100214005e18,
+          tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+          actor: 1,
+          token: {
+            decimals: 18,
+            type: 0,
+          },
+          price: {
+            USD: 2,
+          },
+          value: {
+            USD: 14.9043220043,
+          },
+        },
+        {
+          tokenResolved: true,
+          amount: 1274924411,
+          tokenAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+          actor: 0,
+          price: {
+            USD: 1,
+          },
+          value: {
+            USD: 1274.924411,
+          },
+          token: {
+            decimals: 6,
+            type: 0,
+          },
+        },
+      ],
+      relayerId: undefined,
+      relayer: undefined,
+    };
+    const tradedTokens = getTradedTokens(fill);
+
+    expect(tradedTokens).toEqual([
+      {
+        address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+        filledAmount: 2949.848822,
+        filledAmountUSD: 2949.848822,
+        priceUSD: 1,
+        tradedAmount: 0,
+        tradedAmountUSD: 0,
+        tradeCountContribution: 0,
+        type: 0,
+      },
+      {
+        address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+        filledAmount: 7.45216100214005,
+        filledAmountUSD: 14.9043220043,
+        priceUSD: 2,
+        tradedAmount: 0,
+        tradedAmountUSD: 0,
+        tradeCountContribution: 0,
+        type: 0,
+      },
+    ]);
+  });
 });

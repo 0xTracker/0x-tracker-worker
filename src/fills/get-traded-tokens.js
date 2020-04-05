@@ -4,6 +4,16 @@ const formatTokenAmount = require('../tokens/format-token-amount');
 
 const fixNaN = value => (_.isNaN(value) ? undefined : value);
 
+const calculateTradeCountContribution = fill => {
+  const isOrderMatcher = _.get(fill, 'relayer.orderMatcher', false);
+
+  if (isOrderMatcher) {
+    return 0.5;
+  }
+
+  return fill.relayer === undefined ? 0 : 1;
+};
+
 const getTradedTokens = fill => {
   const tradedTokens = _(fill.assets)
     .map(asset => {
@@ -12,17 +22,17 @@ const getTradedTokens = fill => {
         decimals !== undefined
           ? formatTokenAmount(asset.amount, decimals).toNumber()
           : undefined;
-      const isOrderMatcher = _.get(fill, 'relayer.orderMatcher', false);
       const amountUSD = _.get(asset, 'value.USD');
+      const tradeCountContribution = calculateTradeCountContribution(fill);
 
       return {
         address: asset.tokenAddress,
         filledAmount: amount,
         filledAmountUSD: amountUSD,
         priceUSD: _.get(asset, 'price.USD'),
-        tradeCountContribution: isOrderMatcher ? 0.5 : 1,
-        tradedAmount: isOrderMatcher ? amount / 2 : amount,
-        tradedAmountUSD: isOrderMatcher ? amountUSD / 2 : amountUSD,
+        tradeCountContribution,
+        tradedAmount: amount * tradeCountContribution,
+        tradedAmountUSD: amountUSD * tradeCountContribution,
         type: _.get(asset, 'token.type'),
       };
     })
