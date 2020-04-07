@@ -4,7 +4,6 @@ const createFillModel = require('./fill');
 const Event = require('./event');
 const MetricsJobMetadata = require('./metrics-job-metadata');
 const Relayer = require('./relayer');
-const TokenMetric = require('./token-metric');
 const Token = require('./token');
 
 const models = {
@@ -13,7 +12,6 @@ const models = {
   Event,
   MetricsJobMetadata,
   Relayer,
-  TokenMetric,
   Token,
 };
 
