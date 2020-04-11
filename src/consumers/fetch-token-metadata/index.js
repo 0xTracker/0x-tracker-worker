@@ -1,73 +1,59 @@
-const _ = require('lodash');
 const ms = require('ms');
 const signale = require('signale');
 
 const { JOB, QUEUE } = require('../../constants');
-const { getModel } = require('../../model');
 const { publishJob } = require('../../queues');
 const persistTokenMetadata = require('./persist-token-metadata');
 const resolveToken = require('../../tokens/resolve-token');
 
-const tokenCache = require('../../tokens/token-cache');
-const withTransaction = require('../../util/with-transaction');
-
 const logger = signale.scope('fetch token metadata');
+
+const scheduleRerun = async (job, delay) => {
+  const { tokenAddress, tokenType } = job.data;
+
+  publishJob(
+    QUEUE.TOKEN_PROCESSING,
+    JOB.FETCH_TOKEN_METADATA,
+    {
+      tokenAddress,
+      tokenType,
+    },
+    {
+      delay,
+    },
+  );
+};
 
 const consumer = async job => {
   const { tokenAddress, tokenType } = job.data;
 
   logger.info(`fetching token metadata: ${tokenAddress}`);
 
-  const resolvedToken = await resolveToken(tokenAddress, tokenType);
+  const tokenMetadata = await resolveToken(tokenAddress, tokenType);
 
-  if (resolvedToken === null) {
+  if (tokenMetadata === null) {
     logger.warn(`token metadata not found: ${tokenAddress}`);
-    publishJob(
-      QUEUE.TOKEN_PROCESSING,
-      JOB.FETCH_TOKEN_METADATA,
-      {
-        tokenAddress,
-        tokenType,
-      },
-      {
-        delay: ms('1 hour'),
-        jobId: `fetch-token-metadata-retry-${tokenAddress}`,
-      },
-    );
+    await scheduleRerun(job, ms('1 hour'));
     return;
   }
 
-  const tokenDetails = _.pick(resolvedToken, [
-    'address',
-    'decimals',
-    'name',
-    'symbol',
-  ]);
+  const updatedFields = await persistTokenMetadata(tokenAddress, tokenMetadata);
 
-  await withTransaction(async session => {
-    await persistTokenMetadata(tokenAddress, tokenDetails, session);
-    await getModel('Fill').updateMany(
-      {
-        'assets.tokenAddress': tokenAddress,
-      },
-      {
-        $set: {
-          'assets.$[element].tokenResolved': true,
-        },
-      },
-      {
-        arrayFilters: [
-          {
-            'element.tokenAddress': tokenAddress,
-          },
-        ],
-        session,
-      },
+  if (updatedFields.length === 0) {
+    logger.warn(`metadata for token did not need updating: ${tokenAddress}`);
+  } else {
+    const updatedFieldNames = updatedFields.join(', ');
+
+    logger.info(
+      `updated metadata for token: ${tokenAddress} (${updatedFieldNames})`,
     );
-  });
+  }
 
-  tokenCache.addToken(tokenDetails);
-  logger.info(`token metadata updated: ${tokenAddress}`);
+  if (Object.values(tokenMetadata).some(value => value === null)) {
+    await scheduleRerun(job, ms('1 hour'));
+  } else {
+    await scheduleRerun(job, ms('1 day'));
+  }
 };
 
 module.exports = {
