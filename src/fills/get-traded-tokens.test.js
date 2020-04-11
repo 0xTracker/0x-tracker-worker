@@ -498,7 +498,7 @@ describe('getTradedTokens', () => {
         },
       ],
       relayerId: undefined,
-      relayer: undefined,
+      relayer: null,
     };
     const tradedTokens = getTradedTokens(fill);
 
