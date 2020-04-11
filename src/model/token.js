@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const schema = Schema(
   {
     address: String,
+    circulatingSupply: Number,
     decimals: Number,
     imageUrl: { type: String, trim: true },
     name: String,
@@ -17,6 +18,7 @@ const schema = Schema(
     },
     resolved: Boolean,
     symbol: String,
+    totalSupply: Number,
     type: Number,
   },
   { timestamps: true },
