@@ -3,6 +3,7 @@ const bluebird = require('bluebird');
 const cheerio = require('cheerio');
 const Parser = require('rss-parser');
 const signale = require('signale');
+const slugify = require('slugify');
 
 const { logError } = require('../util/error-logger');
 const Article = require('../model/article');
@@ -67,6 +68,8 @@ const getNewArticles = async () => {
           feed: feed.id,
           title: item.title,
           url: item.link,
+          content: item['content:encoded'] || item.content,
+          slugify: slugify(item.title),
           summary: cheerio
             .load(item['content:encoded'] || item.content)('h4,p')
             .first()
