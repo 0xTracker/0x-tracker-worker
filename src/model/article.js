@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
   author: String,
+  content: String,
   date: Date,
   feed: String,
   guid: String,
+  slug: String,
   summary: String,
   title: String,
   url: String,

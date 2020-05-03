@@ -63,7 +63,8 @@
     "promise-poller": "1.7.0",
     "rss-parser": "3.7.1",
     "seamless-immutable": "7.1.4",
-    "signale": "1.4.0"
+    "signale": "1.4.0",
+    "slugify": "1.4.0"
   },
   "engines": {
     "node": "10.17.0",
