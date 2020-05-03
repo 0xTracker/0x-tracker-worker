@@ -69,7 +69,7 @@ const getNewArticles = async () => {
           title: item.title,
           url: item.link,
           content: item['content:encoded'] || item.content,
-          slugify: slugify(item.title),
+          slug: slugify(item.title, { lower: true, strict: true }),
           summary: cheerio
             .load(item['content:encoded'] || item.content)('h4,p')
             .first()
