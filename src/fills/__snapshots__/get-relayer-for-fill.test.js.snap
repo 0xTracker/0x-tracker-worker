@@ -7,7 +7,7 @@ Object {
     "0xc898fbee1cc94c0ff077faa5449915a506eff384",
   ],
   "id": "bambooRelay",
-  "imageUrl": "https://0xtracker.com/assets/logos/bamboo-relay.png",
+  "imageUrl": "https://resources.0xtracker.com/logos/bamboo-relay.png",
   "lookupId": 1,
   "name": "Bamboo Relay",
   "slug": "bamboo-relay",
@@ -18,7 +18,7 @@ Object {
 exports[`should return DDEX when taker address matches 1`] = `
 Object {
   "id": "ddex",
-  "imageUrl": "https://0xtracker.com/assets/logos/ddex.png",
+  "imageUrl": "https://resources.0xtracker.com/logos/ddex.png",
   "lookupId": 2,
   "name": "DDEX",
   "orderMatcher": true,
