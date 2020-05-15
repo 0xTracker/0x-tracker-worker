@@ -11,10 +11,6 @@ const isOrderMatcher = relayerId => {
 };
 
 const calculateTradeVolume = (value, relayerId) => {
-  if (relayerId === null || relayerId === undefined) {
-    return 0;
-  }
-
   if (isOrderMatcher(relayerId)) {
     return value / 2;
   }
@@ -23,10 +19,6 @@ const calculateTradeVolume = (value, relayerId) => {
 };
 
 const calculateTradeCountContribution = relayerId => {
-  if (relayerId === null || relayerId === undefined) {
-    return 0;
-  }
-
   if (isOrderMatcher(relayerId)) {
     return 0.5;
   }
