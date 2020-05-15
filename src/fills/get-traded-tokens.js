@@ -11,7 +11,7 @@ const calculateTradeCountContribution = fill => {
     return 0.5;
   }
 
-  return _.isNil(fill.relayer) ? 0 : 1;
+  return 1;
 };
 
 const getTradedTokens = fill => {

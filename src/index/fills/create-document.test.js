@@ -60,25 +60,3 @@ it('should index protocol fee for V3 fills', () => {
   expect(doc.protocolFeeETH).toBe(1500000000150000);
   expect(doc.protocolFeeUSD).toBe(0.338445000033844);
 });
-
-it('should set tradeVolume and tradeCountContribution to zero when relayerId is null', () => {
-  const fill = {
-    ...V2_FILL,
-    relayerId: null,
-  };
-  const doc = createDocument(fill);
-
-  expect(doc.tradeVolume).toBe(0);
-  expect(doc.tradeCountContribution).toBe(0);
-});
-
-it('should set tradeVolume and tradeCountContribution to zero when relayerId is undefined', () => {
-  const fill = {
-    ...V2_FILL,
-    relayerId: undefined,
-  };
-  const doc = createDocument(fill);
-
-  expect(doc.tradeVolume).toBe(0);
-  expect(doc.tradeCountContribution).toBe(0);
-});
