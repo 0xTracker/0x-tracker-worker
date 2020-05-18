@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const signale = require('signale');
 
 const { JOB, QUEUE } = require('../constants');
+const { getModel } = require('../model');
+const createDocument = require('../index/fills/create-document');
 const elasticsearch = require('../util/elasticsearch');
 const relayerRegistry = require('../relayers/relayer-registry');
 
@@ -17,10 +19,6 @@ const isOrderMatcher = relayerId => {
 };
 
 const calculateTradeVolume = (value, relayerId) => {
-  if (relayerId === null || relayerId === undefined) {
-    return 0;
-  }
-
   if (isOrderMatcher(relayerId)) {
     return value / 2;
   }
@@ -39,13 +37,12 @@ const indexFillValue = async job => {
     throw new Error(`Invalid value: ${value}`);
   }
 
-  const exists = await elasticsearch
-    .getClient()
-    .exists({ id: fillId, index: 'fills', _source: false });
-  const indexed = exists.body;
+  const fill = await getModel('Fill')
+    .findOne({ _id: fillId })
+    .lean();
 
-  if (!indexed) {
-    throw new Error(`Could not index value of fill: ${fillId}`);
+  if (fill === null) {
+    throw new Error(`Could not find fill: ${fillId}`);
   }
 
   await elasticsearch.getClient().update({
@@ -57,6 +54,7 @@ const indexFillValue = async job => {
         updatedAt: new Date(Date.now()).toISOString(),
         value,
       },
+      upsert: createDocument(fill),
     },
   });
 
