@@ -13,6 +13,7 @@ const logger = signale.scope('get new articles');
 const feedUrls = {
   '0xproject': 'https://medium.com/feed/0x-project',
   '0xtracker': 'https://medium.com/feed/0x-tracker',
+  bambooRelay: 'https://medium.com/feed/bamboo-relay',
   boxSwap: 'https://medium.com/feed/boxswap',
   emoon: 'https://medium.com/feed/@emoonmarket',
   ercdex: 'https://medium.com/feed/ercdex',
