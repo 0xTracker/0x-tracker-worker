@@ -1,6 +1,5 @@
 const _ = require('lodash');
 
-const ercDEXRecipientCache = require('./erc-dex/recipient-cache');
 const relayerRegistry = require('./relayer-registry');
 
 const getAllRelayers = () => {
@@ -9,13 +8,7 @@ const getAllRelayers = () => {
     id,
   }));
 
-  return {
-    ...relayers,
-    ercDex: {
-      ...relayers.ercDex,
-      feeRecipients: ercDEXRecipientCache.getRecipients(),
-    },
-  };
+  return relayers;
 };
 
 module.exports = getAllRelayers;

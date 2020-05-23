@@ -1,9 +1,5 @@
 const getRelayerForFill = require('./get-relayer-for-fill');
 
-jest.mock('../relayers/erc-dex/recipient-cache', () => ({
-  getRecipients: () => ['0x0298309808'],
-}));
-
 it('should return null when no relayer matched', () => {
   const fill = {
     feeRecipient: '0xe269e891a2ec8585a378882ffa531141205e92e9',

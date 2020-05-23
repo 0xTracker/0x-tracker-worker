@@ -47,8 +47,6 @@ module.exports = {
     SUCCESSFUL: 1,
   },
   JOB: {
-    BULK_INDEX_FILLS: 'bulk-index-fills',
-    BULK_INDEX_TRADED_TOKENS: 'bulk-index-traded-tokens',
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
     FETCH_FILL_STATUS: 'fetch-fill-status',
@@ -58,11 +56,8 @@ module.exports = {
     INDEX_FILL_STATUS: 'index-fill-status',
     INDEX_FILL_VALUE: 'index-fill-value',
     INDEX_TRADED_TOKENS: 'index-traded-tokens',
-    SCHEDULE_TRADED_TOKENS_BULK_INDEXING:
-      'schedule-traded-tokens-bulk-indexing',
   },
   QUEUE: {
-    BULK_INDEXING: 'bulk-indexing',
     FILL_INDEXING: 'fill-indexing',
     FILL_PROCESSING: 'fill-processing',
     TOKEN_PROCESSING: 'token-processing',
@@ -84,6 +79,5 @@ module.exports = {
     MAKER: 0,
     TAKER: 1,
   },
-  ZRX_TOKEN_ADDRESS: '0xe41d2489571d322189246dafa5ebde1f4699f498',
   ZRX_TOKEN_DECIMALS: 18,
 };

@@ -9,13 +9,6 @@ const schema = Schema(
     decimals: Number,
     imageUrl: { type: String, trim: true },
     name: String,
-    price: {
-      lastTrade: {
-        date: Date,
-        id: { type: Schema.Types.ObjectId, Ref: 'Fill' },
-      },
-      lastPrice: Number,
-    },
     resolved: Boolean,
     symbol: String,
     totalSupply: Number,
