@@ -1,7 +1,5 @@
 const _ = require('lodash');
 const { getQueues } = require('../queues');
-const bulkIndexFills = require('./bulk-index-fills');
-const bulkIndexTradedTokens = require('./bulk-index-traded-tokens');
 const bulkUpdateTokenMetadata = require('./bulk-update-token-metadata');
 const convertProtocolFee = require('./convert-protocol-fee');
 const fetchFillStatus = require('./fetch-fill-status');
@@ -11,11 +9,8 @@ const indexFillProtocolFee = require('./index-fill-protocol-fee');
 const indexFillStatus = require('./index-fill-status');
 const indexFillValue = require('./index-fill-value');
 const indexTradedTokens = require('./index-traded-tokens');
-const scheduleTradedTokensBulkIndexing = require('./schedule-traded-tokens-bulk-indexing');
 
 const consumers = [
-  bulkIndexFills,
-  bulkIndexTradedTokens,
   bulkUpdateTokenMetadata,
   convertProtocolFee,
   fetchFillStatus,
@@ -25,7 +20,6 @@ const consumers = [
   indexFillStatus,
   indexFillValue,
   indexTradedTokens,
-  scheduleTradedTokensBulkIndexing,
 ];
 
 const initQueueConsumers = config => {

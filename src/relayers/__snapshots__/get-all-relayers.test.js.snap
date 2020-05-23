@@ -72,10 +72,6 @@ Object {
     "url": "https://emoon.io",
   },
   "ercDex": Object {
-    "feeRecipients": Array [
-      "fred",
-      "flintstone",
-    ],
     "id": "ercDex",
     "imageUrl": "https://resources.0xtracker.com/logos/erc-dex.png",
     "lookupId": 3,
