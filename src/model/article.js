@@ -6,6 +6,7 @@ const schema = mongoose.Schema({
   date: Date,
   feed: String,
   guid: String,
+  metadata: mongoose.Schema.Types.Mixed,
   slug: String,
   summary: String,
   title: String,

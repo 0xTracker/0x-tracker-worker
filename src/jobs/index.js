@@ -4,8 +4,8 @@ const cacheAddressMetrics = require('./cache-address-metrics');
 const convertFees = require('./convert-fees');
 const createFills = require('./create-fills');
 const deriveFillPrices = require('./derive-fill-prices');
+const fetchArticles = require('./fetch-articles');
 const getMissingTokenImages = require('./get-missing-token-images');
-const getNewArticles = require('./get-new-articles');
 const measureFills = require('./measure-fills');
 
 const jobFns = {
@@ -13,8 +13,8 @@ const jobFns = {
   convertFees,
   createFills,
   deriveFillPrices,
+  fetchArticles,
   getMissingTokenImages,
-  getNewArticles,
   measureFills,
 };
 
