@@ -85,6 +85,10 @@ const extractERC1155Assets = assetData => {
 };
 
 const parseAssetData = (encodedData, amount) => {
+  if (encodedData === '0x') {
+    return [];
+  }
+
   const assetData = decodeAssetData(encodedData);
 
   if (assetData === undefined) {
