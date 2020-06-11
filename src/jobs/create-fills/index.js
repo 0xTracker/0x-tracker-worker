@@ -8,12 +8,14 @@ const {
   UnsupportedProtocolError,
 } = require('../../errors');
 const convertProtocolFee = require('../../fills/convert-protocol-fee');
+const convertRelayerFees = require('../../fills/convert-relayer-fees');
 const createFill = require('./create-fill');
 const ensureTokenExists = require('../../tokens/ensure-token-exists');
 const Event = require('../../model/event');
 const fetchFillStatus = require('../../fills/fetch-fill-status');
 const fetchTokenMetadata = require('../../tokens/fetch-token-metadata');
 const hasProtocolFee = require('../../fills/has-protocol-fee');
+const hasRelayerFees = require('../../fills/has-relayer-fees');
 const indexFill = require('../../index/index-fill');
 const indexTradedTokens = require('../../index/index-traded-tokens');
 const persistFill = require('./persist-fill');
@@ -38,6 +40,7 @@ const createFills = async ({ batchSize }) => {
       const fill = await createFill(event);
 
       // Ensure any new tokens are added to the tokens collection
+      // TODO: Refactor this to work off the results of persistFill() call
       await Promise.all(
         fill.assets.map(async asset => {
           if (await ensureTokenExists(asset.tokenAddress, asset.tokenType)) {
@@ -60,6 +63,10 @@ const createFills = async ({ batchSize }) => {
 
         if (hasProtocolFee(newFill)) {
           await convertProtocolFee(newFill, ms('30 seconds'));
+        }
+
+        if (hasRelayerFees(newFill)) {
+          await convertRelayerFees(newFill._id, ms('30 seconds'));
         }
       });
 

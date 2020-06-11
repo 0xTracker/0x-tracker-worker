@@ -33,7 +33,7 @@ const getFees = (eventArgs, protocolVersion) => {
   const takerFees = takerFeeAssets.map(mapTakerFeeAsset);
   const fees = makerFees.concat(takerFees);
 
-  return fees;
+  return fees.filter(fee => fee.amount.token > 0);
 };
 
 module.exports = getFees;

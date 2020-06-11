@@ -1,7 +1,6 @@
 const _ = require('lodash');
 
 const cacheAddressMetrics = require('./cache-address-metrics');
-const convertFees = require('./convert-fees');
 const createFills = require('./create-fills');
 const deriveFillPrices = require('./derive-fill-prices');
 const fetchArticles = require('./fetch-articles');
@@ -10,7 +9,6 @@ const measureFills = require('./measure-fills');
 
 const jobFns = {
   cacheAddressMetrics,
-  convertFees,
   createFills,
   deriveFillPrices,
   fetchArticles,

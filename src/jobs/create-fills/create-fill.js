@@ -40,19 +40,16 @@ const createFill = async event => {
     takerAddress: taker,
   });
 
-  const feeless =
-    (paidMakerFee || 0) + (paidTakerFee || 0) === 0 ||
-    _.every(fees, { token: 0 });
-
   const fill = {
     assets,
     blockHash,
     blockNumber,
-    conversions: feeless
-      ? {
-          USD: { makerFee: 0, takerFee: 0 },
-        }
-      : undefined,
+    conversions:
+      protocolVersion < 3 && paidMakerFee === 0 && paidTakerFee === 0
+        ? {
+            USD: { makerFee: 0, takerFee: 0 },
+          }
+        : undefined,
     date,
     eventId: event._id,
     fees,

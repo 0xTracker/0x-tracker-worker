@@ -6,8 +6,8 @@ const {
   UnsupportedProtocolError,
 } = require('../../errors');
 
-const extractFeesFromEventArgs = require('./extract-fees-from-event-args');
-const getAssets = require('./get-assets');
+const getAssets = require('../../events/fill/get-assets');
+const getFees = require('../../events/fill/get-fees');
 
 const normalizeFillArgs = (args, protocolVersion = 1) => {
   const assets = getAssets(args, protocolVersion);
@@ -45,7 +45,7 @@ const normalizeFillArgs = (args, protocolVersion = 1) => {
   }
 
   if (protocolVersion === 3) {
-    const fees = extractFeesFromEventArgs(args, protocolVersion);
+    const fees = getFees(args, protocolVersion);
 
     if (fees === null) {
       throw new UnsupportedFeeError(`Event has unsupported fees`);
