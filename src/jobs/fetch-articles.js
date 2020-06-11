@@ -14,6 +14,8 @@ const logger = signale.scope('get new articles');
 const feedUrls = {
   '0xproject': 'https://medium.com/feed/0x-project',
   '0xtracker': 'https://medium.com/feed/0x-tracker',
+  '0xvideos':
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCFrSpPi9WUW9wYTa0Q1sdnA',
   bambooRelay: 'https://medium.com/feed/bamboo-relay',
   boxSwap: 'https://medium.com/feed/boxswap',
   emoon: 'https://medium.com/feed/@emoonmarket',
@@ -30,13 +32,27 @@ const feedUrls = {
   veil: 'https://medium.com/feed/veil-blog',
 };
 
-const getItemContent = item => item['content:encoded'] || item.content;
+const getItemContent = item => {
+  const content = item['content:encoded'] || item.content;
 
-const getItemSummary = item =>
-  cheerio
-    .load(item['content:encoded'] || item.content)('h4,p')
-    .first()
-    .text();
+  return content;
+};
+
+const getItemSummary = item => {
+  const content = getItemContent(item);
+
+  if (content === undefined) {
+    return undefined;
+  }
+
+  const tags = cheerio.load(content)('h4,p');
+
+  if (tags.length === 0) {
+    return content;
+  }
+
+  return tags.first().text();
+};
 
 const fetchMetadata = async url => {
   const metaResponse = await metaget.fetch(url);
@@ -128,7 +144,13 @@ const getNewArticles = async () => {
   });
 
   const feedItems = _(feeds)
-    .map(feed => feed.items.map(item => ({ ...item, feedId: feed.id })))
+    .map(feed =>
+      feed.items.map(item => ({
+        ...item,
+        feedId: feed.id,
+        guid: item.guid || item.id,
+      })),
+    )
     .flatten()
     .value();
 
