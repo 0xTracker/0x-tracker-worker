@@ -276,6 +276,17 @@ Object {
     ],
     "url": "https://www.starbitex.com",
   },
+  "switchDex": Object {
+    "feeRecipients": Array [
+      "0x10aa8c82e3656170baae80d189b8b7dcea6865c9",
+    ],
+    "id": "switchDex",
+    "imageUrl": "https://resources.0xtracker.com/logos/switch-dex.png",
+    "lookupId": 34,
+    "name": "SwitchDex",
+    "slug": "switch-dex",
+    "url": "https://switchdex.ag",
+  },
   "theOcean": Object {
     "feeRecipients": Array [
       "0x7219612be7036d1bfa933e16ca1246008f38c5fe",

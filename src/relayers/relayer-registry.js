@@ -295,4 +295,12 @@ module.exports = {
     feeRecipients: ['0x382310cbb159b64c2e7c5675d110202701a436dd'],
     url: 'https://odee.com',
   },
+  switchDex: {
+    imageUrl: 'https://resources.0xtracker.com/logos/switch-dex.png',
+    lookupId: 34,
+    name: 'SwitchDex',
+    slug: 'switch-dex',
+    feeRecipients: ['0x10aa8c82e3656170baae80d189b8b7dcea6865c9'],
+    url: 'https://switchdex.ag',
+  },
 };
