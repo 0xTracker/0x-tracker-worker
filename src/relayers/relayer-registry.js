@@ -303,4 +303,12 @@ module.exports = {
     feeRecipients: ['0x10aa8c82e3656170baae80d189b8b7dcea6865c9'],
     url: 'https://switchdex.ag',
   },
+  matcha: {
+    imageUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+    lookupId: 35,
+    name: 'Matcha',
+    slug: 'matcha',
+    feeRecipients: ['0x86003b044f70dac0abc80ac8957305b6370893ed'],
+    url: 'https://matcha.xyz',
+  },
 };

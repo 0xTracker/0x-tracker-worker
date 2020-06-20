@@ -167,6 +167,17 @@ Object {
     "slug": "market-protocol-exchange",
     "url": "https://mpexchange.io/",
   },
+  "matcha": Object {
+    "feeRecipients": Array [
+      "0x86003b044f70dac0abc80ac8957305b6370893ed",
+    ],
+    "id": "matcha",
+    "imageUrl": "https://resources.0xtracker.com/logos/matcha.png",
+    "lookupId": 35,
+    "name": "Matcha",
+    "slug": "matcha",
+    "url": "https://matcha.xyz",
+  },
   "merchcoinsExchange": Object {
     "feeRecipients": Array [
       "0x584860fe460a16cd11e6fdebb2e77146d1835be8",
