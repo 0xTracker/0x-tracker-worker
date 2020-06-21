@@ -31,7 +31,7 @@ const getFees = (eventArgs, protocolVersion) => {
 
   const makerFees = makerFeeAssets.map(mapMakerFeeAsset);
   const takerFees = takerFeeAssets.map(mapTakerFeeAsset);
-  const fees = makerFees.concat(takerFees);
+  const fees = makerFees.concat(takerFees).filter(fee => fee.amount.token > 0);
 
   return fees;
 };

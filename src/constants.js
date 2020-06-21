@@ -49,6 +49,7 @@ module.exports = {
   JOB: {
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
+    CREATE_TOKEN: 'create-token',
     FETCH_FILL_STATUS: 'fetch-fill-status',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     INDEX_FILL: 'index-fill',

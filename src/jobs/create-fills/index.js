@@ -9,10 +9,10 @@ const {
 } = require('../../errors');
 const convertProtocolFee = require('../../fills/convert-protocol-fee');
 const createFill = require('./create-fill');
-const ensureTokenExists = require('../../tokens/ensure-token-exists');
+const createNewTokens = require('./create-new-tokens');
 const Event = require('../../model/event');
 const fetchFillStatus = require('../../fills/fetch-fill-status');
-const fetchTokenMetadata = require('../../tokens/fetch-token-metadata');
+const getUniqTokens = require('./get-uniq-tokens');
 const hasProtocolFee = require('../../fills/has-protocol-fee');
 const indexFill = require('../../index/index-fill');
 const indexTradedTokens = require('../../index/index-traded-tokens');
@@ -31,25 +31,15 @@ const createFills = async ({ batchSize }) => {
 
   logger.info(`found ${events.length} events without associated fills`);
 
-  await bluebird.mapSeries(events, async event => {
+  await bluebird.each(events, async event => {
     logger.info(`creating fill for event ${event.id}`);
 
     try {
       const fill = await createFill(event);
 
       // Ensure any new tokens are added to the tokens collection
-      await Promise.all(
-        fill.assets.map(async asset => {
-          if (await ensureTokenExists(asset.tokenAddress, asset.tokenType)) {
-            fetchTokenMetadata(
-              asset.tokenAddress,
-              asset.tokenType,
-              ms('30 seconds'),
-            );
-            logger.success(`created token: ${asset.tokenAddress}`);
-          }
-        }),
-      );
+      const tokens = getUniqTokens(fill);
+      await createNewTokens(tokens);
 
       await withTransaction(async session => {
         const newFill = await persistFill(session, event, fill);
