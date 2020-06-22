@@ -1,9 +1,6 @@
 const _ = require('lodash');
 
-const getUniqTokens = newFill => {
-  const assets = newFill.assets || [];
-  const fees = newFill.fees || [];
-
+const getUniqTokens = (assets, fees) => {
   const tokens = assets
     .map(asset => ({ address: asset.tokenAddress, type: asset.tokenType }))
     .concat(
@@ -13,7 +10,8 @@ const getUniqTokens = newFill => {
   const uniqTokens = _(tokens)
     .map(token => token.address)
     .uniq()
-    .map(tokenAddress => tokens.find(token => token.address === tokenAddress));
+    .map(tokenAddress => tokens.find(token => token.address === tokenAddress))
+    .value();
 
   return uniqTokens;
 };

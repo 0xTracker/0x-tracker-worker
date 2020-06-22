@@ -18,12 +18,32 @@ Object {
       "tokenType": 0,
     },
   ],
+  "blockHash": "0xd383bf2c68bfd74d777857fc066390d1f18934cd8ad57a967b5a8049ff8bd479",
+  "blockNumber": 6062314,
   "feeRecipient": "0xe269e891a2ec8585a378882ffa531141205e92e9",
+  "fees": Array [
+    Object {
+      "amount": Object {
+        "token": "1.5",
+      },
+      "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+      "tokenType": 0,
+      "traderType": 0,
+    },
+    Object {
+      "amount": Object {
+        "token": "1.3",
+      },
+      "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+      "tokenType": 0,
+      "traderType": 1,
+    },
+  ],
+  "logIndex": 101,
   "maker": "0x0e7c68992fe035f4ed9607866483cf6ae7db6b71",
   "orderHash": "0x9af44f4536831684cacda6dbba6af9974f0b9e8b2fc271f4fa8ff18c6fd51e12",
-  "paidMakerFee": 0,
-  "paidTakerFee": 0,
   "taker": "0xe269e891a2ec8585a378882ffa531141205e92e9",
+  "transactionHash": "0x00cfc187cce6c5f537f84621b6fce4ac828848f2b088b16f0deeb4bde2586637",
 }
 `;
 
@@ -46,12 +66,15 @@ Object {
       "tokenType": 0,
     },
   ],
+  "blockHash": "0x592bdb8653f20b291b3cf927314344f299c6e37a3a2887a558b29584d60730d6",
+  "blockNumber": 6286241,
   "feeRecipient": "0x0000000000000000000000000000000000000000",
+  "fees": Array [],
+  "logIndex": 42,
   "maker": "0x5b50fb8281cb679a3102d3de22dd05a1ad895e8f",
   "orderHash": "0xb0d28d8c36f40322408b3ff4ac41d2bf6ac6c834633763d3b42831d50e30b455",
-  "paidMakerFee": 0,
-  "paidTakerFee": 0,
   "senderAddress": "0xf3f694cbe3a1042a886ce923fab00ca649e6a89b",
   "taker": "0xf3f694cbe3a1042a886ce923fab00ca649e6a89b",
+  "transactionHash": "0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc",
 }
 `;

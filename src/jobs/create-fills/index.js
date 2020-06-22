@@ -1,58 +1,27 @@
 const bluebird = require('bluebird');
-const ms = require('ms');
 const signale = require('signale');
 
 const {
   MissingBlockError,
   UnsupportedAssetError,
+  UnsupportedFeeError,
   UnsupportedProtocolError,
 } = require('../../errors');
-const convertProtocolFee = require('../../fills/convert-protocol-fee');
 const createFill = require('./create-fill');
-const createNewTokens = require('./create-new-tokens');
-const Event = require('../../model/event');
-const fetchFillStatus = require('../../fills/fetch-fill-status');
-const getUniqTokens = require('./get-uniq-tokens');
-const hasProtocolFee = require('../../fills/has-protocol-fee');
-const indexFill = require('../../index/index-fill');
-const indexTradedTokens = require('../../index/index-traded-tokens');
-const persistFill = require('./persist-fill');
-const withTransaction = require('../../util/with-transaction');
+const getUnprocessedEvents = require('../../events/get-unprocessed-events');
 
 const logger = signale.scope('create fills');
 
-const SUPPORTED_VERSIONS = [1, 2, 3];
-
 const createFills = async ({ batchSize }) => {
-  const events = await Event.find({
-    fillCreated: { $in: [false, null] },
-    protocolVersion: { $in: SUPPORTED_VERSIONS },
-  }).limit(batchSize);
+  const events = await getUnprocessedEvents(batchSize);
 
-  logger.info(`found ${events.length} events without associated fills`);
+  logger.info(`found ${events.length} pending events`);
 
   await bluebird.each(events, async event => {
     logger.info(`creating fill for event ${event.id}`);
 
     try {
-      const fill = await createFill(event);
-
-      // Ensure any new tokens are added to the tokens collection
-      const tokens = getUniqTokens(fill);
-      await createNewTokens(tokens);
-
-      await withTransaction(async session => {
-        const newFill = await persistFill(session, event, fill);
-
-        await fetchFillStatus(newFill, ms('30 seconds'));
-        await indexFill(newFill._id, ms('30 seconds'));
-        await indexTradedTokens(newFill);
-
-        if (hasProtocolFee(newFill)) {
-          await convertProtocolFee(newFill, ms('30 seconds'));
-        }
-      });
-
+      await createFill(event);
       logger.info(`created fill for event ${event.id}`);
     } catch (error) {
       if (error instanceof MissingBlockError) {
@@ -66,6 +35,10 @@ const createFills = async ({ batchSize }) => {
       } else if (error instanceof UnsupportedProtocolError) {
         logger.warn(
           `Unable to create fill for event ${event.id} due to unsupported protocol`,
+        );
+      } else if (error instanceof UnsupportedFeeError) {
+        logger.warn(
+          `Unable to create fill for event ${event.id} due to unsupported fee`,
         );
       } else {
         throw error;

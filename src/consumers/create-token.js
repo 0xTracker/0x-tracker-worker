@@ -22,7 +22,7 @@ const createToken = async job => {
   const Token = getModel('Token');
   const token = await Token.findOne({ address: tokenAddress }).lean();
 
-  if (token === null) {
+  if (token !== null) {
     logger.warn(`token already exists: ${tokenAddress}`);
     return;
   }

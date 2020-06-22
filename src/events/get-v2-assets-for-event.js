@@ -1,8 +1,8 @@
 const _ = require('lodash');
 
-const { FILL_ACTOR } = require('../../constants');
-const { checkTokenResolved } = require('../../tokens/token-cache');
-const parseAssetData = require('./parse-asset-data');
+const { FILL_ACTOR } = require('../constants');
+const { checkTokenResolved } = require('../tokens/token-cache');
+const parseAssetData = require('../util/parse-asset-data');
 
 const getAssetsForActor = (eventArgs, actor) => {
   const { amount, encodedData } =
@@ -25,7 +25,8 @@ const getAssetsForActor = (eventArgs, actor) => {
   return assets.map(asset => ({ ...asset, actor }));
 };
 
-const getV2Assets = eventArgs => {
+const getV2AssetsForEvent = event => {
+  const eventArgs = event.data.args;
   const assets = _([FILL_ACTOR.MAKER, FILL_ACTOR.TAKER])
     .map(actor => getAssetsForActor(eventArgs, actor))
     .flatten()
@@ -41,4 +42,4 @@ const getV2Assets = eventArgs => {
   }));
 };
 
-module.exports = getV2Assets;
+module.exports = getV2AssetsForEvent;

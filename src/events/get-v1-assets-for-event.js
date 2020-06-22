@@ -1,7 +1,9 @@
-const { FILL_ACTOR, TOKEN_TYPE } = require('../../constants');
-const { checkTokenResolved } = require('../../tokens/token-cache');
+const { FILL_ACTOR, TOKEN_TYPE } = require('../constants');
+const { checkTokenResolved } = require('../tokens/token-cache');
 
-const getV1Assets = eventArgs => {
+const getV1AssetsForEvent = event => {
+  const eventArgs = event.data.args;
+
   return [
     {
       actor: FILL_ACTOR.MAKER,
@@ -20,4 +22,4 @@ const getV1Assets = eventArgs => {
   ];
 };
 
-module.exports = getV1Assets;
+module.exports = getV1AssetsForEvent;

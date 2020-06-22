@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const { assetDataUtils } = require('@0x/order-utils');
-const { TOKEN_TYPE } = require('../../constants');
+const { TOKEN_TYPE } = require('../constants');
 
 const { decodeAssetDataOrThrow } = assetDataUtils;
 
