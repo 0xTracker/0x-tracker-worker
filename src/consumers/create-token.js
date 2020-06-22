@@ -8,7 +8,7 @@ const { publishJob } = require('../queues');
 
 const logger = signale.scope('create token');
 
-const fetchFillStatus = async job => {
+const createToken = async job => {
   const { tokenAddress, tokenType } = job.data;
 
   if (_.isEmpty(tokenAddress)) {
@@ -50,7 +50,7 @@ const fetchFillStatus = async job => {
 };
 
 module.exports = {
-  fn: fetchFillStatus,
+  fn: createToken,
   jobName: JOB.CREATE_TOKEN,
   queueName: QUEUE.TOKEN_PROCESSING,
 };
