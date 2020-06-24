@@ -1,12 +1,7 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
 
-const {
-  MissingBlockError,
-  UnsupportedAssetError,
-  UnsupportedFeeError,
-  UnsupportedProtocolError,
-} = require('../../errors');
+const { MissingBlockError, UnsupportedAssetError } = require('../../errors');
 const createFill = require('./create-fill');
 const getUnprocessedEvents = require('../../events/get-unprocessed-events');
 
@@ -31,14 +26,6 @@ const createFills = async ({ batchSize }) => {
       } else if (error instanceof UnsupportedAssetError) {
         logger.warn(
           `Unable to create fill for event ${event.id} due to unsupported asset`,
-        );
-      } else if (error instanceof UnsupportedProtocolError) {
-        logger.warn(
-          `Unable to create fill for event ${event.id} due to unsupported protocol`,
-        );
-      } else if (error instanceof UnsupportedFeeError) {
-        logger.warn(
-          `Unable to create fill for event ${event.id} due to unsupported fee`,
         );
       } else {
         throw error;

@@ -1,22 +1,9 @@
-const {
-  UnsupportedAssetError,
-  UnsupportedFeeError,
-  UnsupportedProtocolError,
-} = require('../errors');
-
 const getAssetsForEvent = require('./get-assets-for-event');
 const getFeesForEvent = require('./get-fees-for-event');
 
-const normalizeFillArgs = event => {
+const getEventData = event => {
   const assets = getAssetsForEvent(event);
-  if (assets === undefined) {
-    throw new UnsupportedAssetError(`Event has unsupported assets`);
-  }
-
   const fees = getFeesForEvent(event);
-  if (fees === undefined) {
-    throw new UnsupportedFeeError(`Event has unsupported fees`);
-  }
 
   const { data, protocolVersion } = event;
   const { args, blockHash, blockNumber, logIndex, transactionHash } = data;
@@ -50,20 +37,14 @@ const normalizeFillArgs = event => {
     };
   }
 
-  if (protocolVersion === 3) {
-    return {
-      ...universalData,
-      feeRecipient: args.feeRecipientAddress,
-      maker: args.makerAddress,
-      protocolFee: args.protocolFeePaid,
-      senderAddress: args.senderAddress,
-      taker: args.takerAddress,
-    };
-  }
-
-  throw new UnsupportedProtocolError(
-    `Event has unrecognised protocol version: ${protocolVersion}`,
-  );
+  return {
+    ...universalData,
+    feeRecipient: args.feeRecipientAddress,
+    maker: args.makerAddress,
+    protocolFee: args.protocolFeePaid,
+    senderAddress: args.senderAddress,
+    taker: args.takerAddress,
+  };
 };
 
-module.exports = normalizeFillArgs;
+module.exports = getEventData;

@@ -1,4 +1,4 @@
-const { UnsupportedProtocolError } = require('../errors');
+const { UnsupportedAssetError } = require('../errors');
 const getAssetsForEvent = require('./get-assets-for-event');
 const V1_EVENT = require('../fixtures/events/v1');
 const V2_EVENT = require('../fixtures/events/v2');
@@ -48,13 +48,6 @@ it('should get assets for V1 event args', () => {
       tokenType: 0,
     },
   ]);
-});
-
-it('should throw UnsupportedProtocolError when protocol is not recognised', () => {
-  const event = { ...V1_EVENT, protocolVersion: 101 };
-  expect(() => {
-    getAssetsForEvent(event);
-  }).toThrow(UnsupportedProtocolError);
 });
 
 it('should get assets for V2 event with only ERC-20 assets', () => {
@@ -216,7 +209,7 @@ it('should get assets for V2 event with bridged ERC20 asset data', () => {
   ]);
 });
 
-it('should return undefined when one of the assets data is corrupt', () => {
+it('should throw UnsupportedAssetError when one of the assets data is corrupt', () => {
   const event = eventWithArgs(V2_EVENT, {
     makerAddress: '0x9193ed9cbf94d109667c3d5659caffe21b4197bc',
     feeRecipientAddress: '0x0000000000000000000000000000000000000000',
@@ -232,9 +225,9 @@ it('should return undefined when one of the assets data is corrupt', () => {
     takerAssetData:
       '0xf47261b000000000000000000000000053b04999c1ff2d77fcdde98935bb936a67209e4c',
   });
-  const assets = getAssetsForEvent(event);
-
-  expect(assets).toBeUndefined();
+  expect(() => {
+    getAssetsForEvent(event);
+  }).toThrow(UnsupportedAssetError);
 });
 
 it('should get assets for event with ERC-1155 asset data', () => {

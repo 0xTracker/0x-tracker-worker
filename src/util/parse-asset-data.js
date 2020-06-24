@@ -1,5 +1,7 @@
 const _ = require('lodash');
 const { assetDataUtils } = require('@0x/order-utils');
+
+const { UnsupportedAssetError } = require('../errors');
 const { TOKEN_TYPE } = require('../constants');
 
 const { decodeAssetDataOrThrow } = assetDataUtils;
@@ -15,7 +17,7 @@ const decodeAssetData = assetData => {
   try {
     return decodeAssetDataOrThrow(assetData);
   } catch (error) {
-    return undefined;
+    throw new UnsupportedAssetError();
   }
 };
 
@@ -50,25 +52,14 @@ const createAsset = (assetData, amount) => {
     };
   }
 
-  return undefined; // Unrecognised asset
+  throw new UnsupportedAssetError(); // Unrecognised asset
 };
 
 const extractAssets = multiAssetData => {
   const decodedAssetsData = multiAssetData.nestedAssetData.map(decodeAssetData);
-
-  // Handle gracefully when nested asset data cannot be decoded
-  if (decodedAssetsData.some(asset => asset === undefined)) {
-    return undefined;
-  }
-
   const assets = decodedAssetsData.map((assetData, index) =>
     createAsset(assetData, multiAssetData.amounts[index].toNumber()),
   );
-
-  // Handle gracefully when one or more nested assets are unsupported
-  if (assets.some(asset => asset === undefined)) {
-    return undefined;
-  }
 
   return assets;
 };
@@ -92,7 +83,7 @@ const parseAssetData = (encodedData, amount) => {
   const assetData = decodeAssetData(encodedData);
 
   if (assetData === undefined) {
-    return undefined; // Unable to decode asset data, handle gracefully
+    throw new UnsupportedAssetError(); // Unable to decode asset data, handle gracefully
   }
 
   // When the asset data represents a single asset we can just return a single item array.
@@ -114,7 +105,7 @@ const parseAssetData = (encodedData, amount) => {
     return extractAssets(assetData);
   }
 
-  return undefined; // Unsupported asset type
+  throw new UnsupportedAssetError(); // Unsupported asset type
 };
 
 module.exports = parseAssetData;

@@ -27,8 +27,8 @@ const V2_EVENT = {
       senderAddress: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
       makerAssetFilledAmount: 1,
       takerAssetFilledAmount: 1650162000000000,
-      makerFeePaid: 0,
-      takerFeePaid: 0,
+      makerFeePaid: 1200000000000000000,
+      takerFeePaid: 2800000000000000000,
       orderHash:
         '0x8739c67a2a559205a7c8c7b24713ec21f35fed8b565a225a998375b1dae1bb14',
       makerAssetData:
