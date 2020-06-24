@@ -14,22 +14,22 @@ const getBlockOrThrow = async blockHash => {
   return block;
 };
 
-const buildFill = async ({
-  assets,
-  blockHash,
-  blockNumber,
-  eventId,
-  feeRecipient,
-  fees,
-  logIndex,
-  maker,
-  orderHash,
-  protocolFee,
-  protocolVersion,
-  senderAddress,
-  taker,
-  transactionHash,
-}) => {
+const buildFill = async (eventData, eventId, protocolVersion) => {
+  const {
+    assets,
+    blockHash,
+    blockNumber,
+    feeRecipient,
+    fees,
+    logIndex,
+    maker,
+    orderHash,
+    protocolFee,
+    senderAddress,
+    taker,
+    transactionHash,
+  } = eventData;
+
   const block = await getBlockOrThrow(blockHash);
   const date = new Date(block.timestamp * 1000);
 
@@ -40,6 +40,7 @@ const buildFill = async ({
   });
 
   const fill = {
+    _id: eventId,
     assets,
     blockHash,
     blockNumber,

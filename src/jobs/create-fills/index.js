@@ -4,6 +4,7 @@ const signale = require('signale');
 const { MissingBlockError, UnsupportedAssetError } = require('../../errors');
 const createFill = require('./create-fill');
 const getUnprocessedEvents = require('../../events/get-unprocessed-events');
+const markEventProcessed = require('../../events/mark-event-processed');
 
 const logger = signale.scope('create fills');
 
@@ -17,6 +18,7 @@ const createFills = async ({ batchSize }) => {
 
     try {
       await createFill(event);
+      await markEventProcessed(event._id);
       logger.info(`created fill for event ${event.id}`);
     } catch (error) {
       if (error instanceof MissingBlockError) {

@@ -1,16 +1,15 @@
 const { getModel } = require('../../model');
 
-const persistFill = async (session, event, fill) => {
+/**
+ * Persists a given fill to MongoDB and returns a populated
+ * instance of the fill.
+ * @param {*} session
+ * @param {*} event
+ * @param {*} fill
+ */
+const persistFill = async (session, fill) => {
   const Fill = getModel('Fill');
-  const results = await Fill.create(
-    [
-      {
-        ...fill,
-        _id: event._id,
-      },
-    ],
-    { session },
-  );
+  const results = await Fill.create([fill], { session });
   const newFill = results[0];
 
   await Fill.populate(newFill, [{ path: 'relayer' }, { path: 'assets.token' }]);
@@ -27,12 +26,6 @@ const persistFill = async (session, event, fill) => {
       return { ...asset.toObject(), token };
     }),
   };
-
-  await getModel('Event').updateOne(
-    { _id: event._id },
-    { fillCreated: true },
-    { session },
-  );
 
   return populatedFill;
 };
