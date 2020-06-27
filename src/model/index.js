@@ -6,34 +6,52 @@ const MetricsJobMetadata = require('./metrics-job-metadata');
 const Relayer = require('./relayer');
 const Token = require('./token');
 
-const models = {
-  AddressMetric,
-  Article,
-  Event,
-  MetricsJobMetadata,
-  Relayer,
-  Token,
-};
-
-const createModels = () => {
-  models.Fill = createFillModel();
-};
+let models;
 
 const getModel = name => {
   if (models === undefined) {
-    throw new Error(`No ${name} model found.`);
+    throw new Error(
+      'Cannot get model before models have been initialized. Must call initModels first.',
+    );
+  }
+
+  if (models[name] === undefined) {
+    throw new Error(`${name} model doesn't exist.`);
   }
 
   return models[name];
 };
 
-const init = async () => {
-  createModels();
+const getModels = () => {
+  if (models === undefined) {
+    throw new Error(
+      'Cannot get models before they have been initialized. Must call initModels first.',
+    );
+  }
 
-  await models.Article.createCollection();
-  await models.Fill.createCollection();
-  await models.Relayer.createCollection();
-  await models.Token.createCollection();
+  return models;
 };
 
-module.exports = { getModel, init };
+const initModels = async () => {
+  if (models !== undefined) {
+    throw new Error('Models have already been initialized.');
+  }
+
+  models = {
+    AddressMetric,
+    Article,
+    Event,
+    Fill: createFillModel(),
+    MetricsJobMetadata,
+    Relayer,
+    Token,
+  };
+
+  await Promise.all(
+    Object.values(models).map(async model => {
+      await model.createCollection();
+    }),
+  );
+};
+
+module.exports = { getModel, getModels, initModels };

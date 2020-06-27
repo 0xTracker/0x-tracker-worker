@@ -109,6 +109,13 @@ const createModel = () => {
     justOne: true,
   });
 
+  schema.virtual('fees.token', {
+    ref: 'Token',
+    localField: 'fees.tokenAddress',
+    foreignField: 'address',
+    justOne: true,
+  });
+
   schema.virtual('relayer', {
     ref: 'Relayer',
     localField: 'relayerId',

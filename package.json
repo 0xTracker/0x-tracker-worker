@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "test": "jest --coverage",
+    "test": "jest --coverage --maxWorkers 4",
     "test:watch": "jest --watch"
   },
   "repository": {
@@ -33,12 +33,13 @@
     "husky": "2.4.1",
     "jest": "24.9.0",
     "lint-staged": "8.2.1",
+    "mongodb-memory-server": "6.6.1",
     "prettier": "1.19.1",
     "timekeeper": "2.2.0"
   },
   "dependencies": {
     "@0x/order-utils": "10.0.1",
-    "@0x/subproviders": "4.1.0",
+    "@0x/subproviders": "6.1.0",
     "@0x/utils": "4.3.3",
     "@0x/web3-wrapper": "6.0.7",
     "@bugsnag/js": "6.4.2",

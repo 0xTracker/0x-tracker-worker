@@ -13,12 +13,17 @@ const indexTradedTokens = fill => {
     throw new Error(`No traded tokens for fill: ${fill._id}`);
   }
 
-  publishJob(QUEUE.TRADED_TOKEN_INDEXING, JOB.INDEX_TRADED_TOKENS, {
-    date: fill.date,
-    fillId: fill._id,
-    relayerId: fill.relayerId,
-    tradedTokens,
-  });
+  publishJob(
+    QUEUE.TRADED_TOKEN_INDEXING,
+    JOB.INDEX_TRADED_TOKENS,
+    {
+      date: fill.date,
+      fillId: fill._id,
+      relayerId: fill.relayerId,
+      tradedTokens,
+    },
+    { jobId: `index-traded-tokens-${fill._id}` },
+  );
 };
 
 module.exports = indexTradedTokens;

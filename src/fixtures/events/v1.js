@@ -28,8 +28,8 @@ const V1_EVENT = {
       takerToken: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
       filledMakerTokenAmount: 51120414914765620,
       filledTakerTokenAmount: 1.5e21,
-      paidMakerFee: 0,
-      paidTakerFee: 0,
+      paidMakerFee: 1200000000000000000,
+      paidTakerFee: 2300000000000000000,
       tokens:
         '0x7134e4e9c0b84eb4822183f86c525a616701bce1f9d16a50844a28b363e93279',
       orderHash:

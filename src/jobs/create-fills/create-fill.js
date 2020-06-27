@@ -1,76 +1,35 @@
-const _ = require('lodash');
+const ms = require('ms');
 
-const { MissingBlockError } = require('../../errors');
-const getBlock = require('../../util/ethereum/get-block');
-const getRelayerForFill = require('../../fills/get-relayer-for-fill');
-const normalizeEventArgs = require('./normalize-event-args');
-
-const getBlockOrThrow = async blockHash => {
-  const block = await getBlock(blockHash);
-
-  if (block === null) {
-    throw new MissingBlockError();
-  }
-
-  return block;
-};
+const buildFill = require('./build-fill');
+const convertProtocolFee = require('../../fills/convert-protocol-fee');
+const createNewTokens = require('../../tokens/create-new-tokens');
+const fetchFillStatus = require('../../fills/fetch-fill-status');
+const getEventData = require('../../events/get-event-data');
+const getUniqTokens = require('./get-uniq-tokens');
+const hasProtocolFee = require('../../fills/has-protocol-fee');
+const indexFill = require('../../index/index-fill');
+const indexTradedTokens = require('../../index/index-traded-tokens');
+const persistFill = require('./persist-fill');
+const withTransaction = require('../../util/with-transaction');
 
 const createFill = async event => {
-  const { data, protocolVersion } = event;
-  const { args, blockHash, blockNumber, logIndex, transactionHash } = data;
-  const {
-    assets,
-    fees,
-    feeRecipient,
-    maker,
-    orderHash,
-    paidMakerFee,
-    paidTakerFee,
-    protocolFeePaid,
-    senderAddress,
-    taker,
-  } = normalizeEventArgs(args, protocolVersion);
+  const data = getEventData(event);
+  const fill = await buildFill(data, event._id, event.protocolVersion);
 
-  const block = await getBlockOrThrow(blockHash);
-  const date = new Date(block.timestamp * 1000);
+  const tokens = getUniqTokens(data.assets, data.fees);
+  await createNewTokens(tokens);
 
-  const relayer = getRelayerForFill({
-    feeRecipient,
-    senderAddress,
-    takerAddress: taker,
+  await withTransaction(async session => {
+    const newFill = await persistFill(session, fill);
+
+    await fetchFillStatus(newFill, ms('30 seconds'));
+    await indexFill(newFill._id, ms('30 seconds'));
+    await indexTradedTokens(newFill);
+
+    if (hasProtocolFee(newFill)) {
+      await convertProtocolFee(newFill, ms('30 seconds'));
+    }
   });
-
-  const feeless =
-    (paidMakerFee || 0) + (paidTakerFee || 0) === 0 ||
-    _.every(fees, { token: 0 });
-
-  const fill = {
-    assets,
-    blockHash,
-    blockNumber,
-    conversions: feeless
-      ? {
-          USD: { makerFee: 0, takerFee: 0 },
-        }
-      : undefined,
-    date,
-    eventId: event._id,
-    fees,
-    feeRecipient,
-    logIndex,
-    maker,
-    makerFee: paidMakerFee,
-    orderHash,
-    protocolFee: protocolFeePaid,
-    protocolVersion,
-    relayerId: _.get(relayer, 'lookupId'),
-    senderAddress,
-    taker,
-    takerFee: paidTakerFee,
-    transactionHash,
-  };
-
-  return fill;
 };
 
 module.exports = createFill;
