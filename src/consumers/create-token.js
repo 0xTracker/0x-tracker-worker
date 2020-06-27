@@ -12,7 +12,7 @@ const createToken = async job => {
   const { tokenAddress, tokenType } = job.data;
 
   if (_.isEmpty(tokenAddress)) {
-    throw new Error(`Invalid tokenAddress: ${tokenAddress}`);
+    throw new Error('Job data is missing tokenAddress');
   }
 
   if (!Object.values(TOKEN_TYPE).includes(tokenType)) {
@@ -24,10 +24,10 @@ const createToken = async job => {
 
   if (token !== null) {
     logger.warn(`token already exists: ${tokenAddress}`);
-    return;
+    return undefined;
   }
 
-  await Token.create({
+  const newToken = await Token.create({
     address: tokenAddress,
     resolved: false,
     type: tokenType,
@@ -47,6 +47,8 @@ const createToken = async job => {
   );
 
   logger.info(`created token: ${tokenAddress}`);
+
+  return newToken;
 };
 
 module.exports = {
