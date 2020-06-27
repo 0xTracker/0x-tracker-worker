@@ -6,7 +6,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['jest/setup.js'],
+      files: ['jest/setup.js', 'src/test-utils/*.*'],
       rules: { 'import/no-extraneous-dependencies': 'off' },
     },
   ],

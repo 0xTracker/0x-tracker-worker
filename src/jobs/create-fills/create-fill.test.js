@@ -3,6 +3,7 @@ const { BigNumber } = require('@0x/utils');
 const { publishJob } = require('../../queues');
 const createFill = require('./create-fill');
 const getBlock = require('../../util/ethereum/get-block');
+const getExistingTokens = require('../../tokens/get-existing-tokens');
 const MissingBlockError = require('../../errors/missing-block-error');
 const persistFill = require('./persist-fill');
 const V1_EVENT = require('../../fixtures/events/v1');
@@ -11,7 +12,7 @@ const V3_EVENT = require('../../fixtures/events/v3');
 const withTransaction = require('../../util/with-transaction');
 
 jest.mock('../../util/ethereum/get-block');
-jest.mock('../../tokens/create-new-tokens');
+jest.mock('../../tokens/get-existing-tokens');
 jest.mock('./persist-fill');
 jest.mock('../../queues');
 jest.mock('../../util/with-transaction');
@@ -27,6 +28,7 @@ beforeEach(() => {
   });
   persistFill.mockImplementation((session, fill) => Promise.resolve(fill));
   getBlock.mockResolvedValue({ timestamp: 1572107523 });
+  getExistingTokens.mockResolvedValue([]);
 });
 
 describe('createFill', () => {
@@ -258,6 +260,175 @@ describe('createFill', () => {
       {
         delay: 30000,
         jobId: `fetch-fill-status-5b602b3cfd9c10000491443c`,
+      },
+    );
+  });
+
+  it('should index fill after 30 seconds', async () => {
+    await createFill(V1_EVENT);
+
+    expect(publishJob).toHaveBeenCalledWith(
+      'fill-indexing',
+      'index-fill',
+      {
+        fillId: '5b602b3cfd9c10000491443c',
+      },
+      {
+        delay: 30000,
+        jobId: `index-fill-5b602b3cfd9c10000491443c`,
+      },
+    );
+  });
+
+  it('should index traded tokens immediately', async () => {
+    await createFill(V1_EVENT);
+
+    expect(publishJob).toHaveBeenCalledWith(
+      'traded-token-indexing',
+      'index-traded-tokens',
+      {
+        date: new Date('2019-10-26T16:32:03.000Z'),
+        fillId: '5b602b3cfd9c10000491443c',
+        relayerId: 7,
+        tradedTokens: [
+          {
+            address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+            tradeCountContribution: 1,
+          },
+          {
+            address: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
+            tradeCountContribution: 1,
+          },
+        ],
+      },
+      {
+        jobId: `index-traded-tokens-5b602b3cfd9c10000491443c`,
+      },
+    );
+  });
+
+  it('should create new tokens for fill', async () => {
+    await createFill(V1_EVENT);
+
+    // Taker token
+    expect(publishJob).toHaveBeenCalledWith(
+      'token-processing',
+      'create-token',
+      {
+        tokenAddress: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
+        tokenType: 0,
+      },
+      {
+        jobId: `create-token-0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433`,
+      },
+    );
+
+    // Maker token
+    expect(publishJob).toHaveBeenCalledWith(
+      'token-processing',
+      'create-token',
+      {
+        tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+        tokenType: 0,
+      },
+      {
+        jobId: `create-token-0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2`,
+      },
+    );
+
+    // ZRX for fees
+    expect(publishJob).toHaveBeenCalledWith(
+      'token-processing',
+      'create-token',
+      {
+        tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+        tokenType: 0,
+      },
+      {
+        jobId: `create-token-0xe41d2489571d322189246dafa5ebde1f4699f498`,
+      },
+    );
+  });
+
+  it('should only create tokens which do not already exist', async () => {
+    getExistingTokens.mockResolvedValue([
+      '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
+    ]);
+
+    await createFill(V1_EVENT);
+
+    // Maker token
+    expect(publishJob).toHaveBeenCalledWith(
+      'token-processing',
+      'create-token',
+      {
+        tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+        tokenType: 0,
+      },
+      {
+        jobId: `create-token-0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2`,
+      },
+    );
+
+    // ZRX for fees
+    expect(publishJob).toHaveBeenCalledWith(
+      'token-processing',
+      'create-token',
+      {
+        tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+        tokenType: 0,
+      },
+      {
+        jobId: `create-token-0xe41d2489571d322189246dafa5ebde1f4699f498`,
+      },
+    );
+  });
+
+  it('should not create new tokens when they already exist', async () => {
+    getExistingTokens.mockResolvedValue([
+      '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
+      '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+      '0xe41d2489571d322189246dafa5ebde1f4699f498',
+    ]);
+
+    await createFill(V1_EVENT);
+
+    // Taker token
+    expect(publishJob).not.toHaveBeenCalledWith(
+      'token-processing',
+      'create-token',
+      {
+        tokenAddress: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
+        tokenType: 0,
+      },
+      {
+        jobId: `create-token-0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433`,
+      },
+    );
+
+    // Maker token
+    expect(publishJob).not.toHaveBeenCalledWith(
+      'token-processing',
+      'create-token',
+      {
+        tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+        tokenType: 0,
+      },
+      {
+        jobId: `create-token-0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2`,
+      },
+    );
+
+    // ZRX for fees
+    expect(publishJob).not.toHaveBeenCalledWith(
+      'token-processing',
+      'create-token',
+      {
+        tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+        tokenType: 0,
+      },
+      {
+        jobId: `create-token-0xe41d2489571d322189246dafa5ebde1f4699f498`,
       },
     );
   });
