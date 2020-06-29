@@ -2,8 +2,6 @@ module.exports = {
   _id: '5e3e9abbb2227b1f0e73be5f',
   conversions: {
     USD: {
-      makerFee: 0,
-      takerFee: 0,
       protocolFee: 0.338445000033844,
       amount: 1674.924411,
     },

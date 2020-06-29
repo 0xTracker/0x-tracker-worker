@@ -1,6 +1,6 @@
 const V2_FILL = {
   _id: '5e01056923573c61d846f51d',
-  conversions: { USD: { makerFee: 0, takerFee: 0, amount: 658.8957691929245 } },
+  conversions: { USD: { amount: 658.8957691929245 } },
   hasValue: true,
   immeasurable: false,
   status: 1,
@@ -33,14 +33,12 @@ const V2_FILL = {
   feeRecipient: '0xa258b39954cef5cb142fd567a46cddb31a670124',
   logIndex: 38,
   maker: '0x6924a03bb710eaf199ab6ac9f2bb148215ae9b5d',
-  makerFee: 0,
   orderHash:
     '0xf186241e774ed0ecb6b6c101482f9a52d77caaf2db3165c9052f814e4c844f5e',
   protocolVersion: 2,
   relayerId: 7,
   senderAddress: '0x8018280076d7fa2caa1147e441352e8a89e1ddbe',
   taker: '0x8018280076d7fa2caa1147e441352e8a89e1ddbe',
-  takerFee: 0,
   transactionHash:
     '0x36a35ae64def8beab677435be4762bf63977000172d47096230a94922383c856',
   pricingStatus: 0,

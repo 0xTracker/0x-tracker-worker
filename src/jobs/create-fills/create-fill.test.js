@@ -1,5 +1,3 @@
-const { BigNumber } = require('@0x/utils');
-
 const { publishJob } = require('../../queues');
 const createFill = require('./create-fill');
 const getBlock = require('../../util/ethereum/get-block');
@@ -68,7 +66,7 @@ describe('createFill', () => {
       fees: [
         {
           amount: {
-            token: new BigNumber(1.2),
+            token: 1200000000000000000,
           },
           tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
           tokenType: 0,
@@ -76,7 +74,7 @@ describe('createFill', () => {
         },
         {
           amount: {
-            token: new BigNumber(2.3),
+            token: 2300000000000000000,
           },
           tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
           tokenType: 0,
@@ -127,13 +125,13 @@ describe('createFill', () => {
       eventId: '5bb1f06b62f9ca0004c7cf20',
       fees: [
         {
-          amount: { token: new BigNumber(1.2) },
+          amount: { token: 1200000000000000000 },
           tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
           tokenType: 0,
           traderType: 0,
         },
         {
-          amount: { token: new BigNumber(2.8) },
+          amount: { token: 2800000000000000000 },
           tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
           tokenType: 0,
           traderType: 1,
