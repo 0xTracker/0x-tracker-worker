@@ -1,7 +1,6 @@
 const _ = require('lodash');
 
-const { TRADER_TYPE, ZRX_TOKEN_DECIMALS } = require('../constants');
-const formatTokenAmount = require('../tokens/format-token-amount');
+const { TRADER_TYPE } = require('../constants');
 const parseAssetData = require('../util/parse-asset-data');
 
 const createFeeAssetMapper = traderType => asset => ({
@@ -27,7 +26,7 @@ const getFeesForEvent = event => {
       makerFee > 0
         ? {
             amount: {
-              token: formatTokenAmount(makerFee, ZRX_TOKEN_DECIMALS),
+              token: makerFee,
             },
             tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
             tokenType: 0,
@@ -37,7 +36,7 @@ const getFeesForEvent = event => {
       takerFee > 0
         ? {
             amount: {
-              token: formatTokenAmount(takerFee, ZRX_TOKEN_DECIMALS),
+              token: takerFee,
             },
             tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
             tokenType: 0,
