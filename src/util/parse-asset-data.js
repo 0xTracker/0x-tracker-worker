@@ -75,8 +75,26 @@ const extractERC1155Assets = assetData => {
   }));
 };
 
-const parseAssetData = (encodedData, amount) => {
+/**
+ * Determine whether encoded asset data is empty.
+ * @param {string} encodedData
+ */
+const isEmptyData = encodedData => {
   if (encodedData === '0x') {
+    return true;
+  }
+
+  if (!encodedData.startsWith('0x')) {
+    return false;
+  }
+
+  const valuesAfterX = encodedData.substr(2);
+
+  return valuesAfterX === '0'.repeat(valuesAfterX.length);
+};
+
+const parseAssetData = (encodedData, amount) => {
+  if (isEmptyData(encodedData)) {
     return [];
   }
 
