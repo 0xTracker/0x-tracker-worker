@@ -24,7 +24,7 @@ Object {
   "fees": Array [
     Object {
       "amount": Object {
-        "token": "1.2",
+        "token": 1200000000000000000,
       },
       "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
       "tokenType": 0,
@@ -32,7 +32,7 @@ Object {
     },
     Object {
       "amount": Object {
-        "token": "2.3",
+        "token": 2300000000000000000,
       },
       "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
       "tokenType": 0,
@@ -71,7 +71,7 @@ Object {
   "fees": Array [
     Object {
       "amount": Object {
-        "token": "1.2",
+        "token": 1200000000000000000,
       },
       "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
       "tokenType": 0,
@@ -79,7 +79,7 @@ Object {
     },
     Object {
       "amount": Object {
-        "token": "2.8",
+        "token": 2800000000000000000,
       },
       "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
       "tokenType": 0,

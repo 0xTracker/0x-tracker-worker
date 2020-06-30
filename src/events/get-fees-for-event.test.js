@@ -1,5 +1,3 @@
-const { BigNumber } = require('@0x/utils');
-
 const { UnsupportedAssetError } = require('../errors');
 const getFeesForEvent = require('./get-fees-for-event');
 const V1_EVENT = require('../fixtures/events/v1');
@@ -17,13 +15,13 @@ describe('getFeesFromEvent', () => {
 
     expect(fees).toEqual([
       {
-        amount: { token: new BigNumber(1.2) },
+        amount: { token: 1200000000000000000 },
         tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         tokenType: 0,
         traderType: 0,
       },
       {
-        amount: { token: new BigNumber(2.3) },
+        amount: { token: 2300000000000000000 },
         tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         tokenType: 0,
         traderType: 1,
@@ -37,7 +35,7 @@ describe('getFeesFromEvent', () => {
 
     expect(fees).toEqual([
       {
-        amount: { token: new BigNumber(2.3) },
+        amount: { token: 2300000000000000000 },
         tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         tokenType: 0,
         traderType: 1,
@@ -58,7 +56,7 @@ describe('getFeesFromEvent', () => {
     expect(fees).toEqual([
       {
         amount: {
-          token: new BigNumber(1.2),
+          token: 1200000000000000000,
         },
         tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         tokenType: 0,
@@ -66,7 +64,7 @@ describe('getFeesFromEvent', () => {
       },
       {
         amount: {
-          token: new BigNumber(2.8),
+          token: 2800000000000000000,
         },
         tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         tokenType: 0,
@@ -82,7 +80,7 @@ describe('getFeesFromEvent', () => {
     expect(fees).toEqual([
       {
         amount: {
-          token: new BigNumber(2.8),
+          token: 2800000000000000000,
         },
         tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
         tokenType: 0,
