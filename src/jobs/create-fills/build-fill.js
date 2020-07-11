@@ -1,5 +1,6 @@
 const _ = require('lodash');
 
+const { FILL_STATUS } = require('../../constants');
 const { MissingBlockError } = require('../../errors');
 const getBlock = require('../../util/ethereum/get-block');
 const getRelayerForFill = require('../../fills/get-relayer-for-fill');
@@ -55,6 +56,7 @@ const buildFill = async (eventData, eventId, protocolVersion) => {
     protocolVersion,
     relayerId: _.get(relayer, 'lookupId'),
     senderAddress,
+    status: FILL_STATUS.SUCCESSFUL, // TODO: Remove status from app, it no longer makes sense
     taker,
     transactionHash,
   };

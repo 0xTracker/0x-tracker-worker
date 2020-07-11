@@ -3,7 +3,6 @@ const ms = require('ms');
 const buildFill = require('./build-fill');
 const convertProtocolFee = require('../../fills/convert-protocol-fee');
 const createNewTokens = require('../../tokens/create-new-tokens');
-const fetchFillStatus = require('../../fills/fetch-fill-status');
 const getEventData = require('../../events/get-event-data');
 const getUniqTokens = require('./get-uniq-tokens');
 const hasProtocolFee = require('../../fills/has-protocol-fee');
@@ -22,7 +21,6 @@ const createFill = async event => {
   await withTransaction(async session => {
     const newFill = await persistFill(session, fill);
 
-    await fetchFillStatus(newFill, ms('30 seconds'));
     await indexFill(newFill._id, ms('30 seconds'));
     await indexTradedTokens(newFill);
 
