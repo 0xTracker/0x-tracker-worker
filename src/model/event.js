@@ -8,6 +8,9 @@ const schema = Schema({
   fillCreated: { type: Boolean, default: false },
   logIndex: Number,
   protocolVersion: Number,
+  scheduler: {
+    transactionFetchScheduled: Boolean,
+  },
   transactionHash: String,
   type: String,
 });
