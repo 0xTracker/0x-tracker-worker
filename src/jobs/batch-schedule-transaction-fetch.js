@@ -14,7 +14,6 @@ const batchScheduleTransactionFetch = async ({ batchSize }) => {
     'scheduler.transactionFetchScheduled': { $in: [null, false] },
   })
     .select('_id blockNumber transactionHash')
-    .sort({ _id: 1 })
     .limit(batchSize)
     .lean();
 

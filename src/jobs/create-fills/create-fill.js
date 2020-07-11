@@ -11,9 +11,14 @@ const indexTradedTokens = require('../../index/index-traded-tokens');
 const persistFill = require('./persist-fill');
 const withTransaction = require('../../util/with-transaction');
 
-const createFill = async event => {
+const createFill = async (event, transaction) => {
   const data = getEventData(event);
-  const fill = await buildFill(data, event._id, event.protocolVersion);
+  const fill = buildFill({
+    eventData: data,
+    eventId: event._id,
+    protocolVersion: event.protocolVersion,
+    transaction,
+  });
 
   const tokens = getUniqTokens(data.assets, data.fees);
   await createNewTokens(tokens);
