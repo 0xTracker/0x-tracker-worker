@@ -36,10 +36,7 @@ module.exports = {
     apiKey: process.env.ETHPLORER_API_KEY,
   },
   jobs: {
-    convertFees: {
-      batchSize: 100,
-    },
-    convertProtocolFees: {
+    batchScheduleTransactionFetch: {
       batchSize: 100,
     },
     createFills: {
@@ -74,6 +71,12 @@ module.exports = {
       limiter: {
         max: 5,
         duration: 1000,
+      },
+      transactionProcessing: {
+        limiter: {
+          max: 1,
+          duration: 500,
+        },
       },
     },
   },

@@ -5,6 +5,7 @@ const Event = require('./event');
 const MetricsJobMetadata = require('./metrics-job-metadata');
 const Relayer = require('./relayer');
 const Token = require('./token');
+const Transaction = require('./transaction');
 
 let models;
 
@@ -45,6 +46,7 @@ const initModels = async () => {
     MetricsJobMetadata,
     Relayer,
     Token,
+    Transaction,
   };
 
   await Promise.all(

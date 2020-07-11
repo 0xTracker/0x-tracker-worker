@@ -1,24 +1,11 @@
 const _ = require('lodash');
 
-const { MissingBlockError } = require('../../errors');
-const getBlock = require('../../util/ethereum/get-block');
+const { FILL_STATUS } = require('../../constants');
 const getRelayerForFill = require('../../fills/get-relayer-for-fill');
 
-const getBlockOrThrow = async blockHash => {
-  const block = await getBlock(blockHash);
-
-  if (block === null) {
-    throw new MissingBlockError();
-  }
-
-  return block;
-};
-
-const buildFill = async (eventData, eventId, protocolVersion) => {
+const buildFill = ({ eventData, eventId, protocolVersion, transaction }) => {
   const {
     assets,
-    blockHash,
-    blockNumber,
     feeRecipient,
     fees,
     logIndex,
@@ -27,11 +14,7 @@ const buildFill = async (eventData, eventId, protocolVersion) => {
     protocolFee,
     senderAddress,
     taker,
-    transactionHash,
   } = eventData;
-
-  const block = await getBlockOrThrow(blockHash);
-  const date = new Date(block.timestamp * 1000);
 
   const relayer = getRelayerForFill({
     feeRecipient,
@@ -41,10 +24,11 @@ const buildFill = async (eventData, eventId, protocolVersion) => {
 
   const fill = {
     _id: eventId,
+    affiliateAddress: transaction.affiliateAddress,
     assets,
-    blockHash,
-    blockNumber,
-    date,
+    blockHash: transaction.blockHash,
+    blockNumber: transaction.blockNumber,
+    date: transaction.date,
     eventId,
     fees,
     feeRecipient,
@@ -53,10 +37,12 @@ const buildFill = async (eventData, eventId, protocolVersion) => {
     orderHash,
     protocolFee,
     protocolVersion,
+    quoteDate: transaction.quoteDate,
     relayerId: _.get(relayer, 'lookupId'),
     senderAddress,
+    status: FILL_STATUS.SUCCESSFUL, // TODO: Remove status from app, it no longer makes sense
     taker,
-    transactionHash,
+    transactionHash: transaction.hash,
   };
 
   return fill;
