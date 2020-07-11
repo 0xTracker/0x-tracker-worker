@@ -1,7 +1,7 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
 
-const { MissingBlockError, UnsupportedAssetError } = require('../../errors');
+const { UnsupportedAssetError } = require('../../errors');
 const createFill = require('./create-fill');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 const getUnprocessedEvents = require('../../events/get-unprocessed-events');
@@ -29,11 +29,7 @@ const createFills = async ({ batchSize }) => {
       await markEventProcessed(event._id);
       logger.info(`created fill for event ${event.id}`);
     } catch (error) {
-      if (error instanceof MissingBlockError) {
-        logger.warn(
-          `Unable to create fill for event ${event.id} due to missing block`,
-        );
-      } else if (error instanceof UnsupportedAssetError) {
+      if (error instanceof UnsupportedAssetError) {
         logger.warn(
           `Unable to create fill for event ${event.id} due to unsupported asset`,
         );

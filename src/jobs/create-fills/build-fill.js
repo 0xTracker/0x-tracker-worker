@@ -28,7 +28,7 @@ const buildFill = ({ eventData, eventId, protocolVersion, transaction }) => {
     assets,
     blockHash: transaction.blockHash,
     blockNumber: transaction.blockNumber,
-    date: transaction.timestamp,
+    date: transaction.date,
     eventId,
     fees,
     feeRecipient,
@@ -37,7 +37,7 @@ const buildFill = ({ eventData, eventId, protocolVersion, transaction }) => {
     orderHash,
     protocolFee,
     protocolVersion,
-    quoteDate: transaction.quoteTimestamp,
+    quoteDate: transaction.quoteDate,
     relayerId: _.get(relayer, 'lookupId'),
     senderAddress,
     status: FILL_STATUS.SUCCESSFUL, // TODO: Remove status from app, it no longer makes sense

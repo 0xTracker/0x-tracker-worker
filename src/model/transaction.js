@@ -7,6 +7,7 @@ const schema = Schema({
   blockHash: String,
   blockNumber: Number,
   data: String,
+  date: Date,
   from: String,
   gasLimit: Number,
   gasPrice: String,
@@ -14,8 +15,7 @@ const schema = Schema({
   hash: String,
   index: Number,
   nonce: String,
-  quoteTimestamp: Date,
-  timestamp: Date,
+  quoteDate: Date,
   to: String,
   value: String,
 });

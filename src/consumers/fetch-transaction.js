@@ -11,14 +11,14 @@ const logger = signale.scope('fetch transaction');
 
 const createTransactionDocument = (tx, receipt, block) => {
   let affiliateAddress;
-  let quoteTimestamp;
+  let quoteDate;
 
   if (tx.input.includes('869584cd')) {
     const bytesPos = tx.input.indexOf('869584cd');
     affiliateAddress = '0x'.concat(
       tx.input.slice(bytesPos + 32, bytesPos + 72),
     );
-    quoteTimestamp = new Date(
+    quoteDate = new Date(
       parseInt(tx.input.slice(bytesPos + 128, bytesPos + 136), 16) * 1000,
     );
   }
@@ -35,6 +35,7 @@ const createTransactionDocument = (tx, receipt, block) => {
     blockHash: tx.blockHash,
     blockNumber: tx.blockNumber,
     data: tx.input,
+    date: new Date(block.timestamp * 1000),
     from: tx.from,
     gasLimit: tx.gas,
     gasPrice: tx.gasPrice.toString(),
@@ -42,8 +43,7 @@ const createTransactionDocument = (tx, receipt, block) => {
     hash: tx.hash,
     index: receipt.transactionIndex,
     nonce: tx.nonce,
-    quoteTimestamp,
-    timestamp: new Date(block.timestamp * 1000),
+    quoteDate,
     to: tx.to,
     value: tx.value.toString(),
   };
