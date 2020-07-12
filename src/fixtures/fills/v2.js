@@ -29,7 +29,18 @@ const V2_FILL = {
   blockNumber: 9151911,
   date: '2019-12-23T18:15:16.000Z',
   eventId: '5e01053a3e349627a0408d51',
-  fees: [],
+  fees: [
+    {
+      amount: { token: 5000000000000000000, USD: 1.5 },
+      tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+      traderType: 0,
+    },
+    {
+      amount: { token: 3000000000000000000, USD: 0.9 },
+      tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+      traderType: 1,
+    },
+  ],
   feeRecipient: '0xa258b39954cef5cb142fd567a46cddb31a670124',
   logIndex: 38,
   maker: '0x6924a03bb710eaf199ab6ac9f2bb148215ae9b5d',

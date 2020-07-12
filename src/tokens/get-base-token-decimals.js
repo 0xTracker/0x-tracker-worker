@@ -4,8 +4,10 @@ const getBaseTokenDecimals = tokenAddress => {
   const decimals = BASE_TOKEN_DECIMALS[tokenAddress];
 
   if (decimals === undefined) {
-    throw new Error(`Could not get decimals for base token: ${tokenAddress}`);
+    throw new Error(`Token is not a base token: ${tokenAddress}`);
   }
+
+  return decimals;
 };
 
 module.exports = getBaseTokenDecimals;
