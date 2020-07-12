@@ -53,7 +53,10 @@ const convertRelayerFees = async job => {
     fee.set('amount.USD', usdAmount);
   });
 
-  await fill.save();
+  if (fill.isModified()) {
+    await fill.save();
+  }
+
   logger.info(`converted relayer fees for fill: ${fillId}`);
 };
 
