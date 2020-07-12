@@ -15,6 +15,7 @@ module.exports = {
     '0x53b04999c1ff2d77fcdde98935bb936a67209e4c': 'ETH', // Veil Ether
     '0xaa7427d8f17d87a28f5e1ba3adbb270badbe1011': 'ETH', // Ethfinex Ether
     '0x50cb61afa3f023d17276dcfb35abf85c710d1cff': 'ETH', // Ethfinex Ether V2
+    '0xe41d2489571d322189246dafa5ebde1f4699f498': 'ZRX', // 0x Protocol Token
   },
   BASE_TOKEN_DECIMALS: {
     '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359': 18, // DAI Stablecoin
@@ -31,6 +32,7 @@ module.exports = {
     '0x53b04999c1ff2d77fcdde98935bb936a67209e4c': 18, // Veil Ether
     '0xaa7427d8f17d87a28f5e1ba3adbb270badbe1011': 18, // Ethfinex Ether
     '0x50cb61afa3f023d17276dcfb35abf85c710d1cff': 18, // Ethfinex Ether V2
+    '0xe41d2489571d322189246dafa5ebde1f4699f498': 18, // 0x Protocol Token
   },
   ETH_TOKEN_DECIMALS: 18,
   FILL_ACTOR: {
@@ -49,6 +51,7 @@ module.exports = {
   JOB: {
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
+    CONVERT_RELAYER_FEES: 'convert-relayer-fees',
     CREATE_TOKEN: 'create-token',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',

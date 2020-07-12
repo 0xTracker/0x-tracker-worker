@@ -429,4 +429,20 @@ describe('createFill', () => {
       },
     );
   });
+
+  it('should convert relayer fees of fill with fees after 30 seconds', async () => {
+    await createFill(V3_EVENT, simpleTransaction);
+
+    expect(publishJob).toHaveBeenCalledWith(
+      'fill-processing',
+      'convert-relayer-fees',
+      {
+        fillId: '5bb1f06b62f9ca0004c7cf20',
+      },
+      {
+        delay: 30000,
+        jobId: `convert-relayer-fees-5bb1f06b62f9ca0004c7cf20`,
+      },
+    );
+  });
 });

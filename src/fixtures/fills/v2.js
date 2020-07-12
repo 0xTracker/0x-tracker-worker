@@ -1,5 +1,8 @@
+const mongoose = require('mongoose');
+
 const V2_FILL = {
-  _id: '5e01056923573c61d846f51d',
+  __v: 0,
+  _id: new mongoose.Types.ObjectId('5e01056923573c61d846f51d'),
   conversions: { USD: { amount: 658.8957691929245 } },
   hasValue: true,
   immeasurable: false,
@@ -7,7 +10,7 @@ const V2_FILL = {
   assets: [
     {
       tokenResolved: true,
-      _id: '5e01056923573c61d846f51f',
+      _id: new mongoose.Types.ObjectId('5e01056923573c61d846f51f'),
       amount: 660879036587289100000,
       tokenAddress: '0x6b175474e89094c44da98b954eedeac495271d0f',
       actor: 0,
@@ -16,7 +19,7 @@ const V2_FILL = {
     },
     {
       tokenResolved: true,
-      _id: '5e01056923573c61d846f51e',
+      _id: new mongoose.Types.ObjectId('5e01056923573c61d846f51e'),
       amount: 5063754758629915000,
       tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
       actor: 1,
@@ -27,9 +30,22 @@ const V2_FILL = {
   blockHash:
     '0x7c19236809f502da3d481761009377877171ccd8757df293f7537c974674c81b',
   blockNumber: 9151911,
-  date: '2019-12-23T18:15:16.000Z',
-  eventId: '5e01053a3e349627a0408d51',
-  fees: [],
+  date: new Date('2019-12-23T18:15:16.000Z'),
+  eventId: new mongoose.Types.ObjectId('5e01053a3e349627a0408d51'),
+  fees: [
+    {
+      _id: new mongoose.Types.ObjectId('5f0b34ed4524dc43d883a92b'),
+      amount: { token: 5000000000000000000 },
+      tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+      traderType: 0,
+    },
+    {
+      _id: new mongoose.Types.ObjectId('5f0b34ed4524dc43d883a92a'),
+      amount: { token: 3000000000000000000 },
+      tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+      traderType: 1,
+    },
+  ],
   feeRecipient: '0xa258b39954cef5cb142fd567a46cddb31a670124',
   logIndex: 38,
   maker: '0x6924a03bb710eaf199ab6ac9f2bb148215ae9b5d',

@@ -25,7 +25,7 @@ describe('get measurable actor', () => {
         },
         {
           actor: FILL_ACTOR.MAKER,
-          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenAddress: '0x0d8775f648430679a709e98d2b0cb6250d2887ef', // BAT
         },
       ],
     };
@@ -44,7 +44,7 @@ describe('get measurable actor', () => {
         },
         {
           actor: FILL_ACTOR.TAKER,
-          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenAddress: '0x0d8775f648430679a709e98d2b0cb6250d2887ef', // BAT
         },
       ],
     };
@@ -67,7 +67,7 @@ describe('get measurable actor', () => {
         },
         {
           actor: FILL_ACTOR.TAKER,
-          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenAddress: '0x0d8775f648430679a709e98d2b0cb6250d2887ef', // BAT
         },
         {
           actor: FILL_ACTOR.TAKER,
@@ -86,7 +86,7 @@ describe('get measurable actor', () => {
       assets: [
         {
           actor: FILL_ACTOR.MAKER,
-          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenAddress: '0x0d8775f648430679a709e98d2b0cb6250d2887ef', // BAT
         },
         {
           actor: FILL_ACTOR.MAKER,
@@ -125,7 +125,7 @@ describe('get measurable actor', () => {
         },
         {
           actor: FILL_ACTOR.TAKER,
-          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenAddress: '0x0d8775f648430679a709e98d2b0cb6250d2887ef', // BAT
         },
       ],
     };
@@ -148,7 +148,7 @@ describe('get measurable actor', () => {
         },
         {
           actor: FILL_ACTOR.TAKER,
-          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenAddress: '0x0d8775f648430679a709e98d2b0cb6250d2887ef', // BAT
         },
         {
           actor: FILL_ACTOR.TAKER,
@@ -167,7 +167,7 @@ describe('get measurable actor', () => {
       assets: [
         {
           actor: FILL_ACTOR.MAKER,
-          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenAddress: '0x0d8775f648430679a709e98d2b0cb6250d2887ef', // BAT
         },
         {
           actor: FILL_ACTOR.MAKER,
