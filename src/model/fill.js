@@ -7,6 +7,7 @@ const { Schema } = mongoose;
 const createModel = () => {
   const schema = Schema(
     {
+      affiliateAddress: String,
       assets: [
         {
           actor: Number,
@@ -53,6 +54,7 @@ const createModel = () => {
       pricingStatus: Number,
       protocolFee: Number,
       protocolVersion: Number,
+      quoteDate: Date,
       rates: {
         data: Schema.Types.Mixed,
       },

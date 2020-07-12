@@ -1,5 +1,6 @@
 const _ = require('lodash');
 
+const batchScheduleTransactionFetch = require('./batch-schedule-transaction-fetch');
 const cacheAddressMetrics = require('./cache-address-metrics');
 const createFills = require('./create-fills');
 const deriveFillPrices = require('./derive-fill-prices');
@@ -8,6 +9,7 @@ const getMissingTokenImages = require('./get-missing-token-images');
 const measureFills = require('./measure-fills');
 
 const jobFns = {
+  batchScheduleTransactionFetch,
   cacheAddressMetrics,
   createFills,
   deriveFillPrices,

@@ -1,15 +1,12 @@
 const { publishJob } = require('../../queues');
 const createFill = require('./create-fill');
-const getBlock = require('../../util/ethereum/get-block');
 const getExistingTokens = require('../../tokens/get-existing-tokens');
-const MissingBlockError = require('../../errors/missing-block-error');
 const persistFill = require('./persist-fill');
 const V1_EVENT = require('../../fixtures/events/v1');
 const V2_EVENT = require('../../fixtures/events/v2');
 const V3_EVENT = require('../../fixtures/events/v3');
 const withTransaction = require('../../util/with-transaction');
 
-jest.mock('../../util/ethereum/get-block');
 jest.mock('../../tokens/get-existing-tokens');
 jest.mock('./persist-fill');
 jest.mock('../../queues');
@@ -17,7 +14,13 @@ jest.mock('../../util/with-transaction');
 
 const fakeSession = {};
 
-beforeAll(() => {});
+const simpleTransaction = {
+  blockHash:
+    '0xd383bf2c68bfd74d777857fc066390d1f18934cd8ad57a967b5a8049ff8bd479',
+  blockNumber: 6062314,
+  date: new Date(1572107523 * 1000),
+  hash: '0x00cfc187cce6c5f537f84621b6fce4ac828848f2b088b16f0deeb4bde2586637',
+};
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -25,19 +28,12 @@ beforeEach(() => {
     return fn(fakeSession).then(() => Promise.resolve(undefined));
   });
   persistFill.mockImplementation((session, fill) => Promise.resolve(fill));
-  getBlock.mockResolvedValue({ timestamp: 1572107523 });
   getExistingTokens.mockResolvedValue([]);
 });
 
 describe('createFill', () => {
-  it('should throw MissingBlockError when block does not exist', async () => {
-    getBlock.mockResolvedValue(null);
-
-    await expect(createFill(V1_EVENT)).rejects.toThrow(new MissingBlockError());
-  });
-
   it('should persist fill for v1 event', async () => {
-    await createFill(V1_EVENT);
+    await createFill(V1_EVENT, simpleTransaction);
 
     expect(persistFill).toHaveBeenCalledTimes(1);
     expect(persistFill).toHaveBeenNthCalledWith(1, fakeSession, {
@@ -90,6 +86,7 @@ describe('createFill', () => {
       protocolVersion: 1,
       relayerId: 7,
       senderAddress: undefined,
+      status: 1,
       taker: '0x98ac18627bf2205a816eee7fbc919a7db83a4908',
       transactionHash:
         '0x00cfc187cce6c5f537f84621b6fce4ac828848f2b088b16f0deeb4bde2586637',
@@ -97,7 +94,14 @@ describe('createFill', () => {
   });
 
   it('should persist fill for v2 event', async () => {
-    await createFill(V2_EVENT);
+    await createFill(V2_EVENT, {
+      ...simpleTransaction,
+      blockHash:
+        '0x592bdb8653f20b291b3cf927314344f299c6e37a3a2887a558b29584d60730d6',
+      blockNumber: 6286241,
+      hash:
+        '0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc',
+    });
 
     expect(persistFill).toHaveBeenCalledTimes(1);
     expect(persistFill).toHaveBeenNthCalledWith(1, fakeSession, {
@@ -146,6 +150,7 @@ describe('createFill', () => {
       protocolVersion: 2,
       relayerId: undefined,
       senderAddress: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
+      status: 1,
       taker: '0x7447dab10325f902725191a34eb8288abe02c7f4',
       transactionHash:
         '0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc',
@@ -153,11 +158,21 @@ describe('createFill', () => {
   });
 
   it('should create fill for v3 event', async () => {
-    await createFill(V3_EVENT);
+    await createFill(V3_EVENT, {
+      ...simpleTransaction,
+      affiliateAddress: '0x000000056',
+      blockHash:
+        '0x592bdb8653f20b291b3cf927314344f299c6e37a3a2887a558b29584d60730d6',
+      blockNumber: 6286241,
+      hash:
+        '0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc',
+      quoteDate: new Date('2019-11-15T03:48:09.000Z'),
+    });
 
     expect(persistFill).toHaveBeenCalledTimes(1);
     expect(persistFill).toHaveBeenNthCalledWith(1, fakeSession, {
       _id: '5bb1f06b62f9ca0004c7cf20',
+      affiliateAddress: '0x000000056',
       assets: [
         {
           actor: 0,
@@ -200,8 +215,10 @@ describe('createFill', () => {
         '0x8739c67a2a559205a7c8c7b24713ec21f35fed8b565a225a998375b1dae1bb14',
       protocolFee: 100000000000,
       protocolVersion: 3,
+      quoteDate: new Date('2019-11-15T03:48:09.000Z'),
       relayerId: undefined,
       senderAddress: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
+      status: 1,
       taker: '0x7447dab10325f902725191a34eb8288abe02c7f4',
       transactionHash:
         '0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc',
@@ -209,7 +226,7 @@ describe('createFill', () => {
   });
 
   it('should convert protocol fee of v3 fill after 30 seconds', async () => {
-    await createFill(V3_EVENT);
+    await createFill(V3_EVENT, simpleTransaction);
 
     expect(publishJob).toHaveBeenCalledWith(
       'fill-processing',
@@ -227,7 +244,7 @@ describe('createFill', () => {
   });
 
   it('should not convert protocol fee of v2 fill', async () => {
-    await createFill(V2_EVENT);
+    await createFill(V2_EVENT, simpleTransaction);
 
     expect(publishJob).not.toHaveBeenCalledWith(
       'fill-processing',
@@ -244,26 +261,8 @@ describe('createFill', () => {
     );
   });
 
-  it('should fetch fill status after 30 seconds', async () => {
-    await createFill(V1_EVENT);
-
-    expect(publishJob).toHaveBeenCalledWith(
-      'fill-processing',
-      'fetch-fill-status',
-      {
-        fillId: '5b602b3cfd9c10000491443c',
-        transactionHash:
-          '0x00cfc187cce6c5f537f84621b6fce4ac828848f2b088b16f0deeb4bde2586637',
-      },
-      {
-        delay: 30000,
-        jobId: `fetch-fill-status-5b602b3cfd9c10000491443c`,
-      },
-    );
-  });
-
   it('should index fill after 30 seconds', async () => {
-    await createFill(V1_EVENT);
+    await createFill(V1_EVENT, simpleTransaction);
 
     expect(publishJob).toHaveBeenCalledWith(
       'fill-indexing',
@@ -279,7 +278,7 @@ describe('createFill', () => {
   });
 
   it('should index traded tokens immediately', async () => {
-    await createFill(V1_EVENT);
+    await createFill(V1_EVENT, simpleTransaction);
 
     expect(publishJob).toHaveBeenCalledWith(
       'traded-token-indexing',
@@ -306,7 +305,7 @@ describe('createFill', () => {
   });
 
   it('should create new tokens for fill', async () => {
-    await createFill(V1_EVENT);
+    await createFill(V1_EVENT, simpleTransaction);
 
     // Taker token
     expect(publishJob).toHaveBeenCalledWith(
@@ -353,7 +352,7 @@ describe('createFill', () => {
       '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
     ]);
 
-    await createFill(V1_EVENT);
+    await createFill(V1_EVENT, simpleTransaction);
 
     // Maker token
     expect(publishJob).toHaveBeenCalledWith(
@@ -389,7 +388,7 @@ describe('createFill', () => {
       '0xe41d2489571d322189246dafa5ebde1f4699f498',
     ]);
 
-    await createFill(V1_EVENT);
+    await createFill(V1_EVENT, simpleTransaction);
 
     // Taker token
     expect(publishJob).not.toHaveBeenCalledWith(

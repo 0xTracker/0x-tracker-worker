@@ -4,11 +4,10 @@ const bulkUpdateTokenMetadata = require('./bulk-update-token-metadata');
 const convertProtocolFee = require('./convert-protocol-fee');
 const convertRelayerFees = require('./convert-relayer-fees');
 const createToken = require('./create-token');
-const fetchFillStatus = require('./fetch-fill-status');
 const fetchTokenMetadata = require('./fetch-token-metadata');
+const fetchTransaction = require('./fetch-transaction');
 const indexFill = require('./index-fill');
 const indexFillProtocolFee = require('./index-fill-protocol-fee');
-const indexFillStatus = require('./index-fill-status');
 const indexFillValue = require('./index-fill-value');
 const indexTradedTokens = require('./index-traded-tokens');
 
@@ -17,11 +16,10 @@ const consumers = [
   convertProtocolFee,
   convertRelayerFees,
   createToken,
-  fetchFillStatus,
   fetchTokenMetadata,
+  fetchTransaction,
   indexFill,
   indexFillProtocolFee,
-  indexFillStatus,
   indexFillValue,
   indexTradedTokens,
 ];

@@ -13,6 +13,11 @@ const configure = ({ endpoint }) => {
   wrapper = new Web3Wrapper(providerEngine);
 };
 
+/**
+ * Get a connected web3 wrapper instance.
+ *
+ * @returns {Web3Wrapper}
+ */
 const getWrapper = () => wrapper;
 
 module.exports = { configure, getWrapper };
