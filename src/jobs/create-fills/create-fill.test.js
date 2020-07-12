@@ -431,7 +431,7 @@ describe('createFill', () => {
   });
 
   it('should convert relayer fees of fill with fees after 30 seconds', async () => {
-    await createFill(V3_EVENT);
+    await createFill(V3_EVENT, simpleTransaction);
 
     expect(publishJob).toHaveBeenCalledWith(
       'fill-processing',
