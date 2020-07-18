@@ -39,18 +39,21 @@ const getPrice = async (symbol, date) => {
   const timestamp = moment(date).unix();
   const method = moment().diff(date, 'day') >= 7 ? 'histohour' : 'histominute';
   const url = `${API_ENDPOINT}/${method}?fsym=${symbol}&tsym=USD&limit=1&toTs=${timestamp}&tryConversion=false&api_key=${apiKey}`;
-  const result = await callApi(url);
-  const price = _.get(result, 'Data.[1]', null);
+  const responseData = await callApi(url);
+  const price = _.get(responseData, 'Data.[1].close', null);
 
   // The Cryptocompare API rate limits at 20 requests per second. We artificially
   // limit to 10 requests per second (one every one hundred milliseconds) to be safe.
   await bluebird.delay(100);
 
   if (price === null) {
+    logError(`Unable to get USD price of ${symbol} on ${date}`, {
+      responseData,
+    });
     return null;
   }
 
-  return { [symbol]: { USD: price.close } };
+  return { [symbol]: { USD: price } };
 };
 
 module.exports = {
