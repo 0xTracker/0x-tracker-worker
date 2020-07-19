@@ -2,11 +2,11 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const signale = require('signale');
 
-const { JOB, QUEUE } = require('../constants');
-const { getModel } = require('../model');
-const createDocument = require('../index/fills/create-document');
-const elasticsearch = require('../util/elasticsearch');
-const relayerRegistry = require('../relayers/relayer-registry');
+const { JOB, QUEUE } = require('../../constants');
+const { getModel } = require('../../model');
+const createDocument = require('../../index/fills/create-document');
+const elasticsearch = require('../../util/elasticsearch');
+const relayerRegistry = require('../../relayers/relayer-registry');
 
 const logger = signale.scope('index fill value');
 

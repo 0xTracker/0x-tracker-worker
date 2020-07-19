@@ -1,9 +1,9 @@
 const timekeeper = require('timekeeper');
 
-const { getModels } = require('../model');
-const { publishJob } = require('../queues');
-const consumer = require('./create-token');
-const testUtils = require('../test-utils');
+const { getModels } = require('../../model');
+const { publishJob } = require('../../queues');
+const consumer = require('./');
+const testUtils = require('../../test-utils');
 
 jest.mock('../queues');
 

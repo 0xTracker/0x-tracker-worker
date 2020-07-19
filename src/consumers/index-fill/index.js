@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const signale = require('signale');
 
-const { JOB, QUEUE } = require('../constants');
-const { getModel } = require('../model');
-const fillsIndex = require('../index/fills');
-const elasticsearch = require('../util/elasticsearch');
+const { JOB, QUEUE } = require('../../constants');
+const { getModel } = require('../../model');
+const fillsIndex = require('../../index/fills');
+const elasticsearch = require('../../util/elasticsearch');
 
 const logger = signale.scope('index fill');
 

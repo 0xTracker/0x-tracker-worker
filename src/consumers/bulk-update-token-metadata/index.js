@@ -1,9 +1,9 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
 
-const { JOB, QUEUE } = require('../constants');
-const fetchTokenMetadata = require('../tokens/fetch-token-metadata');
-const Token = require('../model/token');
+const { JOB, QUEUE } = require('../../constants');
+const fetchTokenMetadata = require('../../tokens/fetch-token-metadata');
+const Token = require('../../model/token');
 
 const logger = signale.scope('bulk update token metadata');
 

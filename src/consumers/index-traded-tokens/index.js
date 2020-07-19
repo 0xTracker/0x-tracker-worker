@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const signale = require('signale');
 
-const { JOB, QUEUE } = require('../constants');
-const elasticsearch = require('../util/elasticsearch');
+const { JOB, QUEUE } = require('../../constants');
+const elasticsearch = require('../../util/elasticsearch');
 
 const logger = signale.scope('index traded tokens');
 
