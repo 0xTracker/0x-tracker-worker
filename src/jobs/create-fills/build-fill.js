@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 const { FILL_STATUS } = require('../../constants');
-const getRelayerForFill = require('../../fills/get-relayer-for-fill');
+const resolveRelayer = require('../../relayers/resolve-relayer');
 
 const buildFill = ({ eventData, eventId, protocolVersion, transaction }) => {
   const {
@@ -16,7 +16,8 @@ const buildFill = ({ eventData, eventId, protocolVersion, transaction }) => {
     taker,
   } = eventData;
 
-  const relayer = getRelayerForFill({
+  const relayer = resolveRelayer({
+    affiliateAddress: transaction.affiliateAddress,
     feeRecipient,
     senderAddress,
     takerAddress: taker,
