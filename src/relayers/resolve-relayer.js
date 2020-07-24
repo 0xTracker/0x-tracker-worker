@@ -28,7 +28,7 @@ const resolveRelayer = metadata => {
   ) {
     return relayers.matcha;
   }
-  
+
   // TODO: Remove this temporary hack once apps feature is in place
   if (
     (affiliateAddress === '0xa258b39954cef5cb142fd567a46cddb31a670124' && // RADAR RELAY
