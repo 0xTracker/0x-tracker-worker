@@ -7,6 +7,7 @@ const V2_FILL = {
   hasValue: true,
   immeasurable: false,
   status: 1,
+  apps: [],
   assets: [
     {
       tokenResolved: true,

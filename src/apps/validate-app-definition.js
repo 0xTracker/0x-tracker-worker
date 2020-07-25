@@ -1,23 +1,4 @@
-const fs = require('fs');
 const Joi = require('@hapi/joi');
-const path = require('path');
-
-const files = fs.readdirSync(__dirname);
-const definitions = [];
-
-files.forEach(file => {
-  if (file.endsWith('.json')) {
-    const filePath = path.join(__dirname, file);
-    const contents = fs.readFileSync(filePath);
-    const asObject = JSON.parse(contents);
-
-    definitions.push(asObject);
-  }
-});
-
-const getAppDefinitions = () => {
-  return definitions;
-};
 
 const Ethereum = {
   address: () => Joi.string().regex(/^0x[a-f0-9]{40}$/),
@@ -61,4 +42,4 @@ const validateAppDefinition = appDefinition => {
   }
 };
 
-module.exports = { getAppDefinitions, validateAppDefinition };
+module.exports = validateAppDefinition;
