@@ -17,6 +17,10 @@ const indexTradedTokens = fill => {
     QUEUE.TRADED_TOKEN_INDEXING,
     JOB.INDEX_TRADED_TOKENS,
     {
+      apps: fill.apps.map(app => ({
+        id: app.id,
+        type: app.type,
+      })),
       date: fill.date,
       fillId: fill._id,
       relayerId: fill.relayerId,

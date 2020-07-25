@@ -7,7 +7,7 @@ const elasticsearch = require('../util/elasticsearch');
 const logger = signale.scope('index traded tokens');
 
 const consumer = async job => {
-  const { date, fillId, relayerId, tradedTokens } = job.data;
+  const { apps, date, fillId, relayerId, tradedTokens } = job.data;
 
   logger.info(`indexing traded tokens for fill: ${fillId}`);
 
@@ -21,6 +21,7 @@ const consumer = async job => {
         }),
         JSON.stringify({
           doc: {
+            apps,
             fillId,
             date,
             tokenAddress: tradedToken.address,

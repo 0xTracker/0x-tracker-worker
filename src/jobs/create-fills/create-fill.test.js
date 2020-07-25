@@ -287,6 +287,7 @@ describe('createFill', () => {
       'traded-token-indexing',
       'index-traded-tokens',
       {
+        apps: [],
         date: new Date('2019-10-26T16:32:03.000Z'),
         fillId: '5b602b3cfd9c10000491443c',
         relayerId: 7,
