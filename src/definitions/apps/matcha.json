@@ -1,0 +1,21 @@
+{
+  "id": "5067df8b-f9cd-4a34-aee1-38d607100145",
+  "name": "Matcha",
+  "logoUrl": "https://resources.0xtracker.com/logos/matcha.png",
+  "urlSlug": "matcha",
+  "websiteUrl": "https://matcha.xyz",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x86003b044f70dac0abc80ac8957305b6370893ed"
+    },
+    {
+      "type": "consumer",
+      "affiliateAddress": "0x86003b044f70dac0abc80ac8957305b6370893ed"
+    }
+  ],
+  "categories": [
+    "dex-aggregator",
+    "exchange"
+  ]
+}
