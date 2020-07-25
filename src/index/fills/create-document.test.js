@@ -43,7 +43,7 @@ it('assets should include bridgeAddress property when asset is bridged', () => {
   expect(doc.assets).toMatchSnapshot();
 });
 
-it('assets should include any apps associated with the fill', () => {
+it('should include any apps associated with the fill', () => {
   const fill = {
     ...V2_FILL,
     apps: [
