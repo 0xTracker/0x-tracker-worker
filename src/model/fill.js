@@ -8,6 +8,12 @@ const createModel = () => {
   const schema = Schema(
     {
       affiliateAddress: String,
+      apps: [
+        {
+          id: String,
+          type: Number,
+        },
+      ],
       assets: [
         {
           actor: Number,
