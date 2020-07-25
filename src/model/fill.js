@@ -11,7 +11,7 @@ const createModel = () => {
       apps: [
         {
           appId: String,
-          type: Number,
+          type: { type: Number },
         },
       ],
       assets: [
