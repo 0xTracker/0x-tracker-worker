@@ -48,11 +48,11 @@ it('should include any apps associated with the fill', () => {
     ...V2_FILL,
     apps: [
       {
-        id: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
+        appId: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
         type: 0,
       },
       {
-        id: '5067df8b-f9cd-4a34-aee1-38d607100145',
+        appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
         type: 1,
       },
     ],

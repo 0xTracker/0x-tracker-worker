@@ -10,7 +10,7 @@ const createModel = () => {
       affiliateAddress: String,
       apps: [
         {
-          id: String,
+          appId: String,
           type: Number,
         },
       ],

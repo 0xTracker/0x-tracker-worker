@@ -34,7 +34,7 @@ const buildFill = ({ eventData, eventId, protocolVersion, transaction }) => {
     feeRecipientAddress: feeRecipient,
     takerAddress: taker,
   }).map(app => ({
-    id: app.id,
+    appId: app.id,
     type: APP_TYPE_TO_NUMBER[app.type],
   }));
 

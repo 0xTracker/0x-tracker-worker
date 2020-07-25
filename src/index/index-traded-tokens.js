@@ -18,7 +18,7 @@ const indexTradedTokens = fill => {
     JOB.INDEX_TRADED_TOKENS,
     {
       apps: fill.apps.map(app => ({
-        id: app.id,
+        id: app.appId,
         type: app.type,
       })),
       date: fill.date,

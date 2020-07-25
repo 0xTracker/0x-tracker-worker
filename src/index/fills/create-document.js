@@ -32,7 +32,7 @@ const createDocument = fill => {
 
   return {
     apps: fill.apps.map(app => ({
-      id: app.id,
+      id: app.appId,
       type: app.type,
     })),
     assets: fill.assets.map(asset => ({
