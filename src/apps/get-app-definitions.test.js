@@ -1,7 +1,14 @@
 const _ = require('lodash');
-const { getAppDefinitions, validateAppDefinition } = require('.');
+const getAppDefinitions = require('./get-app-definitions');
+const validateAppDefinition = require('./validate-app-definition');
 
-describe('definitions/apps', () => {
+describe('apps/getAppDefinitions', () => {
+  it('should get all app definitions', () => {
+    const definitions = getAppDefinitions();
+
+    expect(definitions.length).not.toBe(0);
+  });
+
   it('should not contain definitions which violate the app definition schema', () => {
     const definitions = getAppDefinitions();
 
@@ -65,13 +72,5 @@ describe('definitions/apps', () => {
     ).length;
 
     expect(matchingDefinitions).toBe(definitions.length);
-  });
-
-  describe('getDefinitions', () => {
-    it('should get all app definitions', () => {
-      const definitions = getAppDefinitions();
-
-      expect(definitions.length).not.toBe(0);
-    });
   });
 });
