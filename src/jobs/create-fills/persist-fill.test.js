@@ -18,6 +18,12 @@ afterEach(async () => {
 
 const simpleFill = {
   _id: '5bb1f06b62f9ca0004c7cf20',
+  apps: [
+    {
+      appId: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
+      type: 0,
+    },
+  ],
   assets: [
     {
       actor: 0,

@@ -1,0 +1,73 @@
+{
+  "id": "8fc6beb5-3019-45f7-a55a-9a4c6b4b6513",
+  "name": "1inch Exchange",
+  "logoUrl": "https://resources.0xtracker.com/logos/1inch-exchange.png",
+  "urlSlug": "1inch-exchange",
+  "websiteUrl": "https://1inch.exchange",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x4d37f28d2db99e8d35a6c725a5f1749a085850a3"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x68a17b587caf4f9329f0e372e3a78d23a46de6b5"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x9b57672d596b513d284976d565f3acb326041db0"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x0000000053d411becdb4a82d8603edc6d8b8b3bc"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x111111254b08ceeee8ad6ca827de9952d2a46781"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x111112549cfedf7822eb11fbd8fd485d8a10f93f"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x5be5b30a720093c9d1b1e6cf8441280a48a495f8"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x979ff11dcbf3ac66a4d15a7b3a5b306ccbbef4e9"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x5c5b40855fc364b797c1f539f7eb39cdc94a8a91"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x11111254369792b2ca5d084ab5eea397ca8fa48b"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0xe4c577bdec9ce0f6c54f2f82aed5b1913b71ae2f"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x0000000f8ef4be2b7aed6724e893c1b674b9682d"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x0000000006adbd7c01bc0738cdbfc3932600ad63"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x54f424ef9c1583e89e87116d88918cd37c38c264"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x9328c82a7c96b171689972fd0292cf6ccca4c6bb"
+    }
+  ],
+  "categories": [
+    "dex-aggregator",
+    "exchange"
+  ]
+}

@@ -1,4 +1,5 @@
 const AddressMetric = require('./address-metric');
+const App = require('./app');
 const Article = require('./article');
 const createFillModel = require('./fill');
 const Event = require('./event');
@@ -40,6 +41,7 @@ const initModels = async () => {
 
   models = {
     AddressMetric,
+    App,
     Article,
     Event,
     Fill: createFillModel(),

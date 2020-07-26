@@ -1,0 +1,16 @@
+{
+  "id": "052b4862-2142-4532-bdc0-416814b0a5fe",
+  "name": "0x API",
+  "logoUrl": "https://resources.0xtracker.com/logos/0x.png",
+  "urlSlug": "0x-api",
+  "websiteUrl": "https://0x.org/api",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x1000000000000000000000000000000000000011"
+    }
+  ],
+  "categories": [
+    "api"
+  ]
+}

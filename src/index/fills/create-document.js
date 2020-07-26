@@ -31,6 +31,10 @@ const createDocument = fill => {
   const protocolFeeUSD = _.get(fill, 'conversions.USD.protocolFee');
 
   return {
+    apps: fill.apps.map(app => ({
+      id: app.appId,
+      type: app.type,
+    })),
     assets: fill.assets.map(asset => ({
       bridgeAddress: asset.bridgeAddress,
       tokenAddress: asset.tokenAddress,
