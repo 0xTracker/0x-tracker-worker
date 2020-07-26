@@ -6,7 +6,14 @@ const Ethereum = {
 
 const schema = Joi.object({
   categories: Joi.array()
-    .items(Joi.string().valid('dex-aggregator', 'exchange'))
+    .items(
+      Joi.string().valid(
+        'api',
+        'dex-aggregator',
+        'exchange',
+        'portfolio-manager',
+      ),
+    )
     .unique()
     .required(),
   id: Joi.string()

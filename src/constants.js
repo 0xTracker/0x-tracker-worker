@@ -1,4 +1,8 @@
 module.exports = {
+  APP_TYPE: {
+    RELAYER: 0,
+    CONSUMER: 1,
+  },
   // ordered by priority e.g. in ETH/DAI pair DAI is the base token
   BASE_TOKENS: {
     '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359': 'DAI', // DAI Stablecoin
