@@ -1,3 +1,4 @@
 const resolveApps = require('./resolve-apps');
+const syncAppDefinitions = require('./sync-app-definitions');
 
-module.exports = { resolveApps };
+module.exports = { resolveApps, syncAppDefinitions };

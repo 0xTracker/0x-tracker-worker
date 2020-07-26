@@ -1,0 +1,24 @@
+{
+  "id": "4c3854b7-95c3-4714-83ab-a8ed53d2967e",
+  "name": "Paraswap",
+  "logoUrl": "https://resources.0xtracker.com/logos/paraswap.png",
+  "urlSlug": "paraswap",
+  "websiteUrl": "https://paraswap.io",
+  "mappings": [
+    {
+      "type": "consumer",
+      "feeRecipientAddress": "0x72338b82800400f5488eca2b5a37270ba3b7a111"
+    },
+    {
+      "type": "consumer",
+      "feeRecipientAddress": "0xf92c1ad75005e6436b4ee84e88cb23ed8a290988"
+    },
+    {
+      "type": "consumer",
+      "feeRecipientAddress": "0xffef2d75b3d266f90108e82b3b476a7f08fe5385"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}
