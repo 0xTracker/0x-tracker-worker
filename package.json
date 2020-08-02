@@ -39,7 +39,7 @@
     "timekeeper": "2.2.0"
   },
   "dependencies": {
-    "@0x/order-utils": "10.0.1",
+    "@0x/order-utils": "10.3.0",
     "@0x/subproviders": "6.1.0",
     "@0x/utils": "4.3.3",
     "@0x/web3-wrapper": "6.0.7",
