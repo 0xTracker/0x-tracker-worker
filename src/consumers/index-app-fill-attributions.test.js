@@ -3,7 +3,7 @@ const Mock = require('@elastic/elasticsearch-mock');
 const timekeeper = require('timekeeper');
 
 const elasticsearch = require('../util/elasticsearch');
-const indexAppFillAttributions = require('./index-app-fill-attributions');
+const consumer = require('./index-app-fill-attributions');
 
 jest.mock('../util/elasticsearch');
 
@@ -22,6 +22,14 @@ afterEach(() => {
 });
 
 describe('consumers/index-app-fill-attributions', () => {
+  it('should consume indexing queue', () => {
+    expect(consumer.queueName).toBe('indexing');
+  });
+
+  it('should consume index-app-fill-attributions jobs', () => {
+    expect(consumer.jobName).toBe('index-app-fill-attributions');
+  });
+
   it('should update documents for specified attributions', async () => {
     timekeeper.freeze('2020-08-02T08:42:24.934Z');
     mock.add(
@@ -74,7 +82,7 @@ describe('consumers/index-app-fill-attributions', () => {
       },
     );
 
-    await indexAppFillAttributions.fn({
+    await consumer.fn({
       data: {
         date: new Date('2020-08-02T07:47:28Z'),
         fillId: '5f267c7b545e125452c56e14',
@@ -146,7 +154,7 @@ describe('consumers/index-app-fill-attributions', () => {
       },
     );
 
-    await indexAppFillAttributions.fn({
+    await consumer.fn({
       data: {
         date: new Date('2020-08-02T07:47:28Z'),
         fillId: '5f267c7b545e125452c56e14',
