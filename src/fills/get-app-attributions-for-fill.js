@@ -43,7 +43,7 @@ const getAppAttributionsForFill = fill => {
 
   if (consumedByRelayer) {
     const relayer = fill.apps.find(app => app.type === 0);
-    return createAttribution(fill, relayer);
+    return [createAttribution(fill, relayer)];
   }
 
   return fill.apps.map(app => createAttribution(fill, app));

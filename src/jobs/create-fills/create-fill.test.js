@@ -519,4 +519,39 @@ describe('createFill', () => {
       },
     );
   });
+
+  it('should index app attributions when fill is consumed by relayed', async () => {
+    await createFill(
+      {
+        ...V3_EVENT,
+        data: {
+          ...V3_EVENT.data,
+          args: {
+            ...V3_EVENT.data.args,
+            feeRecipientAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
+          },
+        },
+      },
+      {
+        ...simpleTransaction,
+        affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
+      },
+    );
+
+    expect(publishJob).toHaveBeenCalledWith(
+      'indexing',
+      'index-app-fill-attributions',
+      {
+        attributions: [
+          {
+            appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+            relayedTrades: 1,
+            totalTrades: 1,
+          },
+        ],
+        date: new Date('2019-10-26T16:32:03.000Z'),
+        fillId: '5bb1f06b62f9ca0004c7cf20',
+      },
+    );
+  });
 });
