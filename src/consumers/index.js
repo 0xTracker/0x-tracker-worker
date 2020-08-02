@@ -6,6 +6,7 @@ const convertRelayerFees = require('./convert-relayer-fees');
 const createToken = require('./create-token');
 const fetchTokenMetadata = require('./fetch-token-metadata');
 const fetchTransaction = require('./fetch-transaction');
+const indexAppFillAttributions = require('./index-app-fill-attributions');
 const indexFill = require('./index-fill');
 const indexFillProtocolFee = require('./index-fill-protocol-fee');
 const indexFillValue = require('./index-fill-value');
@@ -18,6 +19,7 @@ const consumers = [
   createToken,
   fetchTokenMetadata,
   fetchTransaction,
+  indexAppFillAttributions,
   indexFill,
   indexFillProtocolFee,
   indexFillValue,
