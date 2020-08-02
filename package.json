@@ -42,7 +42,7 @@
     "@0x/order-utils": "10.0.1",
     "@0x/subproviders": "6.1.0",
     "@0x/utils": "4.3.3",
-    "@0x/web3-wrapper": "6.0.7",
+    "@0x/web3-wrapper": "6.0.13",
     "@bugsnag/js": "6.4.2",
     "@elastic/elasticsearch": "7.5.0",
     "@hapi/joi": "17.1.1",
