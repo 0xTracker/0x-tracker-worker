@@ -44,7 +44,7 @@
     "@0x/utils": "4.3.3",
     "@0x/web3-wrapper": "6.0.7",
     "@bugsnag/js": "6.4.2",
-    "@elastic/elasticsearch": "7.5.0",
+    "@elastic/elasticsearch": "7.8.0",
     "@hapi/joi": "17.1.1",
     "aws-elasticsearch-connector": "8.2.0",
     "aws-sdk": "2.585.0",
