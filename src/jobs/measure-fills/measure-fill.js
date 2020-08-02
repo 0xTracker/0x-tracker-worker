@@ -1,7 +1,14 @@
 const bluebird = require('bluebird');
 
-const { BASE_TOKENS, BASE_TOKEN_DECIMALS } = require('../../constants');
+const { publishJob } = require('../../queues');
+const {
+  BASE_TOKENS,
+  BASE_TOKEN_DECIMALS,
+  QUEUE,
+  JOB,
+} = require('../../constants');
 const formatTokenAmount = require('../../tokens/format-token-amount');
+const getAppAttributionsForFill = require('../../fills/get-app-attributions-for-fill');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getMeasurableActor = require('./get-measurable-actor');
 const indexFillValue = require('../../index/index-fill-value');
@@ -78,6 +85,14 @@ const measureFill = async fill => {
     await fill.save({ session });
     await indexFillValue(fill, totalValue);
     await indexTradedTokens(fill);
+
+    if (fill.apps.length > 0) {
+      await publishJob(QUEUE.INDEXING, JOB.INDEX_APP_FILL_ATTRIBUTONS, {
+        attributions: getAppAttributionsForFill(fill),
+        date: fill.date,
+        fillId: fill._id,
+      });
+    }
   });
 };
 
