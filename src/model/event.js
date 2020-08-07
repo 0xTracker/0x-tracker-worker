@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const schema = Schema({
   blockNumber: { required: true, type: Number },
   data: { required: true, type: Schema.Types.Mixed },
-  fillCreated: { type: Boolean, default: false },
+  fillCreated: { type: Boolean },
   logIndex: { required: true, type: Number },
   protocolVersion: { required: true, type: Number },
   scheduler: {

@@ -164,7 +164,6 @@ describe('consumers/fetch-transaction', () => {
 
     expect(events).toEqual([
       expect.objectContaining({
-        fillCreated: false,
         blockNumber: 10141741,
         data: {
           from: '0x36691C4F426Eb8F42f150ebdE43069A31cB080AD',
