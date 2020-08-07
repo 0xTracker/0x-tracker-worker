@@ -5,7 +5,7 @@ const getUnprocessedEvents = async batchSize => {
   const events = await Event.find({
     fillCreated: { $in: [false, null] },
     protocolVersion: { $in: SUPPORTED_VERSIONS },
-    type: 'Fill',
+    type: { $in: ['Fill', 'LogFill'] },
   }).limit(batchSize);
 
   return events;
