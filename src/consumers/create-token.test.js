@@ -11,7 +11,7 @@ const createToken = consumer.fn;
 
 beforeAll(async () => {
   await testUtils.setupDb();
-});
+}, 30000);
 
 afterEach(async () => {
   jest.resetAllMocks();
