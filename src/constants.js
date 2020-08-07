@@ -59,6 +59,7 @@ module.exports = {
     CREATE_TOKEN: 'create-token',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
+    INDEX_APP_FILL_ATTRIBUTONS: 'index-app-fill-attributions',
     INDEX_FILL: 'index-fill',
     INDEX_FILL_PROTOCOL_FEE: 'index-fill-protocol-fee',
     INDEX_FILL_VALUE: 'index-fill-value',
@@ -67,6 +68,7 @@ module.exports = {
   QUEUE: {
     FILL_INDEXING: 'fill-indexing',
     FILL_PROCESSING: 'fill-processing',
+    INDEXING: 'indexing',
     TOKEN_PROCESSING: 'token-processing',
     TRANSACTION_PROCESSING: 'transaction-processing',
     TRADED_TOKEN_INDEXING: 'traded-token-indexing',
