@@ -4,8 +4,8 @@ const signale = require('signale');
 const { UnsupportedAssetError } = require('../../errors');
 const createFill = require('./create-fill');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
-const getUnprocessedEvents = require('../../events/get-unprocessed-events');
-const markEventProcessed = require('../../events/mark-event-processed');
+const getUnprocessedEvents = require('./get-unprocessed-events');
+const markEventProcessed = require('./mark-event-processed');
 
 const logger = signale.scope('create fills');
 

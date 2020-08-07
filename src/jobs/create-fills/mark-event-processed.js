@@ -1,4 +1,4 @@
-const { getModel } = require('../model');
+const { getModel } = require('../../model');
 
 const markEventProcessed = async eventId => {
   const Event = getModel('Event');
