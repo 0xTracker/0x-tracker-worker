@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const schema = Schema({
-  blockNumber: Number,
-  data: Schema.Types.Mixed,
+  blockNumber: { required: true, type: Number },
+  data: { required: true, type: Schema.Types.Mixed },
   fillCreated: { type: Boolean, default: false },
-  logIndex: Number,
-  protocolVersion: Number,
+  logIndex: { required: true, type: Number },
+  protocolVersion: { required: true, type: Number },
   scheduler: {
     transactionFetchScheduled: Boolean,
   },
-  transactionHash: String,
-  type: String,
+  transactionHash: { required: true, type: String },
+  type: { required: true, type: String },
 });
 
 schema.index({ fillCreated: 1 });
