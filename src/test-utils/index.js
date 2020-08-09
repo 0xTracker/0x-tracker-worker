@@ -35,9 +35,9 @@ const setupDb = async () => {
 /**
  * Tear down the in-memory test database.
  */
-const tearDownDb = () => {
-  db.disconnect();
-  replSet.stop();
+const tearDownDb = async () => {
+  await db.disconnect();
+  await replSet.stop();
 };
 
 module.exports = { resetDb, setupDb, tearDownDb };

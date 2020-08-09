@@ -6,15 +6,15 @@ const testUtils = require('../../test-utils');
 
 beforeAll(async () => {
   await testUtils.setupDb();
-});
-
-afterAll(() => {
-  testUtils.tearDownDb();
-});
+}, 30000);
 
 afterEach(async () => {
   await testUtils.resetDb();
-});
+}, 30000);
+
+afterAll(async () => {
+  await testUtils.tearDownDb();
+}, 30000);
 
 const simpleFill = {
   _id: '5bb1f06b62f9ca0004c7cf20',

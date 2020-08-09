@@ -7,16 +7,16 @@ jest.mock('./get-app-definitions');
 
 beforeAll(async () => {
   await testUtils.setupDb();
-});
+}, 30000);
 
 afterEach(async () => {
   await testUtils.resetDb();
   jest.resetAllMocks();
-});
+}, 30000);
 
-afterAll(() => {
-  testUtils.tearDownDb();
-});
+afterAll(async () => {
+  await testUtils.tearDownDb();
+}, 30000);
 
 describe('apps/syncAppDefinitions', () => {
   it('should create all app documents when none exist', async () => {

@@ -16,11 +16,11 @@ beforeAll(async () => {
 afterEach(async () => {
   jest.resetAllMocks();
   await testUtils.resetDb();
-});
+}, 30000);
 
-afterAll(() => {
-  testUtils.tearDownDb();
-});
+afterAll(async () => {
+  await testUtils.tearDownDb();
+}, 30000);
 
 describe('consumers.createToken', () => {
   it('should subscribe to token-processing queue and consume create-token jobs', () => {
