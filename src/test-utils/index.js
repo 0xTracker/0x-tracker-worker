@@ -15,8 +15,7 @@ const resetDb = async () => {
 
   await Promise.all(
     Object.values(models).map(async model => {
-      await model.collection.drop();
-      await model.createCollection();
+      await model.deleteMany({});
     }),
   );
 };
