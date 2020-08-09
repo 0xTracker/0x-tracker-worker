@@ -16,7 +16,7 @@ afterEach(async () => {
 
 afterAll(async () => {
   await testUtils.tearDownDb();
-}, 3000);
+}, 30000);
 
 describe('apps/syncAppDefinitions', () => {
   it('should create all app documents when none exist', async () => {
