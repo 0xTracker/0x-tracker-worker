@@ -39,6 +39,9 @@ module.exports = {
     batchScheduleTransactionFetch: {
       batchSize: 100,
     },
+    batchScheduleTransformedERC20FillCreation: {
+      batchSize: 100,
+    },
     createFills: {
       batchSize: 500,
     },

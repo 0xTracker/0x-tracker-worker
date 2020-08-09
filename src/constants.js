@@ -57,6 +57,8 @@ module.exports = {
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
     CONVERT_RELAYER_FEES: 'convert-relayer-fees',
     CREATE_TOKEN: 'create-token',
+    CREATE_TRANSFORMED_ERC20_EVENT_FILLS:
+      'create-transformed-erc20-event-fills',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
     INDEX_APP_FILL_ATTRIBUTONS: 'index-app-fill-attributions',

@@ -63,7 +63,7 @@ const fetchTransaction = async job => {
     await persistTransaction(transaction, { session });
   });
 
-  logger.success(`fetched transaction: ${transactionHash}`);
+  logger.info(`fetched transaction: ${transactionHash}`);
 };
 
 module.exports = {

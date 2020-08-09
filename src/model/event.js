@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const schema = Schema({
   blockNumber: { required: true, type: Number },
+  dateIngested: { required: true, type: Date },
   data: { required: true, type: Schema.Types.Mixed },
   fillCreated: { type: Boolean },
   logIndex: { required: true, type: Number },
