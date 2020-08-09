@@ -5,8 +5,6 @@ const { logError } = require('./error-logger');
 
 const logger = signale.scope('mongodb');
 
-mongoose.Promise = global.Promise;
-
 module.exports = {
   connect: async (connectionString, options = {}) => {
     mongoose.connection.on('connecting', () => {
@@ -40,6 +38,7 @@ module.exports = {
     await mongoose.connect(connectionString, {
       autoIndex: false,
       poolSize: options.poolSize,
+      promiseLibrary: global.Promise,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
