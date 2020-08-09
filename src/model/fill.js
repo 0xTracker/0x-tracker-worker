@@ -4,127 +4,126 @@ const { FILL_STATUS } = require('../constants');
 
 const { Schema } = mongoose;
 
-const createModel = () => {
-  const schema = Schema(
-    {
-      affiliateAddress: String,
-      apps: [
-        {
-          appId: String,
-          type: { type: Number },
+const schema = Schema(
+  {
+    affiliateAddress: String,
+    apps: [
+      {
+        appId: String,
+        type: { type: Number },
+      },
+    ],
+    assets: [
+      {
+        actor: Number,
+        amount: Number,
+        bridgeAddress: String,
+        bridgeData: String,
+        price: {
+          USD: Number,
         },
-      ],
-      assets: [
-        {
-          actor: Number,
-          amount: Number,
-          bridgeAddress: String,
-          bridgeData: String,
-          price: {
-            USD: Number,
-          },
-          tokenAddress: String,
-          tokenId: Number,
-          tokenResolved: { default: false, type: Boolean },
-          value: {
-            USD: Number,
-          },
-        },
-      ],
-      blockHash: String,
-      blockNumber: Number,
-      conversions: {
-        USD: {
-          amount: Number,
-          protocolFee: Number,
+        tokenAddress: String,
+        tokenId: Number,
+        tokenResolved: { default: false, type: Boolean },
+        value: {
+          USD: Number,
         },
       },
-      date: Date,
-      eventId: Schema.Types.ObjectId,
-      fees: [
-        {
-          amount: { token: Number, USD: Number },
-          bridgeAddress: String,
-          bridgeData: String,
-          tokenAddress: String,
-          tokenId: Number,
-          traderType: Number,
-        },
-      ],
-      feeRecipient: String,
-      hasValue: { default: false, type: Boolean },
-      immeasurable: { default: false, type: Boolean },
-      logIndex: Number,
-      maker: String,
-      orderHash: String,
-      pricingStatus: Number,
-      protocolFee: Number,
-      protocolVersion: Number,
-      quoteDate: Date,
-      rates: {
-        data: Schema.Types.Mixed,
+    ],
+    blockHash: String,
+    blockNumber: Number,
+    conversions: {
+      USD: {
+        amount: Number,
+        protocolFee: Number,
       },
-      relayerId: Number,
-      senderAddress: String,
-      status: {
-        default: FILL_STATUS.PENDING,
-        type: Number,
-      },
-      taker: String,
-      transactionHash: String,
     },
-    { toJSON: { virtuals: true } },
-  );
+    date: Date,
+    eventId: Schema.Types.ObjectId,
+    fees: [
+      {
+        amount: { token: Number, USD: Number },
+        bridgeAddress: String,
+        bridgeData: String,
+        tokenAddress: String,
+        tokenId: Number,
+        traderType: Number,
+      },
+    ],
+    feeRecipient: String,
+    hasValue: { default: false, type: Boolean },
+    immeasurable: { default: false, type: Boolean },
+    logIndex: Number,
+    maker: String,
+    orderHash: String,
+    pricingStatus: Number,
+    protocolFee: Number,
+    protocolVersion: Number,
+    quoteDate: Date,
+    rates: {
+      data: Schema.Types.Mixed,
+    },
+    relayerId: Number,
+    senderAddress: String,
 
-  // TODO: Work out what this index was for. Sorting?
-  schema.index({ date: -1 });
+    // TODO: Remove this field from everywhere in app, it's redundant now
+    status: {
+      default: FILL_STATUS.SUCCESSFUL,
+      type: Number,
+    },
 
-  // Used for fetching fills related to a particular token
-  schema.index({ 'assets.tokenAddress': 1, date: -1 });
+    taker: String,
+    transactionHash: String,
+  },
+  { toJSON: { virtuals: true } },
+);
 
-  // Used to enforce data integrity
-  schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
+// TODO: Work out what this index was for. Sorting?
+schema.index({ date: -1 });
 
-  // Used for fetching fills associated with a particular relayer
-  schema.index({ relayerId: 1, date: -1 });
+// Used for fetching fills related to a particular token
+schema.index({ 'assets.tokenAddress': 1, date: -1 });
 
-  // Used for fetching fills associated with a particular token
-  schema.index({ 'assets.tokenAddress': 1, date: -1 });
+// Used to enforce data integrity
+schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
 
-  // Used by determine-fill-values job
-  schema.index({ hasValue: 1, 'assets.tokenAddress': 1, immeasurable: -1 });
+// Used for fetching fills associated with a particular relayer
+schema.index({ relayerId: 1, date: -1 });
 
-  // Used by derive-fill-prices job
-  schema.index({
-    hasValue: -1,
-    pricingStatus: 1,
-    'assets.tokenResolved': -1,
-  });
+// Used for fetching fills associated with a particular token
+schema.index({ 'assets.tokenAddress': 1, date: -1 });
 
-  schema.virtual('assets.token', {
-    ref: 'Token',
-    localField: 'assets.tokenAddress',
-    foreignField: 'address',
-    justOne: true,
-  });
+// Used by determine-fill-values job
+schema.index({ hasValue: 1, 'assets.tokenAddress': 1, immeasurable: -1 });
 
-  schema.virtual('fees.token', {
-    ref: 'Token',
-    localField: 'fees.tokenAddress',
-    foreignField: 'address',
-    justOne: true,
-  });
+// Used by derive-fill-prices job
+schema.index({
+  hasValue: -1,
+  pricingStatus: 1,
+  'assets.tokenResolved': -1,
+});
 
-  schema.virtual('relayer', {
-    ref: 'Relayer',
-    localField: 'relayerId',
-    foreignField: 'lookupId',
-    justOne: true,
-  });
+schema.virtual('assets.token', {
+  ref: 'Token',
+  localField: 'assets.tokenAddress',
+  foreignField: 'address',
+  justOne: true,
+});
 
-  const Model = mongoose.model('Fill', schema);
+schema.virtual('fees.token', {
+  ref: 'Token',
+  localField: 'fees.tokenAddress',
+  foreignField: 'address',
+  justOne: true,
+});
 
-  return Model;
-};
+schema.virtual('relayer', {
+  ref: 'Relayer',
+  localField: 'relayerId',
+  foreignField: 'lookupId',
+  justOne: true,
+});
 
-module.exports = createModel;
+const Model = mongoose.model('Fill', schema);
+
+module.exports = Model;

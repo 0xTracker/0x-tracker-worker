@@ -38,10 +38,10 @@ beforeEach(() => {
 afterEach(async () => {
   jest.clearAllMocks();
   await resetDb();
-});
+}, 30000);
 
 afterAll(async () => {
-  tearDownDb();
+  await tearDownDb();
 }, 30000);
 
 const simpleJob = {

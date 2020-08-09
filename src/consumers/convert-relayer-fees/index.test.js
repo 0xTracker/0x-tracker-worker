@@ -10,15 +10,15 @@ jest.mock('../../rates/get-conversion-rate');
 
 beforeAll(async () => {
   await testUtils.setupDb();
-});
+}, 30000);
 
 afterEach(async () => {
   await testUtils.resetDb();
-});
+}, 30000);
 
-afterAll(() => {
-  testUtils.tearDownDb();
-});
+afterAll(async () => {
+  await testUtils.tearDownDb();
+}, 30000);
 
 describe('consumers/convert-relayer-fees', () => {
   it('should throw an error when fillId format is invalid', async () => {
