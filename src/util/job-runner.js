@@ -15,7 +15,6 @@ const runJob = async ({ fn, maxInterval, minInterval }, options) => {
 
   try {
     await withRetry({
-      interval: minInterval,
       max: maxInterval,
       min: minInterval,
       progressCallback: options.onError,
