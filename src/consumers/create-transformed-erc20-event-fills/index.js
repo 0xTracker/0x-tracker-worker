@@ -3,41 +3,43 @@ const moment = require('moment');
 const mongoose = require('mongoose');
 const signale = require('signale');
 
-const { JOB, QUEUE } = require('../../constants');
+const { JOB, QUEUE, FILL_ACTOR } = require('../../constants');
 const { publishJob } = require('../../queues');
+const createFills = require('../../fills/create-fills');
 const Event = require('../../model/event');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
+const withTransaction = require('../../util/with-transaction');
 
 const logger = signale.scope('create fills for transformed erc-20 event');
 
 const createTransformedERC20EventFills = async job => {
   const { eventId } = job.data;
 
-  /**
+  /*
    * Ensure the specified eventId is valid and that the associated event exists.
    */
   if (!mongoose.Types.ObjectId.isValid(eventId)) {
     throw new Error(`Invalid eventId: ${eventId}`);
   }
 
-  const event = await Event.findById(eventId);
+  const transformedERC20Event = await Event.findById(eventId);
 
-  if (event === null) {
+  if (transformedERC20Event === null) {
     throw new Error(`Cannot find event: ${eventId}`);
   }
 
-  /**
+  /*
    * If the transaction contains multiple TransformedERC20 events then we can't process
    * it at the moment. Throw an error to keep the job in the queue for later processing.
    */
-  const transformedERC20EventsInTransaction = await Event.count({
-    transactionHash: event.transactionHash,
-    type: event.type,
+  const transformedERC20EventsInTransaction = await Event.countDocuments({
+    transactionHash: transformedERC20Event.transactionHash,
+    type: transformedERC20Event.type,
   });
 
   if (transformedERC20EventsInTransaction > 1) {
     throw new Error(
-      `Transaction contains multiple TransformedERC20 events: ${event.transactionHash}`,
+      `Transaction contains multiple TransformedERC20 events: ${transformedERC20Event.transactionHash}`,
     );
   }
 
@@ -45,11 +47,19 @@ const createTransformedERC20EventFills = async job => {
    * Verify that the associated transaction has been fetched. This will indicate whether
    * we also have the associated ERC20BridgeTransfer events captured as well.
    */
-  const transaction = await getTransactionByHash(event.transactionHash);
+  const transaction = await getTransactionByHash(
+    transformedERC20Event.transactionHash,
+  );
 
   if (transaction === null) {
-    if (moment().diff(event.dateIngested, 'minutes') > 5) {
-      logger.warn(`transaction not found for event: ${event._id}`);
+    /*
+     * If more than 5 minutes have passed since the TransformedERC20 event was fetched then
+     * this might indicate a bottleneck or failure in the transaction fetching job.
+     */
+    if (moment().diff(transformedERC20Event.dateIngested, 'minutes') > 5) {
+      logger.warn(
+        `transaction not found for event: ${transformedERC20Event._id}`,
+      );
     }
 
     await publishJob(
@@ -62,41 +72,57 @@ const createTransformedERC20EventFills = async job => {
     return;
   }
 
-  /**
+  /*
    * Find all of the associated ERC20BridgeTransfer events and total up their
    * maker and taker amounts. Ensure that the total of ERC20BridgeTransfer amounts
    * does not exceed that of the TransformedERC20 event. This is an unexpected
    * scenario so an error will be thrown to ensure the transaction is investigated.
    */
   const bridgeEvents = await Event.find({
-    transactionHash: event.transactionHash,
+    transactionHash: transformedERC20Event.transactionHash,
     type: 'ERC20BridgeTransfer',
   }).lean();
 
-  const transformMakerAmount = new BigNumber(event.data.inputTokenAmount);
-  const transformTakerAmount = new BigNumber(event.data.outputTokenAmount);
-
-  const { bridgeMakerAmount, bridgeTakerAmount } = bridgeEvents.reduce(
-    (acc, current) => ({
-      bridgeMakerAmount: acc.bridgeMakerAmount.plus(
-        current.data.fromTokenAmount,
-      ),
-      bridgeTakerAmount: acc.bridgeTakerAmount.plus(current.data.toTokenAmount),
-    }),
-    {
-      bridgeMakerAmount: new BigNumber(0),
-      bridgeTakerAmount: new BigNumber(0),
-    },
-  );
-
-  if (
-    bridgeMakerAmount.gt(transformMakerAmount) ||
-    bridgeTakerAmount.gt(transformTakerAmount)
-  ) {
-    throw new Error(
-      `Transaction has TransformedERC20/ERC20BridgeTransfer mismatch: ${event.transactionHash}`,
+  /*
+   * If there are no ERC20BridgeTransfer then the transform would have occurred
+   * using traditional fills which will be handled through the standard workflow
+   */
+  if (bridgeEvents.length === 0) {
+    logger.info(
+      `TransformedERC20 event has no associated ERC20BridgeTransfer events: ${eventId}`,
     );
+    return;
   }
+
+  // const transformMakerAmount = new BigNumber(
+  //   transformedERC20Event.data.inputTokenAmount,
+  // );
+  // const transformTakerAmount = new BigNumber(
+  //   transformedERC20Event.data.outputTokenAmount,
+  // );
+
+  // const { bridgeMakerAmount, bridgeTakerAmount } = bridgeEvents.reduce(
+  //   (acc, current) => ({
+  //     bridgeMakerAmount: acc.bridgeMakerAmount.plus(
+  //       current.data.fromTokenAmount,
+  //     ),
+  //     bridgeTakerAmount: acc.bridgeTakerAmount.plus(current.data.toTokenAmount),
+  //   }),
+  //   {
+  //     bridgeMakerAmount: new BigNumber(0),
+  //     bridgeTakerAmount: new BigNumber(0),
+  //   },
+  // );
+
+  // TODO: Potentially this guard needs to be removed
+  // if (
+  //   bridgeMakerAmount.gt(transformMakerAmount) ||
+  //   bridgeTakerAmount.gt(transformTakerAmount)
+  // ) {
+  //   throw new Error(
+  //     `Transaction has TransformedERC20/ERC20BridgeTransfer mismatch: ${event.transactionHash}`,
+  //   );
+  // }
 
   // TODO: Should we consider an additional guard which verifies TransformedERC20 tokens match
   // the ERC20BridgeTransfer tokens? Will need special case for ETH.
@@ -107,9 +133,40 @@ const createTransformedERC20EventFills = async job => {
    * event is related to the TransformedERC20 event being processed and will use the TransformedERC20
    * event to dictate the token and taker addresses.
    */
-  logger.info(`saul good man: ${event._id}`);
-  // Create a fill document
-  // Schedule post-creation jobs
+
+  const fills = bridgeEvents.map(bridgeEvent => ({
+    affiliateAddress: transaction.affiliateAddress,
+    assets: [
+      {
+        actor: FILL_ACTOR.MAKER,
+        amount: new BigNumber(bridgeEvent.data.fromTokenAmount).toNumber(),
+        bridgeAddress: bridgeEvent.data.from,
+        tokenAddress: bridgeEvent.data.fromToken,
+      },
+      {
+        actor: FILL_ACTOR.TAKER,
+        amount: new BigNumber(bridgeEvent.data.toTokenAmount).toNumber(),
+        tokenAddress: bridgeEvent.data.toToken,
+      },
+    ],
+    blockHash: transaction.blockHash,
+    blockNumber: transaction.blockNumber,
+    date: transaction.date,
+    eventId: bridgeEvent._id,
+    logIndex: bridgeEvent.logIndex,
+    maker: bridgeEvent.data.from,
+    protocolVersion: bridgeEvent.protocolVersion,
+    quoteDate: transaction.quoteDate,
+    taker: transformedERC20Event.data.taker,
+    transactionHash: transaction.hash,
+  }));
+
+  // TODO: Check if fills already exist and skip if so
+  // TODO: Create any tokens which don't yet exist
+
+  await withTransaction(async session => {
+    await createFills(fills, { session });
+  });
 
   logger.info(`created fills for TransformedERC20 event: ${eventId}`);
 };
