@@ -127,7 +127,7 @@ it('should persist fill', async () => {
     protocolVersion: 3,
     relayerId: 15,
     senderAddress: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
-    status: 0,
+    status: 1,
     taker: '0x7447dab10325f902725191a34eb8288abe02c7f4',
     transactionHash:
       '0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc',
