@@ -1,12 +1,8 @@
-const signale = require('signale');
-
 const { JOB, QUEUE } = require('../constants');
 const { publishJob } = require('../queues');
 const Event = require('../model/event');
 
-const logger = signale.scope('batch schedule transaction fetch');
-
-const batchScheduleTransactionFetch = async ({ batchSize }) => {
+const batchScheduleTransactionFetch = async ({ batchSize }, { logger }) => {
   logger.info(`scheduling transaction fetch for batch of fills: ${batchSize}`);
 
   // Fetch a batch of unprocessed events
