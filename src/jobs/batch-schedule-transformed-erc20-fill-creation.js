@@ -1,10 +1,6 @@
-const signale = require('signale');
-
 const { JOB, QUEUE } = require('../constants');
 const { publishJob } = require('../queues');
 const Event = require('../model/event');
-
-const logger = signale.scope('batch schedule transaction fetch');
 
 /**
  * Scheduler which finds unprocessed TransformedERC20 events and publishes
@@ -17,7 +13,10 @@ const logger = signale.scope('batch schedule transaction fetch');
  *
  * @param {Object} config
  */
-const batchScheduleTransformedERC20FillCreation = async ({ batchSize }) => {
+const batchScheduleTransformedERC20FillCreation = async (
+  { batchSize },
+  { logger },
+) => {
   logger.info(
     `scheduling creation of fills for next ${batchSize} transformed erc-20 events`,
   );
