@@ -4,13 +4,14 @@ const config = require('config');
 const signale = require('signale');
 const withRetry = require('promise-poller').default;
 
-const logger = signale.scope('job runner');
-
 const runJob = async ({ fn, maxInterval, minInterval }, options) => {
-  const configKey = `jobs.${fn.name}`;
+  const jobName = fn.name;
+  const configKey = `jobs.${jobName}`;
   const jobConfig = config.has(configKey)
     ? config.util.toObject(config.get(configKey))
     : {};
+
+  const jobLogger = signale.scope(`job-runner/${_.kebabCase(jobName)}`);
 
   try {
     await withRetry({
@@ -21,9 +22,12 @@ const runJob = async ({ fn, maxInterval, minInterval }, options) => {
       shouldContinue: () => true,
       strategy: 'exponential-backoff',
       taskFn: async () => {
-        logger.time(`run ${fn.name} job`);
-        await fn(jobConfig);
-        logger.timeEnd(`run ${fn.name} job`);
+        const start = new Date();
+        jobLogger.info(`starting ${jobName} job run`);
+        await fn(jobConfig, { logger: jobLogger });
+        jobLogger.info(
+          `finished ${jobName} job run after ${new Date() - start}ms`,
+        );
       },
     });
   } catch (error) {
