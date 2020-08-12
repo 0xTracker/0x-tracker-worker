@@ -1,4 +1,5 @@
 const { BigNumber } = require('@0x/utils');
+const Bluebird = require('bluebird');
 const moment = require('moment');
 const mongoose = require('mongoose');
 const signale = require('signale');
@@ -7,6 +8,7 @@ const { JOB, QUEUE, FILL_ACTOR } = require('../../constants');
 const { publishJob } = require('../../queues');
 const createFills = require('../../fills/create-fills');
 const Event = require('../../model/event');
+const Fill = require('../../model/fill');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 const withTransaction = require('../../util/with-transaction');
 
@@ -127,13 +129,12 @@ const createTransformedERC20EventFills = async job => {
   // TODO: Should we consider an additional guard which verifies TransformedERC20 tokens match
   // the ERC20BridgeTransfer tokens? Will need special case for ETH.
 
-  /**
+  /*
    * If the job has made it this far then we're comfortable enough that fill documents can
    * be created for the associated ERC20BridgeTransfer events. We assume that each ERC20BridgeTransfer
    * event is related to the TransformedERC20 event being processed and will use the TransformedERC20
    * event to dictate the token and taker addresses.
    */
-
   const fills = bridgeEvents.map(bridgeEvent => ({
     affiliateAddress: transaction.affiliateAddress,
     assets: [
@@ -161,7 +162,23 @@ const createTransformedERC20EventFills = async job => {
     transactionHash: transaction.hash,
   }));
 
-  // TODO: Check if fills already exist and skip if so
+  /*
+   * Filter out any fills which have already been created since we need to assume
+   * that the job can get run multiple times.
+   *
+   * https://github.com/OptimalBits/bull#important-notes
+   */
+  const nonExistantFills = await Bluebird.filter(fills, async fill => {
+    const existingFill = await Fill.findOne({ eventId: fill.eventId });
+
+    return existingFill === null;
+  });
+
+  if (nonExistantFills.length === 0) {
+    logger.warn(`fills for TransformedERC20 event already exist: ${eventId}`);
+    return;
+  }
+
   // TODO: Create any tokens which don't yet exist
 
   await withTransaction(async session => {
