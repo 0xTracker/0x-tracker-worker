@@ -18,6 +18,7 @@ const createNewTokens = async tokens => {
     return !existingTokens.some(et => et === token.address);
   });
 
+  // TODO: Simply create tokens inline and schedule fetching of their metadata
   await Promise.all(
     newTokens.map(async token => {
       await publishJob(
