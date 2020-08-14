@@ -57,7 +57,7 @@
     "dotenv-safe": "6.1.0",
     "ethereum-token-utils": "git+https://github.com/0xTracker/ethereum-token-utils.git",
     "ethers": "5.0.8",
-    "flat": "4.1.0",
+    "flat": "5.0.2",
     "lodash": "4.17.15",
     "memory-cache": "0.2.0",
     "metaget": "1.0.7",
