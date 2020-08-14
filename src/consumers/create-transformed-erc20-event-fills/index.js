@@ -1,20 +1,19 @@
+const _ = require('lodash');
 const { BigNumber } = require('@0x/utils');
 const Bluebird = require('bluebird');
 const moment = require('moment');
 const mongoose = require('mongoose');
-const signale = require('signale');
 
-const { JOB, QUEUE, FILL_ACTOR } = require('../../constants');
+const { JOB, QUEUE, FILL_ACTOR, TOKEN_TYPE } = require('../../constants');
 const { publishJob } = require('../../queues');
 const createFills = require('../../fills/create-fills');
 const Event = require('../../model/event');
 const Fill = require('../../model/fill');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 const withTransaction = require('../../util/with-transaction');
+const createNewTokens = require('../../tokens/create-new-tokens');
 
-const logger = signale.scope('create fills for transformed erc-20 event');
-
-const createTransformedERC20EventFills = async job => {
+const createTransformedERC20EventFills = async (job, { logger }) => {
   const { eventId } = job.data;
 
   /*
@@ -179,8 +178,23 @@ const createTransformedERC20EventFills = async job => {
     return;
   }
 
-  // TODO: Create any tokens which don't yet exist
+  /*
+   * Create any tokens which haven't been seen before.
+   */
+  const uniqTokens = _(nonExistantFills)
+    .flatMap(fill => fill.assets.map(asset => asset.tokenAddress))
+    .uniq()
+    .map(address => ({
+      address,
+      type: TOKEN_TYPE.ERC20,
+    }))
+    .value();
 
+  await createNewTokens(uniqTokens);
+
+  /*
+    Finally, create fills for the unprocessed ERC20BridgeTransfer events.
+  */
   await withTransaction(async session => {
     await createFills(fills, { session });
   });
