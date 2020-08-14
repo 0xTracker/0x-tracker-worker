@@ -35,7 +35,7 @@ const initQueueConsumers = config => {
 
   _.each(consumers, ({ fn, jobName, queueName }) => {
     const concurrency = _.get(config, `${fn.name}.concurrency`, null);
-    const jobLogger = signale.scope(`job-runner/${_.kebabCase(jobName)}`);
+    const jobLogger = signale.scope(`job-consumer/${_.kebabCase(jobName)}`);
     const fnWrapper = job => fn(job, { logger: jobLogger });
 
     if (concurrency === null) {
