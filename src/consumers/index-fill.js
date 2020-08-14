@@ -1,14 +1,11 @@
 const mongoose = require('mongoose');
-const signale = require('signale');
 
 const { JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
 const fillsIndex = require('../index/fills');
 const elasticsearch = require('../util/elasticsearch');
 
-const logger = signale.scope('index fill');
-
-const indexFill = async job => {
+const indexFill = async (job, { logger }) => {
   const { fillId } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {

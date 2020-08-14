@@ -1,14 +1,11 @@
 const _ = require('lodash');
 const ms = require('ms');
-const signale = require('signale');
 
 const { JOB, QUEUE, TOKEN_TYPE } = require('../constants');
 const { getModel } = require('../model');
 const { publishJob } = require('../queues');
 
-const logger = signale.scope('create token');
-
-const createToken = async job => {
+const createToken = async (job, { logger }) => {
   const { tokenAddress, tokenType } = job.data;
 
   if (_.isEmpty(tokenAddress)) {

@@ -1,12 +1,9 @@
 const ms = require('ms');
-const signale = require('signale');
 
 const { JOB, QUEUE } = require('../../constants');
 const { publishJob } = require('../../queues');
 const persistTokenMetadata = require('./persist-token-metadata');
 const resolveToken = require('../../tokens/resolve-token');
-
-const logger = signale.scope('fetch token metadata');
 
 const scheduleRerun = async (job, delay) => {
   const { tokenAddress, tokenType } = job.data;
@@ -24,7 +21,7 @@ const scheduleRerun = async (job, delay) => {
   );
 };
 
-const consumer = async job => {
+const consumer = async (job, { logger }) => {
   const { tokenAddress, tokenType } = job.data;
 
   logger.info(`fetching token metadata: ${tokenAddress}`);
