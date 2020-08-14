@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const signale = require('signale');
 
 const { JOB, QUEUE } = require('../../constants');
 const buildTransaction = require('./build-transaction');
@@ -12,9 +11,7 @@ const persistEvents = require('../../events/persist-events');
 const persistTransaction = require('./persist-transaction');
 const withTransaction = require('../../util/with-transaction');
 
-const logger = signale.scope('fetch transaction');
-
-const fetchTransaction = async job => {
+const fetchTransaction = async (job, { logger }) => {
   const { blockNumber, transactionHash } = job.data;
 
   logger.info(`fetching transaction: ${transactionHash}`);
@@ -63,7 +60,7 @@ const fetchTransaction = async job => {
     await persistTransaction(transaction, { session });
   });
 
-  logger.success(`fetched transaction: ${transactionHash}`);
+  logger.info(`fetched transaction: ${transactionHash}`);
 };
 
 module.exports = {

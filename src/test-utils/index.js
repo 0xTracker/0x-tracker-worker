@@ -39,4 +39,10 @@ const tearDownDb = async () => {
   await replSet.stop();
 };
 
-module.exports = { resetDb, setupDb, tearDownDb };
+const mockLogger = {
+  error: jest.fn(),
+  info: jest.fn(),
+  warn: jest.fn(),
+};
+
+module.exports = { mockLogger, resetDb, setupDb, tearDownDb };

@@ -1,6 +1,7 @@
 const timekeeper = require('timekeeper');
 
 const { getModels } = require('../model');
+const { mockLogger } = require('../test-utils');
 const { publishJob } = require('../queues');
 const consumer = require('./create-token');
 const testUtils = require('../test-utils');
@@ -8,6 +9,9 @@ const testUtils = require('../test-utils');
 jest.mock('../queues');
 
 const createToken = consumer.fn;
+const mockOptions = {
+  logger: mockLogger,
+};
 
 beforeAll(async () => {
   await testUtils.setupDb();
@@ -29,23 +33,29 @@ describe('consumers.createToken', () => {
   });
 
   it('should throw an error when tokenAddress missing from job data', async () => {
-    await expect(createToken({ data: { tokenType: 0 } })).rejects.toThrow(
-      new Error('Job data is missing tokenAddress'),
-    );
+    await expect(
+      createToken({ data: { tokenType: 0 } }, mockOptions),
+    ).rejects.toThrow(new Error('Job data is missing tokenAddress'));
   });
 
   it('should throw an error when tokenType is invalid', async () => {
     await expect(
-      createToken({ data: { tokenAddress: '0xabc', tokenType: 101 } }),
+      createToken(
+        { data: { tokenAddress: '0xabc', tokenType: 101 } },
+        mockOptions,
+      ),
     ).rejects.toThrow(new Error('Invalid tokenType: 101'));
   });
 
   it('should create token if it does not already exist', async () => {
     timekeeper.freeze('2020-06-17T15:18:22.000Z');
 
-    const newToken = await createToken({
-      data: { tokenAddress: '0xabc', tokenType: 0 },
-    });
+    const newToken = await createToken(
+      {
+        data: { tokenAddress: '0xabc', tokenType: 0 },
+      },
+      mockOptions,
+    );
 
     expect(newToken).toMatchObject({
       address: '0xabc',
@@ -61,16 +71,22 @@ describe('consumers.createToken', () => {
   it('should not create token if it already exists', async () => {
     const { Token } = getModels();
     await Token.create({ address: '0xabc', tokenType: 0 });
-    const newToken = await createToken({
-      data: { tokenAddress: '0xabc', tokenType: 0 },
-    });
+    const newToken = await createToken(
+      {
+        data: { tokenAddress: '0xabc', tokenType: 0 },
+      },
+      mockOptions,
+    );
     expect(newToken).toBeUndefined();
   });
 
   it('should fetch token metadata after 30 seconds if new token was created', async () => {
-    await createToken({
-      data: { tokenAddress: '0xabc', tokenType: 0 },
-    });
+    await createToken(
+      {
+        data: { tokenAddress: '0xabc', tokenType: 0 },
+      },
+      mockOptions,
+    );
 
     expect(publishJob).toHaveBeenCalledTimes(1);
     expect(publishJob).toHaveBeenNthCalledWith(

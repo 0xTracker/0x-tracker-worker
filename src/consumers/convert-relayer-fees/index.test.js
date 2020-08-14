@@ -2,11 +2,16 @@ const mongoose = require('mongoose');
 
 const { fn: convertRelayerFees } = require('.');
 const { getModel } = require('../../model');
+const { mockLogger } = require('../../test-utils');
 const V2_FILL = require('../../fixtures/fills/v2');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const testUtils = require('../../test-utils');
 
 jest.mock('../../rates/get-conversion-rate');
+
+const mockOptions = {
+  logger: mockLogger,
+};
 
 beforeAll(async () => {
   await testUtils.setupDb();
@@ -23,13 +28,16 @@ afterAll(async () => {
 describe('consumers/convert-relayer-fees', () => {
   it('should throw an error when fillId format is invalid', async () => {
     await expect(
-      convertRelayerFees({ data: { fillId: 'fubar' } }),
+      convertRelayerFees({ data: { fillId: 'fubar' } }, mockOptions),
     ).rejects.toThrow(new Error('Invalid fillId: fubar'));
   });
 
   it('should throw an error when fill does not exist', async () => {
     await expect(
-      convertRelayerFees({ data: { fillId: '5a1034ea01d64f914ce920d2' } }),
+      convertRelayerFees(
+        { data: { fillId: '5a1034ea01d64f914ce920d2' } },
+        mockOptions,
+      ),
     ).rejects.toThrow(new Error('Cannot find fill: 5a1034ea01d64f914ce920d2'));
   });
 
@@ -41,7 +49,10 @@ describe('consumers/convert-relayer-fees', () => {
     const Fill = getModel('Fill');
     await Fill.create(fill);
 
-    await convertRelayerFees({ data: { fillId: '5e01056923573c61d846f51d' } });
+    await convertRelayerFees(
+      { data: { fillId: '5e01056923573c61d846f51d' } },
+      mockOptions,
+    );
 
     const fillAfterRun = await Fill.findById('5e01056923573c61d846f51d').lean();
     expect(fillAfterRun).toEqual(fill);
@@ -68,7 +79,10 @@ describe('consumers/convert-relayer-fees', () => {
     const Fill = getModel('Fill');
     await Fill.create(fill);
 
-    await convertRelayerFees({ data: { fillId: '5e01056923573c61d846f51d' } });
+    await convertRelayerFees(
+      { data: { fillId: '5e01056923573c61d846f51d' } },
+      mockOptions,
+    );
 
     const fillAfterRun = await Fill.findById('5e01056923573c61d846f51d').lean();
     expect(fillAfterRun).toEqual(fill);
@@ -90,7 +104,10 @@ describe('consumers/convert-relayer-fees', () => {
     const Fill = getModel('Fill');
     await Fill.create(V2_FILL);
 
-    await convertRelayerFees({ data: { fillId: '5e01056923573c61d846f51d' } });
+    await convertRelayerFees(
+      { data: { fillId: '5e01056923573c61d846f51d' } },
+      mockOptions,
+    );
 
     const fillAfterRun = await Fill.findById('5e01056923573c61d846f51d').lean();
 

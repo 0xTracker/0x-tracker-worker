@@ -1,6 +1,5 @@
 const Bluebird = require('bluebird');
 const mongoose = require('mongoose');
-const signale = require('signale');
 
 const { JOB, QUEUE } = require('../../constants');
 const { getModel } = require('../../model');
@@ -10,9 +9,7 @@ const getBaseTokenSymbol = require('../../tokens/get-base-token-symbol');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const isBaseToken = require('../../tokens/is-base-token');
 
-const logger = signale.scope('convert relayer fees');
-
-const convertRelayerFees = async job => {
+const convertRelayerFees = async (job, { logger }) => {
   const { fillId } = job.data;
 
   logger.info(`converting relayer fees for fill: ${fillId}`);

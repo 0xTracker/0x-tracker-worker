@@ -1,6 +1,11 @@
 const { fn: fetchTransaction } = require('.');
 const { getModel } = require('../../model');
-const { setupDb, tearDownDb, resetDb } = require('../../test-utils');
+const {
+  setupDb,
+  tearDownDb,
+  resetDb,
+  mockLogger,
+} = require('../../test-utils');
 const BLOCK_10439179 = require('../../fixtures/blocks/10439179');
 const BLOCK_10141741 = require('../../fixtures/blocks/10141741');
 const RAW_TRANSACTION_0X29579558FECFEF00A960A27F314C3E36003B0BBC7B95C462100E83B8836F718A = require('../../fixtures/raw-transactions/0x29579558fecfef00a960a27f314c3e36003b0bbc7b95c462100e83b8836f718a');
@@ -18,6 +23,10 @@ jest.mock('./persist-transaction');
 jest.mock('../../util/ethereum/get-block');
 jest.mock('../../util/ethereum/get-transaction');
 jest.mock('../../util/ethereum/get-transaction-receipt');
+
+const mockOptions = {
+  logger: mockLogger,
+};
 
 beforeAll(async () => {
   await setupDb();
@@ -55,38 +64,38 @@ const simpleJob = {
 describe('consumers/fetch-transaction', () => {
   it('should throw error if transactionHash is null', async () => {
     await expect(
-      fetchTransaction({ data: { transactionHash: null } }),
+      fetchTransaction({ data: { transactionHash: null } }, mockOptions),
     ).rejects.toThrow(new Error('Invalid transactionHash: null'));
   });
 
   it('should throw error if transactionHash is undefined', async () => {
     await expect(
-      fetchTransaction({ data: { transactionHash: undefined } }),
+      fetchTransaction({ data: { transactionHash: undefined } }, mockOptions),
     ).rejects.toThrow(new Error('Invalid transactionHash: undefined'));
   });
 
   it('should throw error if transactionHash is empty string', async () => {
     await expect(
-      fetchTransaction({ data: { transactionHash: '' } }),
+      fetchTransaction({ data: { transactionHash: '' } }, mockOptions),
     ).rejects.toThrow(new Error('Invalid transactionHash: '));
   });
 
   it('should bail early when transaction already exists', async () => {
     checkTransactionExists.mockResolvedValue(true);
-    await fetchTransaction(simpleJob);
+    await fetchTransaction(simpleJob, mockOptions);
     expect(persistTransaction).toHaveBeenCalledTimes(0);
   });
 
   it('should throw an error when block does not exist', async () => {
     getBlock.mockResolvedValue(null);
-    await expect(fetchTransaction(simpleJob)).rejects.toThrow(
+    await expect(fetchTransaction(simpleJob, mockOptions)).rejects.toThrow(
       new Error('Block not found: 10439179'),
     );
   });
 
   it('should throw an error when transaction does not exist', async () => {
     getTransaction.mockResolvedValue(undefined);
-    await expect(fetchTransaction(simpleJob)).rejects.toThrow(
+    await expect(fetchTransaction(simpleJob, mockOptions)).rejects.toThrow(
       new Error(
         'Transaction not found: 0xa707981a012761007df2c9099ed1580221d2bdbc4b37f689cb8d35eedd0d505e',
       ),
@@ -95,7 +104,7 @@ describe('consumers/fetch-transaction', () => {
 
   it('should throw an error when transaction receipt does not exist', async () => {
     getTransactionReceipt.mockResolvedValue(undefined);
-    await expect(fetchTransaction(simpleJob)).rejects.toThrow(
+    await expect(fetchTransaction(simpleJob, mockOptions)).rejects.toThrow(
       new Error(
         'No receipt found for transaction: 0xa707981a012761007df2c9099ed1580221d2bdbc4b37f689cb8d35eedd0d505e',
       ),
@@ -103,7 +112,7 @@ describe('consumers/fetch-transaction', () => {
   });
 
   it('should fetch and persist transaction when valid', async () => {
-    await fetchTransaction(simpleJob);
+    await fetchTransaction(simpleJob, mockOptions);
 
     expect(persistTransaction).toHaveBeenCalledTimes(1);
     expect(persistTransaction).toHaveBeenCalledWith(
@@ -132,7 +141,7 @@ describe('consumers/fetch-transaction', () => {
   });
 
   it('should not persist bridge transfer events for transaction which has none', async () => {
-    await fetchTransaction(simpleJob);
+    await fetchTransaction(simpleJob, mockOptions);
 
     const events = await getModel('Event')
       .find()
@@ -150,13 +159,16 @@ describe('consumers/fetch-transaction', () => {
       TRANSACTION_RECEIPT_0X29579558FECFEF00A960A27F314C3E36003B0BBC7B95C462100E83B8836F718A,
     );
 
-    await fetchTransaction({
-      data: {
-        transactionHash:
-          '0x29579558fecfef00a960a27f314c3e36003b0bbc7b95c462100e83b8836f718a',
-        blockNumber: 10141741,
+    await fetchTransaction(
+      {
+        data: {
+          transactionHash:
+            '0x29579558fecfef00a960a27f314c3e36003b0bbc7b95c462100e83b8836f718a',
+          blockNumber: 10141741,
+        },
       },
-    });
+      mockOptions,
+    );
 
     const events = await getModel('Event')
       .find()
