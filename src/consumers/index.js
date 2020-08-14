@@ -1,4 +1,6 @@
 const _ = require('lodash');
+const signale = require('signale');
+
 const { getQueues } = require('../queues');
 const bulkUpdateTokenMetadata = require('./bulk-update-token-metadata');
 const convertProtocolFee = require('./convert-protocol-fee');
@@ -33,11 +35,13 @@ const initQueueConsumers = config => {
 
   _.each(consumers, ({ fn, jobName, queueName }) => {
     const concurrency = _.get(config, `${fn.name}.concurrency`, null);
+    const jobLogger = signale.scope(`job-runner/${_.kebabCase(jobName)}`);
+    const fnWrapper = job => fn(job, { logger: jobLogger });
 
     if (concurrency === null) {
-      queues[queueName].process(jobName, fn);
+      queues[queueName].process(jobName, fnWrapper);
     } else {
-      queues[queueName].process(jobName, concurrency, fn);
+      queues[queueName].process(jobName, concurrency, fnWrapper);
     }
   });
 };

@@ -1,12 +1,9 @@
 const _ = require('lodash');
-const signale = require('signale');
 
 const { JOB, QUEUE } = require('../constants');
 const elasticsearch = require('../util/elasticsearch');
 
-const logger = signale.scope('index traded tokens');
-
-const consumer = async job => {
+const consumer = async (job, { logger }) => {
   const { apps, date, fillId, relayerId, tradedTokens } = job.data;
 
   logger.info(`indexing traded tokens for fill: ${fillId}`);

@@ -1,12 +1,9 @@
 const _ = require('lodash');
-const signale = require('signale');
 
 const { JOB, QUEUE } = require('../constants');
 const elasticsearch = require('../util/elasticsearch');
 
-const logger = signale.scope('index app attributions for fill');
-
-const consumer = async job => {
+const consumer = async (job, { logger }) => {
   const { attributions, date, fillId } = job.data;
 
   logger.info(`indexing app attributions for fill: ${fillId}`);

@@ -1,13 +1,10 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
-const signale = require('signale');
 
 const { JOB, QUEUE } = require('../constants');
 const elasticsearch = require('../util/elasticsearch');
 
-const logger = signale.scope('index fill protocol fee');
-
-const indexFillProtocolFee = async job => {
+const indexFillProtocolFee = async (job, { logger }) => {
   const { fillId, protocolFee } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {

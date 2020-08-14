@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const moment = require('moment');
 const mongoose = require('mongoose');
-const signale = require('signale');
 
 const { ETH_TOKEN_DECIMALS, JOB, QUEUE } = require('../../constants');
 const formatTokenAmount = require('../../tokens/format-token-amount');
@@ -9,9 +8,7 @@ const getConversionRate = require('../../rates/get-conversion-rate');
 const indexProtocolFee = require('../../index/index-protocol-fee');
 const persistConvertedProtocolFee = require('./persist-converted-protocol-fee');
 
-const logger = signale.scope('convert protocol fees');
-
-const convertProtocolFee = async job => {
+const convertProtocolFee = async (job, { logger }) => {
   const { fillDate, fillId, protocolFee } = job.data;
 
   logger.info(`converting protocol fee for fill: ${fillId}`);
