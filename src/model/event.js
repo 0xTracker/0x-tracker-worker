@@ -4,18 +4,23 @@ const { Schema } = mongoose;
 
 const schema = Schema(
   {
-    blockNumber: { required: true, type: Number },
-    dateIngested: { required: true, type: Date },
+    blockNumber: { immutable: true, required: true, type: Number },
+    dateIngested: {
+      default: Date.now,
+      immutable: true,
+      required: true,
+      type: Date,
+    },
     data: { required: true, type: Schema.Types.Mixed },
     fillCreated: { type: Boolean },
-    logIndex: { required: true, type: Number },
-    protocolVersion: { required: true, type: Number },
+    logIndex: { immutable: true, required: true, type: Number },
+    protocolVersion: { immutable: true, required: true, type: Number },
     scheduler: {
       fillCreationScheduled: Boolean,
       transactionFetchScheduled: Boolean,
     },
-    transactionHash: { required: true, type: String },
-    type: { required: true, type: String },
+    transactionHash: { immutable: true, required: true, type: String },
+    type: { immutable: true, required: true, type: String },
   },
   { strict: 'throw' },
 );
