@@ -4,17 +4,17 @@ const { Schema } = mongoose;
 
 const schema = Schema(
   {
-    address: String,
+    address: { lowercase: true, required: true, trim: true, type: String },
     circulatingSupply: Number,
     decimals: Number,
     imageUrl: { type: String, trim: true },
     name: String,
-    resolved: Boolean,
+    resolved: { default: false, type: Boolean },
     symbol: String,
     totalSupply: Number,
-    type: Number,
+    type: { required: true, type: Number },
   },
-  { timestamps: true },
+  { strict: true, timestamps: true },
 );
 
 schema.index({ address: 1 }, { unique: true });
