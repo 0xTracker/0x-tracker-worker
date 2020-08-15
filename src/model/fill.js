@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 
 const schema = Schema(
   {
-    affiliateAddress: String,
+    affiliateAddress: { lowercase: true, trim: true, type: String },
     apps: [
       {
         appId: String,
@@ -17,12 +17,17 @@ const schema = Schema(
       {
         actor: Number,
         amount: Number,
-        bridgeAddress: String,
+        bridgeAddress: { lowercase: true, trim: true, type: String },
         bridgeData: String,
         price: {
           USD: Number,
         },
-        tokenAddress: String,
+        tokenAddress: {
+          lowercase: true,
+          required: true,
+          trim: true,
+          type: String,
+        },
         tokenId: Number,
         tokenResolved: { default: false, type: Boolean },
         value: {
@@ -30,7 +35,7 @@ const schema = Schema(
         },
       },
     ],
-    blockHash: String,
+    blockHash: { lowercase: true, required: true, trim: true, type: String },
     blockNumber: Number,
     conversions: {
       USD: {
@@ -43,19 +48,24 @@ const schema = Schema(
     fees: [
       {
         amount: { token: Number, USD: Number },
-        bridgeAddress: String,
+        bridgeAddress: { lowercase: true, trim: true, type: String },
         bridgeData: String,
-        tokenAddress: String,
+        tokenAddress: {
+          lowercase: true,
+          required: true,
+          trim: true,
+          type: String,
+        },
         tokenId: Number,
         traderType: Number,
       },
     ],
-    feeRecipient: String,
+    feeRecipient: { lowercase: true, trim: true, type: String },
     hasValue: { default: false, type: Boolean },
     immeasurable: { default: false, type: Boolean },
     logIndex: Number,
-    maker: String,
-    orderHash: String,
+    maker: { lowercase: true, required: true, trim: true, type: String },
+    orderHash: { lowercase: true, trim: true, type: String },
     pricingStatus: Number,
     protocolFee: Number,
     protocolVersion: Number,
@@ -64,7 +74,7 @@ const schema = Schema(
       data: Schema.Types.Mixed,
     },
     relayerId: Number,
-    senderAddress: String,
+    senderAddress: { lowercase: true, trim: true, type: String },
 
     // TODO: Remove this field from everywhere in app, it's redundant now
     status: {
@@ -72,8 +82,13 @@ const schema = Schema(
       type: Number,
     },
 
-    taker: String,
-    transactionHash: String,
+    taker: { lowercase: true, required: true, trim: true, type: String },
+    transactionHash: {
+      lowercase: true,
+      required: true,
+      trim: true,
+      type: String,
+    },
   },
   { toJSON: { virtuals: true } },
 );

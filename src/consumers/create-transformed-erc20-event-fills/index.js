@@ -135,6 +135,7 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
    * event to dictate the token and taker addresses.
    */
   const fills = bridgeEvents.map(bridgeEvent => ({
+    _id: bridgeEvent._id,
     affiliateAddress: transaction.affiliateAddress,
     assets: [
       {
