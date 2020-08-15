@@ -143,10 +143,12 @@ describe('createFill', () => {
           {
             address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
             tradeCountContribution: 1,
+            type: 0,
           },
           {
             address: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
             tradeCountContribution: 1,
+            type: 0,
           },
         ],
       },
@@ -155,43 +157,43 @@ describe('createFill', () => {
       },
     );
 
-    // Ensure job for creating taker token is published when token doesn't already exist
-    expect(publishJob).toHaveBeenCalledWith(
-      'token-processing',
-      'create-token',
-      {
-        tokenAddress: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
-        tokenType: 0,
-      },
-      {
-        jobId: `create-token-0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433`,
-      },
-    );
+    /*
+     * Ensure all the associated tokens are created when they don't already exist
+     */
+    const tokens = await getModel('Token')
+      .find()
+      .lean();
 
-    // Ensure job for creating maker token is published when token doesn't already exist
-    expect(publishJob).toHaveBeenCalledWith(
-      'token-processing',
-      'create-token',
-      {
-        tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-        tokenType: 0,
-      },
-      {
-        jobId: `create-token-0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2`,
-      },
-    );
-
-    // Ensure job for creating ZRX token is published when token doesn't already exist
-    expect(publishJob).toHaveBeenCalledWith(
-      'token-processing',
-      'create-token',
-      {
-        tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
-        tokenType: 0,
-      },
-      {
-        jobId: `create-token-0xe41d2489571d322189246dafa5ebde1f4699f498`,
-      },
+    expect(tokens).toEqual(
+      expect.arrayContaining([
+        {
+          __v: 0,
+          _id: expect.anything(),
+          address: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
+          createdAt: expect.anything(),
+          resolved: false,
+          type: 0,
+          updatedAt: expect.anything(),
+        },
+        {
+          __v: 0,
+          _id: expect.anything(),
+          address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+          createdAt: expect.anything(),
+          resolved: false,
+          type: 0,
+          updatedAt: expect.anything(),
+        },
+        {
+          __v: 0,
+          _id: expect.anything(),
+          address: '0xe41d2489571d322189246dafa5ebde1f4699f498',
+          createdAt: expect.anything(),
+          resolved: false,
+          type: 0,
+          updatedAt: expect.anything(),
+        },
+      ]),
     );
   }, 60000);
 

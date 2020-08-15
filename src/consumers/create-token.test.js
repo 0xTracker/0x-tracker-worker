@@ -70,7 +70,7 @@ describe('consumers.createToken', () => {
 
   it('should not create token if it already exists', async () => {
     const { Token } = getModels();
-    await Token.create({ address: '0xabc', tokenType: 0 });
+    await Token.create({ address: '0xabc', type: 0 });
     const newToken = await createToken(
       {
         data: { tokenAddress: '0xabc', tokenType: 0 },
