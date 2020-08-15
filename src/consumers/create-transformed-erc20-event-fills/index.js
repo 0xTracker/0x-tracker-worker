@@ -57,7 +57,7 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
      * If more than 5 minutes have passed since the TransformedERC20 event was fetched then
      * this might indicate a bottleneck or failure in the transaction fetching job.
      */
-    if (moment().diff(transformedERC20Event.dateIngested, 'minutes') > 5) {
+    if (moment().diff(transformedERC20Event.dateIngested, 'minutes') >= 5) {
       logger.warn(
         `transaction not found for event: ${transformedERC20Event._id}`,
       );
