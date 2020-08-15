@@ -7,11 +7,11 @@ const mongoose = require('mongoose');
 const { JOB, QUEUE, FILL_ACTOR, TOKEN_TYPE } = require('../../constants');
 const { publishJob } = require('../../queues');
 const createFills = require('../../fills/create-fills');
+const createNewTokens = require('../../tokens/create-new-tokens');
 const Event = require('../../model/event');
 const Fill = require('../../model/fill');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 const withTransaction = require('../../util/with-transaction');
-const createNewTokens = require('../../tokens/create-new-tokens');
 
 const createTransformedERC20EventFills = async (job, { logger }) => {
   const { eventId } = job.data;
@@ -197,7 +197,7 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
     Finally, create fills for the unprocessed ERC20BridgeTransfer events.
   */
   await withTransaction(async session => {
-    await createFills(fills, { session });
+    await createFills(nonExistantFills, { session });
   });
 
   logger.info(`created fills for TransformedERC20 event: ${eventId}`);
