@@ -59,7 +59,7 @@ const persisTokenMetadata = async (tokenAddress, tokenMetadata) => {
   await withTransaction(async session => {
     await token.save({ session });
 
-    if (!token.isModified('decimals')) {
+    if (!modifiedFields.includes('decimals')) {
       return;
     }
 
