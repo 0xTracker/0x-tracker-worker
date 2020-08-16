@@ -11,7 +11,7 @@ const createNewTokens = async tokens => {
     return;
   }
 
-  const tokenAddresses = tokens.map(token => token.address);
+  const tokenAddresses = tokens.map(token => token.address.toLowerCase());
   const existingTokens = await getExistingTokens(tokenAddresses);
 
   if (existingTokens.length === tokenAddresses.length) {
@@ -19,16 +19,23 @@ const createNewTokens = async tokens => {
   }
 
   const newTokens = tokens.filter(token => {
-    return !existingTokens.some(et => et === token.address);
+    return !existingTokens.some(et => et === token.address.toLowerCase());
   });
 
   await withTransaction(async session => {
-    await Token.create(
-      newTokens.map(token => ({
-        address: token.address,
-        type: token.type,
-      })),
-      { session },
+    await Promise.all(
+      newTokens.map(token =>
+        Token.updateOne(
+          { address: token.address },
+          {
+            $set: {
+              address: token.address,
+              type: token.type,
+            },
+          },
+          { session, setDefaultsOnInsert: true, upsert: true },
+        ),
+      ),
     );
 
     await Promise.all(
@@ -37,7 +44,7 @@ const createNewTokens = async tokens => {
           QUEUE.TOKEN_PROCESSING,
           JOB.FETCH_TOKEN_METADATA,
           {
-            tokenAddress: token.address,
+            tokenAddress: token.address.toLowerCase(),
             tokenType: token.type,
           },
           {
