@@ -33,7 +33,7 @@ const createNewTokens = async tokens => {
               type: token.type,
             },
           },
-          { session, upsert: true },
+          { session, setDefaultsOnInsert: true, upsert: true },
         ),
       ),
     );
