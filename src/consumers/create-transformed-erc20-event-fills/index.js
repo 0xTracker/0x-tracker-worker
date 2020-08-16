@@ -136,31 +136,31 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
    */
   const fills = bridgeEvents.map(bridgeEvent => ({
     _id: bridgeEvent._id,
-    affiliateAddress: transaction.affiliateAddress,
+    affiliateAddress: transaction.affiliateAddress.toLowerCase(),
     assets: [
       {
         actor: FILL_ACTOR.MAKER,
         amount: new BigNumber(bridgeEvent.data.fromTokenAmount).toNumber(),
-        bridgeAddress: bridgeEvent.data.from,
-        tokenAddress: bridgeEvent.data.fromToken,
+        bridgeAddress: bridgeEvent.data.from.toLowerCase(),
+        tokenAddress: bridgeEvent.data.fromToken.toLowerCase(),
       },
       {
         actor: FILL_ACTOR.TAKER,
         amount: new BigNumber(bridgeEvent.data.toTokenAmount).toNumber(),
-        tokenAddress: bridgeEvent.data.toToken,
+        tokenAddress: bridgeEvent.data.toToken.toLowerCase(),
       },
     ],
-    blockHash: transaction.blockHash,
+    blockHash: transaction.blockHash.toLowerCase(),
     blockNumber: transaction.blockNumber,
     date: transaction.date,
     eventId: bridgeEvent._id,
     isTransformedERC20: true,
     logIndex: bridgeEvent.logIndex,
-    maker: bridgeEvent.data.from,
+    maker: bridgeEvent.data.from.toLowerCase(),
     protocolVersion: bridgeEvent.protocolVersion,
     quoteDate: transaction.quoteDate,
-    taker: transformedERC20Event.data.taker,
-    transactionHash: transaction.hash,
+    taker: transformedERC20Event.data.taker.toLowerCase(),
+    transactionHash: transaction.hash.toLowerCase(),
   }));
 
   /*
