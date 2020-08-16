@@ -63,6 +63,7 @@ const schema = Schema(
     feeRecipient: { lowercase: true, trim: true, type: String },
     hasValue: { default: false, type: Boolean },
     immeasurable: { default: false, type: Boolean },
+    isTransformedERC20: { type: Boolean },
     logIndex: Number,
     maker: { lowercase: true, required: true, trim: true, type: String },
     orderHash: { lowercase: true, trim: true, type: String },

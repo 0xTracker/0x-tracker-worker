@@ -154,6 +154,7 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
     blockNumber: transaction.blockNumber,
     date: transaction.date,
     eventId: bridgeEvent._id,
+    isTransformedERC20: true,
     logIndex: bridgeEvent.logIndex,
     maker: bridgeEvent.data.from,
     protocolVersion: bridgeEvent.protocolVersion,
