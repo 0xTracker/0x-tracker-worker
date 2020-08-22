@@ -1,7 +1,8 @@
 {
   "id": "052b4862-2142-4532-bdc0-416814b0a5fe",
   "name": "0x API",
-  "logoUrl": "https://resources.0xtracker.com/logos/0x.png",
+  "description": "Built by the 0x core team – 0x API makes accessing DEX liquidity easy through the use of smart order routing which aggregates liquidity from 0x Mesh, Kyber, Uniswap, and more.",
+  "logo": "0x-api.png",
   "urlSlug": "0x-api",
   "websiteUrl": "https://0x.org/api",
   "mappings": [

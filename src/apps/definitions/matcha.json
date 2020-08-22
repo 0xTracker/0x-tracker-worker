@@ -1,7 +1,8 @@
 {
   "id": "5067df8b-f9cd-4a34-aee1-38d607100145",
   "name": "Matcha",
-  "logoUrl": "https://resources.0xtracker.com/logos/matcha.png",
+  "description": "Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.",
+  "logo": "matcha.png",
   "urlSlug": "matcha",
   "websiteUrl": "https://matcha.xyz",
   "mappings": [

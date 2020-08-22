@@ -31,8 +31,9 @@ const transformMappings = mappings =>
 const createApp = async definition => {
   const App = getModel('App');
   const app = {
-    ..._.omit(definition, 'id', 'mappings'),
+    ..._.omit(definition, 'id', 'mappings', 'logo'),
     _id: definition.id,
+    logoUrl: `https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/${definition.logo}`,
     mappings: transformMappings(definition.mappings),
   };
 
@@ -53,7 +54,10 @@ const compareMappings = (currentMappings, definitionMappings) => {
 };
 
 const updateApp = async (app, definition) => {
-  const metadata = _.omit(definition, 'id', 'mappings');
+  const metadata = {
+    ..._.omit(definition, 'id', 'mappings', 'logo'),
+    logoUrl: `https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/${definition.logo}`,
+  };
 
   Object.keys(metadata).forEach(metadataKey => {
     app.set(metadataKey, metadata[metadataKey]);
