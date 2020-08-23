@@ -1,7 +1,8 @@
 {
   "id": "4c3854b7-95c3-4714-83ab-a8ed53d2967e",
   "name": "Paraswap",
-  "logoUrl": "https://resources.0xtracker.com/logos/paraswap.png",
+  "description": "Paraswap is a DEX aggregator which sources liquidity from various DEX protocols (including 0x) to offer users better prices.",
+  "logo": "paraswap.png",
   "urlSlug": "paraswap",
   "websiteUrl": "https://paraswap.io",
   "mappings": [

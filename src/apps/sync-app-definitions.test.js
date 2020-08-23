@@ -38,7 +38,8 @@ describe('apps/syncAppDefinitions', () => {
     expect(matcha).toMatchObject({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
-      logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+      logoUrl:
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
       mappings: [
         {
           type: 0,
@@ -60,7 +61,9 @@ describe('apps/syncAppDefinitions', () => {
       {
         id: '5067df8b-f9cd-4a34-aee1-38d607100145',
         name: 'Matcha',
-        logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+        description:
+          'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+        logo: 'matcha.png',
         urlSlug: 'matcha',
         websiteUrl: 'https://matcha.xyz',
         mappings: [
@@ -80,7 +83,10 @@ describe('apps/syncAppDefinitions', () => {
     await getModel('App').create({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['asset-swapper'],
-      logoUrl: 'https://resources.0xtracker.com/logos/matcha-xyz.png',
+      description:
+        'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+      logoUrl:
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha-xyz.png',
       mappings: [
         {
           type: 1,
@@ -105,7 +111,10 @@ describe('apps/syncAppDefinitions', () => {
     expect(matcha).toMatchObject({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
-      logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+      description:
+        'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+      logoUrl:
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
       mappings: [
         {
           type: 1,
@@ -127,7 +136,9 @@ describe('apps/syncAppDefinitions', () => {
       {
         id: '5067df8b-f9cd-4a34-aee1-38d607100145',
         name: 'Matcha',
-        logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+        description:
+          'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+        logo: 'matcha.png',
         urlSlug: 'matcha',
         websiteUrl: 'https://matcha.xyz',
         mappings: [
@@ -147,7 +158,10 @@ describe('apps/syncAppDefinitions', () => {
     await getModel('App').create({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
-      logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+      description:
+        'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+      logoUrl:
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
       mappings: [
         {
           type: 1,
@@ -172,7 +186,10 @@ describe('apps/syncAppDefinitions', () => {
     expect(matcha).toMatchObject({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
-      logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+      description:
+        'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+      logoUrl:
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
       mappings: [
         {
           type: 1,
@@ -194,7 +211,9 @@ describe('apps/syncAppDefinitions', () => {
       {
         id: '5067df8b-f9cd-4a34-aee1-38d607100145',
         name: 'Matcha',
-        logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+        description:
+          'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+        logo: 'matcha.png',
         urlSlug: 'matcha',
         websiteUrl: 'https://matcha.xyz',
         mappings: [
@@ -214,7 +233,10 @@ describe('apps/syncAppDefinitions', () => {
     await getModel('App').create({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
-      logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+      description:
+        'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+      logoUrl:
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
       mappings: [
         {
           type: 1,
@@ -239,7 +261,10 @@ describe('apps/syncAppDefinitions', () => {
     expect(matcha).toMatchObject({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
-      logoUrl: 'https://resources.0xtracker.com/logos/matcha.png',
+      description:
+        'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
+      logoUrl:
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
       mappings: [
         {
           type: 1,
