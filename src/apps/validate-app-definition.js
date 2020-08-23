@@ -16,11 +16,12 @@ const schema = Joi.object({
     )
     .unique()
     .required(),
+  description: Joi.string().required(),
   id: Joi.string()
     .uuid({ version: ['uuidv4'] })
     .id()
     .required(),
-  logoUrl: Joi.string().uri({ scheme: 'https' }),
+  logo: Joi.string().required(),
   mappings: Joi.array()
     .items(
       Joi.object({
