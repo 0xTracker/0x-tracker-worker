@@ -13,6 +13,10 @@ const Fill = require('../../model/fill');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 const withTransaction = require('../../util/with-transaction');
 
+const dedupeBridgeEvents = events => {
+  return _.uniqWith(events, (a, b) => _.isEqual(a.data, b.data));
+};
+
 const createTransformedERC20EventFills = async (job, { logger }) => {
   const { eventId } = job.data;
 
@@ -134,7 +138,7 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
    * event is related to the TransformedERC20 event being processed and will use the TransformedERC20
    * event to dictate the token and taker addresses.
    */
-  const fills = bridgeEvents.map(bridgeEvent => ({
+  const fills = dedupeBridgeEvents(bridgeEvents).map(bridgeEvent => ({
     _id: bridgeEvent._id,
     affiliateAddress: transaction.affiliateAddress.toLowerCase(),
     assets: [
