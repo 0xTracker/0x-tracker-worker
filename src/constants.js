@@ -59,6 +59,7 @@ module.exports = {
     CREATE_TOKEN: 'create-token',
     CREATE_TRANSFORMED_ERC20_EVENT_FILLS:
       'create-transformed-erc20-event-fills',
+    FETCH_ADDRESS_TYPE: 'fetch-address-type',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
     INDEX_APP_FILL_ATTRIBUTONS: 'index-app-fill-attributions',
@@ -68,6 +69,7 @@ module.exports = {
     INDEX_TRADED_TOKENS: 'index-traded-tokens',
   },
   QUEUE: {
+    ADDRESS_PROCESSING: 'address-processing',
     FILL_INDEXING: 'fill-indexing',
     FILL_PROCESSING: 'fill-processing',
     INDEXING: 'indexing',
