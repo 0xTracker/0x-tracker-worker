@@ -210,6 +210,24 @@ describe('consumers/fetch-transaction', () => {
     );
   });
 
+  it('should schedule fetch of sender address if AddressMetadata document exists but type is unknown', async () => {
+    await getModel('AddressMetadata').create({
+      address: '0x00000055a65c7b71f171659b8838e1a139b0e518',
+    });
+
+    await fetchTransaction(simpleJob, mockOptions);
+
+    expect(publishJob).toHaveBeenCalledTimes(1);
+    expect(publishJob).toHaveBeenCalledWith(
+      'address-processing',
+      'fetch-address-type',
+      { address: '0x00000055a65c7b71f171659b8838e1a139b0e518' },
+      {
+        jobId: 'fetch-address-type-0x00000055a65c7b71f171659b8838e1a139b0e518',
+      },
+    );
+  });
+
   it('should not schedule fetch of sender address type if already known', async () => {
     await getModel('AddressMetadata').create({
       address: '0x00000055a65c7b71f171659b8838e1a139b0e518',
