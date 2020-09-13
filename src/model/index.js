@@ -1,3 +1,4 @@
+const AddressMetadata = require('./address-metadata');
 const AddressMetric = require('./address-metric');
 const App = require('./app');
 const Article = require('./article');
@@ -40,6 +41,7 @@ const initModels = async () => {
   }
 
   models = {
+    AddressMetadata,
     AddressMetric,
     App,
     Article,
