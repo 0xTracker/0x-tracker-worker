@@ -6,6 +6,7 @@ const {
   resetDb,
   mockLogger,
 } = require('../../test-utils');
+const { publishJob } = require('../../queues');
 const BLOCK_10439179 = require('../../fixtures/blocks/10439179');
 const BLOCK_10141741 = require('../../fixtures/blocks/10141741');
 const RAW_TRANSACTION_0X29579558FECFEF00A960A27F314C3E36003B0BBC7B95C462100E83B8836F718A = require('../../fixtures/raw-transactions/0x29579558fecfef00a960a27f314c3e36003b0bbc7b95c462100e83b8836f718a');
@@ -18,6 +19,7 @@ const getTransaction = require('../../util/ethereum/get-transaction');
 const getTransactionReceipt = require('../../util/ethereum/get-transaction-receipt');
 const persistTransaction = require('./persist-transaction');
 
+jest.mock('../../queues');
 jest.mock('../../transactions/check-transaction-exists');
 jest.mock('./persist-transaction');
 jest.mock('../../util/ethereum/get-block');
@@ -192,5 +194,48 @@ describe('consumers/fetch-transaction', () => {
         protocolVersion: 3,
       }),
     ]);
+  });
+
+  it('should schedule fetch of sender address type', async () => {
+    await fetchTransaction(simpleJob, mockOptions);
+
+    expect(publishJob).toHaveBeenCalledTimes(1);
+    expect(publishJob).toHaveBeenCalledWith(
+      'address-processing',
+      'fetch-address-type',
+      { address: '0x00000055a65c7b71f171659b8838e1a139b0e518' },
+      {
+        jobId: 'fetch-address-type-0x00000055a65c7b71f171659b8838e1a139b0e518',
+      },
+    );
+  });
+
+  it('should schedule fetch of sender address if AddressMetadata document exists but type is unknown', async () => {
+    await getModel('AddressMetadata').create({
+      address: '0x00000055a65c7b71f171659b8838e1a139b0e518',
+    });
+
+    await fetchTransaction(simpleJob, mockOptions);
+
+    expect(publishJob).toHaveBeenCalledTimes(1);
+    expect(publishJob).toHaveBeenCalledWith(
+      'address-processing',
+      'fetch-address-type',
+      { address: '0x00000055a65c7b71f171659b8838e1a139b0e518' },
+      {
+        jobId: 'fetch-address-type-0x00000055a65c7b71f171659b8838e1a139b0e518',
+      },
+    );
+  });
+
+  it('should not schedule fetch of sender address type if already known', async () => {
+    await getModel('AddressMetadata').create({
+      address: '0x00000055a65c7b71f171659b8838e1a139b0e518',
+      isContract: true,
+    });
+
+    await fetchTransaction(simpleJob, mockOptions);
+
+    expect(publishJob).toHaveBeenCalledTimes(0);
   });
 });
