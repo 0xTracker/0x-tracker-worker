@@ -3,6 +3,8 @@ const _ = require('lodash');
 const { JOB, QUEUE } = require('../../constants');
 const buildTransaction = require('./build-transaction');
 const checkTransactionExists = require('../../transactions/check-transaction-exists');
+const fetchAddressType = require('../../addresses/fetch-address-type');
+const getAddressMetadata = require('../../addresses/get-address-metadata');
 const getBlock = require('../../util/ethereum/get-block');
 const getERC20BridgeTransferEvents = require('../../transactions/get-erc20-bridge-transfer-events');
 const getTransaction = require('../../util/ethereum/get-transaction');
@@ -48,10 +50,22 @@ const fetchTransaction = async (job, { logger }) => {
   const transaction = buildTransaction(tx, receipt, block);
   const bridgeTransferEvents = getERC20BridgeTransferEvents(receipt);
 
-  /**
-   * Store data within a transaction to ensure consistency. This allows the
-   * assumption that if a transaction exists then the bridge events do too.
-   */
+  /*
+    Fetch address type for sender if it's not already known.
+  */
+  const fromAddressMetadata = await getAddressMetadata(transaction.from);
+
+  if (
+    fromAddressMetadata === null ||
+    fromAddressMetadata.isContract === undefined
+  ) {
+    await fetchAddressType(transaction.from);
+  }
+
+  /*
+    Store data within a transaction to ensure consistency. This allows the
+    assumption that if a transaction exists then the bridge events do too.
+  */
   await withTransaction(async session => {
     if (bridgeTransferEvents.length > 0) {
       await persistEvents(bridgeTransferEvents, { session });
