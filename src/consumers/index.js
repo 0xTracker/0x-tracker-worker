@@ -13,6 +13,7 @@ const fetchTransaction = require('./fetch-transaction');
 const indexAppFillAttributions = require('./index-app-fill-attributions');
 const indexFill = require('./index-fill');
 const indexFillProtocolFee = require('./index-fill-protocol-fee');
+const indexFillTraders = require('./index-fill-traders');
 const indexFillValue = require('./index-fill-value');
 const indexTradedTokens = require('./index-traded-tokens');
 
@@ -28,6 +29,7 @@ const consumers = [
   indexAppFillAttributions,
   indexFill,
   indexFillProtocolFee,
+  indexFillTraders,
   indexFillValue,
   indexTradedTokens,
 ];
