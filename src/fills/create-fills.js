@@ -7,13 +7,14 @@ const { JOB, QUEUE } = require('../constants');
 const { publishJob } = require('../queues');
 const applyAttributionsToFill = require('./apply-attributions-to-fill');
 const convertProtocolFee = require('../fills/convert-protocol-fee');
+const convertRelayerFees = require('./convert-relayer-fees');
 const fetchUnknownAddressTypes = require('../addresses/fetch-unknown-address-types');
-const indexFill = require('../index/index-fill');
-const indexTradedTokens = require('../index/index-traded-tokens');
+const getAppAttributionsForFill = require('./get-app-attributions-for-fill');
 const hasProtocolFee = require('./has-protocol-fee');
 const hasRelayerFees = require('./has-relayer-fees');
-const convertRelayerFees = require('./convert-relayer-fees');
-const getAppAttributionsForFill = require('./get-app-attributions-for-fill');
+const indexFill = require('../index/index-fill');
+const indexFillTraders = require('../index/index-fill-traders');
+const indexTradedTokens = require('../index/index-traded-tokens');
 
 const createFills = async (fills, { session }) => {
   const attributedFills = fills.map(fill => applyAttributionsToFill(fill));
@@ -63,6 +64,7 @@ const createFills = async (fills, { session }) => {
 
       await indexFill(fillId, ms('30 seconds'));
       await indexTradedTokens(fill);
+      await indexFillTraders(fill);
 
       if (hasProtocolFee(fill)) {
         await convertProtocolFee(fill, ms('30 seconds'));

@@ -433,6 +433,20 @@ describe('createFill', () => {
     );
   });
 
+  it('should index fill traders after creation', async () => {
+    await createFill(V3_EVENT, simpleTransaction);
+
+    expect(publishJob).toHaveBeenCalledWith('indexing', 'index-fill-traders', {
+      fillDate: new Date('2019-10-26T16:32:03.000Z'),
+      fillId: '5bb1f06b62f9ca0004c7cf20',
+      maker: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
+      taker: '0x7447dab10325f902725191a34eb8288abe02c7f4',
+      tradeCount: 1,
+      transactionHash:
+        '0x00cfc187cce6c5f537f84621b6fce4ac828848f2b088b16f0deeb4bde2586637',
+    });
+  });
+
   // TODO: Reintroduce these tests in a future PR
   // it('should only create tokens which do not already exist', async () => {
   //   getExistingTokens.mockResolvedValue([

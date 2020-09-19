@@ -20,24 +20,19 @@ const calculateTradeCount = relayerId => {
 };
 
 const indexFillTraders = async fill => {
-  const fillId = fill._id;
+  const fillId = fill._id.toString();
   const value = _.get(fill, 'conversions.USD.amount');
   const tradeCount = calculateTradeCount(fill.relayerId);
 
-  publishJob(
-    QUEUE.FILL_INDEXING,
-    JOB.INDEX_FILL_TRADERS,
-    {
-      fillDate: fill.date,
-      fillId,
-      fillValue: value,
-      maker: fill.maker,
-      taker: fill.taker,
-      tradeCount,
-      transactionHash: fill.transactionHash,
-    },
-    { jobId: `index-fill-traders-${fillId}` },
-  );
+  publishJob(QUEUE.INDEXING, JOB.INDEX_FILL_TRADERS, {
+    fillDate: fill.date,
+    fillId,
+    fillValue: value,
+    maker: fill.maker,
+    taker: fill.taker,
+    tradeCount,
+    transactionHash: fill.transactionHash,
+  });
 };
 
 module.exports = indexFillTraders;
