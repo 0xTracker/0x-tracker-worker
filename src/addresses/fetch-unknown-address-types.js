@@ -24,6 +24,10 @@ const fetchUnknownAddressTypes = async addresses => {
   const dedupedAddresses = _.uniq(addresses);
   const unknownAddresses = await determineUnknownAddresses(dedupedAddresses);
 
+  if (unknownAddresses.length === 0) {
+    return;
+  }
+
   await Promise.all(unknownAddresses.map(address => fetchAddressType(address)));
 };
 
