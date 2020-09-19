@@ -12,6 +12,7 @@ const getTransactionReceipt = require('../../util/ethereum/get-transaction-recei
 const persistEvents = require('../../events/persist-events');
 const persistTransaction = require('./persist-transaction');
 const withTransaction = require('../../util/with-transaction');
+const fetchUnknownAddressTypes = require('../../addresses/fetch-unknown-address-types');
 
 const fetchTransaction = async (job, { logger }) => {
   const { blockNumber, transactionHash } = job.data;
@@ -53,14 +54,7 @@ const fetchTransaction = async (job, { logger }) => {
   /*
     Fetch address type for sender if it's not already known.
   */
-  const fromAddressMetadata = await getAddressMetadata(transaction.from);
-
-  if (
-    fromAddressMetadata === null ||
-    fromAddressMetadata.isContract === undefined
-  ) {
-    await fetchAddressType(transaction.from);
-  }
+  await fetchUnknownAddressTypes([transaction.from]);
 
   /*
     Store data within a transaction to ensure consistency. This allows the
