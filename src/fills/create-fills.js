@@ -7,6 +7,7 @@ const { JOB, QUEUE } = require('../constants');
 const { publishJob } = require('../queues');
 const applyAttributionsToFill = require('./apply-attributions-to-fill');
 const convertProtocolFee = require('../fills/convert-protocol-fee');
+const fetchUnknownAddressTypes = require('../addresses/fetch-unknown-address-types');
 const indexFill = require('../index/index-fill');
 const indexTradedTokens = require('../index/index-traded-tokens');
 const hasProtocolFee = require('./has-protocol-fee');
@@ -78,6 +79,16 @@ const createFills = async (fills, { session }) => {
           fillId,
         });
       }
+
+      await fetchUnknownAddressTypes(
+        _.compact([
+          fill.affiliateAddress,
+          fill.feeRecipient,
+          fill.maker,
+          fill.senderAddress,
+          fill.taker,
+        ]),
+      );
     }),
   );
 };

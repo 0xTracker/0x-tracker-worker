@@ -330,7 +330,7 @@ describe('createFill', () => {
       protocolFee: 100000000000,
       protocolVersion: 3,
       quoteDate: new Date('2019-11-15T03:48:09.000Z'),
-      senderAddress: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
+      senderAddress: '0xe33c8e3a0d14a81f0dd7e174830089e82f65fc85',
       status: 1,
       taker: '0x7447dab10325f902725191a34eb8288abe02c7f4',
       transactionHash:
@@ -365,6 +365,73 @@ describe('createFill', () => {
       },
     );
   }, 60000);
+
+  it('should fetch associated address types when unknown', async () => {
+    await createFill(V3_EVENT, {
+      ...simpleTransaction,
+      affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
+    });
+
+    // Fee Recipient
+    expect(publishJob).toHaveBeenCalledWith(
+      'address-processing',
+      'fetch-address-type',
+      {
+        address: '0x173a2467cece1f752eb8416e337d0f0b58cad795',
+      },
+      {
+        jobId: 'fetch-address-type-0x173a2467cece1f752eb8416e337d0f0b58cad795',
+      },
+    );
+
+    // Maker
+    expect(publishJob).toHaveBeenCalledWith(
+      'address-processing',
+      'fetch-address-type',
+      {
+        address: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
+      },
+      {
+        jobId: 'fetch-address-type-0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
+      },
+    );
+
+    // Taker
+    expect(publishJob).toHaveBeenCalledWith(
+      'address-processing',
+      'fetch-address-type',
+      {
+        address: '0x7447dab10325f902725191a34eb8288abe02c7f4',
+      },
+      {
+        jobId: 'fetch-address-type-0x7447dab10325f902725191a34eb8288abe02c7f4',
+      },
+    );
+
+    // Sender
+    expect(publishJob).toHaveBeenCalledWith(
+      'address-processing',
+      'fetch-address-type',
+      {
+        address: '0xe33c8e3a0d14a81f0dd7e174830089e82f65fc85',
+      },
+      {
+        jobId: 'fetch-address-type-0xe33c8e3a0d14a81f0dd7e174830089e82f65fc85',
+      },
+    );
+
+    // Sender
+    expect(publishJob).toHaveBeenCalledWith(
+      'address-processing',
+      'fetch-address-type',
+      {
+        address: '0x86003b044f70dac0abc80ac8957305b6370893ed',
+      },
+      {
+        jobId: 'fetch-address-type-0x86003b044f70dac0abc80ac8957305b6370893ed',
+      },
+    );
+  });
 
   // TODO: Reintroduce these tests in a future PR
   // it('should only create tokens which do not already exist', async () => {

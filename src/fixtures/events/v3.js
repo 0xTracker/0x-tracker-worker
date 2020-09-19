@@ -24,7 +24,7 @@ const V3_EVENT = {
       makerAddress: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
       feeRecipientAddress: '0x173a2467cece1f752eb8416e337d0f0b58cad795',
       takerAddress: '0x7447dab10325f902725191a34eb8288abe02c7f4',
-      senderAddress: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
+      senderAddress: '0xe33c8e3a0d14a81f0dd7e174830089e82f65fc85',
       makerAssetFilledAmount: 1,
       takerAssetFilledAmount: 1650162000000000,
       makerFeePaid: 500000000000,

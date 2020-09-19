@@ -3,8 +3,6 @@ const _ = require('lodash');
 const { JOB, QUEUE } = require('../../constants');
 const buildTransaction = require('./build-transaction');
 const checkTransactionExists = require('../../transactions/check-transaction-exists');
-const fetchAddressType = require('../../addresses/fetch-address-type');
-const getAddressMetadata = require('../../addresses/get-address-metadata');
 const getBlock = require('../../util/ethereum/get-block');
 const getERC20BridgeTransferEvents = require('../../transactions/get-erc20-bridge-transfer-events');
 const getTransaction = require('../../util/ethereum/get-transaction');
@@ -12,6 +10,7 @@ const getTransactionReceipt = require('../../util/ethereum/get-transaction-recei
 const persistEvents = require('../../events/persist-events');
 const persistTransaction = require('./persist-transaction');
 const withTransaction = require('../../util/with-transaction');
+const fetchUnknownAddressTypes = require('../../addresses/fetch-unknown-address-types');
 
 const fetchTransaction = async (job, { logger }) => {
   const { blockNumber, transactionHash } = job.data;
@@ -53,14 +52,7 @@ const fetchTransaction = async (job, { logger }) => {
   /*
     Fetch address type for sender if it's not already known.
   */
-  const fromAddressMetadata = await getAddressMetadata(transaction.from);
-
-  if (
-    fromAddressMetadata === null ||
-    fromAddressMetadata.isContract === undefined
-  ) {
-    await fetchAddressType(transaction.from);
-  }
+  await fetchUnknownAddressTypes([transaction.from]);
 
   /*
     Store data within a transaction to ensure consistency. This allows the
