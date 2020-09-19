@@ -140,7 +140,10 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
    */
   const fills = dedupeBridgeEvents(bridgeEvents).map(bridgeEvent => ({
     _id: bridgeEvent._id,
-    affiliateAddress: transaction.affiliateAddress.toLowerCase(),
+    affiliateAddress:
+      transaction.affiliateAddress !== undefined
+        ? transaction.affiliateAddress.toLowerCase()
+        : undefined,
     assets: [
       {
         actor: FILL_ACTOR.MAKER,
