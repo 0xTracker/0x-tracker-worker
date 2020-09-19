@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { getModel } = require('../model');
 const fetchAddressType = require('./fetch-address-type');
 
@@ -20,7 +21,8 @@ const determineUnknownAddresses = async addresses => {
 };
 
 const fetchUnknownAddressTypes = async addresses => {
-  const unknownAddresses = await determineUnknownAddresses(addresses);
+  const dedupedAddresses = _.uniq(addresses);
+  const unknownAddresses = await determineUnknownAddresses(dedupedAddresses);
 
   await Promise.all(unknownAddresses.map(address => fetchAddressType(address)));
 };
