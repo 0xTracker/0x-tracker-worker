@@ -65,6 +65,7 @@ module.exports = {
     INDEX_APP_FILL_ATTRIBUTONS: 'index-app-fill-attributions',
     INDEX_FILL: 'index-fill',
     INDEX_FILL_PROTOCOL_FEE: 'index-fill-protocol-fee',
+    INDEX_FILL_TRADERS: 'index-fill-traders',
     INDEX_FILL_VALUE: 'index-fill-value',
     INDEX_TRADED_TOKENS: 'index-traded-tokens',
   },
