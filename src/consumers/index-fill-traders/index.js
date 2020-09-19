@@ -45,7 +45,8 @@ const indexFillTraders = async (job, { logger }) => {
     }
   }
 
-  const tradeValue = fillValue * tradeCount;
+  const tradeValue =
+    fillValue === undefined ? undefined : fillValue * tradeCount;
 
   const requestBody = [
     JSON.stringify({
@@ -65,6 +66,7 @@ const indexFillTraders = async (job, { logger }) => {
       totalFillValue: fillValue,
       totalTradeCount: tradeCount,
       totalTradeValue: tradeValue,
+      updatedAt: new Date().toISOString(),
     }),
     JSON.stringify({
       index: {
@@ -83,6 +85,7 @@ const indexFillTraders = async (job, { logger }) => {
       totalFillValue: fillValue,
       totalTradeCount: tradeCount,
       totalTradeValue: tradeValue,
+      updatedAt: new Date().toISOString(),
     }),
   ].join('\n');
 
@@ -100,7 +103,7 @@ const indexFillTraders = async (job, { logger }) => {
     throw new Error(errorMessage);
   }
 
-  logger.info(`indexed fill trades: ${fillId}`);
+  logger.info(`indexed fill traders: ${fillId}`);
 };
 
 module.exports = {
