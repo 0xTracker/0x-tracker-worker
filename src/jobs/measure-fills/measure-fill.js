@@ -12,6 +12,7 @@ const getAppAttributionsForFill = require('../../fills/get-app-attributions-for-
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getMeasurableActor = require('./get-measurable-actor');
 const indexFillValue = require('../../index/index-fill-value');
+const indexFillTraders = require('../../index/index-fill-traders');
 const indexTradedTokens = require('../../index/index-traded-tokens');
 const normalizeSymbol = require('../../tokens/normalize-symbol');
 const withTransaction = require('../../util/with-transaction');
@@ -84,6 +85,7 @@ const measureFill = async fill => {
   await withTransaction(async session => {
     await fill.save({ session });
     await indexFillValue(fill, totalValue);
+    await indexFillTraders(fill);
     await indexTradedTokens(fill);
 
     if (fill.apps.length > 0) {
