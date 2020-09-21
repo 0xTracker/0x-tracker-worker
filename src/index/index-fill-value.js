@@ -2,15 +2,17 @@ const { JOB, QUEUE } = require('../constants');
 const { publishJob } = require('../queues');
 
 const indexFillValue = async (fill, value) => {
+  const fillId = fill._id.toString();
+
   await publishJob(
     QUEUE.FILL_INDEXING,
     JOB.INDEX_FILL_VALUE,
     {
-      fillId: fill._id,
+      fillId,
       relayerId: fill.relayerId,
       value,
     },
-    { jobId: `index-fill-value-${fill._id}` },
+    { jobId: `index-fill-value-${fillId}` },
   );
 };
 
