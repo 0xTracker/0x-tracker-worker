@@ -284,6 +284,7 @@ module.exports = {
     feeRecipients: [
       '0x4d37f28d2db99e8d35a6c725a5f1749a085850a3',
       '0x68a17b587caf4f9329f0e372e3a78d23a46de6b5',
+      '0x9883a8b0f58b662d60847db992e66591e2ede106',
     ],
     url: 'https://1inch.exchange',
   },
