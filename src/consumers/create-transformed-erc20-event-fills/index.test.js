@@ -372,7 +372,6 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           fees: [],
           hasValue: false,
           immeasurable: false,
-          isTransformedERC20: true,
           logIndex: 191,
           maker: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
           protocolVersion: 3,
@@ -382,6 +381,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
           transactionHash:
             '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
+          type: 1,
         },
         {
           __v: 0,
@@ -419,7 +419,6 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           fees: [],
           hasValue: false,
           immeasurable: false,
-          isTransformedERC20: true,
           logIndex: 209,
           maker: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4',
           protocolVersion: 3,
@@ -429,6 +428,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
           transactionHash:
             '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
+          type: 1,
         },
         {
           __v: 0,
@@ -466,7 +466,6 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           fees: [],
           hasValue: false,
           immeasurable: false,
-          isTransformedERC20: true,
           logIndex: 202,
           maker: '0x1c29670f7a77f1052d30813a0a4f632c78a02610',
           protocolVersion: 3,
@@ -476,6 +475,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
           transactionHash:
             '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
+          type: 1,
         },
       ]),
     );
@@ -641,7 +641,6 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
         fees: [],
         hasValue: false,
         immeasurable: false,
-        isTransformedERC20: true,
         logIndex: 191,
         maker: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
         protocolVersion: 3,
@@ -651,6 +650,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
         taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
         transactionHash:
           '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
+        type: 1,
       },
       {
         affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
@@ -683,7 +683,6 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
         fees: [],
         hasValue: false,
         immeasurable: false,
-        isTransformedERC20: true,
         logIndex: 209,
         maker: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4',
         protocolVersion: 3,
@@ -693,6 +692,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
         taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
         transactionHash:
           '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
+        type: 1,
       },
     ]);
 

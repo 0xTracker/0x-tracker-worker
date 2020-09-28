@@ -1,3 +1,4 @@
+const { FILL_TYPE } = require('../../constants');
 const createFills = require('../../fills/create-fills');
 const createNewTokens = require('../../tokens/create-new-tokens');
 const getEventData = require('../../events/get-event-data');
@@ -26,6 +27,7 @@ const createFill = async (event, transaction) => {
     senderAddress: eventData.senderAddress,
     taker: eventData.taker,
     transactionHash: transaction.hash,
+    type: FILL_TYPE.REGULAR,
   };
 
   const tokens = getUniqTokens(eventData.assets, eventData.fees);
