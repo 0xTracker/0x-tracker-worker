@@ -90,6 +90,7 @@ const schema = Schema(
       trim: true,
       type: String,
     },
+    type: { type: Number },
   },
   { toJSON: { virtuals: true } },
 );
