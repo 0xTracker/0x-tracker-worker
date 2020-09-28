@@ -2,6 +2,7 @@ const _ = require('lodash');
 
 const batchScheduleTransactionFetch = require('./batch-schedule-transaction-fetch');
 const batchScheduleTransformedERC20FillCreation = require('./batch-schedule-transformed-erc20-fill-creation');
+const batchScheduleUniswapV2SwapFillCreation = require('./batch-schedule-uniswap-v2-swap-fill-creation');
 const cacheAddressMetrics = require('./cache-address-metrics');
 const createFills = require('./create-fills');
 const deriveFillPrices = require('./derive-fill-prices');
@@ -12,6 +13,7 @@ const measureFills = require('./measure-fills');
 const jobFns = {
   batchScheduleTransactionFetch,
   batchScheduleTransformedERC20FillCreation,
+  batchScheduleUniswapV2SwapFillCreation,
   cacheAddressMetrics,
   createFills,
   deriveFillPrices,
