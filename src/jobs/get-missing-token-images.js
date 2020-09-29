@@ -14,7 +14,7 @@ const getMissingTokenImages = async () => {
   logger.pending('fetching images from Trust Wallet repository');
 
   const response = await axios.get(
-    'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/whitelist.json',
+    'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/allowlist.json',
   );
 
   if (!_.isArray(_.get(response, 'data'))) {
