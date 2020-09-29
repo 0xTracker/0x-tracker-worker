@@ -52,6 +52,11 @@ module.exports = {
     PENDING: 0,
     SUCCESSFUL: 1,
   },
+  FILL_TYPE: {
+    REGULAR: 0,
+    TRANSFORMED_ERC20: 1,
+    UNISWAP_V2_SWAP: 2,
+  },
   JOB: {
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
@@ -59,6 +64,7 @@ module.exports = {
     CREATE_TOKEN: 'create-token',
     CREATE_TRANSFORMED_ERC20_EVENT_FILLS:
       'create-transformed-erc20-event-fills',
+    CREATE_UNISWAP_V2_SWAP_EVENT_FILL: 'create-uniswap-v2-swap-event-fill',
     FETCH_ADDRESS_TYPE: 'fetch-address-type',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
@@ -71,6 +77,7 @@ module.exports = {
   },
   QUEUE: {
     ADDRESS_PROCESSING: 'address-processing',
+    EVENT_PROCESSING: 'event-processing',
     FILL_INDEXING: 'fill-indexing',
     FILL_PROCESSING: 'fill-processing',
     INDEXING: 'indexing',

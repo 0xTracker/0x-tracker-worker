@@ -4,7 +4,13 @@ const Bluebird = require('bluebird');
 const moment = require('moment');
 const mongoose = require('mongoose');
 
-const { JOB, QUEUE, FILL_ACTOR, TOKEN_TYPE } = require('../../constants');
+const {
+  JOB,
+  QUEUE,
+  FILL_ACTOR,
+  FILL_TYPE,
+  TOKEN_TYPE,
+} = require('../../constants');
 const { publishJob } = require('../../queues');
 const createFills = require('../../fills/create-fills');
 const createNewTokens = require('../../tokens/create-new-tokens');
@@ -161,13 +167,13 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
     blockNumber: transaction.blockNumber,
     date: transaction.date,
     eventId: bridgeEvent._id,
-    isTransformedERC20: true,
     logIndex: bridgeEvent.logIndex,
     maker: bridgeEvent.data.from.toLowerCase(),
     protocolVersion: bridgeEvent.protocolVersion,
     quoteDate: transaction.quoteDate,
     taker: transformedERC20Event.data.taker.toLowerCase(),
     transactionHash: transaction.hash.toLowerCase(),
+    type: FILL_TYPE.TRANSFORMED_ERC20,
   }));
 
   /*

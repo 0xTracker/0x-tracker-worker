@@ -100,6 +100,7 @@ describe('createFill', () => {
       taker: '0x98ac18627bf2205a816eee7fbc919a7db83a4908',
       transactionHash:
         '0x00cfc187cce6c5f537f84621b6fce4ac828848f2b088b16f0deeb4bde2586637',
+      type: 0,
     });
 
     // Ensure fill indexing job is published with 30 second delay
@@ -262,6 +263,7 @@ describe('createFill', () => {
       taker: '0x7447dab10325f902725191a34eb8288abe02c7f4',
       transactionHash:
         '0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc',
+      type: 0,
     });
   }, 60000);
 
@@ -335,6 +337,7 @@ describe('createFill', () => {
       taker: '0x7447dab10325f902725191a34eb8288abe02c7f4',
       transactionHash:
         '0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc',
+      type: 0,
     });
 
     // Ensure protocol fee conversion job is published
