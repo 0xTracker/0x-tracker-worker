@@ -29,6 +29,7 @@ const indexFillTraders = async fill => {
     fillId,
     fillValue: value,
     maker: fill.maker,
+    relayerId: fill.relayerId,
     taker: fill.taker,
     tradeCount,
     transactionHash: fill.transactionHash,
