@@ -8,7 +8,15 @@ const batchScheduleTransactionFetch = async ({ batchSize }, { logger }) => {
   // Fetch a batch of unprocessed events
   const events = await Event.find({
     'scheduler.transactionFetchScheduled': { $in: [null, false] },
-    type: { $in: ['Fill', 'LogFill', 'TransformedERC20', 'UniswapV2Swap'] },
+    type: {
+      $in: [
+        'Fill',
+        'LogFill',
+        'SushiswapSwap',
+        'TransformedERC20',
+        'UniswapV2Swap',
+      ],
+    },
   })
     .select('_id blockNumber transactionHash')
     .limit(batchSize)

@@ -1,10 +1,8 @@
 const AddressMetadata = require('./address-metadata');
-const AddressMetric = require('./address-metric');
 const App = require('./app');
 const Article = require('./article');
 const Event = require('./event');
 const Fill = require('./fill');
-const MetricsJobMetadata = require('./metrics-job-metadata');
 const Relayer = require('./relayer');
 const Token = require('./token');
 const Transaction = require('./transaction');
@@ -42,12 +40,10 @@ const initModels = async () => {
 
   models = {
     AddressMetadata,
-    AddressMetric,
     App,
     Article,
     Event,
     Fill,
-    MetricsJobMetadata,
     Relayer,
     Token,
     Transaction,
