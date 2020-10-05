@@ -14,7 +14,12 @@ const indexFill = async (job, { logger }) => {
 
   logger.info(`indexing fill: ${fillId}`);
 
-  const fill = await getModel('Fill').findOne({ _id: fillId });
+  const fill = await getModel('Fill')
+    .findOne({ _id: fillId })
+    .populate([
+      { path: 'takerMetadata', select: 'isContract' },
+      { path: 'transaction', select: 'from' },
+    ]);
 
   if (fill === null) {
     throw new Error(`No fill found with the id: ${fillId}`);
@@ -26,7 +31,7 @@ const indexFill = async (job, { logger }) => {
     body: fillsIndex.createDocument(fill),
   });
 
-  logger.success(`indexed fill: ${fillId}`);
+  logger.info(`indexed fill: ${fillId}`);
 };
 
 module.exports = {

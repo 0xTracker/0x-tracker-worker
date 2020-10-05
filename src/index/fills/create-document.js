@@ -50,7 +50,7 @@ const createDocument = fill => {
     relayerId: fill.relayerId,
     senderAddress: fill.senderAddress,
     status: fill.status,
-    taker: fill.taker,
+    taker: fill.takerMetadata.isContract ? fill.transaction.from : fill.taker,
     transactionHash: fill.transactionHash,
     updatedAt: new Date(Date.now()).toISOString(),
     value: value === null ? undefined : value,
