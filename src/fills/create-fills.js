@@ -16,7 +16,7 @@ const indexFill = require('../index/index-fill');
 const indexFillTraders = require('../index/index-fill-traders');
 const indexTradedTokens = require('../index/index-traded-tokens');
 
-const createFills = async (fills, { session }) => {
+const createFills = async (fills, { session } = {}) => {
   const attributedFills = fills.map(fill => applyAttributionsToFill(fill));
   const fillsWithTokenStatus = attributedFills.map(fill => ({
     ...fill,
