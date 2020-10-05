@@ -56,11 +56,13 @@ module.exports = {
     REGULAR: 0,
     TRANSFORMED_ERC20: 1,
     UNISWAP_V2_SWAP: 2,
+    SUSHISWAP_SWAP: 3,
   },
   JOB: {
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
     CONVERT_RELAYER_FEES: 'convert-relayer-fees',
+    CREATE_SUSHISWAP_SWAP_EVENT_FILL: 'create-sushiswap-swap-event-fill',
     CREATE_TOKEN: 'create-token',
     CREATE_TRANSFORMED_ERC20_EVENT_FILLS:
       'create-transformed-erc20-event-fills',
