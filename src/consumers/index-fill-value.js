@@ -36,6 +36,10 @@ const indexFillValue = async (job, { logger }) => {
 
   const fill = await getModel('Fill')
     .findOne({ _id: fillId })
+    .populate([
+      { path: 'takerMetadata', select: 'isContract' },
+      { path: 'transaction', select: 'from' },
+    ])
     .lean();
 
   if (fill === null) {
