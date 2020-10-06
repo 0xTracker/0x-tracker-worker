@@ -42,12 +42,12 @@ const schema = Joi.object({
   websiteUrl: Joi.string().uri({ scheme: 'https' }),
 }).required();
 
-const validateAppDefinition = appDefinition => {
-  const { error } = schema.validate(appDefinition, { abortEarly: false });
+const validateEntityDefinition = definition => {
+  const { error } = schema.validate(definition, { abortEarly: false });
 
   if (error) {
     throw error.annotate();
   }
 };
 
-module.exports = validateAppDefinition;
+module.exports = validateEntityDefinition;

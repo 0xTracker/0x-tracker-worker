@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const getAppDefinitions = require('./get-app-definitions');
+const getEntityDefinitions = require('./get-entity-definitions');
 
 const prettifyUndefined = value => (value === undefined ? '(none)' : value);
 
@@ -7,7 +7,7 @@ const getErrorForDuplicate = (type, metadata) => {
   const { affiliateAddress, feeRecipientAddress, takerAddress } = metadata;
 
   return new Error(
-    `Multiple ${type} apps match metadata:` +
+    `Multiple ${type} attribution entities match metadata:` +
       '\r\n\r\n' +
       `affiliateAddress: ${prettifyUndefined(affiliateAddress)}\r\n` +
       `feeRecipientAddress: ${prettifyUndefined(feeRecipientAddress)}\r\n` +
@@ -15,11 +15,11 @@ const getErrorForDuplicate = (type, metadata) => {
   );
 };
 
-const resolveApps = metadata => {
+const resolveAttributions = metadata => {
   const { affiliateAddress, feeRecipientAddress, takerAddress } = metadata;
 
-  const appDefinitions = getAppDefinitions();
-  const mappings = _.flatMap(appDefinitions, d => d.mappings);
+  const entityDefinitions = getEntityDefinitions();
+  const mappings = _.flatMap(entityDefinitions, d => d.mappings);
   const matches = mappings.filter(
     mapping =>
       (mapping.affiliateAddress === affiliateAddress ||
@@ -30,6 +30,7 @@ const resolveApps = metadata => {
         mapping.takerAddress === undefined),
   );
 
+  // TODO: Make this guard dynamic based on types constant
   if (matches.filter(m => m.type === 'relayer').length > 1) {
     throw getErrorForDuplicate('relayer', metadata);
   }
@@ -39,13 +40,13 @@ const resolveApps = metadata => {
   }
 
   return matches.map(match => {
-    const appDefinition = appDefinitions.find(d => d.mappings.includes(match));
+    const definition = entityDefinitions.find(d => d.mappings.includes(match));
 
     return {
-      id: appDefinition.id,
+      id: definition.id,
       type: match.type,
     };
   });
 };
 
-module.exports = resolveApps;
+module.exports = resolveAttributions;

@@ -1,24 +1,24 @@
 const _ = require('lodash');
-const getAppDefinitions = require('./get-app-definitions');
-const validateAppDefinition = require('./validate-app-definition');
+const getEntityDefinitions = require('./get-entity-definitions');
+const validateEntityDefinition = require('./validate-entity-definition');
 
 describe('apps/getAppDefinitions', () => {
   it('should get all app definitions', () => {
-    const definitions = getAppDefinitions();
+    const definitions = getEntityDefinitions();
 
     expect(definitions.length).not.toBe(0);
   });
 
   it('should not contain definitions which violate the app definition schema', () => {
-    const definitions = getAppDefinitions();
+    const definitions = getEntityDefinitions();
 
     definitions.forEach(definition => {
-      validateAppDefinition(definition);
+      validateEntityDefinition(definition);
     });
   });
 
   it('should not contain multiple definitions with the same id', () => {
-    const definitions = getAppDefinitions();
+    const definitions = getEntityDefinitions();
     const uniqueIds = _(definitions)
       .map(d => d.id)
       .uniq()
@@ -28,7 +28,7 @@ describe('apps/getAppDefinitions', () => {
   });
 
   it('should not contain multiple definitions with the same taker address', () => {
-    const definitions = getAppDefinitions();
+    const definitions = getEntityDefinitions();
     const takerAddresses = _(definitions)
       .map(d => d.mappings.map(m => m.takerAddress))
       .flatten()
@@ -43,7 +43,7 @@ describe('apps/getAppDefinitions', () => {
   });
 
   it('should not contain multiple definitions with the same fee recipient address', () => {
-    const definitions = getAppDefinitions();
+    const definitions = getEntityDefinitions();
     const feeRecipientAddresses = _(definitions)
       .map(d => d.mappings.map(m => m.feeRecipientAddress))
       .flatten()
@@ -60,7 +60,7 @@ describe('apps/getAppDefinitions', () => {
   });
 
   it('should not contain multiple definitions with the same affiliate address', () => {
-    const definitions = getAppDefinitions();
+    const definitions = getEntityDefinitions();
     const affiliateAddresses = _(definitions)
       .map(d => d.mappings.map(m => m.affiliateAddress))
       .flatten()

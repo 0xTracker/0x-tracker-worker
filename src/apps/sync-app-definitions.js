@@ -1,11 +1,11 @@
 const _ = require('lodash');
 const Bluebird = require('bluebird');
 
-const { APP_TYPE } = require('../constants');
+const { FILL_ATTRIBUTION_TYPE } = require('../constants');
 const { getModel } = require('../model');
 // const { JOB, QUEUE } = require('../constants');
 // const { publishJob } = require('../queues');
-const getAppDefinitions = require('./get-app-definitions');
+const getEntityDefinitions = require('./get-entity-definitions');
 
 // TODO: Introduce and test in future PR
 // const scheduleBackfill = async appId => {
@@ -25,7 +25,7 @@ const getAppDefinitions = require('./get-app-definitions');
 const transformMappings = mappings =>
   mappings.map(m => ({
     ...m,
-    type: APP_TYPE[m.type.toUpperCase()],
+    type: FILL_ATTRIBUTION_TYPE[m.type.toUpperCase()],
   }));
 
 const createApp = async definition => {
@@ -104,7 +104,7 @@ const updateApp = async (app, definition) => {
  */
 const syncAppDefinitions = async () => {
   const App = getModel('App');
-  const definitions = getAppDefinitions();
+  const definitions = getEntityDefinitions();
 
   await Bluebird.each(definitions, async definition => {
     const app = await App.findById(definition.id);

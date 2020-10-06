@@ -16,8 +16,8 @@ files.forEach(file => {
   }
 });
 
-const getAppDefinitions = () => {
+const getEntityDefinitions = () => {
   return definitions;
 };
 
-module.exports = getAppDefinitions;
+module.exports = getEntityDefinitions;

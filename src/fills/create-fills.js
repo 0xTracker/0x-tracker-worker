@@ -3,13 +3,10 @@ const ms = require('ms');
 
 const { checkTokenResolved } = require('../tokens/token-cache');
 const { getModel } = require('../model');
-const { JOB, QUEUE } = require('../constants');
-const { publishJob } = require('../queues');
 const applyAttributionsToFill = require('./apply-attributions-to-fill');
 const convertProtocolFee = require('../fills/convert-protocol-fee');
 const convertRelayerFees = require('./convert-relayer-fees');
 const fetchUnknownAddressTypes = require('../addresses/fetch-unknown-address-types');
-const getAppAttributionsForFill = require('./get-app-attributions-for-fill');
 const hasProtocolFee = require('./has-protocol-fee');
 const hasRelayerFees = require('./has-relayer-fees');
 const indexFill = require('../index/index-fill');
@@ -72,14 +69,6 @@ const createFills = async (fills, { session } = {}) => {
 
       if (hasRelayerFees(fill)) {
         await convertRelayerFees(fillId, ms('30 seconds'));
-      }
-
-      if (fill.apps.length > 0) {
-        await publishJob(QUEUE.INDEXING, JOB.INDEX_APP_FILL_ATTRIBUTONS, {
-          attributions: getAppAttributionsForFill(fill),
-          date: fill.date,
-          fillId,
-        });
       }
 
       await fetchUnknownAddressTypes(

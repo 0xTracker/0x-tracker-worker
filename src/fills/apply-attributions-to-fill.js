@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const resolveRelayer = require('../relayers/resolve-relayer');
-const resolveApps = require('../apps/resolve-apps');
+const resolveAttributions = require('../apps/resolve-attributions');
 
-const APP_TYPE_TO_NUMBER = {
+const ATTRIBUTION_TYPE_TO_NUMBER = {
   relayer: 0,
   consumer: 1,
 };
@@ -15,18 +15,18 @@ const applyAttributionsToFill = fill => {
     takerAddress: fill.taker,
   });
 
-  const apps = resolveApps({
+  const attributions = resolveAttributions({
     affiliateAddress: fill.affiliateAddress,
     feeRecipientAddress: fill.feeRecipient,
     takerAddress: fill.taker,
-  }).map(app => ({
-    appId: app.id,
-    type: APP_TYPE_TO_NUMBER[app.type],
+  }).map(attribution => ({
+    entityId: attribution.id,
+    type: ATTRIBUTION_TYPE_TO_NUMBER[attribution.type],
   }));
 
   const fillWithAttributions = {
     ...fill,
-    apps,
+    attributions,
     relayerId: _.get(relayer, 'lookupId'),
   };
 

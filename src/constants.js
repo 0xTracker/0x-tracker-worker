@@ -1,8 +1,4 @@
 module.exports = {
-  APP_TYPE: {
-    RELAYER: 0,
-    CONSUMER: 1,
-  },
   // ordered by priority e.g. in ETH/DAI pair DAI is the base token
   BASE_TOKENS: {
     '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359': 'DAI', // DAI Stablecoin
@@ -43,6 +39,10 @@ module.exports = {
     MAKER: 0,
     TAKER: 1,
   },
+  FILL_ATTRIBUTION_TYPE: {
+    RELAYER: 0,
+    CONSUMER: 1,
+  },
   FILL_PRICING_STATUS: {
     PRICED: 0,
     UNPRICEABLE: 1,
@@ -72,6 +72,7 @@ module.exports = {
     FETCH_TRANSACTION: 'fetch-transaction',
     INDEX_APP_FILL_ATTRIBUTONS: 'index-app-fill-attributions',
     INDEX_FILL: 'index-fill',
+    INDEX_FILL_ATTRIBUTIONS: 'index-fill-attributions',
     INDEX_FILL_PROTOCOL_FEE: 'index-fill-protocol-fee',
     INDEX_FILL_TRADERS: 'index-fill-traders',
     INDEX_FILL_VALUE: 'index-fill-value',
