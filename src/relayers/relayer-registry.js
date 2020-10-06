@@ -312,4 +312,20 @@ module.exports = {
     feeRecipients: ['0x86003b044f70dac0abc80ac8957305b6370893ed'],
     url: 'https://matcha.xyz',
   },
+  metamask: {
+    imageUrl: 'https://resources.0xtracker.com/logos/metamask.png',
+    lookupId: 36,
+    name: 'MetaMask',
+    slug: 'metamask',
+    feeRecipients: [],
+    url: 'https://metamask.io/',
+  },
+  defiSaver: {
+    imageUrl: 'https://resources.0xtracker.com/logos/defi-saver.png',
+    lookupId: 37,
+    name: 'DeFi Saver',
+    slug: 'defi-saver',
+    feeRecipients: [],
+    url: 'https://defisaver.com/',
+  },
 };

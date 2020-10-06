@@ -48,6 +48,15 @@ Object {
     ],
     "url": "https://ddex.io",
   },
+  "defiSaver": Object {
+    "feeRecipients": Array [],
+    "id": "defiSaver",
+    "imageUrl": "https://resources.0xtracker.com/logos/defi-saver.png",
+    "lookupId": 37,
+    "name": "DeFi Saver",
+    "slug": "defi-saver",
+    "url": "https://defisaver.com/",
+  },
   "deversifi": Object {
     "feeRecipients": Array [
       "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1",
@@ -188,6 +197,15 @@ Object {
     "name": "Merchcoins Exchange",
     "slug": "merchcoins-exchange",
     "url": "https://merchcoins.com/",
+  },
+  "metamask": Object {
+    "feeRecipients": Array [],
+    "id": "metamask",
+    "imageUrl": "https://resources.0xtracker.com/logos/metamask.png",
+    "lookupId": 36,
+    "name": "MetaMask",
+    "slug": "metamask",
+    "url": "https://metamask.io/",
   },
   "oc2Dex": Object {
     "feeRecipients": Array [

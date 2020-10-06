@@ -37,6 +37,26 @@ const resolveRelayer = metadata => {
     return relayers.radarRelay;
   }
 
+  // TODO: Remove this temporary hack once apps feature is in place
+  if (
+    (affiliateAddress === '0xfee5f86a8737ff816ba3f6adb5fc6027c1cb3f75' && // MetaMask
+      feeRecipient === '0x1000000000000000000000000000000000000011') || // 0x API
+    (affiliateAddress === '0xfee5f86a8737ff816ba3f6adb5fc6027c1cb3f75' && // MetaMask
+      matchingRelayer === undefined)
+  ) {
+    return relayers.metamask;
+  }
+
+  // TODO: Remove this temporary hack once apps feature is in place
+  if (
+    (affiliateAddress === '0x322d58b9e75a6918f7e7849aee0ff09369977e08' && // DeFi Saver
+      feeRecipient === '0x1000000000000000000000000000000000000011') || // 0x API
+    (affiliateAddress === '0x322d58b9e75a6918f7e7849aee0ff09369977e08' && // DeFi Saver
+      matchingRelayer === undefined)
+  ) {
+    return relayers.defiSaver;
+  }
+
   return matchingRelayer || null;
 };
 
