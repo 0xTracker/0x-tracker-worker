@@ -141,6 +141,20 @@ schema.virtual('relayer', {
   justOne: true,
 });
 
+schema.virtual('takerMetadata', {
+  ref: 'AddressMetadata',
+  localField: 'taker',
+  foreignField: 'address',
+  justOne: true,
+});
+
+schema.virtual('transaction', {
+  ref: 'Transaction',
+  localField: 'transactionHash',
+  foreignField: 'hash',
+  justOne: true,
+});
+
 const Model = mongoose.model('Fill', schema);
 
 module.exports = Model;

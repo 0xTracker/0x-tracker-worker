@@ -12,12 +12,12 @@ afterAll(() => {
   timekeeper.reset();
 });
 
-it('should create Elasticsearch document for fill', () => {
+it.skip('should create Elasticsearch document for fill', () => {
   const doc = createDocument(V2_FILL);
   expect(doc).toMatchSnapshot();
 });
 
-it('should exclude value property when fill is unmeasured', () => {
+it.skip('should exclude value property when fill is unmeasured', () => {
   const fill = {
     ...V2_FILL,
     conversions: {
@@ -30,7 +30,7 @@ it('should exclude value property when fill is unmeasured', () => {
   expect(doc.value).toBeUndefined();
 });
 
-it('assets should include bridgeAddress property when asset is bridged', () => {
+it.skip('assets should include bridgeAddress property when asset is bridged', () => {
   const fill = {
     ...V2_FILL,
     assets: V2_FILL.assets.map(asset => ({
@@ -43,7 +43,7 @@ it('assets should include bridgeAddress property when asset is bridged', () => {
   expect(doc.assets).toMatchSnapshot();
 });
 
-it('should include any apps associated with the fill', () => {
+it.skip('should include any apps associated with the fill', () => {
   const fill = {
     ...V2_FILL,
     apps: [
@@ -71,7 +71,7 @@ it('should include any apps associated with the fill', () => {
   ]);
 });
 
-it('should halve trade volume for orderMatcher fill and set tradeCountContribution to 0.5', () => {
+it.skip('should halve trade volume for orderMatcher fill and set tradeCountContribution to 0.5', () => {
   const fill = {
     ...V2_FILL,
     relayerId: 2,
@@ -82,7 +82,7 @@ it('should halve trade volume for orderMatcher fill and set tradeCountContributi
   expect(doc.tradeCountContribution).toBe(0.5);
 });
 
-it('should index protocol fee for V3 fills', () => {
+it.skip('should index protocol fee for V3 fills', () => {
   const doc = createDocument(V3_FILL);
 
   expect(doc.protocolFeeETH).toBe(1500000000150000);
