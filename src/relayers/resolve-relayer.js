@@ -39,9 +39,9 @@ const resolveRelayer = metadata => {
 
   // TODO: Remove this temporary hack once apps feature is in place
   if (
-    (affiliateAddress === '0xfee5f86a8737ff816ba3f6adb5fc6027c1cb3f75' && // MetaMask
+    (affiliateAddress === '0x11ededebf63bef0ea2d2d071bdf88f71543ec6fb' && // MetaMask
       feeRecipient === '0x1000000000000000000000000000000000000011') || // 0x API
-    (affiliateAddress === '0xfee5f86a8737ff816ba3f6adb5fc6027c1cb3f75' && // MetaMask
+    (affiliateAddress === '0x11ededebf63bef0ea2d2d071bdf88f71543ec6fb' && // MetaMask
       matchingRelayer === undefined)
   ) {
     return relayers.metamask;
