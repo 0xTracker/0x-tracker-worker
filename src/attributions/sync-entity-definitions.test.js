@@ -1,9 +1,9 @@
 const { getModel } = require('../model');
-const getAppDefinitions = require('./get-app-definitions');
-const syncAppDefinitions = require('./sync-app-definitions');
+const getEntityDefinitions = require('./get-entity-definitions');
+const syncEntityDefinitions = require('./sync-entity-definitions');
 const testUtils = require('../test-utils');
 
-jest.mock('./get-app-definitions');
+jest.mock('./get-entity-definitions');
 
 beforeAll(async () => {
   await testUtils.setupDb();
@@ -18,28 +18,28 @@ afterAll(async () => {
   await testUtils.tearDownDb();
 }, 30000);
 
-describe('apps/syncAppDefinitions', () => {
-  it('should create all app documents when none exist', async () => {
-    getAppDefinitions.mockImplementation(
-      jest.requireActual('./get-app-definitions'),
+describe('attributions/syncEntityDefinitions', () => {
+  it('should create all attribution entity documents when none exist', async () => {
+    getEntityDefinitions.mockImplementation(
+      jest.requireActual('./get-entity-definitions'),
     );
 
-    await syncAppDefinitions();
+    await syncEntityDefinitions();
 
-    const apps = await getModel('App')
+    const attributionEntities = await getModel('AttributionEntity')
       .find()
       .lean();
 
-    const matcha = await getModel('App')
+    const matcha = await getModel('AttributionEntity')
       .findById('5067df8b-f9cd-4a34-aee1-38d607100145') // Matcha
       .lean();
 
-    expect(apps.length).toBe(getAppDefinitions().length);
+    expect(attributionEntities.length).toBe(getEntityDefinitions().length);
     expect(matcha).toMatchObject({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
       logoUrl:
-        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha.png',
       mappings: [
         {
           type: 0,
@@ -56,8 +56,8 @@ describe('apps/syncAppDefinitions', () => {
     });
   });
 
-  it('should update app when definition metadata has changed', async () => {
-    getAppDefinitions.mockReturnValue([
+  it('should update attribution entity when definition metadata has changed', async () => {
+    getEntityDefinitions.mockReturnValue([
       {
         id: '5067df8b-f9cd-4a34-aee1-38d607100145',
         name: 'Matcha',
@@ -80,13 +80,13 @@ describe('apps/syncAppDefinitions', () => {
       },
     ]);
 
-    await getModel('App').create({
+    await getModel('AttributionEntity').create({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['asset-swapper'],
       description:
         'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
       logoUrl:
-        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha-xyz.png',
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha-xyz.png',
       mappings: [
         {
           type: 1,
@@ -102,9 +102,9 @@ describe('apps/syncAppDefinitions', () => {
       websiteUrl: 'https://matcha-xyz.com',
     });
 
-    await syncAppDefinitions();
+    await syncEntityDefinitions();
 
-    const matcha = await getModel('App')
+    const matcha = await getModel('AttributionEntity')
       .findById('5067df8b-f9cd-4a34-aee1-38d607100145') // Matcha
       .lean();
 
@@ -114,7 +114,7 @@ describe('apps/syncAppDefinitions', () => {
       description:
         'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
       logoUrl:
-        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha.png',
       mappings: [
         {
           type: 1,
@@ -131,8 +131,8 @@ describe('apps/syncAppDefinitions', () => {
     });
   });
 
-  it('should update app when definition mappings have changed', async () => {
-    getAppDefinitions.mockReturnValue([
+  it('should update attribution entity when definition mappings have changed', async () => {
+    getEntityDefinitions.mockReturnValue([
       {
         id: '5067df8b-f9cd-4a34-aee1-38d607100145',
         name: 'Matcha',
@@ -155,13 +155,13 @@ describe('apps/syncAppDefinitions', () => {
       },
     ]);
 
-    await getModel('App').create({
+    await getModel('AttributionEntity').create({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
       description:
         'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
       logoUrl:
-        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha.png',
       mappings: [
         {
           type: 1,
@@ -177,9 +177,9 @@ describe('apps/syncAppDefinitions', () => {
       websiteUrl: 'https://matcha.xyz',
     });
 
-    await syncAppDefinitions();
+    await syncEntityDefinitions();
 
-    const matcha = await getModel('App')
+    const matcha = await getModel('AttributionEntity')
       .findById('5067df8b-f9cd-4a34-aee1-38d607100145') // Matcha
       .lean();
 
@@ -189,7 +189,7 @@ describe('apps/syncAppDefinitions', () => {
       description:
         'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
       logoUrl:
-        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha.png',
       mappings: [
         {
           type: 1,
@@ -206,8 +206,8 @@ describe('apps/syncAppDefinitions', () => {
     });
   });
 
-  it('should not update app if mappings have just been reorganised', async () => {
-    getAppDefinitions.mockReturnValue([
+  it('should not update attribution entity if mappings have just been reorganised', async () => {
+    getEntityDefinitions.mockReturnValue([
       {
         id: '5067df8b-f9cd-4a34-aee1-38d607100145',
         name: 'Matcha',
@@ -230,13 +230,13 @@ describe('apps/syncAppDefinitions', () => {
       },
     ]);
 
-    await getModel('App').create({
+    await getModel('AttributionEntity').create({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
       categories: ['dex-aggregator', 'exchange'],
       description:
         'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
       logoUrl:
-        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha.png',
       mappings: [
         {
           type: 1,
@@ -252,9 +252,9 @@ describe('apps/syncAppDefinitions', () => {
       websiteUrl: 'https://matcha.xyz',
     });
 
-    await syncAppDefinitions();
+    await syncEntityDefinitions();
 
-    const matcha = await getModel('App')
+    const matcha = await getModel('AttributionEntity')
       .findById('5067df8b-f9cd-4a34-aee1-38d607100145') // Matcha
       .lean();
 
@@ -264,7 +264,7 @@ describe('apps/syncAppDefinitions', () => {
       description:
         'Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.',
       logoUrl:
-        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/matcha.png',
+        'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha.png',
       mappings: [
         {
           type: 1,

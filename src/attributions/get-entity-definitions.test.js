@@ -2,14 +2,14 @@ const _ = require('lodash');
 const getEntityDefinitions = require('./get-entity-definitions');
 const validateEntityDefinition = require('./validate-entity-definition');
 
-describe('apps/getAppDefinitions', () => {
-  it('should get all app definitions', () => {
+describe('attributions/getEntityDefinitions', () => {
+  it('should get all entity definitions', () => {
     const definitions = getEntityDefinitions();
 
     expect(definitions.length).not.toBe(0);
   });
 
-  it('should not contain definitions which violate the app definition schema', () => {
+  it('should not contain definitions which violate the entity definition schema', () => {
     const definitions = getEntityDefinitions();
 
     definitions.forEach(definition => {

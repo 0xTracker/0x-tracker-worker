@@ -3,7 +3,7 @@ const getEntityDefinitions = require('./get-entity-definitions');
 
 jest.mock('./get-entity-definitions');
 
-describe('apps/resolveAttributions', () => {
+describe('attributions/resolveAttributions', () => {
   beforeAll(() => {
     getEntityDefinitions.mockReturnValue([
       {

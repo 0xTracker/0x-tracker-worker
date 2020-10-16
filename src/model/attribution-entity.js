@@ -18,6 +18,6 @@ const schema = mongoose.Schema({
   websiteUrl: String,
 });
 
-const App = mongoose.model('App', schema);
+const AttributionEntity = mongoose.model('AttributionEntity', schema);
 
-module.exports = App;
+module.exports = AttributionEntity;

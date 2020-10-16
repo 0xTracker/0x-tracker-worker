@@ -4,7 +4,7 @@ const { QUEUE } = require('../constants');
 const { initQueues } = require('../queues');
 const configure = require('./configure');
 const populateRelayersCollection = require('../relayers/populate-relayers-collection');
-const syncAppDefinitions = require('../apps/sync-app-definitions');
+const syncEntityDefinitions = require('../attributions/sync-entity-definitions');
 const tokenCache = require('../tokens/token-cache');
 
 const initialise = async () => {
@@ -13,7 +13,7 @@ const initialise = async () => {
 
   await Promise.all([
     populateRelayersCollection(),
-    syncAppDefinitions(),
+    syncEntityDefinitions(),
     tokenCache.initialise(),
   ]);
 };

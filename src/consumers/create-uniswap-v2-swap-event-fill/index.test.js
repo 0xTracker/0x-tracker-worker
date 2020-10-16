@@ -184,10 +184,10 @@ describe('consumers/create-uniswap-v2-swap-event-fill', () => {
       __v: 0,
       _id: mongoose.Types.ObjectId('5f70cb40b8c4ca3f1e6cc17f'),
       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-      apps: [
+      attributions: [
         {
           _id: expect.anything(),
-          appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+          entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
       ],
@@ -308,9 +308,9 @@ describe('consumers/create-uniswap-v2-swap-event-fill', () => {
       {
         _id: '5f70cb40b8c4ca3f1e6cc17f',
         affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-        apps: [
+        attributions: [
           {
-            appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+            entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
             type: 1,
           },
         ],

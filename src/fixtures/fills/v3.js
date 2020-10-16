@@ -9,7 +9,7 @@ module.exports = {
   hasValue: true,
   immeasurable: false,
   status: 1,
-  apps: [],
+  attributions: [],
   assets: [
     {
       tokenResolved: true,

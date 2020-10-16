@@ -19,7 +19,7 @@ const resolveRelayer = metadata => {
       _.includes(relayer.senderAddresses, senderAddress),
   );
 
-  // TODO: Remove this temporary hack once apps feature is in place
+  // TODO: Remove this temporary hack once attributions feature is in place
   if (
     (affiliateAddress === '0x86003b044f70dac0abc80ac8957305b6370893ed' && // Matcha
       feeRecipient === '0x1000000000000000000000000000000000000011') || // 0x API
@@ -29,7 +29,7 @@ const resolveRelayer = metadata => {
     return relayers.matcha;
   }
 
-  // TODO: Remove this temporary hack once apps feature is in place
+  // TODO: Remove this temporary hack once attributions feature is in place
   if (
     affiliateAddress === '0xa258b39954cef5cb142fd567a46cddb31a670124' && // RADAR RELAY
     matchingRelayer === undefined

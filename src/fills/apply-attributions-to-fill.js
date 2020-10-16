@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const resolveRelayer = require('../relayers/resolve-relayer');
-const resolveAttributions = require('../apps/resolve-attributions');
+const resolveAttributions = require('../attributions/resolve-attributions');
 
 const ATTRIBUTION_TYPE_TO_NUMBER = {
   relayer: 0,

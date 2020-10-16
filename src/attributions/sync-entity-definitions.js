@@ -8,15 +8,15 @@ const { getModel } = require('../model');
 const getEntityDefinitions = require('./get-entity-definitions');
 
 // TODO: Introduce and test in future PR
-// const scheduleBackfill = async appId => {
+// const scheduleBackfill = async entityId => {
 //   await publishJob(
 //     QUEUE.APP_PROCESSING,
-//     JOB.BACKFILL_APP,
+//     JOB.BACKFILL_ATTRIBUTION_ENTITY,
 //     {
-//       id: appId,
+//       id: entityId,
 //     },
 //     {
-//       jobId: `backfill-app-${appId}`,
+//       jobId: `backfill-attribution-entity-${entityId}`,
 //       removeOnComplete: false,
 //     },
 //   );
@@ -28,16 +28,16 @@ const transformMappings = mappings =>
     type: FILL_ATTRIBUTION_TYPE[m.type.toUpperCase()],
   }));
 
-const createApp = async definition => {
-  const App = getModel('App');
-  const app = {
+const createEntity = async definition => {
+  const AttributionEntity = getModel('AttributionEntity');
+  const entity = {
     ..._.omit(definition, 'id', 'mappings', 'logo'),
     _id: definition.id,
-    logoUrl: `https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/${definition.logo}`,
+    logoUrl: `https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/${definition.logo}`,
     mappings: transformMappings(definition.mappings),
   };
 
-  await App.create(app);
+  await AttributionEntity.create(entity);
   // await scheduleBackfill(definition.id);
 };
 
@@ -53,17 +53,17 @@ const compareMappings = (currentMappings, definitionMappings) => {
   return mappingsModified;
 };
 
-const updateApp = async (app, definition) => {
+const updateEntity = async (entity, definition) => {
   const metadata = {
     ..._.omit(definition, 'id', 'mappings', 'logo'),
-    logoUrl: `https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/apps/logos/${definition.logo}`,
+    logoUrl: `https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/${definition.logo}`,
   };
 
   Object.keys(metadata).forEach(metadataKey => {
-    app.set(metadataKey, metadata[metadataKey]);
+    entity.set(metadataKey, metadata[metadataKey]);
   });
 
-  const currentMappings = app.mappings.map(m =>
+  const currentMappings = entity.mappings.map(m =>
     _.pickBy(
       _.pick(
         m,
@@ -80,11 +80,11 @@ const updateApp = async (app, definition) => {
   const mappingsModified = compareMappings(currentMappings, nextMappings);
 
   if (mappingsModified) {
-    app.set('mappings', nextMappings);
+    entity.set('mappings', nextMappings);
   }
 
-  if (app.isModified()) {
-    await app.save();
+  if (entity.isModified()) {
+    await entity.save();
   }
 
   // if (mappingsModified) {
@@ -93,28 +93,25 @@ const updateApp = async (app, definition) => {
 };
 
 /**
- * Sync current app definitions with MongoDB making sure that any differences
+ * Sync current entity definitions with MongoDB making sure that any differences
  * in metadata or mappings are reflected in MongoDB.
  *
- * Any changes to definition mappings will trigger an attributions backfill
- * for the app in which the mappings changed.
- *
- * NOTE: Removal of apps or mappings must be handled manually. The sync process
+ * NOTE: Removal of attribution entities must be handled manually. The sync process
  * is not currently built to automate this since it's unlikely to occur.
  */
-const syncAppDefinitions = async () => {
-  const App = getModel('App');
+const syncEntityDefinitions = async () => {
+  const AttributionEntity = getModel('AttributionEntity');
   const definitions = getEntityDefinitions();
 
   await Bluebird.each(definitions, async definition => {
-    const app = await App.findById(definition.id);
+    const entity = await AttributionEntity.findById(definition.id);
 
-    if (app === null) {
-      await createApp(definition);
+    if (entity === null) {
+      await createEntity(definition);
     } else {
-      await updateApp(app, definition);
+      await updateEntity(entity, definition);
     }
   });
 };
 
-module.exports = syncAppDefinitions;
+module.exports = syncEntityDefinitions;

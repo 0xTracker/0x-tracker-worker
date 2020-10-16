@@ -15,7 +15,7 @@ Array [
 
 exports[`should create Elasticsearch document for fill 1`] = `
 Object {
-  "apps": Array [],
+  "attributions": Array [],
   "assets": Array [
     Object {
       "bridgeAddress": undefined,

@@ -4,7 +4,7 @@ const { JOB, QUEUE } = require('../constants');
 const elasticsearch = require('../util/elasticsearch');
 
 const consumer = async (job, { logger }) => {
-  const { apps, date, fillId, relayerId, tradedTokens } = job.data;
+  const { attributions, date, fillId, relayerId, tradedTokens } = job.data;
 
   logger.info(`indexing traded tokens for fill: ${fillId}`);
 
@@ -18,7 +18,7 @@ const consumer = async (job, { logger }) => {
         }),
         JSON.stringify({
           doc: {
-            apps,
+            attributions,
             fillId,
             date,
             tokenAddress: tradedToken.address,
