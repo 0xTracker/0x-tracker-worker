@@ -44,23 +44,30 @@ const resolveAttributions = metadata => {
         mapping.senderAddress === undefined),
   );
 
+  const attributions = _.uniqWith(
+    matches.map(match => {
+      const definition = entityDefinitions.find(d =>
+        d.mappings.includes(match),
+      );
+
+      return {
+        id: definition.id,
+        type: match.type,
+      };
+    }),
+    _.isEqual,
+  );
+
   // TODO: Make this guard dynamic based on types constant
-  if (matches.filter(m => m.type === 'relayer').length > 1) {
+  if (attributions.filter(a => a.type === 'relayer').length > 1) {
     throw getErrorForDuplicate('relayer', metadata);
   }
 
-  if (matches.filter(m => m.type === 'consumer').length > 1) {
+  if (attributions.filter(a => a.type === 'consumer').length > 1) {
     throw getErrorForDuplicate('consumer', metadata);
   }
 
-  return matches.map(match => {
-    const definition = entityDefinitions.find(d => d.mappings.includes(match));
-
-    return {
-      id: definition.id,
-      type: match.type,
-    };
-  });
+  return attributions;
 };
 
 module.exports = resolveAttributions;
