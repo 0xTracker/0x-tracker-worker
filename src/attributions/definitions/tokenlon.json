@@ -1,0 +1,18 @@
+{
+  "id": "0a5d5f06-1626-4276-893f-42527e5a4147",
+  "name": "Tokenlon",
+  "logo": "tokenlon.png",
+  "urlSlug": "tokenlon",
+  "websiteUrl": "https://tokenlon.im/instant",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x6f7ae872e995f98fcd2a7d3ba17b7ddfb884305f"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xb9e29984fe50602e7a619662ebed4f90d93824c7"
+    }
+  ],
+  "categories": []
+}

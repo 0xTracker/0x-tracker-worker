@@ -1,7 +1,7 @@
 module.exports = {
   _id: '5e3e9abbb2227b1f0e73be5f',
   status: 1,
-  apps: [],
+  attributions: [],
   assets: [
     {
       tokenResolved: true,

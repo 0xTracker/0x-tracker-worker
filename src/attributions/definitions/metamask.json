@@ -1,0 +1,14 @@
+{
+  "id": "a8fb0ca3-f4d8-4914-a191-08a6bcdb299c",
+  "name": "MetaMask",
+  "logo": "metamask.png",
+  "urlSlug": "metamask",
+  "websiteUrl": "https://metamask.io",
+  "mappings": [
+    {
+      "affiliateAddress": "0x11ededebf63bef0ea2d2d071bdf88f71543ec6fb",
+      "type": "consumer"
+    }
+  ],
+  "categories": []
+}

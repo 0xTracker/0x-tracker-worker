@@ -47,7 +47,6 @@ describe('createFill', () => {
     expect(fill).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('5b602b3cfd9c10000491443c'),
-      apps: [],
       assets: [
         {
           _id: expect.anything(),
@@ -62,6 +61,13 @@ describe('createFill', () => {
           amount: 1.5e21,
           tokenAddress: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
           tokenResolved: false,
+        },
+      ],
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '048f757c-42b5-4403-86da-5a298cac8c04',
+          type: 0,
         },
       ],
       blockHash:
@@ -136,7 +142,12 @@ describe('createFill', () => {
       'traded-token-indexing',
       'index-traded-tokens',
       {
-        apps: [],
+        attributions: [
+          {
+            id: '048f757c-42b5-4403-86da-5a298cac8c04',
+            type: 0,
+          },
+        ],
         date: new Date('2019-10-26T16:32:03.000Z'),
         fillId: '5b602b3cfd9c10000491443c',
         relayerId: 7,
@@ -214,7 +225,7 @@ describe('createFill', () => {
     expect(fill).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('5bb1f06b62f9ca0004c7cf20'),
-      apps: [],
+      attributions: [],
       assets: [
         {
           _id: expect.anything(),
@@ -286,7 +297,7 @@ describe('createFill', () => {
       __v: 0,
       _id: mongoose.Types.ObjectId('5bb1f06b62f9ca0004c7cf20'),
       affiliateAddress: '0x000000056',
-      apps: [],
+      attributions: [],
       assets: [
         {
           _id: expect.anything(),
@@ -534,7 +545,7 @@ describe('createFill', () => {
   //   );
   // });
 
-  // it('should populate apps when they match definitions', async () => {
+  // it('should populate attributions when they match definitions', async () => {
   //   await createFill(
   //     {
   //       ...V3_EVENT,
@@ -552,90 +563,15 @@ describe('createFill', () => {
   //     },
   //   );
 
-  //   expect(persistFill.mock.calls[0][1].apps).toEqual([
+  //   expect(persistFill.mock.calls[0][1].attributions).toEqual([
   //     {
-  //       appId: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
+  //       entityId: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
   //       type: 0,
   //     },
   //     {
-  //       appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+  //       entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
   //       type: 1,
   //     },
   //   ]);
-  // });
-
-  // it('should index app attributions when fill has apps', async () => {
-  //   await createFill(
-  //     {
-  //       ...V3_EVENT,
-  //       data: {
-  //         ...V3_EVENT.data,
-  //         args: {
-  //           ...V3_EVENT.data.args,
-  //           feeRecipientAddress: '0x4d37f28d2db99e8d35a6c725a5f1749a085850a3',
-  //         },
-  //       },
-  //     },
-  //     {
-  //       ...simpleTransaction,
-  //       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-  //     },
-  //   );
-
-  //   expect(publishJob).toHaveBeenCalledWith(
-  //     'indexing',
-  //     'index-app-fill-attributions',
-  //     {
-  //       attributions: [
-  //         {
-  //           appId: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
-  //           relayedTrades: 1,
-  //           totalTrades: 1,
-  //         },
-  //         {
-  //           appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
-  //           sourcedTrades: 1,
-  //           totalTrades: 1,
-  //         },
-  //       ],
-  //       date: new Date('2019-10-26T16:32:03.000Z'),
-  //       fillId: '5bb1f06b62f9ca0004c7cf20',
-  //     },
-  //   );
-  // });
-
-  // it('should index app attributions when fill is consumed by relayed', async () => {
-  //   await createFill(
-  //     {
-  //       ...V3_EVENT,
-  //       data: {
-  //         ...V3_EVENT.data,
-  //         args: {
-  //           ...V3_EVENT.data.args,
-  //           feeRecipientAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-  //         },
-  //       },
-  //     },
-  //     {
-  //       ...simpleTransaction,
-  //       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-  //     },
-  //   );
-
-  //   expect(publishJob).toHaveBeenCalledWith(
-  //     'indexing',
-  //     'index-app-fill-attributions',
-  //     {
-  //       attributions: [
-  //         {
-  //           appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
-  //           relayedTrades: 1,
-  //           totalTrades: 1,
-  //         },
-  //       ],
-  //       date: new Date('2019-10-26T16:32:03.000Z'),
-  //       fillId: '5bb1f06b62f9ca0004c7cf20',
-  //     },
-  //   );
   // });
 });

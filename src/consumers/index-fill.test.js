@@ -138,7 +138,7 @@ describe('consumers/index-fill', () => {
       transactionHash:
         '0xd1e01c31a2183107221ef094b3f7cbfedd13db0340df935464c1dddd2259a1ea',
       type: 0,
-      apps: [],
+      attributions: [],
       relayerId: 35,
       conversions: {
         USD: {
@@ -168,7 +168,7 @@ describe('consumers/index-fill', () => {
     );
 
     expect(indexingBody).toEqual({
-      apps: [],
+      attributions: [],
       assets: [
         {
           bridgeAddress: '0xc47b7094f378e54347e281aab170e8cca69d880a',
@@ -270,7 +270,7 @@ describe('consumers/index-fill', () => {
       transactionHash:
         '0x8222bab3a43ebacc13df998bacedc36abf43da9462726fbec28c778ce981395a',
       type: 0,
-      apps: [],
+      attributions: [],
       relayerId: 28,
       conversions: {
         USD: {

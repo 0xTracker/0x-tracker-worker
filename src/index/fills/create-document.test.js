@@ -43,23 +43,23 @@ it.skip('assets should include bridgeAddress property when asset is bridged', ()
   expect(doc.assets).toMatchSnapshot();
 });
 
-it.skip('should include any apps associated with the fill', () => {
+it.skip('should include any attributions associated with the fill', () => {
   const fill = {
     ...V2_FILL,
-    apps: [
+    attributions: [
       {
-        appId: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
+        entityId: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
         type: 0,
       },
       {
-        appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+        entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
         type: 1,
       },
     ],
   };
   const doc = createDocument(fill);
 
-  expect(doc.apps).toEqual([
+  expect(doc.attributions).toEqual([
     {
       id: '8fc6beb5-3019-45f7-a55a-9a4c6b4b6513',
       type: 0,

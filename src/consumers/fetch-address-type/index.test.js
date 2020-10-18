@@ -27,11 +27,11 @@ afterAll(async () => {
 }, 30000);
 
 describe('consumers/fetch-address-type', () => {
-  it('should consume indexing queue', () => {
+  it('should consume address-processing queue', () => {
     expect(consumer.queueName).toBe('address-processing');
   });
 
-  it('should consume index-app-fill-attributions jobs', () => {
+  it('should consume fetch-address-type jobs', () => {
     expect(consumer.jobName).toBe('fetch-address-type');
   });
 

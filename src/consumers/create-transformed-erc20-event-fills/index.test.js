@@ -333,152 +333,160 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
 
     const fills = await Fill.find().lean();
 
-    expect(fills).toHaveLength(3);
-    expect(fills).toEqual(
-      expect.arrayContaining([
-        {
-          __v: 0,
-          _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db7'),
-          affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-          apps: [
-            {
-              _id: expect.anything(),
-              appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
-              type: 1,
-            },
-          ],
-          assets: [
-            {
-              _id: expect.anything(),
-              actor: 0,
-              amount: 71009454729185924462,
-              bridgeAddress: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
-              tokenAddress: '0xc00e94cb662c3520282e6f5717214004a7f26888',
-              tokenResolved: false,
-            },
-            {
-              _id: expect.anything(),
-              actor: 1,
-              amount: 28623942072790077811,
-              tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-              tokenResolved: false,
-            },
-          ],
-          blockHash:
-            '0x5344877c9fbfc75a6281f9c93fd4e131f7ac8524bc402eaa9224bced29a3d8cd',
-          blockNumber: 10556936,
-          date: new Date('2020-07-29T21:25:53.000Z'),
-          eventId: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db7'),
-          fees: [],
-          hasValue: false,
-          immeasurable: false,
-          logIndex: 191,
-          maker: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
-          protocolVersion: 3,
-          quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-          relayerId: 35,
-          status: 1,
-          taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
-          transactionHash:
-            '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
-          type: 1,
-        },
-        {
-          __v: 0,
-          _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db9'),
-          affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-          apps: [
-            {
-              _id: expect.anything(),
-              appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
-              type: 1,
-            },
-          ],
-          assets: [
-            {
-              _id: expect.anything(),
-              actor: 0,
-              amount: 4657404786458858330,
-              bridgeAddress: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4',
-              tokenAddress: '0xc00e94cb662c3520282e6f5717214004a7f26888',
-              tokenResolved: false,
-            },
-            {
-              _id: expect.anything(),
-              actor: 1,
-              amount: 1894136115665392813,
-              tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-              tokenResolved: false,
-            },
-          ],
-          blockHash:
-            '0x5344877c9fbfc75a6281f9c93fd4e131f7ac8524bc402eaa9224bced29a3d8cd',
-          blockNumber: 10556936,
-          date: new Date('2020-07-29T21:25:53.000Z'),
-          eventId: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db9'),
-          fees: [],
-          hasValue: false,
-          immeasurable: false,
-          logIndex: 209,
-          maker: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4',
-          protocolVersion: 3,
-          quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-          relayerId: 35,
-          status: 1,
-          taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
-          transactionHash:
-            '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
-          type: 1,
-        },
-        {
-          __v: 0,
-          _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db8'),
-          affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-          apps: [
-            {
-              _id: expect.anything(),
-              appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
-              type: 1,
-            },
-          ],
-          assets: [
-            {
-              _id: expect.anything(),
-              actor: 0,
-              amount: 24333140484355217208,
-              bridgeAddress: '0x1c29670f7a77f1052d30813a0a4f632c78a02610',
-              tokenAddress: '0xc00e94cb662c3520282e6f5717214004a7f26888',
-              tokenResolved: false,
-            },
-            {
-              _id: expect.anything(),
-              actor: 1,
-              amount: 9932911107489931456,
-              tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-              tokenResolved: false,
-            },
-          ],
-          blockHash:
-            '0x5344877c9fbfc75a6281f9c93fd4e131f7ac8524bc402eaa9224bced29a3d8cd',
-          blockNumber: 10556936,
-          date: new Date('2020-07-29T21:25:53.000Z'),
-          eventId: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db8'),
-          fees: [],
-          hasValue: false,
-          immeasurable: false,
-          logIndex: 202,
-          maker: '0x1c29670f7a77f1052d30813a0a4f632c78a02610',
-          protocolVersion: 3,
-          quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-          relayerId: 35,
-          status: 1,
-          taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
-          transactionHash:
-            '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
-          type: 1,
-        },
-      ]),
+    const fillA = fills.find(
+      f => f._id.toString() === '5f2e9ce47d03c56c732a4db7',
     );
+    const fillB = fills.find(
+      f => f._id.toString() === '5f2e9ce47d03c56c732a4db9',
+    );
+    const fillC = fills.find(
+      f => f._id.toString() === '5f2e9ce47d03c56c732a4db8',
+    );
+
+    expect(fills).toHaveLength(3);
+    expect(fillA).toEqual({
+      __v: 0,
+      _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db7'),
+      affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+          type: 1,
+        },
+      ],
+      assets: [
+        {
+          _id: expect.anything(),
+          actor: 0,
+          amount: 71009454729185924462,
+          bridgeAddress: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
+          tokenAddress: '0xc00e94cb662c3520282e6f5717214004a7f26888',
+          tokenResolved: false,
+        },
+        {
+          _id: expect.anything(),
+          actor: 1,
+          amount: 28623942072790077811,
+          tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+          tokenResolved: false,
+        },
+      ],
+      blockHash:
+        '0x5344877c9fbfc75a6281f9c93fd4e131f7ac8524bc402eaa9224bced29a3d8cd',
+      blockNumber: 10556936,
+      date: new Date('2020-07-29T21:25:53.000Z'),
+      eventId: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db7'),
+      fees: [],
+      hasValue: false,
+      immeasurable: false,
+      logIndex: 191,
+      maker: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
+      protocolVersion: 3,
+      quoteDate: new Date('2020-07-29T21:25:10.000Z'),
+      relayerId: 35,
+      status: 1,
+      taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
+      transactionHash:
+        '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
+      type: 1,
+    });
+
+    expect(fillB).toEqual({
+      __v: 0,
+      _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db9'),
+      affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+          type: 1,
+        },
+      ],
+      assets: [
+        {
+          _id: expect.anything(),
+          actor: 0,
+          amount: 4657404786458858330,
+          bridgeAddress: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4',
+          tokenAddress: '0xc00e94cb662c3520282e6f5717214004a7f26888',
+          tokenResolved: false,
+        },
+        {
+          _id: expect.anything(),
+          actor: 1,
+          amount: 1894136115665392813,
+          tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+          tokenResolved: false,
+        },
+      ],
+      blockHash:
+        '0x5344877c9fbfc75a6281f9c93fd4e131f7ac8524bc402eaa9224bced29a3d8cd',
+      blockNumber: 10556936,
+      date: new Date('2020-07-29T21:25:53.000Z'),
+      eventId: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db9'),
+      fees: [],
+      hasValue: false,
+      immeasurable: false,
+      logIndex: 209,
+      maker: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4',
+      protocolVersion: 3,
+      quoteDate: new Date('2020-07-29T21:25:10.000Z'),
+      relayerId: 35,
+      status: 1,
+      taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
+      transactionHash:
+        '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
+      type: 1,
+    });
+
+    expect(fillC).toEqual({
+      __v: 0,
+      _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db8'),
+      affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+          type: 1,
+        },
+      ],
+      assets: [
+        {
+          _id: expect.anything(),
+          actor: 0,
+          amount: 24333140484355217208,
+          bridgeAddress: '0x1c29670f7a77f1052d30813a0a4f632c78a02610',
+          tokenAddress: '0xc00e94cb662c3520282e6f5717214004a7f26888',
+          tokenResolved: false,
+        },
+        {
+          _id: expect.anything(),
+          actor: 1,
+          amount: 9932911107489931456,
+          tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+          tokenResolved: false,
+        },
+      ],
+      blockHash:
+        '0x5344877c9fbfc75a6281f9c93fd4e131f7ac8524bc402eaa9224bced29a3d8cd',
+      blockNumber: 10556936,
+      date: new Date('2020-07-29T21:25:53.000Z'),
+      eventId: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db8'),
+      fees: [],
+      hasValue: false,
+      immeasurable: false,
+      logIndex: 202,
+      maker: '0x1c29670f7a77f1052d30813a0a4f632c78a02610',
+      protocolVersion: 3,
+      quoteDate: new Date('2020-07-29T21:25:10.000Z'),
+      relayerId: 35,
+      status: 1,
+      taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
+      transactionHash:
+        '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
+      type: 1,
+    });
 
     const tokens = await Token.find().lean();
 
@@ -612,9 +620,9 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
     await Fill.create([
       {
         affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-        apps: [
+        attributions: [
           {
-            appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+            entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
             type: 1,
           },
         ],
@@ -654,9 +662,9 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
       },
       {
         affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-        apps: [
+        attributions: [
           {
-            appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+            entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
             type: 1,
           },
         ],
@@ -771,9 +779,9 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
     await Fill.create([
       {
         affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-        apps: [
+        attributions: [
           {
-            appId: '5067df8b-f9cd-4a34-aee1-38d607100145',
+            entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
             type: 1,
           },
         ],

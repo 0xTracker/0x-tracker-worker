@@ -7,9 +7,9 @@ const { Schema } = mongoose;
 const schema = Schema(
   {
     affiliateAddress: { lowercase: true, trim: true, type: String },
-    apps: [
+    attributions: [
       {
-        appId: String,
+        entityId: String,
         type: { type: Number },
       },
     ],

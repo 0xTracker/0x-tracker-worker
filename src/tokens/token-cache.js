@@ -1,25 +1,16 @@
 const _ = require('lodash');
-const signale = require('signale');
 
 const Token = require('../model/token');
 
 let keyedTokens = {};
 
-const logger = signale.scope('token cache');
+const initialise = async ({ logger }) => {
+  const loadedTokens = await Token.find({
+    resolved: { $in: [null, true] },
+  }).lean();
 
-const initialise = async tokens => {
-  if (tokens === undefined) {
-    const loadedTokens = await Token.find({
-      resolved: { $in: [null, true] },
-    }).lean();
-
-    keyedTokens = _.keyBy(loadedTokens, 'address');
-    logger.success(
-      `initialised token cache with ${loadedTokens.length} tokens`,
-    );
-  } else {
-    keyedTokens = _.keyBy(tokens, 'address');
-  }
+  keyedTokens = _.keyBy(loadedTokens, 'address');
+  logger.info(`initialised token cache with ${loadedTokens.length} tokens`);
 };
 
 const getTokens = () => _.clone(keyedTokens);
