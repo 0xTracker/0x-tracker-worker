@@ -70,9 +70,7 @@ module.exports = {
     FETCH_ADDRESS_TYPE: 'fetch-address-type',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
-    INDEX_APP_FILL_ATTRIBUTONS: 'index-app-fill-attributions',
     INDEX_FILL: 'index-fill',
-    INDEX_FILL_ATTRIBUTIONS: 'index-fill-attributions',
     INDEX_FILL_PROTOCOL_FEE: 'index-fill-protocol-fee',
     INDEX_FILL_TRADERS: 'index-fill-traders',
     INDEX_FILL_VALUE: 'index-fill-value',
@@ -104,5 +102,4 @@ module.exports = {
     MAKER: 0,
     TAKER: 1,
   },
-  ZRX_TOKEN_DECIMALS: 18,
 };
