@@ -78,6 +78,24 @@ describe('attributions/resolveAttributions', () => {
           },
         ],
       },
+      {
+        id: 'a5808078-d297-4fbd-a818-dccd8a5438ed',
+        name: 'STAR BIT',
+        mappings: [
+          {
+            type: 'relayer',
+            feeRecipientAddress: '0x8124071f810d533ff63de61d0c98db99eeb99d64',
+          },
+          {
+            type: 'relayer',
+            feeRecipientAddress: '0xc370d2a5920344aa6b7d8d11250e3e861434cbdd',
+          },
+          {
+            type: 'relayer',
+            takerAddress: '0x0681e844593a051e2882ec897ecd5444efe19ff2',
+          },
+        ],
+      },
     ]);
   });
 
@@ -158,6 +176,17 @@ describe('attributions/resolveAttributions', () => {
 
     expect(attributions).toEqual([
       { id: '5c8d3862-fe9b-43d3-bc73-1ee8f305b7a2', type: 'relayer' },
+    ]);
+  });
+
+  it('should resolve relayer when multiple matches exist', () => {
+    const attributions = resolveAttributions({
+      feeRecipientAddress: '0x8124071f810d533ff63de61d0c98db99eeb99d64',
+      takerAddress: '0x0681e844593a051e2882ec897ecd5444efe19ff2',
+    });
+
+    expect(attributions).toEqual([
+      { id: 'a5808078-d297-4fbd-a818-dccd8a5438ed', type: 'relayer' },
     ]);
   });
 
