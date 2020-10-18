@@ -16,7 +16,7 @@ const schema = Joi.object({
     )
     .unique()
     .required(),
-  description: Joi.string().required(),
+  description: Joi.string().optional(),
   id: Joi.string()
     .uuid({ version: ['uuidv4'] })
     .id()

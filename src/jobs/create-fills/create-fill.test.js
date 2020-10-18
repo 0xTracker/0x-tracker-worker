@@ -47,7 +47,6 @@ describe('createFill', () => {
     expect(fill).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('5b602b3cfd9c10000491443c'),
-      attributions: [],
       assets: [
         {
           _id: expect.anything(),
@@ -62,6 +61,13 @@ describe('createFill', () => {
           amount: 1.5e21,
           tokenAddress: '0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433',
           tokenResolved: false,
+        },
+      ],
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '048f757c-42b5-4403-86da-5a298cac8c04',
+          type: 0,
         },
       ],
       blockHash:
@@ -136,7 +142,13 @@ describe('createFill', () => {
       'traded-token-indexing',
       'index-traded-tokens',
       {
-        attributions: [],
+        attributions: [
+          {
+            _id: expect.anything(),
+            entityId: '048f757c-42b5-4403-86da-5a298cac8c04',
+            type: 0,
+          },
+        ],
         date: new Date('2019-10-26T16:32:03.000Z'),
         fillId: '5b602b3cfd9c10000491443c',
         relayerId: 7,

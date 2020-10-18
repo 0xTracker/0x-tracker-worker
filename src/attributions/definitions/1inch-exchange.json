@@ -15,6 +15,10 @@
       "feeRecipientAddress": "0x68a17b587caf4f9329f0e372e3a78d23a46de6b5"
     },
     {
+      "type": "relayer",
+      "feeRecipientAddress": "0x9883a8b0f58b662d60847db992e66591e2ede106"
+    },
+    {
       "type": "consumer",
       "takerAddress": "0x9b57672d596b513d284976d565f3acb326041db0"
     },

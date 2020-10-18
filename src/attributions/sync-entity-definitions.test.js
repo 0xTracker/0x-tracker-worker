@@ -24,7 +24,7 @@ describe('attributions/syncEntityDefinitions', () => {
       jest.requireActual('./get-entity-definitions'),
     );
 
-    await syncEntityDefinitions();
+    await syncEntityDefinitions({ logger: testUtils.mockLogger });
 
     const attributionEntities = await getModel('AttributionEntity')
       .find()
@@ -102,7 +102,7 @@ describe('attributions/syncEntityDefinitions', () => {
       websiteUrl: 'https://matcha-xyz.com',
     });
 
-    await syncEntityDefinitions();
+    await syncEntityDefinitions({ logger: testUtils.mockLogger });
 
     const matcha = await getModel('AttributionEntity')
       .findById('5067df8b-f9cd-4a34-aee1-38d607100145') // Matcha
@@ -177,7 +177,7 @@ describe('attributions/syncEntityDefinitions', () => {
       websiteUrl: 'https://matcha.xyz',
     });
 
-    await syncEntityDefinitions();
+    await syncEntityDefinitions({ logger: testUtils.mockLogger });
 
     const matcha = await getModel('AttributionEntity')
       .findById('5067df8b-f9cd-4a34-aee1-38d607100145') // Matcha
@@ -252,7 +252,7 @@ describe('attributions/syncEntityDefinitions', () => {
       websiteUrl: 'https://matcha.xyz',
     });
 
-    await syncEntityDefinitions();
+    await syncEntityDefinitions({ logger: testUtils.mockLogger });
 
     const matcha = await getModel('AttributionEntity')
       .findById('5067df8b-f9cd-4a34-aee1-38d607100145') // Matcha

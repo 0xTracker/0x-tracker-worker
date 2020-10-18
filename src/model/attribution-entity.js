@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema({
   _id: { required: true, type: String },
   categories: [{ required: true, type: String }],
-  description: { required: true, type: String },
+  description: { type: String },
   logoUrl: { required: true, type: String },
   mappings: [
     {

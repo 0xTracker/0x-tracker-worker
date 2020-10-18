@@ -333,8 +333,18 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
 
     const fills = await Fill.find().lean();
 
+    const fillA = fills.find(
+      f => f._id.toString() === '5f2e9ce47d03c56c732a4db7',
+    );
+    const fillB = fills.find(
+      f => f._id.toString() === '5f2e9ce47d03c56c732a4db9',
+    );
+    const fillC = fills.find(
+      f => f._id.toString() === '5f2e9ce47d03c56c732a4db8',
+    );
+
     expect(fills).toHaveLength(3);
-    expect(fills[0]).toEqual({
+    expect(fillA).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db7'),
       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
@@ -382,7 +392,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
       type: 1,
     });
 
-    expect(fills[1]).toEqual({
+    expect(fillB).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db9'),
       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
@@ -430,7 +440,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
       type: 1,
     });
 
-    expect(fills[2]).toEqual({
+    expect(fillC).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db8'),
       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
