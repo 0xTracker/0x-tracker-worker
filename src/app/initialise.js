@@ -1,4 +1,5 @@
 const config = require('config');
+const signale = require('signale');
 
 const { QUEUE } = require('../constants');
 const { initQueues } = require('../queues');
@@ -9,12 +10,15 @@ const tokenCache = require('../tokens/token-cache');
 
 const initialise = async () => {
   await configure();
+
   initQueues(Object.values(QUEUE), config.get('queues'));
 
+  const logger = signale.scope('app');
+
   await Promise.all([
-    populateRelayersCollection(),
-    syncEntityDefinitions(),
-    tokenCache.initialise(),
+    populateRelayersCollection({ logger }),
+    syncEntityDefinitions({ logger }),
+    tokenCache.initialise({ logger }),
   ]);
 };
 

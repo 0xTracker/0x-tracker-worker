@@ -83,9 +83,13 @@ const updateEntity = async (entity, definition) => {
     entity.set('mappings', nextMappings);
   }
 
-  if (entity.isModified()) {
+  const modified = entity.isModified();
+
+  if (modified) {
     await entity.save();
   }
+
+  return modified;
 
   // if (mappingsModified) {
   //   await scheduleBackfill(definition.id);
@@ -99,7 +103,9 @@ const updateEntity = async (entity, definition) => {
  * NOTE: Removal of attribution entities must be handled manually. The sync process
  * is not currently built to automate this since it's unlikely to occur.
  */
-const syncEntityDefinitions = async () => {
+const syncEntityDefinitions = async ({ logger }) => {
+  logger.info('synchronising attribution entity definitions');
+
   const AttributionEntity = getModel('AttributionEntity');
   const definitions = getEntityDefinitions();
 
@@ -108,10 +114,17 @@ const syncEntityDefinitions = async () => {
 
     if (entity === null) {
       await createEntity(definition);
+      logger.info(`created ${definition.name} attribution entity definition`);
+    } else if (await updateEntity(entity, definition)) {
+      logger.info(`updated ${definition.name} attribution entity definition`);
     } else {
-      await updateEntity(entity, definition);
+      logger.info(
+        `${definition.name} attribution entity definition was untouched`,
+      );
     }
   });
+
+  logger.info('synchronised attribution entity definitions');
 };
 
 module.exports = syncEntityDefinitions;
