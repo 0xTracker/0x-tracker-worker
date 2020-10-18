@@ -7,6 +7,7 @@
   "mappings": [
     {
       "type": "relayer",
+      "feeRecipientAddress": "0x0000000000000000000000000000000000000000",
       "takerAddress": "0xdf1bc6498338135de5ffdbcb98817d81e2665912"
     }
   ],
