@@ -81,7 +81,6 @@ module.exports = {
     name: 'STAR BIT',
     orderMatcher: true,
     slug: 'star-bit',
-    takerAddresses: ['0x0681e844593a051e2882ec897ecd5444efe19ff2'],
     url: 'https://www.starbitex.com',
   },
   tokenJar: {
