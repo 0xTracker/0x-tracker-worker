@@ -69,6 +69,7 @@ const updateEntity = async (entity, definition) => {
         m,
         'affiliateAddress',
         'feeRecipientAddress',
+        'senderAddress',
         'takerAddress',
         'type',
       ),

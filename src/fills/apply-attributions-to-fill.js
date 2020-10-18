@@ -18,6 +18,7 @@ const applyAttributionsToFill = fill => {
   const attributions = resolveAttributions({
     affiliateAddress: fill.affiliateAddress,
     feeRecipientAddress: fill.feeRecipient,
+    senderAddress: fill.senderAddress,
     takerAddress: fill.taker,
   }).map(attribution => ({
     entityId: attribution.id,

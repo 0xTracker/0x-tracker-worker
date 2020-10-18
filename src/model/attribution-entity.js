@@ -9,6 +9,7 @@ const schema = mongoose.Schema({
     {
       affiliateAddress: String,
       feeRecipientAddress: String,
+      senderAddress: String,
       takerAddress: String,
       type: { required: true, type: Number },
     },

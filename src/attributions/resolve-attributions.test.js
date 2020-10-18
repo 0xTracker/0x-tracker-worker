@@ -68,6 +68,16 @@ describe('attributions/resolveAttributions', () => {
           },
         ],
       },
+      {
+        id: '5c8d3862-fe9b-43d3-bc73-1ee8f305b7a2',
+        name: 'Gods Unchained',
+        mappings: [
+          {
+            type: 'relayer',
+            senderAddress: '0xb04239b53806ab31141e6cd47c63fb3480cac908',
+          },
+        ],
+      },
     ]);
   });
 
@@ -139,6 +149,18 @@ describe('attributions/resolveAttributions', () => {
     ]);
   });
 
+  it('should resolve relayer which matches on sender address', () => {
+    const attributions = resolveAttributions({
+      feeRecipientAddress: '0x0000000000000000000000000000000000000000',
+      senderAddress: '0xb04239b53806ab31141e6cd47c63fb3480cac908',
+      takerAddress: '0xf7eb7637ded2696b152c7d5edee502902b0f1c91',
+    });
+
+    expect(attributions).toEqual([
+      { id: '5c8d3862-fe9b-43d3-bc73-1ee8f305b7a2', type: 'relayer' },
+    ]);
+  });
+
   it('should throw an error when multiple matching relayers found', () => {
     expect(() =>
       resolveAttributions({
@@ -151,6 +173,7 @@ describe('attributions/resolveAttributions', () => {
           '\r\n\r\n' +
           'affiliateAddress: (none)\r\n' +
           'feeRecipientAddress: 0x86003b044f70dac0abc80ac8957305b6370893ed\r\n' +
+          'senderAddress: (none)\r\n' +
           'takerAddress: 0xd2045edc40199019e221d71c0913343f7908d0d5',
       ),
     );
@@ -168,6 +191,7 @@ describe('attributions/resolveAttributions', () => {
           '\r\n\r\n' +
           'affiliateAddress: 0x86003b044f70dac0abc80ac8957305b6370893ed\r\n' +
           'feeRecipientAddress: (none)\r\n' +
+          'senderAddress: (none)\r\n' +
           'takerAddress: 0x11111254369792b2ca5d084ab5eea397ca8fa48b',
       ),
     );

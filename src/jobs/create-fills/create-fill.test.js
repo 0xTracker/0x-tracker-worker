@@ -144,8 +144,7 @@ describe('createFill', () => {
       {
         attributions: [
           {
-            _id: expect.anything(),
-            entityId: '048f757c-42b5-4403-86da-5a298cac8c04',
+            id: '048f757c-42b5-4403-86da-5a298cac8c04',
             type: 0,
           },
         ],

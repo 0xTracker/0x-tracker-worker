@@ -27,12 +27,18 @@ const schema = Joi.object({
       Joi.object({
         affiliateAddress: Ethereum.address(),
         feeRecipientAddress: Ethereum.address(),
+        senderAddress: Ethereum.address(),
         takerAddress: Ethereum.address(),
         type: Joi.string()
           .valid('consumer', 'relayer')
           .required(),
       })
-        .or('affiliateAddress', 'feeRecipientAddress', 'takerAddress')
+        .or(
+          'affiliateAddress',
+          'feeRecipientAddress',
+          'senderAddress',
+          'takerAddress',
+        )
         .required(),
     )
     .unique()
