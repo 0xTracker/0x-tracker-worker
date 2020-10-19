@@ -63,7 +63,6 @@ module.exports = {
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
     CONVERT_RELAYER_FEES: 'convert-relayer-fees',
     CREATE_SUSHISWAP_SWAP_EVENT_FILL: 'create-sushiswap-swap-event-fill',
-    CREATE_TOKEN: 'create-token',
     CREATE_TRANSFORMED_ERC20_EVENT_FILLS:
       'create-transformed-erc20-event-fills',
     CREATE_UNISWAP_V2_SWAP_EVENT_FILL: 'create-uniswap-v2-swap-event-fill',
