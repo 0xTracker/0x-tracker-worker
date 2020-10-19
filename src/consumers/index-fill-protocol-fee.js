@@ -1,8 +1,11 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
 
+const { getModel } = require('../model');
 const { JOB, QUEUE } = require('../constants');
+const createDocument = require('../index/fills/create-document');
 const elasticsearch = require('../util/elasticsearch');
+const getIndexName = require('../index/get-index-name');
 
 const indexFillProtocolFee = async (job, { logger }) => {
   const { fillId, protocolFee } = job.data;
@@ -15,23 +18,27 @@ const indexFillProtocolFee = async (job, { logger }) => {
     throw new Error(`Invalid value: ${protocolFee}`);
   }
 
-  const exists = await elasticsearch
-    .getClient()
-    .exists({ id: fillId, index: 'fills', _source: false });
-  const indexed = exists.body;
+  const fill = await getModel('Fill')
+    .findOne({ _id: fillId })
+    .populate([
+      { path: 'takerMetadata', select: 'isContract' },
+      { path: 'transaction', select: 'from' },
+    ])
+    .lean();
 
-  if (!indexed) {
-    throw new Error(`Could not index protocol fee of fill: ${fillId}`);
+  if (fill === null) {
+    throw new Error(`Could not find fill: ${fillId}`);
   }
 
   await elasticsearch.getClient().update({
     id: fillId,
-    index: 'fills',
+    index: getIndexName('fills'),
     body: {
       doc: {
         protocolFeeUSD: protocolFee,
         updatedAt: new Date(Date.now()).toISOString(),
       },
+      upsert: createDocument(fill),
     },
   });
 

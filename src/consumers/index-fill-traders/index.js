@@ -4,6 +4,7 @@ const { JOB, QUEUE } = require('../../constants');
 const { publishJob } = require('../../queues');
 const elasticsearch = require('../../util/elasticsearch');
 const getAddressMetadata = require('../../addresses/get-address-metadata');
+const getIndexName = require('../../index/get-index-name');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 
 const indexFillTraders = async (job, { logger }) => {
@@ -94,7 +95,7 @@ const indexFillTraders = async (job, { logger }) => {
 
   const result = await elasticsearch
     .getClient()
-    .bulk({ body: `${requestBody}\n`, index: 'trader_fills' });
+    .bulk({ body: `${requestBody}\n`, index: getIndexName('trader_fills') });
 
   if (result.body.errors === true) {
     const errorMessage = _.get(

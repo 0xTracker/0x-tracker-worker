@@ -2,6 +2,7 @@ const _ = require('lodash');
 
 const { JOB, QUEUE } = require('../constants');
 const elasticsearch = require('../util/elasticsearch');
+const getIndexName = require('../index/get-index-name');
 
 const consumer = async (job, { logger }) => {
   const { attributions, date, fillId, relayerId, tradedTokens } = job.data;
@@ -40,7 +41,7 @@ const consumer = async (job, { logger }) => {
 
   const result = await elasticsearch
     .getClient()
-    .bulk({ body: `${body}\n`, index: 'traded_tokens' });
+    .bulk({ body: `${body}\n`, index: getIndexName('traded_tokens') });
 
   if (result.body.errors === true) {
     const errorMessage = _.get(

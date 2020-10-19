@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const { JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
-const fillsIndex = require('../index/fills');
 const elasticsearch = require('../util/elasticsearch');
+const fillsIndex = require('../index/fills');
+const getIndexName = require('../index/get-index-name');
 
 const indexFill = async (job, { logger }) => {
   const { fillId } = job.data;
@@ -27,7 +28,7 @@ const indexFill = async (job, { logger }) => {
 
   await elasticsearch.getClient().index({
     id: fill._id,
-    index: 'fills',
+    index: getIndexName('fills'),
     body: fillsIndex.createDocument(fill),
   });
 
