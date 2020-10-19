@@ -5,6 +5,7 @@ const { JOB, QUEUE } = require('../constants');
 const { getModel } = require('../model');
 const createDocument = require('../index/fills/create-document');
 const elasticsearch = require('../util/elasticsearch');
+const getIndexName = require('../index/get-index-name');
 const relayerRegistry = require('../relayers/relayer-registry');
 
 const isOrderMatcher = relayerId => {
@@ -48,7 +49,7 @@ const indexFillValue = async (job, { logger }) => {
 
   await elasticsearch.getClient().update({
     id: fillId,
-    index: 'fills',
+    index: getIndexName('fills'),
     body: {
       doc: {
         tradeVolume: calculateTradeVolume(value, relayerId),
