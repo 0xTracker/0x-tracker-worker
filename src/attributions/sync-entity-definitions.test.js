@@ -37,7 +37,7 @@ describe('attributions/syncEntityDefinitions', () => {
     expect(attributionEntities.length).toBe(getEntityDefinitions().length);
     expect(matcha).toMatchObject({
       _id: '5067df8b-f9cd-4a34-aee1-38d607100145',
-      categories: ['dex-aggregator', 'exchange'],
+      categories: ['dex-aggregator', 'relayer'],
       logoUrl:
         'https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha.png',
       mappings: [

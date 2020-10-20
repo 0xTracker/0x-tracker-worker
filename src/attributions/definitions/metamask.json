@@ -10,5 +10,7 @@
       "type": "consumer"
     }
   ],
-  "categories": []
+  "categories": [
+    "wallet"
+  ]
 }

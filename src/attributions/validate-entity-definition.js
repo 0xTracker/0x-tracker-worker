@@ -8,10 +8,10 @@ const schema = Joi.object({
   categories: Joi.array()
     .items(
       Joi.string().valid(
-        'api',
         'dex-aggregator',
-        'exchange',
+        'relayer',
         'portfolio-manager',
+        'wallet',
       ),
     )
     .unique()

@@ -10,5 +10,7 @@
       "takerAddress": "0x853da5cecc1ea601ab978c2001565a0377a7dca6"
     }
   ],
-  "categories": []
+  "categories": [
+    "relayer"
+  ]
 }

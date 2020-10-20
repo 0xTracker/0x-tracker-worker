@@ -10,5 +10,7 @@
       "feeRecipientAddress": "0x382310cbb159b64c2e7c5675d110202701a436dd"
     }
   ],
-  "categories": []
+  "categories": [
+    "relayer"
+  ]
 }
