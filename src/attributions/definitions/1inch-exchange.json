@@ -69,6 +69,14 @@
     {
       "type": "consumer",
       "takerAddress": "0x9328c82a7c96b171689972fd0292cf6ccca4c6bb"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x1f8a6d8185b76f5ac08f335610a2390dab3225a8"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x728bbe9bbee3af78ad611315076621865950b344"
     }
   ],
   "categories": [

@@ -17,6 +17,10 @@
     {
       "type": "consumer",
       "takerAddress": "0xffef2d75b3d266f90108e82b3b476a7f08fe5385"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0xc9eeed34a6e0edb7f32cffd1d12e625564db9e83"
     }
   ],
   "categories": [
