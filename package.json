@@ -57,7 +57,7 @@
     "lodash": "4.17.15",
     "memory-cache": "0.2.0",
     "metaget": "1.0.7",
-    "moment": "2.24.0",
+    "moment": "2.29.1",
     "moment-round": "1.0.1",
     "mongoose": "5.7.4",
     "ms": "2.1.2",
