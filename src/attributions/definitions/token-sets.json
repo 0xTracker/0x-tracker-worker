@@ -7,7 +7,7 @@
   "mappings": [
     {
       "takerAddress": "0x0acd0b5cf881cd8398ac563872209de1ce15df0f",
-      "type": 1
+      "type": "consumer"
     }
   ],
   "categories": [
