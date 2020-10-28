@@ -8,6 +8,10 @@
     {
       "type": "consumer",
       "affiliateAddress": "0x5bd68b4d6f90bcc9f3a9456791c0db5a43df676d"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x5bd68b4d6f90bcc9f3a9456791c0db5a43df676d"
     }
   ],
   "categories": [
