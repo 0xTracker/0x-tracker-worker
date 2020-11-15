@@ -1,0 +1,16 @@
+{
+  "id": "16d85259-624d-488d-9f57-99bcb7b60fe1",
+  "name": "Boxswap",
+  "logo": "boxswap.png",
+  "urlSlug": "boxswap",
+  "websiteUrl": "https://boxswap.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "senderAddress": "0x8346f3074994fd9a813c735d629b257d93780eed"
+    }
+  ],
+  "categories": [
+    "prediction-market"
+  ]
+}

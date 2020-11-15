@@ -12,6 +12,7 @@ const schema = Joi.object({
         'relayer',
         'portfolio-manager',
         'wallet',
+        'prediction-market',
       ),
     )
     .unique()
