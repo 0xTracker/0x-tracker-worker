@@ -7,8 +7,38 @@
   "websiteUrl": "https://0x.org/api",
   "mappings": [
     {
-      "type": "relayer",
-      "feeRecipientAddress": "0x1000000000000000000000000000000000000011"
+      "feeRecipientAddress": "0x1000000000000000000000000000000000000011",
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x86003b044f70dac0abc80ac8957305b6370893ed",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x322d58b9e75a6918f7e7849aee0ff09369977e08",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x11ededebf63bef0ea2d2d071bdf88f71543ec6fb",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0xa258b39954cef5cb142fd567a46cddb31a670124",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x3ce37278de6388532c3949ce4e886f365b14fb56",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x5bd68b4d6f90bcc9f3a9456791c0db5a43df676d",
+      "feeRecipientAddress": null,
+      "type": "relayer"
     }
   ],
   "categories": [
