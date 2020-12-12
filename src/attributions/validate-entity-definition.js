@@ -26,7 +26,7 @@ const schema = Joi.object({
     .items(
       Joi.object({
         affiliateAddress: Ethereum.address(),
-        feeRecipientAddress: Ethereum.address(),
+        feeRecipientAddress: Ethereum.address().allow(null),
         senderAddress: Ethereum.address(),
         takerAddress: Ethereum.address(),
         type: Joi.string()

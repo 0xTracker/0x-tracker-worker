@@ -351,6 +351,11 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
       attributions: [
         {
           _id: expect.anything(),
+          entityId: '052b4862-2142-4532-bdc0-416814b0a5fe',
+          type: 0,
+        },
+        {
+          _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
@@ -399,6 +404,11 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
       attributions: [
         {
           _id: expect.anything(),
+          entityId: '052b4862-2142-4532-bdc0-416814b0a5fe',
+          type: 0,
+        },
+        {
+          _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
@@ -445,6 +455,11 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
       _id: mongoose.Types.ObjectId('5f2e9ce47d03c56c732a4db8'),
       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
       attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '052b4862-2142-4532-bdc0-416814b0a5fe',
+          type: 0,
+        },
         {
           _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
