@@ -168,6 +168,7 @@ describe('consumers/index-fill', () => {
     );
 
     expect(indexingBody).toEqual({
+      affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
       attributions: [],
       assets: [
         {

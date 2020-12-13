@@ -34,6 +34,7 @@ const createDocument = fill => {
     : fill.taker;
 
   return {
+    affiliateAddress: fill.affiliateAddress,
     attributions: fill.attributions.map(attribution => ({
       id: attribution.entityId,
       type: attribution.type,
