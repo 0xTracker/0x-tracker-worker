@@ -77,6 +77,10 @@
     {
       "type": "consumer",
       "takerAddress": "0x728bbe9bbee3af78ad611315076621865950b344"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0xe4e8f73096301b0938b896a79521088633b85b75"
     }
   ],
   "categories": [

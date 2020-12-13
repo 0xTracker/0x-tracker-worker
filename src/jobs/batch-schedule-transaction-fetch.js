@@ -11,6 +11,7 @@ const batchScheduleTransactionFetch = async ({ batchSize }, { logger }) => {
     type: {
       $in: [
         'Fill',
+        'LiquidityProviderSwap',
         'LogFill',
         'SushiswapSwap',
         'TransformedERC20',
