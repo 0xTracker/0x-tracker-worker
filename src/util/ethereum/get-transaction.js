@@ -15,7 +15,7 @@ const getTransaction = async transactionHash => {
   });
 
   const tx = await Promise.race([
-    web3Wrapper.getTransactionByHashAsync(transactionHash),
+    web3Wrapper.getTransaction(transactionHash),
     timeout,
   ]);
 
