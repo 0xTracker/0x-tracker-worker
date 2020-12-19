@@ -9,8 +9,9 @@ const schema = Joi.object({
     .items(
       Joi.string().valid(
         'dex-aggregator',
-        'relayer',
+        'other',
         'portfolio-manager',
+        'relayer',
         'wallet',
       ),
     )
