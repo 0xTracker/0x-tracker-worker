@@ -69,10 +69,30 @@
     {
       "type": "consumer",
       "takerAddress": "0x9328c82a7c96b171689972fd0292cf6ccca4c6bb"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x1f8a6d8185b76f5ac08f335610a2390dab3225a8"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x728bbe9bbee3af78ad611315076621865950b344"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0xe4e8f73096301b0938b896a79521088633b85b75"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0xd47140f6ab73f6d6b6675fb1610bb5e9b5d96fe5"
+    },
+    {
+      "type": "consumer",
+      "takerAddress": "0x66408934ab87c3791fbbe3293dee31c009f082cd"
     }
   ],
   "categories": [
     "dex-aggregator",
-    "exchange"
+    "relayer"
   ]
 }

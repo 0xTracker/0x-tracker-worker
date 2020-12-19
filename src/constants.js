@@ -9,6 +9,7 @@ module.exports = {
     '0xdac17f958d2ee523a2206206994597c13d831ec7': 'USDT', // Tether
     '0x1a9b2d827f26b7d7c18fec4c1b27c1e8deeba26e': 'USDT', // Ethfinex Tether
     '0x33d019eb137b853f0cdf555a5d5bd2749135ac31': 'USDT', // Ethfinex Tether V2
+    '0x0000000000085d4780b73119b644ae5ecd22b376': 'TUSD', // True USD
     '0x2956356cd2a2bf3202f771f50d3d14a367b48070': 'ETH', // Wrapped Ether
     '0xe495bcacaf29a0eb00fb67b86e9cd2a994dd55d8': 'ETH', // Wrapped Ether
     '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2': 'ETH', // Wrapped Ether
@@ -16,6 +17,7 @@ module.exports = {
     '0xaa7427d8f17d87a28f5e1ba3adbb270badbe1011': 'ETH', // Ethfinex Ether
     '0x50cb61afa3f023d17276dcfb35abf85c710d1cff': 'ETH', // Ethfinex Ether V2
     '0xe41d2489571d322189246dafa5ebde1f4699f498': 'ZRX', // 0x Protocol Token
+    '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599': 'WBTC', // Wrapped Bitcoin
   },
   BASE_TOKEN_DECIMALS: {
     '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359': 18, // DAI Stablecoin
@@ -33,6 +35,8 @@ module.exports = {
     '0xaa7427d8f17d87a28f5e1ba3adbb270badbe1011': 18, // Ethfinex Ether
     '0x50cb61afa3f023d17276dcfb35abf85c710d1cff': 18, // Ethfinex Ether V2
     '0xe41d2489571d322189246dafa5ebde1f4699f498': 18, // 0x Protocol Token
+    '0x0000000000085d4780b73119b644ae5ecd22b376': 18, // True USD
+    '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599': 8, // Wrapped Bitcoin
   },
   ETH_TOKEN_DECIMALS: 18,
   FILL_ACTOR: {

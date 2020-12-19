@@ -187,6 +187,11 @@ describe('consumers/create-uniswap-v2-swap-event-fill', () => {
       attributions: [
         {
           _id: expect.anything(),
+          entityId: '052b4862-2142-4532-bdc0-416814b0a5fe',
+          type: 0,
+        },
+        {
+          _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },

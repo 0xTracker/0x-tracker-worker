@@ -1,0 +1,20 @@
+{
+  "id": "947e60dc-40ef-45a7-baec-3a4f21f970ea",
+  "name": "DexKit Swap",
+  "logo": "dex-kit.png",
+  "urlSlug": "dex-kit",
+  "websiteUrl": "https://swap.dexkit.com",
+  "mappings": [
+    {
+      "type": "consumer",
+      "affiliateAddress": "0x5bd68b4d6f90bcc9f3a9456791c0db5a43df676d"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x5bd68b4d6f90bcc9f3a9456791c0db5a43df676d"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}

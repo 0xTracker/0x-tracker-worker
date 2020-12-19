@@ -14,5 +14,7 @@
       "takerAddress": "0xd2045edc40199019e221d71c0913343f7908d0d5"
     }
   ],
-  "categories": []
+  "categories": [
+    "relayer"
+  ]
 }

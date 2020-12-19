@@ -21,13 +21,16 @@ const getErrorForDuplicate = (type, metadata) => {
   );
 };
 
+const sanitizeMetadata = metadata =>
+  _.mapValues(metadata, value => value || null);
+
 const resolveAttributions = metadata => {
   const {
     affiliateAddress,
     feeRecipientAddress,
     senderAddress,
     takerAddress,
-  } = metadata;
+  } = sanitizeMetadata(metadata);
 
   const entityDefinitions = getEntityDefinitions();
   const mappings = _.flatMap(entityDefinitions, d => d.mappings);

@@ -3,7 +3,7 @@
   "name": "STAR BIT",
   "logo": "star-bit.png",
   "urlSlug": "star-bit",
-  "websiteUrl": "https://www.starbitex.com",
+  "websiteUrl": "https://exchange.star-bit.io/zh-tw",
   "mappings": [
     {
       "type": "relayer",
@@ -14,5 +14,7 @@
       "feeRecipientAddress": "0xc370d2a5920344aa6b7d8d11250e3e861434cbdd"
     }
   ],
-  "categories": []
+  "categories": [
+    "relayer"
+  ]
 }

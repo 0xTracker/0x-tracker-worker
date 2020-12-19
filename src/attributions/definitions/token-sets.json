@@ -1,0 +1,16 @@
+{
+  "id": "08489932-0da3-48dc-9bf2-98ffb0fcdc7d",
+  "name": "TokenSets",
+  "logo": "token-sets.png",
+  "urlSlug": "token-sets",
+  "websiteUrl": "https://www.tokensets.com",
+  "mappings": [
+    {
+      "takerAddress": "0x0acd0b5cf881cd8398ac563872209de1ce15df0f",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "portfolio-manager"
+  ]
+}

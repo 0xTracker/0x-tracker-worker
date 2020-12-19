@@ -55,24 +55,30 @@ const createAsset = (assetData, amount) => {
   throw new UnsupportedAssetError(); // Unrecognised asset
 };
 
-const extractAssets = multiAssetData => {
-  const decodedAssetsData = multiAssetData.nestedAssetData.map(decodeAssetData);
-  const assets = decodedAssetsData.map((assetData, index) =>
-    createAsset(assetData, multiAssetData.amounts[index].toNumber()),
-  );
-
-  return assets;
-};
-
 const extractERC1155Assets = assetData => {
   return assetData.tokenValues.map((amount, index) => ({
     amount: amount.toNumber(),
     tokenAddress: assetData.tokenAddress,
     tokenId: _.has(assetData.tokenIds, index)
-      ? assetData.tokenIds.index.toNumber()
+      ? assetData.tokenIds[index].toNumber()
       : undefined,
     tokenType: TOKEN_TYPE.ERC1155,
   }));
+};
+
+const extractAssets = multiAssetData => {
+  const decodedAssetsData = multiAssetData.nestedAssetData.map(decodeAssetData);
+  const assets = _.flatMap(decodedAssetsData, (assetData, index) => {
+    if (isERC1155AssetData(assetData)) {
+      return extractERC1155Assets(assetData);
+    }
+
+    const amount = multiAssetData.amounts[index].toNumber();
+
+    return createAsset(assetData, amount);
+  });
+
+  return assets;
 };
 
 /**
