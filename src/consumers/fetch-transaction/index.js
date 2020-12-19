@@ -38,11 +38,11 @@ const fetchTransaction = async (job, { logger }) => {
     throw new Error(`Block not found: ${blockNumber}`);
   }
 
-  if (tx === undefined) {
+  if (tx === null) {
     throw new Error(`Transaction not found: ${transactionHash}`);
   }
 
-  if (receipt === undefined) {
+  if (receipt === null) {
     throw new Error(`No receipt found for transaction: ${transactionHash}`);
   }
 

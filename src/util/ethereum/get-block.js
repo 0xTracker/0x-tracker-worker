@@ -20,10 +20,7 @@ const getBlock = async blockHash => {
     }, 10000);
   });
 
-  const block = await Promise.race([
-    web3Wrapper.getBlockIfExistsAsync(blockHash),
-    timeout,
-  ]);
+  const block = await Promise.race([web3Wrapper.getBlock(blockHash), timeout]);
 
   if (block === undefined) {
     return null;

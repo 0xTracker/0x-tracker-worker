@@ -7,24 +7,12 @@ const {
   mockLogger,
 } = require('../../test-utils');
 const { publishJob } = require('../../queues');
-const BLOCK_10439179 = require('../../fixtures/blocks/10439179');
-const BLOCK_10141741 = require('../../fixtures/blocks/10141741');
-const RAW_TRANSACTION_0X29579558FECFEF00A960A27F314C3E36003B0BBC7B95C462100E83B8836F718A = require('../../fixtures/raw-transactions/0x29579558fecfef00a960a27f314c3e36003b0bbc7b95c462100e83b8836f718a');
-const RAW_TRANSACTION_0XA707981A012761007DF2C9099ED1580221D2BDBC4B37F689CB8D35EEDD0D505E = require('../../fixtures/raw-transactions/0xa707981a012761007df2c9099ed1580221d2bdbc4b37f689cb8d35eedd0d505e');
-const TRANSACTION_RECEIPT_0XA707981A012761007DF2C9099ED1580221D2BDBC4B37F689CB8D35EEDD0D505E = require('../../fixtures/transaction-receipts/0xa707981a012761007df2c9099ed1580221d2bdbc4b37f689cb8d35eedd0d505e');
-const TRANSACTION_RECEIPT_0X29579558FECFEF00A960A27F314C3E36003B0BBC7B95C462100E83B8836F718A = require('../../fixtures/transaction-receipts/0x29579558fecfef00a960a27f314c3e36003b0bbc7b95c462100e83b8836f718a');
 const checkTransactionExists = require('../../transactions/check-transaction-exists');
-const getBlock = require('../../util/ethereum/get-block');
-const getTransaction = require('../../util/ethereum/get-transaction');
-const getTransactionReceipt = require('../../util/ethereum/get-transaction-receipt');
 const persistTransaction = require('./persist-transaction');
 
 jest.mock('../../queues');
 jest.mock('../../transactions/check-transaction-exists');
 jest.mock('./persist-transaction');
-jest.mock('../../util/ethereum/get-block');
-jest.mock('../../util/ethereum/get-transaction');
-jest.mock('../../util/ethereum/get-transaction-receipt');
 
 const mockOptions = {
   logger: mockLogger,
@@ -36,13 +24,6 @@ beforeAll(async () => {
 
 beforeEach(() => {
   checkTransactionExists.mockResolvedValue(false);
-  getBlock.mockResolvedValue(BLOCK_10439179);
-  getTransaction.mockResolvedValue(
-    RAW_TRANSACTION_0XA707981A012761007DF2C9099ED1580221D2BDBC4B37F689CB8D35EEDD0D505E,
-  );
-  getTransactionReceipt.mockResolvedValue(
-    TRANSACTION_RECEIPT_0XA707981A012761007DF2C9099ED1580221D2BDBC4B37F689CB8D35EEDD0D505E,
-  );
   persistTransaction.mockResolvedValue(undefined);
 });
 
@@ -89,26 +70,30 @@ describe('consumers/fetch-transaction', () => {
   });
 
   it('should throw an error when block does not exist', async () => {
-    getBlock.mockResolvedValue(null);
-    await expect(fetchTransaction(simpleJob, mockOptions)).rejects.toThrow(
-      new Error('Block not found: 10439179'),
-    );
+    await expect(
+      fetchTransaction(
+        { ...simpleJob, data: { ...simpleJob.data, blockNumber: 114844840 } },
+        mockOptions,
+      ),
+    ).rejects.toThrow(new Error('Block not found: 114844840'));
   });
 
   it('should throw an error when transaction does not exist', async () => {
-    getTransaction.mockResolvedValue(undefined);
-    await expect(fetchTransaction(simpleJob, mockOptions)).rejects.toThrow(
-      new Error(
-        'Transaction not found: 0xa707981a012761007df2c9099ed1580221d2bdbc4b37f689cb8d35eedd0d505e',
+    await expect(
+      fetchTransaction(
+        {
+          ...simpleJob,
+          data: {
+            ...simpleJob.data,
+            transactionHash:
+              '0xa707981a012761007df2c9099ed1580221d2bdbc4b37f689cb8d35eedd0d505f',
+          },
+        },
+        mockOptions,
       ),
-    );
-  });
-
-  it('should throw an error when transaction receipt does not exist', async () => {
-    getTransactionReceipt.mockResolvedValue(undefined);
-    await expect(fetchTransaction(simpleJob, mockOptions)).rejects.toThrow(
+    ).rejects.toThrow(
       new Error(
-        'No receipt found for transaction: 0xa707981a012761007df2c9099ed1580221d2bdbc4b37f689cb8d35eedd0d505e',
+        'Transaction not found: 0xa707981a012761007df2c9099ed1580221d2bdbc4b37f689cb8d35eedd0d505f',
       ),
     );
   });
@@ -153,14 +138,6 @@ describe('consumers/fetch-transaction', () => {
   });
 
   it('should persist bridge transfer events for event which has them', async () => {
-    getBlock.mockResolvedValue(BLOCK_10141741);
-    getTransaction.mockResolvedValue(
-      RAW_TRANSACTION_0X29579558FECFEF00A960A27F314C3E36003B0BBC7B95C462100E83B8836F718A,
-    );
-    getTransactionReceipt.mockResolvedValue(
-      TRANSACTION_RECEIPT_0X29579558FECFEF00A960A27F314C3E36003B0BBC7B95C462100E83B8836F718A,
-    );
-
     await fetchTransaction(
       {
         data: {

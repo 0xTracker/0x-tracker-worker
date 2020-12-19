@@ -13,7 +13,7 @@ const fetchAddressType = async (job, { logger }) => {
 
   logger.info(`fetching address type: ${address}`);
 
-  const code = await getWrapper().getContractCodeAsync(address);
+  const code = await getWrapper().getCode(address);
   const isContract = code !== '0x' && !_.isEmpty(code);
 
   await getModel('AddressMetadata').updateOne(

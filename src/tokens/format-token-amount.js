@@ -1,6 +1,11 @@
 const _ = require('lodash');
 const { BigNumber } = require('@0x/utils');
-const { Web3Wrapper } = require('@0x/web3-wrapper');
+
+const toUnitAmount = (amount, decimals) => {
+  const aUnit = new BigNumber(10).pow(decimals);
+  const unit = amount.div(aUnit);
+  return unit;
+};
 
 module.exports = (amount, tokenOrDecimals) => {
   const decimals = _.isNumber(tokenOrDecimals)
@@ -13,5 +18,5 @@ module.exports = (amount, tokenOrDecimals) => {
 
   const bigNumber = new BigNumber(amount.toString());
 
-  return Web3Wrapper.toUnitAmount(bigNumber, decimals);
+  return toUnitAmount(bigNumber, decimals);
 };
