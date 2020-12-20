@@ -3,7 +3,7 @@ const ethers = require('ethers');
 let wrapper;
 
 const configure = ({ endpoint }) => {
-  const provider = new ethers.providers.JsonRpcProvider(endpoint);
+  const provider = new ethers.providers.JsonRpcProvider(endpoint, 1);
 
   wrapper = provider;
 };
