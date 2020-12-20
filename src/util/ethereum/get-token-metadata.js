@@ -1,5 +1,4 @@
 const ethers = require('ethers');
-const web3 = require('./web3');
 
 const getTokenMetadata = async address => {
   const abi = [
@@ -7,7 +6,10 @@ const getTokenMetadata = async address => {
     'function symbol() view returns (string symbol)',
     'function decimals() view returns (uint8 decimals)',
   ];
-  const contract = new ethers.Contract(address, abi, web3.getWrapper());
+  const provider = new ethers.providers.JsonRpcProvider(
+    'https://cloudflare-eth.com',
+  );
+  const contract = new ethers.Contract(address, abi, provider);
   const handleError = () => {
     return undefined;
   };
