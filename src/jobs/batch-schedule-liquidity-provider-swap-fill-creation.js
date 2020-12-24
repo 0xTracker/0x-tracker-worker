@@ -31,7 +31,7 @@ const batchScheduleLiquidityProviderSwapFillCreation = async (
     events.map(event =>
       publishJob(
         QUEUE.FILL_PROCESSING,
-        JOB.CREATE_LIQUIDITY_PROVIDER_SWAP_EVENT_FILLS,
+        JOB.CREATE_LIQUIDITY_PROVIDER_SWAP_EVENT_FILL,
         {
           eventId: event._id,
         },
