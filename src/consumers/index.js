@@ -5,6 +5,7 @@ const { getQueues } = require('../queues');
 const bulkUpdateTokenMetadata = require('./bulk-update-token-metadata');
 const convertProtocolFee = require('./convert-protocol-fee');
 const convertRelayerFees = require('./convert-relayer-fees');
+const createLiquidityProviderSwapEventFill = require('./create-liquidity-provider-swap-event-fill');
 const createSushiswapSwapEventFill = require('./create-sushiswap-swap-event-fill');
 const createToken = require('./create-token');
 const createTransformedERC20EventFills = require('./create-transformed-erc20-event-fills');
@@ -23,6 +24,7 @@ const consumers = [
   bulkUpdateTokenMetadata,
   convertProtocolFee,
   convertRelayerFees,
+  createLiquidityProviderSwapEventFill,
   createSushiswapSwapEventFill,
   createToken,
   createTransformedERC20EventFills,

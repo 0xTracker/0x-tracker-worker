@@ -1,5 +1,6 @@
 const _ = require('lodash');
 
+const batchScheduleLiquidityProviderSwapFillCreation = require('./batch-schedule-liquidity-provider-swap-fill-creation');
 const batchScheduleSushiswapSwapFillCreation = require('./batch-schedule-sushiswap-swap-fill-creation');
 const batchScheduleTransactionFetch = require('./batch-schedule-transaction-fetch');
 const batchScheduleTransformedERC20FillCreation = require('./batch-schedule-transformed-erc20-fill-creation');
@@ -11,6 +12,7 @@ const getMissingTokenImages = require('./get-missing-token-images');
 const measureFills = require('./measure-fills');
 
 const jobFns = {
+  batchScheduleLiquidityProviderSwapFillCreation,
   batchScheduleSushiswapSwapFillCreation,
   batchScheduleTransactionFetch,
   batchScheduleTransformedERC20FillCreation,
