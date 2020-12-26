@@ -381,5 +381,8 @@ describe('consumers/create-liquidity-provider-swap-event-fill', () => {
     const fills = await Fill.find().lean();
 
     expect(fills).toHaveLength(1);
+    expect(mockOptions.logger.warn).toHaveBeenCalledWith(
+      'fill for LiquidityProviderSwap event already exists: 5fccb51fdc7acd504bd8c2ce',
+    );
   });
 });

@@ -65,7 +65,7 @@ const createLiquidityProviderSwapEventFills = async (job, { logger }) => {
   const existingFill = await Fill.findOne({ eventId: event._id });
   if (existingFill !== null) {
     logger.warn(
-      `fill for LiquidityProviderSwap event already exist: ${eventId}`,
+      `fill for LiquidityProviderSwap event already exists: ${eventId}`,
     );
     return;
   }
