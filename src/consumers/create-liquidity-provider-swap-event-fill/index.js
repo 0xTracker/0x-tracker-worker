@@ -99,7 +99,7 @@ const createLiquidityProviderSwapEventFills = async (job, { logger }) => {
     quoteDate: transaction.quoteDate,
     taker: event.data.recipient.toLowerCase(),
     transactionHash: transaction.hash.toLowerCase(),
-    type: FILL_TYPE.TRANSFORMED_ERC20,
+    type: FILL_TYPE.LIQUIDITY_PROVIDER_SWAP,
   };
 
   /*
@@ -119,7 +119,7 @@ const createLiquidityProviderSwapEventFills = async (job, { logger }) => {
     await createFills([newFill], { session });
   });
 
-  logger.info(`created fills for LiquidityProviderSwap event: ${eventId}`);
+  logger.info(`created fill for LiquidityProviderSwap event: ${eventId}`);
 };
 
 module.exports = {
