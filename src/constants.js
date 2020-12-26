@@ -61,6 +61,7 @@ module.exports = {
     TRANSFORMED_ERC20: 1,
     UNISWAP_V2_SWAP: 2,
     SUSHISWAP_SWAP: 3,
+    LIQUIDITY_PROVIDER_SWAP: 4,
   },
   JOB: {
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
