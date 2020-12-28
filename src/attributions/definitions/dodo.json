@@ -1,0 +1,16 @@
+{
+  "id": "b986d2ba-77bf-420b-99e3-28e592d476e2",
+  "name": "DODO",
+  "logo": "dodo.png",
+  "urlSlug": "dodo",
+  "websiteUrl": "https://app.dodoex.io",
+  "mappings": [
+    {
+      "affiliateAddress": "0x221d5c4993297Fd95fA17743b9297E2e49FCe9D2",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}
