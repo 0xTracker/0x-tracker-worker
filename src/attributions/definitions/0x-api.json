@@ -46,7 +46,7 @@
       "type": "relayer"
     },
     {
-      "affiliateAddress": "0x221d5c4993297Fd95fA17743b9297E2e49FCe9D2",
+      "affiliateAddress": "0x221d5c4993297fd95fa17743b9297e2e49fce9d2",
       "feeRecipientAddress": null,
       "type": "relayer"
     }

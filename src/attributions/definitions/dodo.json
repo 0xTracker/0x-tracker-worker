@@ -6,7 +6,7 @@
   "websiteUrl": "https://app.dodoex.io",
   "mappings": [
     {
-      "affiliateAddress": "0x221d5c4993297Fd95fA17743b9297E2e49FCe9D2",
+      "affiliateAddress": "0x221d5c4993297fd95fa17743b9297e2e49fce9d2",
       "type": "consumer"
     }
   ],
