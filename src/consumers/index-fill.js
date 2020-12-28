@@ -19,7 +19,7 @@ const indexFill = async (job, { logger }) => {
     .findOne({ _id: fillId })
     .populate([
       { path: 'takerMetadata', select: 'isContract' },
-      { path: 'transaction', select: 'from' },
+      { path: 'transaction', select: 'from to' },
     ]);
 
   if (fill === null) {
