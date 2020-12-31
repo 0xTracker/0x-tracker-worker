@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const schema = Schema({
   _id: { required: true, type: String },
-  attributionEntity: String,
+  attributionEntityId: String,
   feedUrl: { required: true, type: String },
   imageUrl: String,
   isActive: { default: true, required: true, type: Boolean },

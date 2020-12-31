@@ -52,7 +52,7 @@ describe('attributions/syncFeedDefinitions', () => {
 
     expect(paradex).toMatchObject({
       _id: '12f5f238-8eb3-4a77-a210-18c76b96a7fb',
-      attributionEntity: '9d72a8f4-d944-41c9-96e4-2636ea26eba1',
+      attributionEntityId: '9d72a8f4-d944-41c9-96e4-2636ea26eba1',
       feedUrl: 'https://medium.com/feed/paradex',
       isActive: true,
     });

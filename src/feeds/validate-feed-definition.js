@@ -5,22 +5,22 @@ const schema = Joi.object({
     .uuid({ version: ['uuidv4'] })
     .id()
     .required(),
-  attributionEntity: Joi.string()
+  attributionEntityId: Joi.string()
     .uuid({ version: ['uuidv4'] })
     .id(),
   feedUrl: Joi.string().required(),
-  imageUrl: Joi.when('attributionEntity', {
+  imageUrl: Joi.when('attributionEntityId', {
     is: Joi.exist(),
     then: Joi.string(),
     otherwise: Joi.string().required(),
   }),
   isActive: Joi.bool().required(),
-  name: Joi.when('attributionEntity', {
+  name: Joi.when('attributionEntityId', {
     is: Joi.exist(),
     then: Joi.string(),
     otherwise: Joi.string().required(),
   }),
-  urlSlug: Joi.when('attributionEntity', {
+  urlSlug: Joi.when('attributionEntityId', {
     is: Joi.exist(),
     then: Joi.string(),
     otherwise: Joi.string().required(),
