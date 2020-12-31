@@ -1,0 +1,9 @@
+{
+  "id": "83da0265-575a-4692-9c54-ef2c7fb687f7",
+  "feedUrl": "https://medium.com/feed/ethfinex",
+  "imageUrl": "https://resources.0xtracker.com/logos/ethfinex.png",
+  "isActive": false,
+  "name": "Ethfinex",
+  "urlSlug": "ethfinex",
+  "websiteUrl": "https://ethfinex.com"
+}
