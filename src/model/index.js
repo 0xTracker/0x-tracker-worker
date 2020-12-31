@@ -1,5 +1,6 @@
 const AddressMetadata = require('./address-metadata');
 const Article = require('./article');
+const ArticleFeed = require('./article-feed');
 const AttributionEntity = require('./attribution-entity');
 const Event = require('./event');
 const Fill = require('./fill');
@@ -42,6 +43,7 @@ const initModels = async () => {
     AddressMetadata,
     AttributionEntity,
     Article,
+    ArticleFeed,
     Event,
     Fill,
     Relayer,
