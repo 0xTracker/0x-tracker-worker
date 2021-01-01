@@ -1,0 +1,9 @@
+{
+  "id": "e73c82ae-7b30-490f-aea7-81e1e2745d28",
+  "feedUrl": "http://fetchrss.com/rss/5feb7720d82c7170d23402325feb77c6d00f5d419742cba2.xml",
+  "imageUrl": "https://resources.0xtracker.com/logos/augur.png",
+  "isActive": true,
+  "name": "Augur",
+  "urlSlug": "augur",
+  "websiteUrl": "https://augur.net"
+}
