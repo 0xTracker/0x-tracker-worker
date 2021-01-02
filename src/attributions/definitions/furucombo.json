@@ -6,7 +6,7 @@
   "websiteUrl": "https://furucombo.app",
   "mappings": [
     {
-      "affiliateAddress": "0x57805e5a227937bac2b0fdacaa30413ddac6b8e1",
+      "transactionToAddress": "0x57805e5a227937bac2b0fdacaa30413ddac6b8e1",
       "type": "consumer"
     }
   ],
