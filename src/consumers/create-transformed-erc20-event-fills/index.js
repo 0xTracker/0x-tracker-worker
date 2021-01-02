@@ -211,7 +211,7 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
     Finally, create fills for the unprocessed ERC20BridgeTransfer events.
   */
   await withTransaction(async session => {
-    await createFills(nonExistantFills, { session });
+    await createFills(transaction, nonExistantFills, { session });
   });
 
   logger.info(`created fills for TransformedERC20 event: ${eventId}`);

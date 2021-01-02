@@ -30,6 +30,7 @@ const schema = Joi.object({
         feeRecipientAddress: Ethereum.address().allow(null),
         senderAddress: Ethereum.address(),
         takerAddress: Ethereum.address(),
+        transactionToAddress: Ethereum.address(),
         type: Joi.string()
           .valid('consumer', 'relayer')
           .required(),
@@ -39,6 +40,7 @@ const schema = Joi.object({
           'feeRecipientAddress',
           'senderAddress',
           'takerAddress',
+          'transactionToAddress',
         )
         .required(),
     )

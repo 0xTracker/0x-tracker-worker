@@ -112,7 +112,7 @@ const createUniswapV2SwapEventFill = async (job, { logger }) => {
   );
 
   await withTransaction(async session => {
-    await createFills([fill], { session });
+    await createFills(transaction, [fill], { session });
   });
 
   logger.info(`created fill for UniswapV2Swap event: ${eventId}`);

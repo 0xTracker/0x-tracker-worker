@@ -110,7 +110,7 @@ const createSushiswapSwapEventFill = async (job, { logger }) => {
     })),
   );
 
-  await createFills([fill]);
+  await createFills(transaction, [fill]);
 
   logger.info(`created fill for SushiswapSwap event: ${eventId}`);
 };

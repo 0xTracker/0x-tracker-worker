@@ -116,7 +116,7 @@ const createLiquidityProviderSwapEventFills = async (job, { logger }) => {
   await createNewTokens(uniqTokens);
 
   await withTransaction(async session => {
-    await createFills([newFill], { session });
+    await createFills(transaction, [newFill], { session });
   });
 
   logger.info(`created fill for LiquidityProviderSwap event: ${eventId}`);
