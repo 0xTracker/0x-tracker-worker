@@ -195,6 +195,7 @@ describe('attributions/resolveAttributions', () => {
       resolveAttributions({
         feeRecipientAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
         takerAddress: '0xd2045edc40199019e221d71c0913343f7908d0d5',
+        transactionToAddress: '0xdef1c0ded9bec7f1a1670819833240f027b25eff',
       }),
     ).toThrow(
       new Error(
@@ -203,7 +204,8 @@ describe('attributions/resolveAttributions', () => {
           'affiliateAddress: (none)\r\n' +
           'feeRecipientAddress: 0x86003b044f70dac0abc80ac8957305b6370893ed\r\n' +
           'senderAddress: (none)\r\n' +
-          'takerAddress: 0xd2045edc40199019e221d71c0913343f7908d0d5',
+          'takerAddress: 0xd2045edc40199019e221d71c0913343f7908d0d5\r\n' +
+          'transactionToAddress: 0xdef1c0ded9bec7f1a1670819833240f027b25eff',
       ),
     );
   });
@@ -213,6 +215,7 @@ describe('attributions/resolveAttributions', () => {
       resolveAttributions({
         affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
         takerAddress: '0x11111254369792b2ca5d084ab5eea397ca8fa48b',
+        transactionToAddress: '0xdef1c0ded9bec7f1a1670819833240f027b25eff',
       }),
     ).toThrow(
       new Error(
@@ -221,7 +224,8 @@ describe('attributions/resolveAttributions', () => {
           'affiliateAddress: 0x86003b044f70dac0abc80ac8957305b6370893ed\r\n' +
           'feeRecipientAddress: (none)\r\n' +
           'senderAddress: (none)\r\n' +
-          'takerAddress: 0x11111254369792b2ca5d084ab5eea397ca8fa48b',
+          'takerAddress: 0x11111254369792b2ca5d084ab5eea397ca8fa48b\r\n' +
+          'transactionToAddress: 0xdef1c0ded9bec7f1a1670819833240f027b25eff',
       ),
     );
   });

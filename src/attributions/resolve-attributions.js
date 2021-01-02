@@ -9,6 +9,7 @@ const getErrorForDuplicate = (type, metadata) => {
     feeRecipientAddress,
     senderAddress,
     takerAddress,
+    transactionToAddress,
   } = metadata;
 
   return new Error(
@@ -17,7 +18,8 @@ const getErrorForDuplicate = (type, metadata) => {
       `affiliateAddress: ${prettifyUndefined(affiliateAddress)}\r\n` +
       `feeRecipientAddress: ${prettifyUndefined(feeRecipientAddress)}\r\n` +
       `senderAddress: ${prettifyUndefined(senderAddress)}\r\n` +
-      `takerAddress: ${prettifyUndefined(takerAddress)}`,
+      `takerAddress: ${prettifyUndefined(takerAddress)}\r\n` +
+      `transactionToAddress: ${prettifyUndefined(transactionToAddress)}`,
   );
 };
 
@@ -30,6 +32,7 @@ const resolveAttributions = metadata => {
     feeRecipientAddress,
     senderAddress,
     takerAddress,
+    transactionToAddress,
   } = sanitizeMetadata(metadata);
 
   const entityDefinitions = getEntityDefinitions();
@@ -44,7 +47,9 @@ const resolveAttributions = metadata => {
       (mapping.takerAddress === takerAddress ||
         mapping.takerAddress === undefined) &&
       (mapping.senderAddress === senderAddress ||
-        mapping.senderAddress === undefined),
+        mapping.senderAddress === undefined) &&
+      (mapping.transactionToAddress === transactionToAddress ||
+        mapping.transactionToAddress === undefined),
   );
 
   const attributions = _.uniqWith(

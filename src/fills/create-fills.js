@@ -13,8 +13,11 @@ const indexFill = require('../index/index-fill');
 const indexFillTraders = require('../index/index-fill-traders');
 const indexTradedTokens = require('../index/index-traded-tokens');
 
-const createFills = async (fills, { session } = {}) => {
-  const attributedFills = fills.map(fill => applyAttributionsToFill(fill));
+const createFills = async (transaction, fills, { session } = {}) => {
+  const attributedFills = fills.map(fill =>
+    applyAttributionsToFill(fill, transaction),
+  );
+
   const fillsWithTokenStatus = attributedFills.map(fill => ({
     ...fill,
     assets: fill.assets.map(asset => ({
