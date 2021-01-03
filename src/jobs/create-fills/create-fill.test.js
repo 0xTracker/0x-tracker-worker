@@ -451,6 +451,7 @@ describe('createFill', () => {
     await createFill(V3_EVENT, simpleTransaction);
 
     expect(publishJob).toHaveBeenCalledWith('indexing', 'index-fill-traders', {
+      appIds: [],
       fillDate: new Date('2019-10-26T16:32:03.000Z'),
       fillId: '5bb1f06b62f9ca0004c7cf20',
       maker: '0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44',
