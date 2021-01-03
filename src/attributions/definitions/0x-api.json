@@ -11,6 +11,10 @@
       "type": "relayer"
     },
     {
+      "affiliateAddress": "0x1000000000000000000000000000000000000011",
+      "type": "relayer"
+    },
+    {
       "affiliateAddress": "0x86003b044f70dac0abc80ac8957305b6370893ed",
       "feeRecipientAddress": null,
       "type": "relayer"
