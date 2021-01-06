@@ -7,7 +7,7 @@
   "mappings": [
     {
       "type": "relayer",
-      "transactionToAddress": "0x8346f3074994fd9a813c735d629b257d93780eed"
+      "senderAddress": "0x8346f3074994fd9a813c735d629b257d93780eed"
     }
   ],
   "categories": [
