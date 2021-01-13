@@ -6,8 +6,12 @@
   "websiteUrl": "https://metric.exchange",
   "mappings": [
     {
-      "type": "relayer",
-      "feeRecipientAddress": "0x52427b0035f494a21a0a4a1abe04d679f789c821"
+      "affiliateAddress": "0x52427b0035f494a21a0a4a1abe04d679f789c821",
+      "type": "consumer"
+    },
+    {
+      "feeRecipientAddress": "0x52427b0035f494a21a0a4a1abe04d679f789c821",
+      "type": "relayer"
     }
   ],
   "categories": [
