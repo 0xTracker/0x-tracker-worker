@@ -82,119 +82,131 @@ const aggregateDailyNetworkMetrics = async (config, { logger }) => {
     return;
   }
 
-  const aggregationResponse = await elasticsearch.getClient().search({
-    index: 'fills',
-    size: 0,
-    body: {
-      aggs: {
-        by_date: {
-          composite: {
-            after: checkpoint.progressData || undefined,
-            size: BATCH_SIZE,
-            sources: [
-              {
-                day: {
-                  date_histogram: {
-                    field: 'date',
-                    calendar_interval: 'day',
+  const aggregateBatch = async () => {
+    const aggregationResponse = await elasticsearch.getClient().search({
+      index: 'fills',
+      size: 0,
+      body: {
+        aggs: {
+          by_date: {
+            composite: {
+              after: checkpoint.progressData || undefined,
+              size: BATCH_SIZE,
+              sources: [
+                {
+                  day: {
+                    date_histogram: {
+                      field: 'date',
+                      calendar_interval: 'day',
+                    },
                   },
                 },
-              },
-            ],
-          },
-          aggs: {
-            protocolFeesETH: {
-              sum: {
-                field: 'protocolFeeETH',
-              },
+              ],
             },
-            protocolFeesUSD: {
-              sum: {
-                field: 'protocolFeeUSD',
+            aggs: {
+              protocolFeesETH: {
+                sum: {
+                  field: 'protocolFeeETH',
+                },
               },
-            },
-            tradeCount: {
-              sum: {
-                field: 'tradeCountContribution',
+              protocolFeesUSD: {
+                sum: {
+                  field: 'protocolFeeUSD',
+                },
               },
-            },
-            tradeVolume: {
-              sum: {
-                field: 'tradeVolume',
+              tradeCount: {
+                sum: {
+                  field: 'tradeCountContribution',
+                },
+              },
+              tradeVolume: {
+                sum: {
+                  field: 'tradeVolume',
+                },
               },
             },
           },
         },
-      },
-      query: {
-        range: {
-          date: {
-            gte: startDate.toISOString(),
+        query: {
+          range: {
+            date: {
+              gte: startDate.toISOString(),
+            },
           },
         },
       },
-    },
-  });
+    });
 
-  const result = aggregationResponse.body.aggregations.by_date;
+    const result = aggregationResponse.body.aggregations.by_date;
 
-  const dataPoints = result.buckets.map(x => ({
-    date: new Date(x.key.day),
-    protocolFeesETH: x.protocolFeesETH.value,
-    protocolFeesUSD: x.protocolFeesUSD.value,
-    tradeCount: x.tradeCount.value,
-    tradeVolume: x.tradeVolume.value,
-  }));
+    const dataPoints = result.buckets.map(x => ({
+      date: new Date(x.key.day),
+      protocolFeesETH: x.protocolFeesETH.value,
+      protocolFeesUSD: x.protocolFeesUSD.value,
+      tradeCount: x.tradeCount.value,
+      tradeVolume: x.tradeVolume.value,
+    }));
 
-  if (dataPoints.length === 0) {
-    logger.info('no more data points to process');
-    checkpoint.set('complete', true);
-    checkpoint.set('progressData', null);
-    await checkpoint.save();
-    return;
-  }
+    if (dataPoints.length === 0) {
+      logger.info('no more data points to process');
+      checkpoint.set('complete', true);
+      checkpoint.set('progressData', null);
+      await checkpoint.save();
+      return;
+    }
 
-  const body = dataPoints
-    .map(dataPoint => {
-      return [
-        JSON.stringify({
-          update: {
-            _id: dataPoint.date.valueOf(),
-          },
-        }),
-        JSON.stringify({
-          doc: {
-            date: dataPoint.date.toISOString(),
-            lastUpdated: new Date().toISOString(),
-            protocolFeesETH: dataPoint.protocolFeesETH,
-            protocolFeesUSD: dataPoint.protocolFeesUSD,
-            tradeCount: dataPoint.tradeCount,
-            tradeVolume: dataPoint.tradeVolume,
-          },
-          doc_as_upsert: true,
-        }),
-      ].join('\n');
-    })
-    .join('\n');
+    const body = dataPoints
+      .map(dataPoint => {
+        return [
+          JSON.stringify({
+            update: {
+              _id: dataPoint.date.valueOf(),
+            },
+          }),
+          JSON.stringify({
+            doc: {
+              date: dataPoint.date.toISOString(),
+              lastUpdated: new Date().toISOString(),
+              protocolFeesETH: dataPoint.protocolFeesETH,
+              protocolFeesUSD: dataPoint.protocolFeesUSD,
+              tradeCount: dataPoint.tradeCount,
+              tradeVolume: dataPoint.tradeVolume,
+            },
+            doc_as_upsert: true,
+          }),
+        ].join('\n');
+      })
+      .join('\n');
 
-  const indexResponse = await elasticsearch
-    .getClient()
-    .bulk({ body: `${body}\n`, index: getIndexName('network_metrics_daily') });
+    const indexResponse = await elasticsearch.getClient().bulk({
+      body: `${body}\n`,
+      index: getIndexName('network_metrics_daily'),
+    });
 
-  if (indexResponse.body.errors) {
-    throw new Error(`Indexing failed`);
-  }
+    if (indexResponse.body.errors) {
+      throw new Error(`Indexing failed`);
+    }
 
-  logger.info(`processed ${dataPoints.length} data point(s)`);
+    logger.info(`processed ${dataPoints.length} data point(s)`);
 
-  if (dataPoints.length === BATCH_SIZE) {
-    checkpoint.set('progressData', result.after_key);
-    await checkpoint.save();
-  } else {
-    logger.info('no more data points to process');
-    checkpoint.set('complete', true);
-    checkpoint.set('progressData', null);
-    await checkpoint.save();
+    if (dataPoints.length === BATCH_SIZE) {
+      checkpoint.set('progressData', result.after_key);
+      await checkpoint.save();
+    } else {
+      logger.info('no more data points to process');
+      checkpoint.set('complete', true);
+      checkpoint.set('progressData', null);
+      await checkpoint.save();
+    }
+  };
+
+  while (!checkpoint.complete) {
+    /* eslint-disable no-await-in-loop */
+    await aggregateBatch();
+    await new Promise(resolve => {
+      setTimeout(resolve, 2000);
+    });
+    /* eslint-enable no-await-in-loop */
   }
 };
 
