@@ -4,7 +4,7 @@ const elasticsearch = require('../util/elasticsearch');
 const getIndexName = require('../index/get-index-name');
 const model = require('../model');
 
-const BATCH_SIZE = 500;
+const BATCH_SIZE = 1000;
 const CHECKPOINT_ID = 'trader_metrics_daily';
 
 const getCheckpoint = async () => {
