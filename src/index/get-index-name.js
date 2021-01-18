@@ -17,6 +17,12 @@ const getIndexName = index => {
     );
   }
 
+  if (index === 'protocol_metrics_daily') {
+    return (
+      process.env.INDEX_NAME_PROTOCOL_METRICS_DAILY || 'protocol_metrics_daily'
+    );
+  }
+
   throw new Error(`Unsupported index: ${index}`);
 };
 
