@@ -1,4 +1,5 @@
 const AddressMetadata = require('./address-metadata');
+const AggregationCheckpoint = require('./aggregation-checkpoint');
 const Article = require('./article');
 const ArticleFeed = require('./article-feed');
 const AttributionEntity = require('./attribution-entity');
@@ -41,6 +42,7 @@ const initModels = async () => {
 
   models = {
     AddressMetadata,
+    AggregationCheckpoint,
     AttributionEntity,
     Article,
     ArticleFeed,
