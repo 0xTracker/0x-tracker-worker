@@ -23,6 +23,12 @@ const getIndexName = index => {
     );
   }
 
+  if (index === 'trader_metrics_daily') {
+    return (
+      process.env.INDEX_NAME_TRADER_METRICS_DAILY || 'trader_metrics_daily'
+    );
+  }
+
   throw new Error(`Unsupported index: ${index}`);
 };
 
