@@ -50,7 +50,10 @@ const determineStartDate = async checkpoint => {
         ? {
             range: {
               updatedAt: {
-                gte: checkpoint.previous,
+                gte: moment
+                  .utc(checkpoint.previous)
+                  .subtract(10, 'minutes') // Ensure we don't miss fills which have just been indexed but where the index hasn't refreshed
+                  .toDate(),
               },
             },
           }
