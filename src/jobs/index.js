@@ -2,6 +2,7 @@ const _ = require('lodash');
 
 const aggregateDailyNetworkMetrics = require('./aggregate-daily-network-metrics');
 const aggregateDailyProtocolMetrics = require('./aggregate-daily-protocol-metrics');
+const aggregateDailyTokenMetrics = require('./aggregate-daily-token-metrics');
 const aggregateDailyTraderMetrics = require('./aggregate-daily-trader-metrics');
 const batchScheduleLiquidityProviderSwapFillCreation = require('./batch-schedule-liquidity-provider-swap-fill-creation');
 const batchScheduleSushiswapSwapFillCreation = require('./batch-schedule-sushiswap-swap-fill-creation');
@@ -17,6 +18,7 @@ const measureFills = require('./measure-fills');
 const jobFns = {
   aggregateDailyNetworkMetrics,
   aggregateDailyProtocolMetrics,
+  aggregateDailyTokenMetrics,
   aggregateDailyTraderMetrics,
   batchScheduleLiquidityProviderSwapFillCreation,
   batchScheduleSushiswapSwapFillCreation,
