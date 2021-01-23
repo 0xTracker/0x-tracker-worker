@@ -19,6 +19,7 @@ module.exports = {
     '0x50cb61afa3f023d17276dcfb35abf85c710d1cff': 'ETH', // Ethfinex Ether V2
     '0xe41d2489571d322189246dafa5ebde1f4699f498': 'ZRX', // 0x Protocol Token
     '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599': 'WBTC', // Wrapped Bitcoin
+    '0x8e870d67f660d95d5be530380d0ec0bd388289e1': 'PAX', // Paxos Stablecoin
   },
   BASE_TOKEN_DECIMALS: {
     '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359': 18, // DAI Stablecoin
@@ -39,6 +40,7 @@ module.exports = {
     '0x0000000000085d4780b73119b644ae5ecd22b376': 18, // True USD
     '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599': 8, // Wrapped Bitcoin
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee': 18, // Ether
+    '0x8e870d67f660d95d5be530380d0ec0bd388289e1': 18, // Paxos Stablecoin
   },
   ETH_TOKEN_DECIMALS: 18,
   FILL_ACTOR: {
