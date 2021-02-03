@@ -97,7 +97,8 @@ const createUniswapV2SwapEventFill = async (job, { logger }) => {
     eventId: event._id,
     logIndex: event.logIndex,
     maker: event.data.maker.toLowerCase(),
-    protocolVersion: event.protocolVersion,
+    protocolVersion:
+      transaction.date >= new Date('2021-01-25T00:00:00Z') ? 4 : 3,
     quoteDate: transaction.quoteDate,
     taker: event.data.taker.toLowerCase(),
     transactionHash: transaction.hash.toLowerCase(),

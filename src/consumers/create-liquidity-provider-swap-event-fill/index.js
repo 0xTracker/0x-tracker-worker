@@ -95,7 +95,8 @@ const createLiquidityProviderSwapEventFills = async (job, { logger }) => {
     eventId: event._id,
     logIndex: event.logIndex,
     maker: event.data.provider.toLowerCase(),
-    protocolVersion: 3, // TODO: Put in a time switch for v4 launch
+    protocolVersion:
+      transaction.date >= new Date('2021-01-25T00:00:00Z') ? 4 : 3,
     quoteDate: transaction.quoteDate,
     taker: event.data.recipient.toLowerCase(),
     transactionHash: transaction.hash.toLowerCase(),
