@@ -67,6 +67,7 @@ const schema = Schema(
     logIndex: Number,
     maker: { lowercase: true, required: true, trim: true, type: String },
     orderHash: { lowercase: true, trim: true, type: String },
+    pool: String,
     pricingStatus: Number,
     protocolFee: Number,
     protocolVersion: Number,
