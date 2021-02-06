@@ -37,7 +37,7 @@ const createFillsForEvent = async (job, { logger }) => {
     }
 
     await publishJob(
-      QUEUE.FILL_PROCESSING,
+      QUEUE.EVENT_PROCESSING,
       JOB.CREATE_FILLS_FOR_EVENT,
       job.data,
       { delay: 30000 },
@@ -52,6 +52,7 @@ const createFillsForEvent = async (job, { logger }) => {
    */
   if (event.type === 'LimitOrderFilled') {
     await processLimitOrderFilledEvent(event, transaction, { logger });
+    return;
   }
 
   throw new Error(`Unsupported event type: ${event.type}`);
@@ -60,5 +61,5 @@ const createFillsForEvent = async (job, { logger }) => {
 module.exports = {
   fn: createFillsForEvent,
   jobName: JOB.CREATE_FILLS_FOR_EVENT,
-  queueName: QUEUE.FILL_PROCESSING,
+  queueName: QUEUE.EVENT_PROCESSING,
 };

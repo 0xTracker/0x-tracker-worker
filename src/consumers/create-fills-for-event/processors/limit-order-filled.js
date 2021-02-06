@@ -20,7 +20,7 @@ const processLimitOrderFilledEvent = async (event, transaction, { logger }) => {
   */
   const existingFill = await Fill.findOne({ eventId });
   if (existingFill !== null) {
-    logger.warn(`fill for event already exists: ${eventId}`);
+    logger.warn(`fill for LimitOrderFilled event already exists: ${eventId}`);
     return;
   }
 
