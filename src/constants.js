@@ -66,11 +66,13 @@ module.exports = {
     UNISWAP_V2_SWAP: 2,
     SUSHISWAP_SWAP: 3,
     LIQUIDITY_PROVIDER_SWAP: 4,
+    LIMIT_ORDER_FILLED: 5,
   },
   JOB: {
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
     CONVERT_RELAYER_FEES: 'convert-relayer-fees',
+    CREATE_FILLS_FOR_EVENT: 'create-fills-for-event',
     CREATE_SUSHISWAP_SWAP_EVENT_FILL: 'create-sushiswap-swap-event-fill',
     CREATE_TOKEN: 'create-token',
     CREATE_LIQUIDITY_PROVIDER_SWAP_EVENT_FILL:
