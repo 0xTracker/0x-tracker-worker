@@ -5,6 +5,7 @@ const { publishJob } = require('../../queues');
 const Event = require('../../model/event');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 const processLimitOrderFilledEvent = require('./processors/limit-order-filled');
+const processRfqOrderFilledEvent = require('./processors/rfq-order-filled');
 
 const createFillsForEvent = async (job, { logger }) => {
   const { eventId } = job.data;
@@ -52,6 +53,11 @@ const createFillsForEvent = async (job, { logger }) => {
    */
   if (event.type === 'LimitOrderFilled') {
     await processLimitOrderFilledEvent(event, transaction, { logger });
+    return;
+  }
+
+  if (event.type === 'RfqOrderFilled') {
+    await processRfqOrderFilledEvent(event, transaction, { logger });
     return;
   }
 
