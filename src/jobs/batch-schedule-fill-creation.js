@@ -21,6 +21,7 @@ const batchScheduleFillCreation = async ({ batchSize }, { logger }) => {
         'LiquidityProviderSwap',
         'RfqOrderFilled',
         'SushiswapSwap',
+        'TransformedERC20',
         'UniswapV2Swap',
       ],
     },

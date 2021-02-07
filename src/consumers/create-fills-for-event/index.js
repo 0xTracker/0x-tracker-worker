@@ -5,10 +5,11 @@ const { publishJob } = require('../../queues');
 const Event = require('../../model/event');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 const processLimitOrderFilledEvent = require('./processors/limit-order-filled');
+const processLiquidityProviderSwapEvent = require('./processors/liquidity-provider-swap');
 const processRfqOrderFilledEvent = require('./processors/rfq-order-filled');
 const processSushiswapSwapEvent = require('./processors/sushiswap-swap');
+const processTransformedERC20Event = require('./processors/transformed-erc20');
 const processUniswapV2SwapEvent = require('./processors/uniswap-v2-swap');
-const processLiquidityProviderSwapEvent = require('./processors/liquidity-provider-swap');
 
 const createFillsForEvent = async (job, { logger }) => {
   const { eventId } = job.data;
@@ -71,6 +72,11 @@ const createFillsForEvent = async (job, { logger }) => {
 
   if (event.type === 'SushiswapSwap') {
     await processSushiswapSwapEvent(event, transaction, { logger });
+    return;
+  }
+
+  if (event.type === 'TransformedERC20') {
+    await processTransformedERC20Event(event, transaction, { logger });
     return;
   }
 
