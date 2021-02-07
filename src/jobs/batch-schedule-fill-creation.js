@@ -18,6 +18,7 @@ const batchScheduleFillCreation = async ({ batchSize }, { logger }) => {
     type: {
       $in: [
         'LimitOrderFilled',
+        'LiquidityProviderSwap',
         'RfqOrderFilled',
         'SushiswapSwap',
         'UniswapV2Swap',

@@ -8,6 +8,7 @@ const processLimitOrderFilledEvent = require('./processors/limit-order-filled');
 const processRfqOrderFilledEvent = require('./processors/rfq-order-filled');
 const processSushiswapSwapEvent = require('./processors/sushiswap-swap');
 const processUniswapV2SwapEvent = require('./processors/uniswap-v2-swap');
+const processLiquidityProviderSwapEvent = require('./processors/liquidity-provider-swap');
 
 const createFillsForEvent = async (job, { logger }) => {
   const { eventId } = job.data;
@@ -55,6 +56,11 @@ const createFillsForEvent = async (job, { logger }) => {
    */
   if (event.type === 'LimitOrderFilled') {
     await processLimitOrderFilledEvent(event, transaction, { logger });
+    return;
+  }
+
+  if (event.type === 'LiquidityProviderSwap') {
+    await processLiquidityProviderSwapEvent(event, transaction, { logger });
     return;
   }
 
