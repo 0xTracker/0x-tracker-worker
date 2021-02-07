@@ -5,9 +5,7 @@ const aggregateDailyProtocolMetrics = require('./aggregate-daily-protocol-metric
 const aggregateDailyTokenMetrics = require('./aggregate-daily-token-metrics');
 const aggregateDailyTraderMetrics = require('./aggregate-daily-trader-metrics');
 const batchScheduleFillCreation = require('./batch-schedule-fill-creation');
-const batchScheduleLiquidityProviderSwapFillCreation = require('./batch-schedule-liquidity-provider-swap-fill-creation');
 const batchScheduleTransactionFetch = require('./batch-schedule-transaction-fetch');
-const batchScheduleTransformedERC20FillCreation = require('./batch-schedule-transformed-erc20-fill-creation');
 const createFills = require('./create-fills');
 const deriveFillPrices = require('./derive-fill-prices');
 const fetchArticles = require('./fetch-articles');
@@ -20,9 +18,7 @@ const jobFns = {
   aggregateDailyTokenMetrics,
   aggregateDailyTraderMetrics,
   batchScheduleFillCreation,
-  batchScheduleLiquidityProviderSwapFillCreation,
   batchScheduleTransactionFetch,
-  batchScheduleTransformedERC20FillCreation,
   createFills,
   deriveFillPrices,
   fetchArticles,
