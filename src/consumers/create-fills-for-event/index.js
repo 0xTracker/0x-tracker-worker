@@ -6,6 +6,8 @@ const Event = require('../../model/event');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 const processLimitOrderFilledEvent = require('./processors/limit-order-filled');
 const processRfqOrderFilledEvent = require('./processors/rfq-order-filled');
+const processSushiswapSwapEvent = require('./processors/sushiswap-swap');
+const processUniswapV2SwapEvent = require('./processors/uniswap-v2-swap');
 
 const createFillsForEvent = async (job, { logger }) => {
   const { eventId } = job.data;
@@ -58,6 +60,16 @@ const createFillsForEvent = async (job, { logger }) => {
 
   if (event.type === 'RfqOrderFilled') {
     await processRfqOrderFilledEvent(event, transaction, { logger });
+    return;
+  }
+
+  if (event.type === 'SushiswapSwap') {
+    await processSushiswapSwapEvent(event, transaction, { logger });
+    return;
+  }
+
+  if (event.type === 'UniswapV2Swap') {
+    await processUniswapV2SwapEvent(event, transaction, { logger });
     return;
   }
 
