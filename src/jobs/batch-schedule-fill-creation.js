@@ -15,7 +15,16 @@ const batchScheduleFillCreation = async ({ batchSize }, { logger }) => {
 
   const events = await Event.find({
     'scheduler.fillCreationScheduled': null,
-    type: { $in: ['LimitOrderFilled', 'RfqOrderFilled'] },
+    type: {
+      $in: [
+        'LimitOrderFilled',
+        'LiquidityProviderSwap',
+        'RfqOrderFilled',
+        'SushiswapSwap',
+        'TransformedERC20',
+        'UniswapV2Swap',
+      ],
+    },
   })
     .select('_id')
     .limit(batchSize)
