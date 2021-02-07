@@ -29,6 +29,10 @@
     {
       "type": "consumer",
       "transactionToAddress": "0x111112549cfedf7822eb11fbd8fd485d8a10f93f"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x910bf2d50fa5e014fd06666f456182d4ab7c8bd2"
     }
   ],
   "categories": [
