@@ -67,6 +67,7 @@ module.exports = {
     SUSHISWAP_SWAP: 3,
     LIQUIDITY_PROVIDER_SWAP: 4,
     LIMIT_ORDER_FILLED: 5,
+    RFQ_ORDER_FILLED: 6,
   },
   JOB: {
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
