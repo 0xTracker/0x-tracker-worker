@@ -2,7 +2,7 @@
   "id": "8fc6beb5-3019-45f7-a55a-9a4c6b4b6513",
   "name": "1inch Exchange",
   "description": "1inch Exchange is a popular DEX aggregator which sources liquidity from 0x protocol in addition to relaying limit orders.",
-  "logo": "1inch-exchange.png",
+  "logo": "1inch-exchange-v2.png",
   "urlSlug": "1inch-exchange",
   "websiteUrl": "https://1inch.exchange",
   "mappings": [
