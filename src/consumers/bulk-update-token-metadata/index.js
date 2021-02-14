@@ -1,8 +1,8 @@
 const bluebird = require('bluebird');
 
-const { JOB, QUEUE } = require('../constants');
-const fetchTokenMetadata = require('../tokens/fetch-token-metadata');
-const Token = require('../model/token');
+const { JOB, QUEUE } = require('../../constants');
+const fetchTokenMetadata = require('../../tokens/fetch-token-metadata');
+const Token = require('../../model/token');
 
 const consumer = async (job, { logger }) => {
   logger.info('scheduling update of all token metadata');
