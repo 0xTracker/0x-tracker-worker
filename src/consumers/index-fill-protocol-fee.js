@@ -1,11 +1,11 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
 
-const { getModel } = require('../../model');
-const { JOB, QUEUE } = require('../../constants');
-const createDocument = require('../../index/fills/create-document');
-const elasticsearch = require('../../util/elasticsearch');
-const getIndexName = require('../../index/get-index-name');
+const { getModel } = require('../model');
+const { JOB, QUEUE } = require('../constants');
+const createDocument = require('../index/fills/create-document');
+const elasticsearch = require('../util/elasticsearch');
+const getIndexName = require('../index/get-index-name');
 
 const indexFillProtocolFee = async (job, { logger }) => {
   const { fillId, protocolFee } = job.data;
