@@ -65,7 +65,7 @@ const schema = Schema(
     immeasurable: { default: false, type: Boolean },
     isTransformedERC20: { type: Boolean },
     logIndex: Number,
-    maker: { lowercase: true, required: true, trim: true, type: String },
+    maker: { lowercase: true, trim: true, type: String },
     orderHash: { lowercase: true, trim: true, type: String },
     pool: String,
     pricingStatus: Number,
@@ -77,7 +77,7 @@ const schema = Schema(
     },
     relayerId: Number,
     senderAddress: { lowercase: true, trim: true, type: String },
-
+    source: String,
     // TODO: Remove this field from everywhere in app, it's redundant now
     status: {
       default: FILL_STATUS.SUCCESSFUL,

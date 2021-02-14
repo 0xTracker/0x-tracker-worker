@@ -36,6 +36,26 @@ module.exports = {
     apiKey: process.env.ETHPLORER_API_KEY,
   },
   jobs: {
+    aggregateDailyNetworkMetrics: {
+      enabled: process.env.AGGREGATION_ENABLED
+        ? Boolean(process.env.AGGREGATION_ENABLED)
+        : false,
+    },
+    aggregateDailyProtocolMetrics: {
+      enabled: process.env.AGGREGATION_ENABLED
+        ? Boolean(process.env.AGGREGATION_ENABLED)
+        : false,
+    },
+    aggregateDailyTokenMetrics: {
+      enabled: process.env.AGGREGATION_ENABLED
+        ? Boolean(process.env.AGGREGATION_ENABLED)
+        : false,
+    },
+    aggregateDailyTraderMetrics: {
+      enabled: process.env.AGGREGATION_ENABLED
+        ? Boolean(process.env.AGGREGATION_ENABLED)
+        : false,
+    },
     batchScheduleTransactionFetch: {
       batchSize: 100,
     },

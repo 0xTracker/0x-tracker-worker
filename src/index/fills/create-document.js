@@ -60,10 +60,10 @@ const createDocument = fill => {
 
     // This field helps to compute traderCount by allowing for cardinality
     // aggregation over maker & taker values.
-    traders: [
+    traders: _.compact([
       fill.maker,
       fill.takerMetadata.isContract ? fill.transaction.from : fill.taker,
-    ],
+    ]),
 
     // These fields help to compute tradeVolume and tradeCount metrics in
     // Elasticsearch without the need for a 'trades' index.

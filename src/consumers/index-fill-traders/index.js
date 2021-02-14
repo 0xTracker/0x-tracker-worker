@@ -51,28 +51,32 @@ const indexFillTraders = async (job, { logger }) => {
   const tradeValue =
     fillValue === undefined ? undefined : fillValue * tradeCount;
 
-  const requestBody = [
-    JSON.stringify({
-      index: {
-        _id: `${fillId}_maker`,
-      },
-    }),
-    JSON.stringify({
-      address: maker,
-      appIds,
-      fillId,
-      date: fillDate,
-      relayerId,
-      makerFillCount: 1,
-      makerFillValue: fillValue,
-      makerTradeCount: tradeCount,
-      makerTradeValue: tradeValue,
-      totalFillCount: 1,
-      totalFillValue: fillValue,
-      totalTradeCount: tradeCount,
-      totalTradeValue: tradeValue,
-      updatedAt: new Date().toISOString(),
-    }),
+  const requestBody = _.compact([
+    maker
+      ? JSON.stringify({
+          index: {
+            _id: `${fillId}_maker`,
+          },
+        })
+      : null,
+    maker
+      ? JSON.stringify({
+          address: maker,
+          appIds,
+          fillId,
+          date: fillDate,
+          relayerId,
+          makerFillCount: 1,
+          makerFillValue: fillValue,
+          makerTradeCount: tradeCount,
+          makerTradeValue: tradeValue,
+          totalFillCount: 1,
+          totalFillValue: fillValue,
+          totalTradeCount: tradeCount,
+          totalTradeValue: tradeValue,
+          updatedAt: new Date().toISOString(),
+        })
+      : null,
     JSON.stringify({
       index: {
         _id: `${fillId}_taker`,
@@ -94,7 +98,7 @@ const indexFillTraders = async (job, { logger }) => {
       totalTradeValue: tradeValue,
       updatedAt: new Date().toISOString(),
     }),
-  ].join('\n');
+  ]).join('\n');
 
   const result = await elasticsearch
     .getClient()

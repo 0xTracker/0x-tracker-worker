@@ -88,7 +88,12 @@ const getFilters = async checkpoint => {
   };
 };
 
-const aggregateDailyTraderMetrics = async (config, { logger }) => {
+const aggregateDailyTraderMetrics = async ({ enabled }, { logger }) => {
+  if (!enabled) {
+    logger.warn(`aggregate daily trader metrics job disabled`);
+    return;
+  }
+
   const checkpoint = await getCheckpoint();
   const filters = await getFilters(checkpoint);
 

@@ -88,7 +88,12 @@ const getFilters = async checkpoint => {
   };
 };
 
-const aggregateDailyTokenMetrics = async (config, { logger }) => {
+const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
+  if (!enabled) {
+    logger.warn(`aggregate daily token metrics job disabled`);
+    return;
+  }
+
   const checkpoint = await getCheckpoint();
   const filters = await getFilters(checkpoint);
 
