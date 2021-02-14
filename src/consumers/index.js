@@ -7,6 +7,7 @@ const convertProtocolFee = require('./convert-protocol-fee');
 const convertRelayerFees = require('./convert-relayer-fees');
 const createFillsForEvent = require('./create-fills-for-event');
 const fetchAddressType = require('./fetch-address-type');
+const fetchFillStatus = require('./fetch-fill-status');
 const fetchTokenMetadata = require('./fetch-token-metadata');
 const fetchTransaction = require('./fetch-transaction');
 const indexFill = require('./index-fill');
@@ -21,6 +22,7 @@ const consumers = [
   convertRelayerFees,
   createFillsForEvent,
   fetchAddressType,
+  fetchFillStatus,
   fetchTokenMetadata,
   fetchTransaction,
   indexFill,
