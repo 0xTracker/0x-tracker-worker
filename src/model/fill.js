@@ -77,7 +77,7 @@ const schema = Schema(
     },
     relayerId: Number,
     senderAddress: { lowercase: true, trim: true, type: String },
-
+    source: String,
     // TODO: Remove this field from everywhere in app, it's redundant now
     status: {
       default: FILL_STATUS.SUCCESSFUL,
