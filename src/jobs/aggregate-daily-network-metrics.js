@@ -73,7 +73,12 @@ const determineStartDate = async checkpoint => {
     .toDate();
 };
 
-const aggregateDailyNetworkMetrics = async (config, { logger }) => {
+const aggregateDailyNetworkMetrics = async ({ enabled }, { logger }) => {
+  if (!enabled) {
+    logger.warn(`aggregate daily network metrics job disabled`);
+    return;
+  }
+
   const checkpoint = await getCheckpoint();
   const startDate = await determineStartDate(checkpoint);
 
