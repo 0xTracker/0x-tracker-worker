@@ -1,12 +1,12 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
 
-const { JOB, QUEUE } = require('../constants');
-const { getModel } = require('../model');
-const createDocument = require('../index/fills/create-document');
-const elasticsearch = require('../util/elasticsearch');
-const getIndexName = require('../index/get-index-name');
-const relayerRegistry = require('../relayers/relayer-registry');
+const { JOB, QUEUE } = require('../../constants');
+const { getModel } = require('../../model');
+const createDocument = require('../../index/fills/create-document');
+const elasticsearch = require('../../util/elasticsearch');
+const getIndexName = require('../../index/get-index-name');
+const relayerRegistry = require('../../relayers/relayer-registry');
 
 const isOrderMatcher = relayerId => {
   const relayer = _(relayerRegistry)
