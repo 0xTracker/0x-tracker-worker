@@ -15,7 +15,7 @@ const Event = require('../../../model/event');
 const Fill = require('../../../model/fill');
 const withTransaction = require('../../../util/with-transaction');
 
-const dedupeBridgeEvents = events => {
+const dedupeEvents = events => {
   return _.uniqWith(events, (a, b) => _.isEqual(a.data, b.data));
 };
 
@@ -53,11 +53,11 @@ const processTransformedERC20Event = async (
   ]);
 
   /*
-   * BridgeFill events aren't supported yet. Log a warning and reschedule for an hours time.
-   */
-  if (bridgeFillEvents.length > 0) {
+    Temporary guard until I can confirm how this scenario should be handled with 0x team.
+  */
+  if (bridgeFillEvents.length > 0 && erc20BridgeTransferEvents.length > 0) {
     logger.warn(
-      `Transaction contains BridgeFill events: ${transformedERC20Event.transactionHash}`,
+      `Transaction contains both BridgeFill and ERC20BridgeTransfer events: ${transformedERC20Event.transactionHash}`,
     );
 
     await publishJob(
@@ -71,25 +71,25 @@ const processTransformedERC20Event = async (
   }
 
   /*
-   * If there are no ERC20BridgeTransfer then the transform would have occurred
+   * If there are no ERC20BridgeTransfer or BridgeFill events then the transform would have occurred
    * using traditional fills which will be handled through the standard workflow
    */
-  if (erc20BridgeTransferEvents.length === 0) {
+  if (erc20BridgeTransferEvents.length === 0 && bridgeFillEvents.length === 0) {
     logger.info(
-      `TransformedERC20 event has no associated ERC20BridgeTransfer events: ${eventId}`,
+      `TransformedERC20 event has no associated ERC20BridgeTransfer or BridgeFill events: ${eventId}`,
     );
     return;
   }
 
   /*
    * If the job has made it this far then we're comfortable enough that fill documents can
-   * be created for the associated ERC20BridgeTransfer events. We assume that each ERC20BridgeTransfer
-   * event is related to the TransformedERC20 event being processed and will use the TransformedERC20
-   * event to dictate the token and taker addresses.
+   * be created for the associated ERC20BridgeTransfer/BridgeFill events. We assume that each
+   * ERC20BridgeTransfer/BridgeFill event is related to the TransformedERC20 event being processed
+   * and will use the event to dictate the token and taker addresses.
    */
-  const fills = dedupeBridgeEvents(erc20BridgeTransferEvents).map(
-    bridgeEvent => ({
-      _id: bridgeEvent._id,
+  const fills = dedupeEvents(erc20BridgeTransferEvents)
+    .map(bridgeTransferEvent => ({
+      _id: bridgeTransferEvent._id,
       affiliateAddress:
         transaction.affiliateAddress !== undefined
           ? transaction.affiliateAddress.toLowerCase()
@@ -97,29 +97,68 @@ const processTransformedERC20Event = async (
       assets: [
         {
           actor: FILL_ACTOR.MAKER,
-          amount: new BigNumber(bridgeEvent.data.fromTokenAmount).toNumber(),
-          bridgeAddress: bridgeEvent.data.from.toLowerCase(),
-          tokenAddress: bridgeEvent.data.fromToken.toLowerCase(),
+          amount: new BigNumber(
+            bridgeTransferEvent.data.fromTokenAmount,
+          ).toNumber(),
+          bridgeAddress: bridgeTransferEvent.data.from.toLowerCase(),
+          tokenAddress: bridgeTransferEvent.data.fromToken.toLowerCase(),
         },
         {
           actor: FILL_ACTOR.TAKER,
-          amount: new BigNumber(bridgeEvent.data.toTokenAmount).toNumber(),
-          tokenAddress: bridgeEvent.data.toToken.toLowerCase(),
+          amount: new BigNumber(
+            bridgeTransferEvent.data.toTokenAmount,
+          ).toNumber(),
+          tokenAddress: bridgeTransferEvent.data.toToken.toLowerCase(),
         },
       ],
       blockHash: transaction.blockHash.toLowerCase(),
       blockNumber: transaction.blockNumber,
       date: transaction.date,
-      eventId: bridgeEvent._id,
-      logIndex: bridgeEvent.logIndex,
-      maker: bridgeEvent.data.from.toLowerCase(),
-      protocolVersion: bridgeEvent.protocolVersion,
+      eventId: bridgeTransferEvent._id,
+      logIndex: bridgeTransferEvent.logIndex,
+      maker: bridgeTransferEvent.data.from.toLowerCase(),
+      protocolVersion: bridgeTransferEvent.protocolVersion,
       quoteDate: transaction.quoteDate,
       taker: transformedERC20Event.data.taker.toLowerCase(),
       transactionHash: transaction.hash.toLowerCase(),
       type: FILL_TYPE.TRANSFORMED_ERC20,
-    }),
-  );
+    }))
+    .concat(
+      dedupeEvents(bridgeFillEvents).map(bridgeFillEvent => ({
+        _id: bridgeFillEvent._id,
+        affiliateAddress:
+          transaction.affiliateAddress !== undefined
+            ? transaction.affiliateAddress.toLowerCase()
+            : undefined,
+        assets: [
+          {
+            actor: FILL_ACTOR.MAKER,
+            amount: new BigNumber(
+              bridgeFillEvent.data.inputTokenAmount,
+            ).toNumber(),
+            tokenAddress: bridgeFillEvent.data.inputToken.toLowerCase(),
+          },
+          {
+            actor: FILL_ACTOR.TAKER,
+            amount: new BigNumber(
+              bridgeFillEvent.data.outputTokenAmount,
+            ).toNumber(),
+            tokenAddress: bridgeFillEvent.data.outputToken.toLowerCase(),
+          },
+        ],
+        blockHash: transaction.blockHash.toLowerCase(),
+        blockNumber: transaction.blockNumber,
+        date: transaction.date,
+        eventId: bridgeFillEvent._id,
+        logIndex: bridgeFillEvent.logIndex,
+        protocolVersion: bridgeFillEvent.protocolVersion,
+        quoteDate: transaction.quoteDate,
+        source: bridgeFillEvent.data.source,
+        taker: transformedERC20Event.data.taker.toLowerCase(),
+        transactionHash: transaction.hash.toLowerCase(),
+        type: FILL_TYPE.BRIDGE_FILL,
+      })),
+    );
 
   /*
    * Filter out any fills which have already been created since we need to assume
@@ -153,7 +192,7 @@ const processTransformedERC20Event = async (
   await createNewTokens(uniqTokens);
 
   /*
-    Finally, create fills for the unprocessed ERC20BridgeTransfer events.
+    Finally, create fills for the unprocessed events.
   */
   await withTransaction(async session => {
     await createFills(transaction, nonExistantFills, { session });

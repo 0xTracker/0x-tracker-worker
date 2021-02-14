@@ -1406,7 +1406,7 @@ describe('consumers/create-fills-for-event', () => {
     );
   });
 
-  it('should finish job early and log outcome when TransformedERC20 event has no associated ERC20BridgeTransfer events', async () => {
+  it('should finish job early and log outcome when TransformedERC20 event has no associated ERC20BridgeTransfer or BridgeFill events', async () => {
     await Event.create([
       {
         _id: '5f2e9c576b2c7f29ee87cf7a',
@@ -1454,7 +1454,7 @@ describe('consumers/create-fills-for-event', () => {
 
     expect(mockOptions.logger.info).toHaveBeenCalledTimes(1);
     expect(mockOptions.logger.info).toHaveBeenCalledWith(
-      'TransformedERC20 event has no associated ERC20BridgeTransfer events: 5f2e9c576b2c7f29ee87cf7a',
+      'TransformedERC20 event has no associated ERC20BridgeTransfer or BridgeFill events: 5f2e9c576b2c7f29ee87cf7a',
     );
   });
 
