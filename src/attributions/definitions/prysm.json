@@ -1,0 +1,16 @@
+{
+  "id": "2608dc0d-6670-4217-b581-c4fe9f59dc79",
+  "name": "Prysm",
+  "logo": "prysm.png",
+  "urlSlug": "prysm",
+  "websiteUrl": "https://beta.prysm.xyz",
+  "mappings": [
+    {
+      "affiliateAddress": "0xe4b5c336adb606f7ff14e8e80c6731619feef5f9",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "other"
+  ]
+}

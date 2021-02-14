@@ -83,11 +83,11 @@ const getTokenInfo = async address => {
 
   return {
     address,
-    circulatingSupply,
+    circulatingSupply: circulatingSupply > 0 ? circulatingSupply : undefined,
     decimals,
     name,
     symbol,
-    totalSupply,
+    totalSupply: totalSupply > 0 ? totalSupply : undefined,
   };
 };
 

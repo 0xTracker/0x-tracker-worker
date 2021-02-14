@@ -66,6 +66,7 @@ describe('jobs/measure-fills/measure-fill', () => {
     await measureFill(fill);
 
     expect(publishJob).toHaveBeenCalledWith('indexing', 'index-fill-traders', {
+      appIds: [],
       fillId: '5e3e9abbb2227b1f0e73be5f',
       fillDate: new Date('2020-02-08T11:21:14.000Z'),
       fillValue: 1674.924411,

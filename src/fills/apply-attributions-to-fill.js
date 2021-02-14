@@ -7,7 +7,7 @@ const ATTRIBUTION_TYPE_TO_NUMBER = {
   consumer: 1,
 };
 
-const applyAttributionsToFill = fill => {
+const applyAttributionsToFill = (fill, transaction) => {
   const relayer = resolveRelayer({
     affiliateAddress: fill.affiliateAddress,
     feeRecipient: fill.feeRecipient,
@@ -20,6 +20,7 @@ const applyAttributionsToFill = fill => {
     feeRecipientAddress: fill.feeRecipient,
     senderAddress: fill.senderAddress,
     takerAddress: fill.taker,
+    transactionToAddress: transaction.to,
   }).map(attribution => ({
     entityId: attribution.id,
     type: ATTRIBUTION_TYPE_TO_NUMBER[attribution.type],

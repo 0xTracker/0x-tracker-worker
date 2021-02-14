@@ -11,6 +11,7 @@ const persistEvents = require('../../events/persist-events');
 const persistTransaction = require('./persist-transaction');
 const withTransaction = require('../../util/with-transaction');
 const fetchUnknownAddressTypes = require('../../addresses/fetch-unknown-address-types');
+const getBridgeFillEvents = require('../../transactions/get-bridge-fill-events');
 
 const fetchTransaction = async (job, { logger }) => {
   const { blockNumber, transactionHash } = job.data;
@@ -38,16 +39,17 @@ const fetchTransaction = async (job, { logger }) => {
     throw new Error(`Block not found: ${blockNumber}`);
   }
 
-  if (tx === undefined) {
+  if (tx === null) {
     throw new Error(`Transaction not found: ${transactionHash}`);
   }
 
-  if (receipt === undefined) {
+  if (receipt === null) {
     throw new Error(`No receipt found for transaction: ${transactionHash}`);
   }
 
   const transaction = buildTransaction(tx, receipt, block);
   const bridgeTransferEvents = getERC20BridgeTransferEvents(receipt);
+  const bridgeFillEvents = getBridgeFillEvents(receipt);
 
   /*
     Fetch address type for sender if it's not already known.
@@ -61,6 +63,10 @@ const fetchTransaction = async (job, { logger }) => {
   await withTransaction(async session => {
     if (bridgeTransferEvents.length > 0) {
       await persistEvents(bridgeTransferEvents, { session });
+    }
+
+    if (bridgeFillEvents.length > 0) {
+      await persistEvents(bridgeFillEvents, { session });
     }
 
     await persistTransaction(transaction, { session });

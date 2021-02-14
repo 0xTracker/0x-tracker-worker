@@ -39,10 +39,8 @@
     "timekeeper": "2.2.0"
   },
   "dependencies": {
-    "@0x/order-utils": "10.0.1",
-    "@0x/subproviders": "6.1.0",
-    "@0x/utils": "4.3.3",
-    "@0x/web3-wrapper": "6.0.7",
+    "@0x/order-utils": "10.4.11",
+    "@0x/utils": "6.1.1",
     "@bugsnag/js": "6.4.2",
     "@elastic/elasticsearch": "7.5.0",
     "@hapi/joi": "17.1.1",
@@ -52,8 +50,7 @@
     "cheerio": "1.0.0-rc.3",
     "config": "3.1.0",
     "dotenv-safe": "6.1.0",
-    "ethereum-token-utils": "git+https://github.com/0xTracker/ethereum-token-utils.git",
-    "ethers": "5.0.8",
+    "ethers": "5.0.24",
     "lodash": "4.17.15",
     "memory-cache": "0.2.0",
     "metaget": "1.0.7",
@@ -67,7 +64,7 @@
     "slugify": "1.4.0"
   },
   "engines": {
-    "node": "10.17.0",
+    "node": "12.19.0",
     "npm": "6.x.x"
   }
 }

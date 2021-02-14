@@ -29,9 +29,6 @@ const calculateTradeCountContribution = relayerId => {
 const createDocument = fill => {
   const value = _.get(fill, 'conversions.USD.amount');
   const protocolFeeUSD = _.get(fill, 'conversions.USD.protocolFee');
-  const taker = fill.takerMetadata.isContract
-    ? fill.transaction.from
-    : fill.taker;
 
   return {
     affiliateAddress: fill.affiliateAddress,
@@ -54,14 +51,19 @@ const createDocument = fill => {
     relayerId: fill.relayerId,
     senderAddress: fill.senderAddress,
     status: fill.status,
-    taker,
+    taker: fill.taker,
     transactionHash: fill.transactionHash,
+    transactionFrom: fill.transaction.from,
+    transactionTo: fill.transaction.to,
     updatedAt: new Date(Date.now()).toISOString(),
     value: value === null ? undefined : value,
 
     // This field helps to compute traderCount by allowing for cardinality
     // aggregation over maker & taker values.
-    traders: [fill.maker, taker],
+    traders: [
+      fill.maker,
+      fill.takerMetadata.isContract ? fill.transaction.from : fill.taker,
+    ],
 
     // These fields help to compute tradeVolume and tradeCount metrics in
     // Elasticsearch without the need for a 'trades' index.

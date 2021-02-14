@@ -34,7 +34,7 @@ const createFill = async (event, transaction) => {
   await createNewTokens(tokens);
 
   await withTransaction(async session => {
-    await createFills([fill], { session });
+    await createFills(transaction, [fill], { session });
   });
 };
 

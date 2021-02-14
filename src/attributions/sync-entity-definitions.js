@@ -71,6 +71,7 @@ const updateEntity = async (entity, definition) => {
         'feeRecipientAddress',
         'senderAddress',
         'takerAddress',
+        'transactionToAddress',
         'type',
       ),
       value => value !== undefined,

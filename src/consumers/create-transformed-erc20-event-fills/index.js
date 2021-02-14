@@ -89,16 +89,40 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
    * does not exceed that of the TransformedERC20 event. This is an unexpected
    * scenario so an error will be thrown to ensure the transaction is investigated.
    */
-  const bridgeEvents = await Event.find({
-    transactionHash: transformedERC20Event.transactionHash,
-    type: 'ERC20BridgeTransfer',
-  }).lean();
+  const [erc20BridgeTransferEvents, bridgeFillEvents] = await Promise.all([
+    Event.find({
+      transactionHash: transformedERC20Event.transactionHash,
+      type: 'ERC20BridgeTransfer',
+    }).lean(),
+    Event.find({
+      transactionHash: transformedERC20Event.transactionHash,
+      type: 'BridgeFill',
+    }).lean(),
+  ]);
+
+  /*
+   * BridgeFill events aren't supported yet. Log a warning and reschedule for an hours time.
+   */
+  if (bridgeFillEvents.length > 0) {
+    logger.warn(
+      `Transaction contains BridgeFill events: ${transformedERC20Event.transactionHash}`,
+    );
+
+    await publishJob(
+      QUEUE.FILL_PROCESSING,
+      JOB.CREATE_TRANSFORMED_ERC20_EVENT_FILLS,
+      job.data,
+      { delay: 3600000 }, // Delay for an hour
+    );
+
+    return;
+  }
 
   /*
    * If there are no ERC20BridgeTransfer then the transform would have occurred
    * using traditional fills which will be handled through the standard workflow
    */
-  if (bridgeEvents.length === 0) {
+  if (erc20BridgeTransferEvents.length === 0) {
     logger.info(
       `TransformedERC20 event has no associated ERC20BridgeTransfer events: ${eventId}`,
     );
@@ -144,37 +168,39 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
    * event is related to the TransformedERC20 event being processed and will use the TransformedERC20
    * event to dictate the token and taker addresses.
    */
-  const fills = dedupeBridgeEvents(bridgeEvents).map(bridgeEvent => ({
-    _id: bridgeEvent._id,
-    affiliateAddress:
-      transaction.affiliateAddress !== undefined
-        ? transaction.affiliateAddress.toLowerCase()
-        : undefined,
-    assets: [
-      {
-        actor: FILL_ACTOR.MAKER,
-        amount: new BigNumber(bridgeEvent.data.fromTokenAmount).toNumber(),
-        bridgeAddress: bridgeEvent.data.from.toLowerCase(),
-        tokenAddress: bridgeEvent.data.fromToken.toLowerCase(),
-      },
-      {
-        actor: FILL_ACTOR.TAKER,
-        amount: new BigNumber(bridgeEvent.data.toTokenAmount).toNumber(),
-        tokenAddress: bridgeEvent.data.toToken.toLowerCase(),
-      },
-    ],
-    blockHash: transaction.blockHash.toLowerCase(),
-    blockNumber: transaction.blockNumber,
-    date: transaction.date,
-    eventId: bridgeEvent._id,
-    logIndex: bridgeEvent.logIndex,
-    maker: bridgeEvent.data.from.toLowerCase(),
-    protocolVersion: bridgeEvent.protocolVersion,
-    quoteDate: transaction.quoteDate,
-    taker: transformedERC20Event.data.taker.toLowerCase(),
-    transactionHash: transaction.hash.toLowerCase(),
-    type: FILL_TYPE.TRANSFORMED_ERC20,
-  }));
+  const fills = dedupeBridgeEvents(erc20BridgeTransferEvents).map(
+    bridgeEvent => ({
+      _id: bridgeEvent._id,
+      affiliateAddress:
+        transaction.affiliateAddress !== undefined
+          ? transaction.affiliateAddress.toLowerCase()
+          : undefined,
+      assets: [
+        {
+          actor: FILL_ACTOR.MAKER,
+          amount: new BigNumber(bridgeEvent.data.fromTokenAmount).toNumber(),
+          bridgeAddress: bridgeEvent.data.from.toLowerCase(),
+          tokenAddress: bridgeEvent.data.fromToken.toLowerCase(),
+        },
+        {
+          actor: FILL_ACTOR.TAKER,
+          amount: new BigNumber(bridgeEvent.data.toTokenAmount).toNumber(),
+          tokenAddress: bridgeEvent.data.toToken.toLowerCase(),
+        },
+      ],
+      blockHash: transaction.blockHash.toLowerCase(),
+      blockNumber: transaction.blockNumber,
+      date: transaction.date,
+      eventId: bridgeEvent._id,
+      logIndex: bridgeEvent.logIndex,
+      maker: bridgeEvent.data.from.toLowerCase(),
+      protocolVersion: bridgeEvent.protocolVersion,
+      quoteDate: transaction.quoteDate,
+      taker: transformedERC20Event.data.taker.toLowerCase(),
+      transactionHash: transaction.hash.toLowerCase(),
+      type: FILL_TYPE.TRANSFORMED_ERC20,
+    }),
+  );
 
   /*
    * Filter out any fills which have already been created since we need to assume
@@ -211,7 +237,7 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
     Finally, create fills for the unprocessed ERC20BridgeTransfer events.
   */
   await withTransaction(async session => {
-    await createFills(nonExistantFills, { session });
+    await createFills(transaction, nonExistantFills, { session });
   });
 
   logger.info(`created fills for TransformedERC20 event: ${eventId}`);

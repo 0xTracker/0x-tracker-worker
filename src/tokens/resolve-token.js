@@ -1,12 +1,12 @@
 const _ = require('lodash');
-const tokenUtils = require('ethereum-token-utils');
 
 const { TOKEN_TYPE } = require('../constants');
 const ethplorer = require('../util/ethplorer');
+const getTokenMetadata = require('../util/ethereum/get-token-metadata');
 
 const resolveToken = async (address, type) => {
   const [tokenMetadata, tokenInfo] = await Promise.all([
-    tokenUtils.getTokenMetadata(address, {
+    getTokenMetadata(address, {
       rpcEndpoint: 'https://cloudflare-eth.com',
     }),
     ethplorer.getTokenInfo(address),

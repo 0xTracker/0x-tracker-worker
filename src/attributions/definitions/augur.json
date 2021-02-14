@@ -1,0 +1,16 @@
+{
+  "id": "4544b0dc-79a6-4c52-85d3-1d3c11e10577",
+  "name": "Augur",
+  "logo": "augur.png",
+  "urlSlug": "augur",
+  "websiteUrl": "https://www.augur.net/",
+  "mappings": [
+    {
+      "type": "relayer",
+      "senderAddress": "0x8346f3074994fd9a813c735d629b257d93780eed"
+    }
+  ],
+  "categories": [
+    "other"
+  ]
+}

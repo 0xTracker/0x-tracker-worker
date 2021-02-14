@@ -15,6 +15,7 @@ const indexFillTraders = async (job, { logger }) => {
   };
 
   const {
+    appIds,
     fillDate,
     fillId,
     fillValue,
@@ -58,6 +59,7 @@ const indexFillTraders = async (job, { logger }) => {
     }),
     JSON.stringify({
       address: maker,
+      appIds,
       fillId,
       date: fillDate,
       relayerId,
@@ -78,6 +80,7 @@ const indexFillTraders = async (job, { logger }) => {
     }),
     JSON.stringify({
       address: takerMetadata.isContract ? transaction.from : taker,
+      appIds,
       fillId,
       date: fillDate,
       relayerId,
