@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const { JOB, QUEUE } = require('../../constants');
-const { getModel } = require('../../model');
-const elasticsearch = require('../../util/elasticsearch');
-const fillsIndex = require('../../index/fills');
-const getIndexName = require('../../index/get-index-name');
+const { JOB, QUEUE } = require('../constants');
+const { getModel } = require('../model');
+const elasticsearch = require('../util/elasticsearch');
+const fillsIndex = require('../index/fills');
+const getIndexName = require('../index/get-index-name');
 
 const indexFill = async (job, { logger }) => {
   const { fillId } = job.data;

@@ -1,8 +1,8 @@
 const _ = require('lodash');
 
-const { JOB, QUEUE } = require('../../constants');
-const elasticsearch = require('../../util/elasticsearch');
-const getIndexName = require('../../index/get-index-name');
+const { JOB, QUEUE } = require('../constants');
+const elasticsearch = require('../util/elasticsearch');
+const getIndexName = require('../index/get-index-name');
 
 const consumer = async (job, { logger }) => {
   const { attributions, date, fillId, relayerId, tradedTokens } = job.data;
