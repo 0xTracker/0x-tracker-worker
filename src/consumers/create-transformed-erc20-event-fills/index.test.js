@@ -359,6 +359,11 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
+          type: 2,
+        },
       ],
       assets: [
         {
@@ -412,6 +417,11 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
+          type: 2,
+        },
       ],
       assets: [
         {
@@ -464,6 +474,11 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
+        },
+        {
+          _id: expect.anything(),
+          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
+          type: 2,
         },
       ],
       assets: [
@@ -1024,6 +1039,11 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
+        },
+        {
+          _id: expect.anything(),
+          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
+          type: 2,
         },
       ],
       assets: [

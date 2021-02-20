@@ -25,7 +25,7 @@ const getEntityDefinitions = require('./get-entity-definitions');
 const transformMappings = mappings =>
   mappings.map(m => ({
     ...m,
-    type: FILL_ATTRIBUTION_TYPE[m.type.toUpperCase()],
+    type: FILL_ATTRIBUTION_TYPE[m.type.replace('-', '_').toUpperCase()],
   }));
 
 const createEntity = async definition => {
@@ -68,10 +68,12 @@ const updateEntity = async (entity, definition) => {
       _.pick(
         m,
         'affiliateAddress',
+        'bridgeAddress',
         'feeRecipientAddress',
         'senderAddress',
         'takerAddress',
         'transactionToAddress',
+        'tradeType',
         'type',
       ),
       value => value !== undefined,

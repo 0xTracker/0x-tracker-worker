@@ -29,8 +29,10 @@ const sanitizeMetadata = metadata =>
 const resolveAttributions = metadata => {
   const {
     affiliateAddress,
+    bridgeAddress,
     feeRecipientAddress,
     senderAddress,
+    source,
     takerAddress,
     transactionToAddress,
   } = sanitizeMetadata(metadata);
@@ -49,7 +51,10 @@ const resolveAttributions = metadata => {
       (mapping.senderAddress === senderAddress ||
         mapping.senderAddress === undefined) &&
       (mapping.transactionToAddress === transactionToAddress ||
-        mapping.transactionToAddress === undefined),
+        mapping.transactionToAddress === undefined) &&
+      (mapping.source === source || mapping.source === undefined) &&
+      (mapping.bridgeAddress === bridgeAddress ||
+        mapping.bridgeAddress === undefined),
   );
 
   const attributions = _.uniqWith(
@@ -73,6 +78,10 @@ const resolveAttributions = metadata => {
 
   if (attributions.filter(a => a.type === 'consumer').length > 1) {
     throw getErrorForDuplicate('consumer', metadata);
+  }
+
+  if (attributions.filter(a => a.type === 'liquidity-source').length > 1) {
+    throw getErrorForDuplicate('liquidity-source', metadata);
   }
 
   return attributions;

@@ -5,6 +5,7 @@ const resolveAttributions = require('../attributions/resolve-attributions');
 const ATTRIBUTION_TYPE_TO_NUMBER = {
   relayer: 0,
   consumer: 1,
+  'liquidity-source': 2,
 };
 
 const applyAttributionsToFill = (fill, transaction) => {
