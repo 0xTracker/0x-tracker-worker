@@ -1,0 +1,24 @@
+{
+  "id": "96ee04c6-0596-4f35-b96a-84263db48559",
+  "name": "DEX.AG",
+  "logo": "dex-ag.png",
+  "urlSlug": "dex-ag",
+  "websiteUrl": "https://dex.ag",
+  "mappings": [
+    {
+      "transactionToAddress": "0xa540fb50288cc31639305b1675c70763c334953b",
+      "type": "consumer"
+    },
+    {
+      "transactionToAddress": "0x932348df588923ba3f1fd50593b22c4e2a287919",
+      "type": "consumer"
+    },
+    {
+      "transactionToAddress": "0x745daa146934b27e3f0b6bff1a6e36b9b90fb131",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}
