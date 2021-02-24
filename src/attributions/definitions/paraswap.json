@@ -21,6 +21,10 @@
     {
       "type": "consumer",
       "transactionToAddress": "0x72338b82800400f5488eca2b5a37270ba3b7a111"
+    },
+    {
+      "type": "consumer",
+      "transactionToAddress": "0xf90e98f3d8dce44632e5020abf2e122e0f99dfab"
     }
   ],
   "categories": [
