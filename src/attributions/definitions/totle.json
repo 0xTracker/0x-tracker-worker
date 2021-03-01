@@ -6,7 +6,7 @@
   "websiteUrl": "https://www.totle.com",
   "mappings": [
     {
-      "affiliateAddress": "0x77208a6000691e440026bed1b178ef4661d37426",
+      "transactionToAddress": "0x77208a6000691e440026bed1b178ef4661d37426",
       "type": "consumer"
     },
     {
