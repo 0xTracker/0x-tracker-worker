@@ -15,8 +15,39 @@ const Event = require('../../../model/event');
 const Fill = require('../../../model/fill');
 const withTransaction = require('../../../util/with-transaction');
 
+const SOURCE_BRIDGE_MAPPINGS = {
+  '0': '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4', // Balancer
+  '1': '0xc880c252db7c51f74161633338a3bdafa8e65276', // Bancor
+  '3': '0x1796cd592d19e3bcd744fbb025bb61a6d8cb2c09', // Curve
+  '4': '0xb9d4bf2c8dab828f4ffb656acdb6c2b497d44f25', // Cream
+  '5': '0x015850307f6aab4ac6631923ceefe71b57492c9b', // Crypto.com
+  '6': '0xe9da66965a9344aab2167e6813c03f043cc7a6ca', // DODO
+  '7': '0xadd97271402590564ddd8ad23cb5317b1fb0fffb', // Kyber
+  '9': '0x02b7eca484ad960fca3f7709e0b2ac81eec3069c', // Mooniswap
+  '11': '0x991c745401d5b5e469b8c3e2cb02c748f08754f1', // Oasis
+  '14': '0x47ed0262a0b688dcb836d254c6a2e96b6c48a9f5', // Sushiswap
+  '15': '0xf9786d5eb1de47fa56a8f7bb387653c6d410bfee', // Swerve
+  '16': '0x36691c4f426eb8f42f150ebde43069a31cb080ad', // Uniswap v1
+  '17': '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48', // Uniswap v2
+  '18': '0xe9da66965a9344aab2167e6813c03f043cc7a6ca', // DODO v2
+};
+
 const dedupeEvents = events => {
   return _.uniqWith(events, (a, b) => _.isEqual(a.data, b.data));
+};
+
+/**
+ This is a temporary solution until a more robust liquidity source
+ attribution engine can be built.
+ */
+const mapSourceToBridgeAddress = source => {
+  const bridge = SOURCE_BRIDGE_MAPPINGS[source];
+
+  if (bridge === undefined) {
+    throw new Error(`Unrecognised source: ${source}`);
+  }
+
+  return bridge;
 };
 
 const processTransformedERC20Event = async (
@@ -136,6 +167,9 @@ const processTransformedERC20Event = async (
             amount: new BigNumber(
               bridgeFillEvent.data.inputTokenAmount,
             ).toNumber(),
+            bridgeAddress: mapSourceToBridgeAddress(
+              bridgeFillEvent.data.source,
+            ),
             tokenAddress: bridgeFillEvent.data.inputToken.toLowerCase(),
           },
           {

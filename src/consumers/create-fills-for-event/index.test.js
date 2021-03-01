@@ -2259,6 +2259,7 @@ describe('consumers/create-fills-for-event', () => {
           _id: expect.anything(),
           actor: 0,
           amount: 24273275100,
+          bridgeAddress: '0x1796cd592d19e3bcd744fbb025bb61a6d8cb2c09',
           tokenAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
           tokenResolved: false,
         },
