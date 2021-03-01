@@ -1,0 +1,20 @@
+{
+  "id": "fa66e590-32ca-471b-8308-226fa1bd449e",
+  "name": "Totle",
+  "logo": "totle.png",
+  "urlSlug": "totle",
+  "websiteUrl": "https://www.totle.com",
+  "mappings": [
+    {
+      "affiliateAddress": "0x77208a6000691e440026bed1b178ef4661d37426",
+      "type": "consumer"
+    },
+    {
+      "transactionToAddress": "0x7113dd99c79aff93d54cfa4b2885576535a132de",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}
