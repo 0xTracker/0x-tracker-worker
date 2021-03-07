@@ -61,7 +61,7 @@
     "promise-poller": "1.7.0",
     "rss-parser": "3.7.1",
     "signale": "1.4.0",
-    "slugify": "1.4.0"
+    "slugify": "1.4.5"
   },
   "engines": {
     "node": "12.19.0",
