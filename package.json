@@ -58,7 +58,7 @@
     "moment-round": "1.0.1",
     "mongoose": "5.7.4",
     "ms": "2.1.2",
-    "promise-poller": "1.7.0",
+    "promise-poller": "1.9.1",
     "rss-parser": "3.7.1",
     "signale": "1.4.0",
     "slugify": "1.4.0"
