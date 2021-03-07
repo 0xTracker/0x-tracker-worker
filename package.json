@@ -59,7 +59,7 @@
     "mongoose": "5.7.4",
     "ms": "2.1.2",
     "promise-poller": "1.7.0",
-    "rss-parser": "3.7.1",
+    "rss-parser": "3.9.0",
     "signale": "1.4.0",
     "slugify": "1.4.0"
   },
