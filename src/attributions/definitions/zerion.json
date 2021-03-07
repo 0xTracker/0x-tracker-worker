@@ -1,0 +1,17 @@
+{
+  "id": "f63595dc-3113-4cc2-a4d8-5b570ee3214d",
+  "name": "Zerion",
+  "logo": "zerion.png",
+  "urlSlug": "zerion",
+  "websiteUrl": "https://zerion.io",
+  "mappings": [
+    {
+      "affiliateAddress": "0x7cba0eb7a94068324583be7771c5ecda25e4c4d1",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "portfolio-manager",
+    "wallet"
+  ]
+}

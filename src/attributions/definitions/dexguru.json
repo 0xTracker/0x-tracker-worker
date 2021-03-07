@@ -1,0 +1,16 @@
+{
+  "id": "a3d87048-6c94-497c-bb1a-b91366c73885",
+  "name": "Dexguru",
+  "logo": "dexguru.png",
+  "urlSlug": "dexguru",
+  "websiteUrl": "https://dex.guru",
+  "mappings": [
+    {
+      "affiliateAddress": "0x720c9244473dfc596547c1f7b6261c7112a3dad4",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}

@@ -74,6 +74,21 @@
       "affiliateAddress": "0xc770eefad204b5180df6a14ee197d99d808ee52d",
       "feeRecipientAddress": null,
       "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0xd3d555bb655acba9452bfc6d7cea8cc7b3628c55",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x720c9244473dfc596547c1f7b6261c7112a3dad4",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x7cba0eb7a94068324583be7771c5ecda25e4c4d1",
+      "feeRecipientAddress": null,
+      "type": "relayer"
     }
   ],
   "categories": [

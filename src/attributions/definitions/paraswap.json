@@ -8,19 +8,23 @@
   "mappings": [
     {
       "type": "consumer",
-      "takerAddress": "0x72338b82800400f5488eca2b5a37270ba3b7a111"
+      "transactionToAddress": "0x9509665d015bfe3c77aa5ad6ca20c8afa1d98989"
     },
     {
       "type": "consumer",
-      "takerAddress": "0xf92c1ad75005e6436b4ee84e88cb23ed8a290988"
+      "transactionToAddress": "0xf92c1ad75005e6436b4ee84e88cb23ed8a290988"
     },
     {
       "type": "consumer",
-      "takerAddress": "0xffef2d75b3d266f90108e82b3b476a7f08fe5385"
+      "transactionToAddress": "0x86969d29f5fd327e1009ba66072be22db6017cc6"
     },
     {
       "type": "consumer",
-      "takerAddress": "0xc9eeed34a6e0edb7f32cffd1d12e625564db9e83"
+      "transactionToAddress": "0x72338b82800400f5488eca2b5a37270ba3b7a111"
+    },
+    {
+      "type": "consumer",
+      "transactionToAddress": "0xf90e98f3d8dce44632e5020abf2e122e0f99dfab"
     }
   ],
   "categories": [
