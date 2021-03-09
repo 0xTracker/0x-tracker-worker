@@ -1,0 +1,17 @@
+{
+  "id": "b006805d-3132-44ef-8e02-8213b1bf0b41",
+  "name": "Balancer",
+  "logo": "balancer.png",
+  "urlSlug": "balancer",
+  "mappings": [
+    {
+      "bridgeAddress": "0xfe01821ca163844203220cd08e4f2b2fb43ae4e4",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}
