@@ -86,7 +86,7 @@ const resolveAttributions = metadata => {
     throw getErrorForDuplicate('liquidity-source', metadata);
   }
 
-  return attributions;
+  return _.sortBy(attributions, x => x.type);
 };
 
 module.exports = resolveAttributions;
