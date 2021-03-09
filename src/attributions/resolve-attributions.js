@@ -34,6 +34,7 @@ const resolveAttributions = metadata => {
     senderAddress,
     source,
     takerAddress,
+    tradeType,
     transactionToAddress,
   } = sanitizeMetadata(metadata);
 
@@ -54,7 +55,8 @@ const resolveAttributions = metadata => {
         mapping.transactionToAddress === undefined) &&
       (mapping.source === source || mapping.source === undefined) &&
       (mapping.bridgeAddress === bridgeAddress ||
-        mapping.bridgeAddress === undefined),
+        mapping.bridgeAddress === undefined) &&
+      (mapping.tradeType === tradeType || mapping.tradeType === undefined),
   );
 
   const attributions = _.uniqWith(

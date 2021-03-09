@@ -8,9 +8,12 @@ const schema = mongoose.Schema({
   mappings: [
     {
       affiliateAddress: String,
+      bridgeAddress: String,
       feeRecipientAddress: String,
       senderAddress: String,
+      source: String,
       takerAddress: String,
+      tradeType: Number,
       type: { required: true, type: Number },
     },
   ],

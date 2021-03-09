@@ -71,6 +71,7 @@ const updateEntity = async (entity, definition) => {
         'bridgeAddress',
         'feeRecipientAddress',
         'senderAddress',
+        'source',
         'takerAddress',
         'transactionToAddress',
         'tradeType',
