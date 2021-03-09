@@ -1,0 +1,21 @@
+{
+  "id": "fc5b167f-67bd-4424-92b0-2e13290f6f35",
+  "name": "SushiSwap",
+  "logo": "sushiswap.png",
+  "urlSlug": "sushiswap",
+  "mappings": [
+    {
+      "bridgeAddress": "0x47ed0262a0b688dcb836d254c6a2e96b6c48a9f5",
+      "type": "liquidity-source"
+    },
+    {
+      "tradeType": 3,
+      "type": "liquidity-source"
+    },
+    {
+      "source": "14",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}
