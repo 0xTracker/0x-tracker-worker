@@ -419,7 +419,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
         },
         {
           _id: expect.anything(),
-          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
+          entityId: 'b006805d-3132-44ef-8e02-8213b1bf0b41',
           type: 2,
         },
       ],
@@ -474,11 +474,6 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
-        },
-        {
-          _id: expect.anything(),
-          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
-          type: 2,
         },
       ],
       assets: [
@@ -1042,7 +1037,7 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
         },
         {
           _id: expect.anything(),
-          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
+          entityId: '1f4c1bf3-10a9-4413-a534-81c53a318aba',
           type: 2,
         },
       ],

@@ -150,8 +150,8 @@ describe('attributions/resolveAttributions', () => {
     });
 
     expect(attributions).toEqual([
-      { id: 'f3db0044-858a-4a0a-bcea-0b6ac8610c70', type: 'relayer' },
       { id: '5067df8b-f9cd-4a34-aee1-38d607100145', type: 'consumer' },
+      { id: 'f3db0044-858a-4a0a-bcea-0b6ac8610c70', type: 'relayer' },
     ]);
   });
 
@@ -162,8 +162,8 @@ describe('attributions/resolveAttributions', () => {
     });
 
     expect(attributions).toEqual([
-      { id: '5067df8b-f9cd-4a34-aee1-38d607100145', type: 'relayer' },
       { id: '5067df8b-f9cd-4a34-aee1-38d607100145', type: 'consumer' },
+      { id: '5067df8b-f9cd-4a34-aee1-38d607100145', type: 'relayer' },
     ]);
   });
 
