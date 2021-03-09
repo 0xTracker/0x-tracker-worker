@@ -6,9 +6,12 @@ const prettifyUndefined = value => (value === undefined ? '(none)' : value);
 const getErrorForDuplicate = (type, metadata) => {
   const {
     affiliateAddress,
+    bridgeAddress,
     feeRecipientAddress,
     senderAddress,
+    source,
     takerAddress,
+    tradeType,
     transactionToAddress,
   } = metadata;
 
@@ -16,15 +19,26 @@ const getErrorForDuplicate = (type, metadata) => {
     `Multiple ${type} attribution entities match metadata:` +
       '\r\n\r\n' +
       `affiliateAddress: ${prettifyUndefined(affiliateAddress)}\r\n` +
+      `bridgeAddress: ${prettifyUndefined(bridgeAddress)}\r\n` +
       `feeRecipientAddress: ${prettifyUndefined(feeRecipientAddress)}\r\n` +
       `senderAddress: ${prettifyUndefined(senderAddress)}\r\n` +
+      `source: ${prettifyUndefined(source)}\r\n` +
       `takerAddress: ${prettifyUndefined(takerAddress)}\r\n` +
+      `tradeType: ${prettifyUndefined(tradeType)}\r\n` +
       `transactionToAddress: ${prettifyUndefined(transactionToAddress)}`,
   );
 };
 
-const sanitizeMetadata = metadata =>
-  _.mapValues(metadata, value => value || null);
+const sanitizeMetadata = metadata => ({
+  affiliateAddress: metadata.affiliateAddress || null,
+  bridgeAddress: metadata.bridgeAddress || null,
+  feeRecipientAddress: metadata.feeRecipientAddress || null,
+  senderAddress: metadata.senderAddress || null,
+  source: metadata.source || null,
+  takerAddress: metadata.takerAddress || null,
+  tradeType: metadata.tradeType || null,
+  transactionToAddress: metadata.transactionToAddress || null,
+});
 
 const resolveAttributions = metadata => {
   const {
