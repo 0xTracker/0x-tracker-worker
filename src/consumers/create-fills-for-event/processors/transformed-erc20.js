@@ -24,7 +24,9 @@ const SOURCE_BRIDGE_MAPPINGS = {
   '6': '0xe9da66965a9344aab2167e6813c03f043cc7a6ca', // DODO
   '7': '0xadd97271402590564ddd8ad23cb5317b1fb0fffb', // Kyber
   '9': '0x02b7eca484ad960fca3f7709e0b2ac81eec3069c', // Mooniswap
+  '10': '0x2bf04fcea05f0989a14d9afa37aa376baca6b2b3', // mStable
   '11': '0x991c745401d5b5e469b8c3e2cb02c748f08754f1', // Oasis
+  '12': '0xf1c0811e3788caae7dbfae43da9d9131b1a8a148', // Shell
   '14': '0x47ed0262a0b688dcb836d254c6a2e96b6c48a9f5', // Sushiswap
   '15': '0xf9786d5eb1de47fa56a8f7bb387653c6d410bfee', // Swerve
   '16': '0x36691c4f426eb8f42f150ebde43069a31cb080ad', // Uniswap v1
