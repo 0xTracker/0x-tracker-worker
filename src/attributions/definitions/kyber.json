@@ -1,0 +1,25 @@
+{
+  "id": "1b3feb68-8559-4d7f-ad8d-5813bc16cb13",
+  "name": "Kyber",
+  "logo": "kyber.png",
+  "urlSlug": "kyber",
+  "mappings": [
+    {
+      "bridgeAddress": "0xadd97271402590564ddd8ad23cb5317b1fb0fffb",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0x1c29670f7a77f1052d30813a0a4f632c78a02610",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xf342f3a80fdc9b48713d58fe97e17f5cc764ee62",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "7",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

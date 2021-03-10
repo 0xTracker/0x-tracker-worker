@@ -8,6 +8,10 @@
     {
       "affiliateAddress": "0x221d5c4993297fd95fa17743b9297e2e49fce9d2",
       "type": "consumer"
+    },
+    {
+      "source": "6",
+      "type": "liquidity-source"
     }
   ],
   "categories": [
