@@ -1,0 +1,13 @@
+{
+  "id": "891064d1-17d3-410d-bc07-e03f13c3c34f",
+  "name": "SnowSwap",
+  "logo": "snowswap.png",
+  "urlSlug": "snowswap",
+  "mappings": [
+    {
+      "source": "13",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}
