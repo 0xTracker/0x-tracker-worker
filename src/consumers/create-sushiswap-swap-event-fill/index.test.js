@@ -195,6 +195,11 @@ describe('consumers/create-sushiswap-swap-event-fill', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: 'fc5b167f-67bd-4424-92b0-2e13290f6f35',
+          type: 2,
+        },
       ],
       assets: [
         {

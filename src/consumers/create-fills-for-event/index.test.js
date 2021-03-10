@@ -926,6 +926,11 @@ describe('consumers/create-fills-for-event', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: 'fc5b167f-67bd-4424-92b0-2e13290f6f35',
+          type: 2,
+        },
       ],
       assets: [
         {
@@ -1707,6 +1712,11 @@ describe('consumers/create-fills-for-event', () => {
           _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
+        },
+        {
+          _id: expect.anything(),
+          entityId: '1b3feb68-8559-4d7f-ad8d-5813bc16cb13',
+          type: 2,
         },
       ],
       assets: [

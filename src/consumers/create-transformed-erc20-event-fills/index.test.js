@@ -475,6 +475,11 @@ describe('consumers/create-transformed-erc20-event-fills', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: '1b3feb68-8559-4d7f-ad8d-5813bc16cb13',
+          type: 2,
+        },
       ],
       assets: [
         {
