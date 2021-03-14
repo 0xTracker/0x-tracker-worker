@@ -200,7 +200,13 @@ describe('consumers/create-fills-for-event', () => {
     expect(fills[0]).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('600e7823b1592424e2dadcc8'),
-      attributions: [],
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '46807b2b-4d42-474f-a6b5-ce678071b805',
+          type: 2,
+        },
+      ],
       assets: [
         {
           _id: expect.anything(),
@@ -443,7 +449,13 @@ describe('consumers/create-fills-for-event', () => {
     expect(fills[0]).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('600e7acbb1592424e2dadd73'),
-      attributions: [],
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '46807b2b-4d42-474f-a6b5-ce678071b805',
+          type: 2,
+        },
+      ],
       assets: [
         {
           _id: expect.anything(),

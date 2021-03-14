@@ -142,6 +142,12 @@ describe('consumers/index-fill', () => {
           },
         },
       ],
+      attributions: [
+        {
+          entityId: '46807b2b-4d42-474f-a6b5-ce678071b805',
+          type: 2,
+        },
+      ],
       blockHash:
         '0x48d886d6a92fd8515963dab0ea79273b7aa0af3f5a7efeafd8bf1288f80b07b0',
       blockNumber: 10997543,
@@ -161,7 +167,6 @@ describe('consumers/index-fill', () => {
       transactionHash:
         '0xd1e01c31a2183107221ef094b3f7cbfedd13db0340df935464c1dddd2259a1ea',
       type: 0,
-      attributions: [],
       relayerId: 35,
       conversions: {
         USD: {
@@ -192,7 +197,12 @@ describe('consumers/index-fill', () => {
 
     expect(indexingBody).toEqual({
       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
-      attributions: [],
+      attributions: [
+        {
+          id: '46807b2b-4d42-474f-a6b5-ce678071b805',
+          type: 2,
+        },
+      ],
       assets: [
         {
           bridgeAddress: '0xc47b7094f378e54347e281aab170e8cca69d880a',
@@ -203,6 +213,7 @@ describe('consumers/index-fill', () => {
       date: '2020-10-05T19:10:18.000Z',
       feeRecipient: '0x1000000000000000000000000000000000000011',
       fees: [],
+      liquiditySourceId: '46807b2b-4d42-474f-a6b5-ce678071b805',
       maker: '0xc47b7094f378e54347e281aab170e8cca69d880a',
       orderHash:
         '0x56b4f9485a5b3b21e66b2f4f91a0d54a1411ee4fd5e680772a2f7a35638d37d3',

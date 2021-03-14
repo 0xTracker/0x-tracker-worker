@@ -1,5 +1,5 @@
 const _ = require('lodash');
-
+const { FILL_ATTRIBUTION_TYPE } = require('../../constants');
 const relayerRegistry = require('../../relayers/relayer-registry');
 
 const isOrderMatcher = relayerId => {
@@ -29,6 +29,10 @@ const calculateTradeCountContribution = relayerId => {
 const createDocument = fill => {
   const value = _.get(fill, 'conversions.USD.amount');
   const protocolFeeUSD = _.get(fill, 'conversions.USD.protocolFee');
+  const liquiditySource = _.find(
+    fill.attributions,
+    a => a.type === FILL_ATTRIBUTION_TYPE.LIQUIDITY_SOURCE,
+  );
 
   return {
     affiliateAddress: fill.affiliateAddress,
@@ -43,6 +47,7 @@ const createDocument = fill => {
     date: fill.date,
     fees: fill.fees.map(fee => ({ tokenAddress: fee.tokenAddress })),
     feeRecipient: fill.feeRecipient,
+    liquiditySourceId: liquiditySource ? liquiditySource.entityId : undefined,
     maker: fill.maker,
     orderHash: fill.orderHash,
     protocolFeeETH: fill.protocolFee,
