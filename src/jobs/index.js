@@ -1,5 +1,6 @@
 const _ = require('lodash');
 
+const aggregateDailyLiquiditySourceMetrics = require('./aggregate-daily-liquidity-source-metrics');
 const aggregateDailyNetworkMetrics = require('./aggregate-daily-network-metrics');
 const aggregateDailyProtocolMetrics = require('./aggregate-daily-protocol-metrics');
 const aggregateDailyTokenMetrics = require('./aggregate-daily-token-metrics');
@@ -13,6 +14,7 @@ const getMissingTokenImages = require('./get-missing-token-images');
 const measureFills = require('./measure-fills');
 
 const jobFns = {
+  aggregateDailyLiquiditySourceMetrics,
   aggregateDailyNetworkMetrics,
   aggregateDailyProtocolMetrics,
   aggregateDailyTokenMetrics,
