@@ -1,0 +1,17 @@
+{
+  "id": "0ec19bc7-f28c-4356-8640-ff159fd30c1c",
+  "name": "Crypto.com DeFi Swap",
+  "logo": "cryptocom.png",
+  "urlSlug": "cryptocom",
+  "mappings": [
+    {
+      "bridgeAddress": "0x015850307f6aab4ac6631923ceefe71b57492c9b",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "5",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

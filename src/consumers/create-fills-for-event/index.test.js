@@ -200,7 +200,13 @@ describe('consumers/create-fills-for-event', () => {
     expect(fills[0]).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('600e7823b1592424e2dadcc8'),
-      attributions: [],
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '46807b2b-4d42-474f-a6b5-ce678071b805',
+          type: 2,
+        },
+      ],
       assets: [
         {
           _id: expect.anything(),
@@ -443,7 +449,13 @@ describe('consumers/create-fills-for-event', () => {
     expect(fills[0]).toEqual({
       __v: 0,
       _id: mongoose.Types.ObjectId('600e7acbb1592424e2dadd73'),
-      attributions: [],
+      attributions: [
+        {
+          _id: expect.anything(),
+          entityId: '46807b2b-4d42-474f-a6b5-ce678071b805',
+          type: 2,
+        },
+      ],
       assets: [
         {
           _id: expect.anything(),
@@ -684,6 +696,11 @@ describe('consumers/create-fills-for-event', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
+          type: 2,
+        },
       ],
       assets: [
         {
@@ -920,6 +937,11 @@ describe('consumers/create-fills-for-event', () => {
           _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
+        },
+        {
+          _id: expect.anything(),
+          entityId: 'fc5b167f-67bd-4424-92b0-2e13290f6f35',
+          type: 2,
         },
       ],
       assets: [
@@ -1587,6 +1609,11 @@ describe('consumers/create-fills-for-event', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: 'bdb40272-89f6-4972-b88c-b9baf0ef5410',
+          type: 2,
+        },
       ],
       assets: [
         {
@@ -1640,6 +1667,11 @@ describe('consumers/create-fills-for-event', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: 'b006805d-3132-44ef-8e02-8213b1bf0b41',
+          type: 2,
+        },
       ],
       assets: [
         {
@@ -1692,6 +1724,11 @@ describe('consumers/create-fills-for-event', () => {
           _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
+        },
+        {
+          _id: expect.anything(),
+          entityId: '1b3feb68-8559-4d7f-ad8d-5813bc16cb13',
+          type: 2,
         },
       ],
       assets: [
@@ -2252,6 +2289,11 @@ describe('consumers/create-fills-for-event', () => {
           _id: expect.anything(),
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
+        },
+        {
+          _id: expect.anything(),
+          entityId: '1f4c1bf3-10a9-4413-a534-81c53a318aba',
+          type: 2,
         },
       ],
       assets: [

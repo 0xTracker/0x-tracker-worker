@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const { JOB, QUEUE } = require('../constants');
+const { JOB, QUEUE, FILL_ATTRIBUTION_TYPE } = require('../constants');
 const elasticsearch = require('../util/elasticsearch');
 const getIndexName = require('../index/get-index-name');
 
@@ -8,6 +8,11 @@ const consumer = async (job, { logger }) => {
   const { attributions, date, fillId, relayerId, tradedTokens } = job.data;
 
   logger.info(`indexing traded tokens for fill: ${fillId}`);
+
+  const liquiditySource = _.find(
+    attributions,
+    a => a.type === FILL_ATTRIBUTION_TYPE.LIQUIDITY_SOURCE,
+  );
 
   const body = tradedTokens
     .map(tradedToken => {
@@ -25,6 +30,7 @@ const consumer = async (job, { logger }) => {
             tokenAddress: tradedToken.address,
             relayerId,
             tokenType: tradedToken.type,
+            liquiditySourceId: liquiditySource ? liquiditySource.id : undefined,
             filledAmount: tradedToken.filledAmount,
             filledAmountUSD: tradedToken.filledAmountUSD,
             tradeCountContribution: tradedToken.tradeCountContribution,

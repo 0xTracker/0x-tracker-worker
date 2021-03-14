@@ -150,8 +150,8 @@ describe('attributions/resolveAttributions', () => {
     });
 
     expect(attributions).toEqual([
-      { id: 'f3db0044-858a-4a0a-bcea-0b6ac8610c70', type: 'relayer' },
       { id: '5067df8b-f9cd-4a34-aee1-38d607100145', type: 'consumer' },
+      { id: 'f3db0044-858a-4a0a-bcea-0b6ac8610c70', type: 'relayer' },
     ]);
   });
 
@@ -162,8 +162,8 @@ describe('attributions/resolveAttributions', () => {
     });
 
     expect(attributions).toEqual([
-      { id: '5067df8b-f9cd-4a34-aee1-38d607100145', type: 'relayer' },
       { id: '5067df8b-f9cd-4a34-aee1-38d607100145', type: 'consumer' },
+      { id: '5067df8b-f9cd-4a34-aee1-38d607100145', type: 'relayer' },
     ]);
   });
 
@@ -202,9 +202,12 @@ describe('attributions/resolveAttributions', () => {
         'Multiple relayer attribution entities match metadata:' +
           '\r\n\r\n' +
           'affiliateAddress: (none)\r\n' +
+          'bridgeAddress: (none)\r\n' +
           'feeRecipientAddress: 0x86003b044f70dac0abc80ac8957305b6370893ed\r\n' +
           'senderAddress: (none)\r\n' +
+          'source: (none)\r\n' +
           'takerAddress: 0xd2045edc40199019e221d71c0913343f7908d0d5\r\n' +
+          'tradeType: (none)\r\n' +
           'transactionToAddress: 0xdef1c0ded9bec7f1a1670819833240f027b25eff',
       ),
     );
@@ -222,9 +225,12 @@ describe('attributions/resolveAttributions', () => {
         'Multiple consumer attribution entities match metadata:' +
           '\r\n\r\n' +
           'affiliateAddress: 0x86003b044f70dac0abc80ac8957305b6370893ed\r\n' +
+          'bridgeAddress: (none)\r\n' +
           'feeRecipientAddress: (none)\r\n' +
           'senderAddress: (none)\r\n' +
+          'source: (none)\r\n' +
           'takerAddress: 0x11111254369792b2ca5d084ab5eea397ca8fa48b\r\n' +
+          'tradeType: (none)\r\n' +
           'transactionToAddress: 0xdef1c0ded9bec7f1a1670819833240f027b25eff',
       ),
     );

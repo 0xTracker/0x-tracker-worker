@@ -1,0 +1,17 @@
+{
+  "id": "158f4c6f-0cb9-4862-be1a-a60096805917",
+  "name": "Cream",
+  "logo": "cream.png",
+  "urlSlug": "cream",
+  "mappings": [
+    {
+      "bridgeAddress": "0xb9d4bf2c8dab828f4ffb656acdb6c2b497d44f25",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "4",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

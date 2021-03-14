@@ -1,0 +1,21 @@
+{
+  "id": "46807b2b-4d42-474f-a6b5-ce678071b805",
+  "name": "0x",
+  "logo": "0x.png",
+  "urlSlug": "0x",
+  "mappings": [
+    {
+      "tradeType": 0,
+      "type": "liquidity-source"
+    },
+    {
+      "tradeType": 5,
+      "type": "liquidity-source"
+    },
+    {
+      "tradeType": 6,
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

@@ -1,0 +1,17 @@
+{
+  "id": "4af00ba3-5097-4bff-87cc-077f7db02ea3",
+  "name": "Bancor",
+  "logo": "bancor.png",
+  "urlSlug": "bancor",
+  "mappings": [
+    {
+      "bridgeAddress": "0xc880c252db7c51f74161633338a3bdafa8e65276",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "1",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

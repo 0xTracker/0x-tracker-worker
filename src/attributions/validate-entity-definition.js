@@ -27,19 +27,25 @@ const schema = Joi.object({
     .items(
       Joi.object({
         affiliateAddress: Ethereum.address(),
+        bridgeAddress: Ethereum.address(),
         feeRecipientAddress: Ethereum.address().allow(null),
         senderAddress: Ethereum.address(),
+        source: Joi.string(),
         takerAddress: Ethereum.address(),
         transactionToAddress: Ethereum.address(),
+        tradeType: Joi.number(),
         type: Joi.string()
-          .valid('consumer', 'relayer')
+          .valid('consumer', 'relayer', 'liquidity-source')
           .required(),
       })
         .or(
           'affiliateAddress',
+          'bridgeAddress',
           'feeRecipientAddress',
           'senderAddress',
+          'source',
           'takerAddress',
+          'tradeType',
           'transactionToAddress',
         )
         .required(),
@@ -48,7 +54,9 @@ const schema = Joi.object({
     .required(),
   name: Joi.string().required(),
   urlSlug: Joi.string().required(),
-  websiteUrl: Joi.string().uri({ scheme: 'https' }),
+  websiteUrl: Joi.string()
+    .uri({ scheme: 'https' })
+    .optional(),
 }).required();
 
 const validateEntityDefinition = definition => {
