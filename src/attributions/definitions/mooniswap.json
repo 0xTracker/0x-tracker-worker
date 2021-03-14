@@ -5,7 +5,7 @@
   "urlSlug": "mooniswap",
   "mappings": [
     {
-      "bridgeAddress": "0xc880c252db7c51f74161633338a3bdafa8e65276",
+      "bridgeAddress": "0x02b7eca484ad960fca3f7709e0b2ac81eec3069c",
       "type": "liquidity-source"
     },
     {
