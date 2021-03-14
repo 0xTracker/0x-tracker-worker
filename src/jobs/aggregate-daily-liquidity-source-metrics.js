@@ -160,12 +160,12 @@ const aggregateDailyLiquiditySourceMetrics = async (
             aggs: {
               tradeCount: {
                 sum: {
-                  field: 'totalTradeCount',
+                  field: 'tradeCountContribution',
                 },
               },
               tradeVolume: {
                 sum: {
-                  field: 'totalTradeValue',
+                  field: 'tradeVolume',
                 },
               },
             },
