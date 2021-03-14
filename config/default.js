@@ -36,6 +36,11 @@ module.exports = {
     apiKey: process.env.ETHPLORER_API_KEY,
   },
   jobs: {
+    aggregateDailyLiquiditySourceMetrics: {
+      enabled: process.env.AGGREGATION_ENABLED
+        ? Boolean(process.env.AGGREGATION_ENABLED)
+        : false,
+    },
     aggregateDailyNetworkMetrics: {
       enabled: process.env.AGGREGATION_ENABLED
         ? Boolean(process.env.AGGREGATION_ENABLED)
