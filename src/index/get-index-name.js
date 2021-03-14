@@ -33,6 +33,13 @@ const getIndexName = index => {
     return process.env.INDEX_NAME_TOKEN_METRICS_DAILY || 'token_metrics_daily';
   }
 
+  if (index === 'liquidity_source_metrics_daily') {
+    return (
+      process.env.INDEX_NAME_LIQUIDITY_SOURCE_METRICS_DAILY ||
+      'liquidity_source_metrics_daily'
+    );
+  }
+
   throw new Error(`Unsupported index: ${index}`);
 };
 
