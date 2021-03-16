@@ -60,7 +60,6 @@ const createDocument = fill => {
     transactionHash: fill.transactionHash,
     transactionFrom: fill.transaction.from,
     transactionTo: fill.transaction.to,
-    updatedAt: new Date(Date.now()).toISOString(),
     value: value === null ? undefined : value,
 
     // This field helps to compute traderCount by allowing for cardinality

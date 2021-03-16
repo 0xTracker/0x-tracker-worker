@@ -36,7 +36,6 @@ const indexFillProtocolFee = async (job, { logger }) => {
     body: {
       doc: {
         protocolFeeUSD: protocolFee,
-        updatedAt: new Date(Date.now()).toISOString(),
       },
       upsert: createDocument(fill),
     },

@@ -53,7 +53,6 @@ const indexFillValue = async (job, { logger }) => {
     body: {
       doc: {
         tradeVolume: calculateTradeVolume(value, relayerId),
-        updatedAt: new Date(Date.now()).toISOString(),
         value,
       },
       upsert: createDocument(fill),

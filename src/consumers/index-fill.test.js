@@ -234,7 +234,6 @@ describe('consumers/index-fill', () => {
         '0xd1e01c31a2183107221ef094b3f7cbfedd13db0340df935464c1dddd2259a1ea',
       transactionFrom: '0x0000008155f9986614d6fcba5388b624023bcb77',
       transactionTo: '0x61935cbdd02287b511119ddb11aeb42f1593b7ef',
-      updatedAt: '2020-08-02T08:42:24.934Z',
       value: 4905.859567,
     });
   });
