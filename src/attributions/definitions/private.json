@@ -1,0 +1,45 @@
+{
+  "id": "0193fb4d-08d0-455a-80f5-66ed252ce13a",
+  "name": "Private Liquidity Provider",
+  "logo": "0x.png",
+  "urlSlug": "private-liquidity-provider",
+  "mappings": [
+    {
+      "tradeType": 4,
+      "type": "liquidity-source"
+    },
+    {
+      "source": "8",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xb89a17037c7c39fcd2befc647555f8e68824577d",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xe5f4704d0dda1c725105d329fbc9cc43c6f82d37",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xaf76a7c57b441501bb7a6354728e3f5e13872139",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0x7df9964cad51486eb16e6d3c9341d6eed73de69d",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xd642305ed462cf2ad2a5f0310e30f66bcd1f0f0b",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xc16f74b07e2409e869bae5de01b2265fe32d64e6",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xae3641dffb712e917b9dc3e6c271b6657ff39818",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}
