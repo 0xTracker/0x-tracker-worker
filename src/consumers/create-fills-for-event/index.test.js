@@ -1182,6 +1182,11 @@ describe('consumers/create-fills-for-event', () => {
           entityId: '5067df8b-f9cd-4a34-aee1-38d607100145',
           type: 1,
         },
+        {
+          _id: expect.anything(),
+          entityId: '0193fb4d-08d0-455a-80f5-66ed252ce13a',
+          type: 2,
+        },
       ],
       assets: [
         {
