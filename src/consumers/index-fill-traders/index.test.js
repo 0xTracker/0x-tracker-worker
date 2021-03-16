@@ -177,7 +177,6 @@ describe('consumers/index-fill-traders', () => {
         totalFillValue: 500,
         totalTradeCount: 1,
         totalTradeValue: 500,
-        updatedAt: '2020-08-02T08:42:24.934Z',
       },
       {
         index: {
@@ -197,7 +196,6 @@ describe('consumers/index-fill-traders', () => {
         totalFillValue: 500,
         totalTradeCount: 1,
         totalTradeValue: 500,
-        updatedAt: '2020-08-02T08:42:24.934Z',
       },
     ]);
   });
@@ -277,7 +275,6 @@ describe('consumers/index-fill-traders', () => {
         totalFillValue: 500,
         totalTradeCount: 1,
         totalTradeValue: 500,
-        updatedAt: '2020-08-02T08:42:24.934Z',
       },
       {
         index: {
@@ -296,7 +293,6 @@ describe('consumers/index-fill-traders', () => {
         totalFillValue: 500,
         totalTradeCount: 1,
         totalTradeValue: 500,
-        updatedAt: '2020-08-02T08:42:24.934Z',
       },
     ]);
   });
@@ -350,7 +346,6 @@ describe('consumers/index-fill-traders', () => {
         makerTradeCount: 1,
         totalFillCount: 1,
         totalTradeCount: 1,
-        updatedAt: '2020-08-02T08:42:24.934Z',
       },
       {
         index: {
@@ -365,7 +360,6 @@ describe('consumers/index-fill-traders', () => {
         takerTradeCount: 1,
         totalFillCount: 1,
         totalTradeCount: 1,
-        updatedAt: '2020-08-02T08:42:24.934Z',
       },
     ]);
   });
@@ -424,7 +418,6 @@ describe('consumers/index-fill-traders', () => {
         totalFillValue: 500,
         totalTradeCount: 0.5,
         totalTradeValue: 250,
-        updatedAt: '2020-08-02T08:42:24.934Z',
       },
       {
         index: {
@@ -443,7 +436,6 @@ describe('consumers/index-fill-traders', () => {
         totalFillValue: 500,
         totalTradeCount: 0.5,
         totalTradeValue: 250,
-        updatedAt: '2020-08-02T08:42:24.934Z',
       },
     ]);
   });

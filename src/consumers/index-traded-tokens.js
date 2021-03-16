@@ -37,7 +37,6 @@ const consumer = async (job, { logger }) => {
             tradedAmount: tradedToken.tradedAmount,
             tradedAmountUSD: tradedToken.tradedAmountUSD,
             priceUSD: tradedToken.priceUSD,
-            updatedAt: new Date().toISOString(),
           },
           doc_as_upsert: true,
         }),

@@ -74,7 +74,6 @@ const indexFillTraders = async (job, { logger }) => {
           totalFillValue: fillValue,
           totalTradeCount: tradeCount,
           totalTradeValue: tradeValue,
-          updatedAt: new Date().toISOString(),
         })
       : null,
     JSON.stringify({
@@ -96,7 +95,6 @@ const indexFillTraders = async (job, { logger }) => {
       totalFillValue: fillValue,
       totalTradeCount: tradeCount,
       totalTradeValue: tradeValue,
-      updatedAt: new Date().toISOString(),
     }),
   ]).join('\n');
 
