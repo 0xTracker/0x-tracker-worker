@@ -1,0 +1,16 @@
+{
+  "id": "daa8d303-c57a-4d77-9dd2-8a671adb6f7d",
+  "name": "UniDex",
+  "logo": "unidex.png",
+  "urlSlug": "unidex",
+  "websiteUrl": "https://unidex.finance",
+  "mappings": [
+    {
+      "affiliateAddress": "0x8c128f336b479b142429a5f351af225457a987fa",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}
