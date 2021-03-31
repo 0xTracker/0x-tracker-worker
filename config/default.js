@@ -82,6 +82,11 @@ module.exports = {
       default: ms('5 minutes'),
     },
     min: {
+      aggregateDailyLiquiditySourceMetrics: ms('5 minutes'),
+      aggregateDailyNetworkMetrics: ms('1 minute'),
+      aggregateDailyProtocolMetrics: ms('5 minutes'),
+      aggregateDailyTokenMetrics: ms('5 minutes'),
+      aggregateDailyTraderMetrics: ms('5 minutes'),
       cacheAddressMetrics: ms('1 minute'),
       cacheProtocolMetrics: ms('1 minute'),
       cacheRelayerMetrics: ms('1 minute'),
