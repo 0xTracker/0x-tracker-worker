@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const AppStats = require('../model/app-stats');
 const AttributionEntity = require('../model/attribution-entity');
 const elasticsearch = require('../util/elasticsearch');
@@ -7,7 +8,7 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
   const dates = getDatesForTimePeriod(periodInDays);
   const apps = await AttributionEntity.find();
 
-  const data = await elasticsearch.getClient().search({
+  const basicData = await elasticsearch.getClient().search({
     index: 'app_metrics_daily',
     size: 0,
     body: {
@@ -55,12 +56,57 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
     },
   });
 
-  const appStats = data.body.aggregations.apps.buckets.map(bucket => {
+  const appIds = basicData.body.aggregations.apps.buckets.map(b => b.key);
+
+  const activeTradersData = await elasticsearch.getClient().search({
+    index: 'trader_metrics_daily',
+    size: 0,
+    body: {
+      aggs: {
+        apps: {
+          terms: {
+            field: 'appIds',
+            size: 100,
+          },
+          aggs: {
+            activeTraders: {
+              cardinality: {
+                field: 'address',
+              },
+            },
+          },
+        },
+      },
+      query: {
+        bool: {
+          filter: _.compact([
+            dates === null
+              ? null
+              : {
+                  range: {
+                    date: {
+                      gte: dates.dateFrom,
+                      lte: dates.dateTo,
+                    },
+                  },
+                },
+            { terms: { appIds } },
+          ]),
+        },
+      },
+    },
+  });
+
+  const appStats = basicData.body.aggregations.apps.buckets.map(bucket => {
     const app = apps.find(a => a.id === bucket.key);
+
+    const activeTraders = activeTradersData.body.aggregations.apps.buckets.find(
+      b => b.key === bucket.key,
+    );
 
     return {
       appId: bucket.key,
-      activeTraders: 0, // TODO
+      activeTraders: activeTraders.activeTraders.value,
       appName: app.name,
       periodInDays,
       relayedTrades: bucket.relayedTrades.value,
