@@ -9,6 +9,7 @@ const convertRelayerFees = require('./convert-relayer-fees');
 const fetchUnknownAddressTypes = require('../addresses/fetch-unknown-address-types');
 const hasProtocolFee = require('./has-protocol-fee');
 const hasRelayerFees = require('./has-relayer-fees');
+const indexAppFills = require('../index/index-app-fills');
 const indexFill = require('../index/index-fill');
 const indexFillTraders = require('../index/index-fill-traders');
 const indexTradedTokens = require('../index/index-traded-tokens');
@@ -65,6 +66,7 @@ const createFills = async (transaction, fills, { session } = {}) => {
       await indexFill(fillId, ms('30 seconds'));
       await indexTradedTokens(fill);
       await indexFillTraders(fill);
+      await indexAppFills(fill);
 
       if (hasProtocolFee(fill)) {
         await convertProtocolFee(fill, ms('30 seconds'));
