@@ -3,10 +3,15 @@ const AppStats = require('../model/app-stats');
 const AttributionEntity = require('../model/attribution-entity');
 const elasticsearch = require('../util/elasticsearch');
 const getDatesForTimePeriod = require('../util/get-dates-for-time-period');
+const getPercentageChange = require('../util/get-percentage-change');
+const getPreviousPeriod = require('../util/get-previous-period');
 
 const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
   const dates = getDatesForTimePeriod(periodInDays);
   const apps = await AttributionEntity.find();
+
+  const previousPeriod =
+    dates === null ? null : getPreviousPeriod(dates.dateFrom, dates.dateTo);
 
   const basicData = await elasticsearch.getClient().search({
     index: 'app_metrics_daily',
@@ -49,7 +54,7 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
               range: {
                 date: {
                   gte: dates.dateFrom,
-                  lte: dates.dateFrom,
+                  lte: dates.dateTo,
                 },
               },
             },
@@ -58,44 +63,77 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
 
   const appIds = basicData.body.aggregations.apps.buckets.map(b => b.key);
 
-  const activeTradersData = await elasticsearch.getClient().search({
-    index: 'trader_metrics_daily',
-    size: 0,
-    body: {
-      aggs: {
-        apps: {
-          terms: {
-            field: 'appIds',
-            size: 100,
-          },
-          aggs: {
-            activeTraders: {
-              cardinality: {
-                field: 'address',
+  const [activeTradersData, previousActiveTradersData] = await Promise.all([
+    elasticsearch.getClient().search({
+      index: 'trader_metrics_daily',
+      size: 0,
+      body: {
+        aggs: {
+          apps: {
+            terms: {
+              field: 'appIds',
+              size: 100,
+            },
+            aggs: {
+              activeTraders: {
+                cardinality: {
+                  field: 'address',
+                },
               },
             },
           },
         },
+        query: {
+          bool: {
+            filter: _.compact([
+              dates === null
+                ? null
+                : {
+                    range: {
+                      date: {
+                        gte: dates.dateFrom,
+                        lte: dates.dateTo,
+                      },
+                    },
+                  },
+              { terms: { appIds } },
+            ]),
+          },
+        },
       },
-      query: {
-        bool: {
-          filter: _.compact([
-            dates === null
-              ? null
-              : {
-                  range: {
-                    date: {
-                      gte: dates.dateFrom,
-                      lte: dates.dateTo,
+    }),
+    periodInDays === null
+      ? null
+      : elasticsearch.getClient().search({
+          index: 'trader_metrics_daily',
+          size: 0,
+          body: {
+            aggs: {
+              apps: {
+                terms: {
+                  field: 'appIds',
+                  size: 100,
+                },
+                aggs: {
+                  activeTraders: {
+                    cardinality: {
+                      field: 'address',
                     },
                   },
                 },
-            { terms: { appIds } },
-          ]),
-        },
-      },
-    },
-  });
+              },
+            },
+            query: {
+              range: {
+                date: {
+                  gte: previousPeriod.prevDateFrom,
+                  lte: previousPeriod.prevDateTo,
+                },
+              },
+            },
+          },
+        }),
+  ]);
 
   const appStats = basicData.body.aggregations.apps.buckets.map(bucket => {
     const app = apps.find(a => a.id === bucket.key);
@@ -104,9 +142,19 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
       b => b.key === bucket.key,
     );
 
+    const previousActiveTraders = _.get(
+      previousActiveTradersData,
+      'body.aggregations.apps.buckets',
+      [],
+    ).find(b => b.key === app.id);
+
     return {
       appId: bucket.key,
-      activeTraders: activeTraders.activeTraders.value,
+      activeTraders: _.get(activeTraders, 'activeTraders.value', 0),
+      activeTradersChange: getPercentageChange(
+        _.get(previousActiveTraders, 'activeTraders.value', 0),
+        _.get(activeTraders, 'activeTraders.value', 0),
+      ),
       appName: app.name,
       periodInDays,
       relayedTrades: bucket.relayedTrades.value,

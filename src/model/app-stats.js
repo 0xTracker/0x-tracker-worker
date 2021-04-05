@@ -4,9 +4,10 @@ const { Schema } = mongoose;
 
 const schema = Schema({
   activeTraders: { required: true, type: Number },
+  activeTradersChange: Number,
   appId: { required: true, type: String },
   appName: { required: true, type: String },
-  periodInDays: { type: Number },
+  periodInDays: Number,
   relayedTrades: { required: true, type: Number },
   relayedVolume: { required: true, type: Number },
   totalTrades: { required: true, type: Number },
