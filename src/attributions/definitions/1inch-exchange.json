@@ -33,6 +33,10 @@
     {
       "type": "relayer",
       "feeRecipientAddress": "0x910bf2d50fa5e014fd06666f456182d4ab7c8bd2"
+    },
+    {
+      "type": "consumer",
+      "transactionToAddress": "0x11111112542d85b3ef69ae05771c2dccff4faa26"
     }
   ],
   "categories": [
