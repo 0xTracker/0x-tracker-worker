@@ -95,6 +95,7 @@ module.exports = {
       default: ms('30 seconds'),
       getMissingTokenImages: ms('1 minute'),
       getNewArticles: ms('10 minutes'),
+      precomputeAppStats: ms('5 minutes'),
       resolveTokens: ms('1 minute'),
       updateRelayerStats: ms('1 minute'),
     },
