@@ -6,9 +6,9 @@ const logsInterface = new ethers.utils.Interface([
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
+        internalType: 'bytes32',
         name: 'source',
-        type: 'uint256',
+        type: 'bytes32',
       },
       {
         indexed: false,
