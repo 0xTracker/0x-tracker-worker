@@ -11,6 +11,10 @@ const getIndexName = index => {
     return process.env.INDEX_NAME_TRADER_FILLS || 'trader_fills';
   }
 
+  if (index === 'app_fills') {
+    return process.env.INDEX_NAME_APP_FILLS || 'app_fills';
+  }
+
   if (index === 'network_metrics_daily') {
     return (
       process.env.INDEX_NAME_NETWORK_METRICS_DAILY || 'network_metrics_daily'

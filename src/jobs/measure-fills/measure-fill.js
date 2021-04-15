@@ -4,6 +4,7 @@ const { BASE_TOKENS, BASE_TOKEN_DECIMALS } = require('../../constants');
 const formatTokenAmount = require('../../tokens/format-token-amount');
 const getConversionRate = require('../../rates/get-conversion-rate');
 const getMeasurableActor = require('./get-measurable-actor');
+const indexAppFills = require('../../index/index-app-fills');
 const indexFillValue = require('../../index/index-fill-value');
 const indexFillTraders = require('../../index/index-fill-traders');
 const indexTradedTokens = require('../../index/index-traded-tokens');
@@ -80,6 +81,7 @@ const measureFill = async fill => {
     await indexFillValue(fill, totalValue);
     await indexFillTraders(fill);
     await indexTradedTokens(fill);
+    await indexAppFills(fill);
   });
 };
 

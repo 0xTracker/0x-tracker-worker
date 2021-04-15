@@ -86,6 +86,7 @@ module.exports = {
     FETCH_ADDRESS_TYPE: 'fetch-address-type',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
+    INDEX_APP_FILLS: 'index-app-fills',
     INDEX_FILL: 'index-fill',
     INDEX_FILL_PROTOCOL_FEE: 'index-fill-protocol-fee',
     INDEX_FILL_TRADERS: 'index-fill-traders',
