@@ -49,69 +49,62 @@ const indexAppFills = async (job, { logger }) => {
 
   const traders = [maker, takerMetadata.isContract ? transaction.from : taker];
 
-  const appFills = attributions
+  const appFills = _(attributions)
     .filter(
       attribution =>
         attribution.type === FILL_ATTRIBUTION_TYPE.CONSUMER ||
         attribution.type === FILL_ATTRIBUTION_TYPE.RELAYER,
     )
-    .reduce((accumulator, current) => {
-      const existing = accumulator.find(x => x.entityId === current.entityId);
+    .map(attribution => attribution.entityId)
+    .uniq()
+    .map(appId => {
+      const isRelayer = attributions.some(
+        a => a.entityId === appId && a.type === FILL_ATTRIBUTION_TYPE.RELAYER,
+      );
 
-      if (existing) {
-        const replacement = {
-          ...existing,
-          relayedTradeCount:
-            current.type === FILL_ATTRIBUTION_TYPE.RELAYER ? tradeCount : 0,
-          relayedTradeValue:
-            current.type === FILL_ATTRIBUTION_TYPE.RELAYER ? tradeValue : 0,
-          totalTradeCount: existing.totalTradeCount + tradeCount,
-          totalTradeValue: existing.totalTradeValue + tradeValue,
-        };
-
-        return _.without(accumulator, existing).concat(replacement);
-      }
-
-      return accumulator.concat({
-        appId: current.entityId,
+      return {
+        appId,
         date: fillDate,
         fillId,
-        relayedTradeCount:
-          current.type === FILL_ATTRIBUTION_TYPE.RELAYER ? tradeCount : 0,
-        relayedTradeValue:
-          current.type === FILL_ATTRIBUTION_TYPE.RELAYER ? tradeValue : 0,
+        relayedTradeCount: isRelayer ? tradeCount : 0,
+        relayedTradeValue: isRelayer || !tradeValue ? tradeValue : 0,
         totalTradeCount: tradeCount,
         totalTradeValue: tradeValue,
         traders,
-      });
-    }, []);
+      };
+    })
+    .value();
 
-  if (appFills.length > 0) {
-    const requestBody = appFills
-      .map(appFill =>
-        [
-          JSON.stringify({
-            index: {
-              _id: `${appFill.fillId}_${appFill.appId}`,
-            },
-          }),
-          JSON.stringify(appFill),
-        ].join('\n'),
-      )
-      .join('\n');
+  if (appFills.length === 0) {
+    logger.info(`skipped app_fills indexing for fill: ${fillId}`);
 
-    const result = await elasticsearch
-      .getClient()
-      .bulk({ body: `${requestBody}\n`, index: getIndexName('app_fills') });
+    return;
+  }
 
-    if (result.body.errors === true) {
-      const errorMessage = _.get(
-        result,
-        'body.items[0].index.error.reason',
-        `Indexing failed`,
-      );
-      throw new Error(errorMessage);
-    }
+  const requestBody = appFills
+    .map(appFill =>
+      [
+        JSON.stringify({
+          index: {
+            _id: `${appFill.fillId}_${appFill.appId}`,
+          },
+        }),
+        JSON.stringify(appFill),
+      ].join('\n'),
+    )
+    .join('\n');
+
+  const result = await elasticsearch
+    .getClient()
+    .bulk({ body: `${requestBody}\n`, index: getIndexName('app_fills') });
+
+  if (result.body.errors === true) {
+    const errorMessage = _.get(
+      result,
+      'body.items[0].index.error.reason',
+      `Indexing failed`,
+    );
+    throw new Error(errorMessage);
   }
 
   logger.info(`populated app_fills index for fill: ${fillId}`);
