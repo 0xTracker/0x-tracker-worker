@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const { JOB, QUEUE } = require('../../constants');
+const { JOB, QUEUE, FILL_ATTRIBUTION_TYPE } = require('../../constants');
 const { publishJob } = require('../../queues');
 const elasticsearch = require('../../util/elasticsearch');
 const getAddressMetadata = require('../../addresses/get-address-metadata');
@@ -49,16 +49,22 @@ const indexAppFills = async (job, { logger }) => {
 
   const traders = [maker, takerMetadata.isContract ? transaction.from : taker];
 
-  const appFills = _.reduce(
-    attributions,
-    (accumulator, current) => {
+  const appFills = attributions
+    .filter(
+      attribution =>
+        attribution.type === FILL_ATTRIBUTION_TYPE.CONSUMER ||
+        attribution.type === FILL_ATTRIBUTION_TYPE.RELAYER,
+    )
+    .reduce((accumulator, current) => {
       const existing = accumulator.find(x => x.entityId === current.entityId);
 
       if (existing) {
         const replacement = {
           ...existing,
-          relayedTradeCount: current.type === 0 ? tradeCount : 0,
-          relayedTradeValue: current.type === 0 ? tradeValue : 0,
+          relayedTradeCount:
+            current.type === FILL_ATTRIBUTION_TYPE.RELAYER ? tradeCount : 0,
+          relayedTradeValue:
+            current.type === FILL_ATTRIBUTION_TYPE.RELAYER ? tradeValue : 0,
           totalTradeCount: existing.totalTradeCount + tradeCount,
           totalTradeValue: existing.totalTradeValue + tradeValue,
         };
@@ -70,16 +76,15 @@ const indexAppFills = async (job, { logger }) => {
         appId: current.entityId,
         date: fillDate,
         fillId,
-        relayedTradeCount: current.type === 0 ? tradeCount : 0,
-        relayedTradeValue: current.type === 0 ? tradeValue : 0,
+        relayedTradeCount:
+          current.type === FILL_ATTRIBUTION_TYPE.RELAYER ? tradeCount : 0,
+        relayedTradeValue:
+          current.type === FILL_ATTRIBUTION_TYPE.RELAYER ? tradeValue : 0,
         totalTradeCount: tradeCount,
         totalTradeValue: tradeValue,
         traders,
-        updatedAt: new Date(Date.now()).toISOString(),
       });
-    },
-    [],
-  );
+    }, []);
 
   if (appFills.length > 0) {
     const requestBody = appFills
