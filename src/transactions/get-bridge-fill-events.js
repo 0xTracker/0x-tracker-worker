@@ -113,6 +113,9 @@ const getBridgeFillEvents = transactionReceipt => {
               .toUtf8String(source)
               .replace(/\0/g, '')
               .replace(/\2/g, '')
+              .replace(/\1/g, '')
+              .trim()
+              .replace(/[\n\t\r]/g, '')
           : source.toString(),
       },
       logIndex,
