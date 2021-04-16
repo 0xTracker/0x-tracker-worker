@@ -49,7 +49,8 @@ describe('transactions/get-bridge-fill-events', () => {
           inputTokenAmount: '114129999881182664283',
           outputToken: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
           outputTokenAmount: '4430733405',
-          source: 'UniswapV2',
+          source:
+            '0x00000000000000000000000000000002556e6973776170563200000000000000',
         },
         logIndex: 70,
         protocolVersion: 4,
