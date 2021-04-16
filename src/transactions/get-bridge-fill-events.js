@@ -108,15 +108,7 @@ const getBridgeFillEvents = transactionReceipt => {
         inputTokenAmount: inputTokenAmount.toString(),
         outputToken,
         outputTokenAmount: outputTokenAmount.toString(),
-        source: _.isString(source)
-          ? ethers.utils
-              .toUtf8String(source)
-              .replace(/\0/g, '')
-              .replace(/\2/g, '')
-              .replace(/\1/g, '')
-              .trim()
-              .replace(/[\n\t\r]/g, '')
-          : source.toString(),
+        source: source.toString(),
       },
       logIndex,
       transactionHash,
