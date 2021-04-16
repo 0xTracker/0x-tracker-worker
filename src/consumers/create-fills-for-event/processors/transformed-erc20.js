@@ -45,7 +45,7 @@ const SOURCE_BRIDGE_MAPPINGS = {
   mStable: '0x2bf04fcea05f0989a14d9afa37aa376baca6b2b3', // mStable
   Oasis: '0x991c745401d5b5e469b8c3e2cb02c748f08754f1', // Oasis
   Shell: '0xf1c0811e3788caae7dbfae43da9d9131b1a8a148', // Shell
-  Sushiswap: '0x47ed0262a0b688dcb836d254c6a2e96b6c48a9f5', // Sushiswap
+  SushiSwap: '0x47ed0262a0b688dcb836d254c6a2e96b6c48a9f5', // Sushiswap
   Swerve: '0xf9786d5eb1de47fa56a8f7bb387653c6d410bfee', // Swerve
   UniswapV1: '0x36691c4f426eb8f42f150ebde43069a31cb080ad', // Uniswap v1
   UniswapV2: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48', // Uniswap v2
