@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const ethers = require('ethers');
 
 const logsInterface = new ethers.utils.Interface([
