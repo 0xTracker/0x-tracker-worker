@@ -34,7 +34,8 @@ const SOURCE_BRIDGE_MAPPINGS = {
   '18': '0xe9da66965a9344aab2167e6813c03f043cc7a6ca', // DODO v2
 
   // The following mappings are best guesses. Replace once mappings have been confirmed.
-  Balancer: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4', // Balancer
+  '0x0000000000000000000000000000000442616c616e6365720000000000000000':
+    '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4', // Balancer
   Bancor: '0xc880c252db7c51f74161633338a3bdafa8e65276', // Bancor
   '0x0000000000000000000000000000000143757276650000000000000000000000':
     '0x1796cd592d19e3bcd744fbb025bb61a6d8cb2c09', // Curve
