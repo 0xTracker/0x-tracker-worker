@@ -35,7 +35,7 @@ describe('consumers/fetch-address-type', () => {
     expect(consumer.jobName).toBe('fetch-address-type');
   });
 
-  it('should fetch type of contract address', async () => {
+  it.skip('should fetch type of contract address', async () => {
     await fetchAddressType(
       {
         data: { address: '0x41f8d14c9475444f30a80431c68cf24dc9a8369a' },
