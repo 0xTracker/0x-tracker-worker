@@ -42,11 +42,13 @@ const dedupeEvents = events => {
  This is a temporary solution until a more robust liquidity source
  attribution engine can be built.
  */
-const mapSourceToBridgeAddress = source => {
+const mapSourceToBridgeAddress = (source, logger) => {
   const bridge = SOURCE_BRIDGE_MAPPINGS[source];
 
   if (bridge === undefined) {
-    throw new Error(`Unrecognised source: ${source}`);
+    logger.warn(`Unrecognised source: ${source}`);
+
+    return undefined;
   }
 
   return bridge;
@@ -171,6 +173,7 @@ const processTransformedERC20Event = async (
             ).toNumber(),
             bridgeAddress: mapSourceToBridgeAddress(
               bridgeFillEvent.data.source,
+              logger,
             ),
             tokenAddress: bridgeFillEvent.data.inputToken.toLowerCase(),
           },
