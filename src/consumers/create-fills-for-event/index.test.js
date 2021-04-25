@@ -1364,7 +1364,7 @@ describe('consumers/create-fills-for-event', () => {
     );
   });
 
-  it('should throw an error when the associated transaction contains multiple TransformedERC20 events', async () => {
+  it('should log a warning when the associated transaction contains multiple TransformedERC20 events', async () => {
     await Event.create([
       {
         _id: '5f2e9c576b2c7f29ee87cf7a',
@@ -1426,10 +1426,10 @@ describe('consumers/create-fills-for-event', () => {
 
     const job = { data: { eventId: '5f2e9c576b2c7f29ee87cf7b' } };
 
-    await expect(createFillsForEvent.fn(job, mockOptions)).rejects.toThrow(
-      new Error(
-        'Transaction contains multiple TransformedERC20 events: 0xaa4b893152c32279ff7090f88e9388034d60d980a2c480c0664c61458cc4d9c9',
-      ),
+    await createFillsForEvent.fn(job, mockOptions);
+
+    expect(mockOptions.logger.warn).toHaveBeenCalledWith(
+      'Transaction contains multiple TransformedERC20 events: 0xaa4b893152c32279ff7090f88e9388034d60d980a2c480c0664c61458cc4d9c9',
     );
   });
 
