@@ -95,7 +95,7 @@ const processTransformedERC20Event = async (
   });
 
   if (transformedERC20EventsInTransaction > 1) {
-    throw new Error(
+    logger.warn(
       `Transaction contains multiple TransformedERC20 events: ${transformedERC20Event.transactionHash}`,
     );
   }
