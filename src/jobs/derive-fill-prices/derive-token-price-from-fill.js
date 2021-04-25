@@ -61,6 +61,10 @@ const deriveTokenPriceFromFill = fill => {
     new BigNumber(0),
   );
 
+  if (rawTotal === 0) {
+    return null;
+  }
+
   const totalAmount = formatTokenAmount(rawTotal, token.decimals);
   const price = value / totalAmount;
 
