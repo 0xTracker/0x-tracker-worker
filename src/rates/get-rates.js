@@ -19,10 +19,12 @@ const getRates = async (fromSymbol, date) => {
 
   const rates = await getPrice(fromSymbol, roundedDate);
 
-  cache.put(cacheKey, {
-    date: roundedDate,
-    rates,
-  });
+  if (rates !== null) {
+    cache.put(cacheKey, {
+      date: roundedDate,
+      rates,
+    });
+  }
 
   return rates;
 };
