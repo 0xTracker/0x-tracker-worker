@@ -31,7 +31,9 @@ const getTokenInfo = async address => {
   let response;
 
   try {
-    response = await axios.get(endpoint);
+    response = await axios.get(endpoint, {
+      timeout: 10000, // Fail requests after 10 seconds
+    });
   } catch (error) {
     const errorCode = _.get(error.response, 'data.error.code');
     const errorMsg = _.get(error.response, 'data.error.message');

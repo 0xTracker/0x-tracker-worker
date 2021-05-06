@@ -17,7 +17,9 @@ const callApi = async url => {
   let response;
 
   try {
-    response = await axios.get(url);
+    response = await axios.get(url, {
+      timeout: 10000, // Fail requests after 10 seconds
+    });
   } catch (error) {
     logError(error, { requestUrl: url.replace(apiKey, '[REDACTED]') });
 
