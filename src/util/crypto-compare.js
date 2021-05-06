@@ -25,7 +25,7 @@ const callApi = async url => {
   }
 
   if (response.data.Response === 'Error') {
-    logError('Error when calling CryptoCompare API', {
+    logError(new Error('Error when calling CryptoCompare API'), {
       response,
     });
 
@@ -47,7 +47,7 @@ const getPrice = async (symbol, date) => {
   await bluebird.delay(100);
 
   if (price === null) {
-    logError(`Unable to get USD price of ${symbol} on ${date}`, {
+    logError(new Error(`Unable to get USD price of ${symbol} on ${date}`), {
       responseData,
     });
     return null;

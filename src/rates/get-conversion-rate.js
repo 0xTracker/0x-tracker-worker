@@ -9,7 +9,9 @@ const getConversionRate = async (fromSymbol, toSymbol, date) => {
 
   if (conversionRate === undefined) {
     logError(
-      `Unable to fetch conversion rate from ${fromSymbol} to ${toSymbol} on ${date}`,
+      new Error(
+        `Unable to fetch conversion rate from ${fromSymbol} to ${toSymbol} on ${date}`,
+      ),
       {
         rates,
       },
