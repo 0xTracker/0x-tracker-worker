@@ -80,6 +80,7 @@ module.exports = {
   pollingIntervals: {
     max: {
       default: ms('5 minutes'),
+      measureFills: ms('1 minute'),
     },
     min: {
       aggregateDailyLiquiditySourceMetrics: ms('5 minutes'),
