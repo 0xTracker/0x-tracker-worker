@@ -74,7 +74,7 @@ module.exports = {
       batchSize: 100,
     },
     measureFills: {
-      batchSize: 100,
+      batchSize: 1000,
     },
   },
   pollingIntervals: {
