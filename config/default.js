@@ -61,10 +61,10 @@ module.exports = {
         ? Boolean(process.env.AGGREGATION_ENABLED)
         : false,
     },
-    batchScheduleTransactionFetch: {
+    batchScheduleFillCreation: {
       batchSize: 100,
     },
-    batchScheduleTransformedERC20FillCreation: {
+    batchScheduleTransactionFetch: {
       batchSize: 100,
     },
     createFills: {
