@@ -36,14 +36,17 @@ const fetchTransaction = async (job, { logger }) => {
   ]);
 
   if (block === null) {
+    await job.log(`Block not found: ${blockNumber}`);
     throw new Error(`Block not found: ${blockNumber}`);
   }
 
   if (tx === null) {
+    await job.log(`Transaction not found: ${transactionHash}`);
     throw new Error(`Transaction not found: ${transactionHash}`);
   }
 
   if (receipt === null) {
+    await job.log(`No receipt found for transaction: ${transactionHash}`);
     throw new Error(`No receipt found for transaction: ${transactionHash}`);
   }
 
