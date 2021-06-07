@@ -11,6 +11,7 @@ const createSushiswapSwapEventFill = require('./create-sushiswap-swap-event-fill
 const createToken = require('./create-token');
 const createTransformedERC20EventFills = require('./create-transformed-erc20-event-fills');
 const createUniswapV2SwapEventFill = require('./create-uniswap-v2-swap-event-fill');
+const createUniswapV3SwapEventFill = require('./create-uniswap-v3-swap-event-fill');
 const fetchAddressType = require('./fetch-address-type');
 const fetchFillStatus = require('./fetch-fill-status');
 const fetchTokenMetadata = require('./fetch-token-metadata');
@@ -32,6 +33,7 @@ const consumers = [
   createToken,
   createTransformedERC20EventFills,
   createUniswapV2SwapEventFill,
+  createUniswapV3SwapEventFill,
   fetchAddressType,
   fetchFillStatus,
   fetchTokenMetadata,

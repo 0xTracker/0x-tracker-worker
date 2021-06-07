@@ -23,6 +23,7 @@ const batchScheduleFillCreation = async ({ batchSize }, { logger }) => {
         'SushiswapSwap',
         'TransformedERC20',
         'UniswapV2Swap',
+        'UniswapV3Swap',
       ],
     },
   })

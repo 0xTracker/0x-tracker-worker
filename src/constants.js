@@ -70,6 +70,7 @@ module.exports = {
     LIMIT_ORDER_FILLED: 5,
     RFQ_ORDER_FILLED: 6,
     BRIDGE_FILL: 7,
+    UNISWAP_V3_SWAP: 8,
   },
   JOB: {
     BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
@@ -83,6 +84,7 @@ module.exports = {
     CREATE_TRANSFORMED_ERC20_EVENT_FILLS:
       'create-transformed-erc20-event-fills',
     CREATE_UNISWAP_V2_SWAP_EVENT_FILL: 'create-uniswap-v2-swap-event-fill',
+    CREATE_UNISWAP_V3_SWAP_EVENT_FILL: 'create-uniswap-v3-swap-event-fill',
     FETCH_ADDRESS_TYPE: 'fetch-address-type',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
