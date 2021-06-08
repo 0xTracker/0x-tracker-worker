@@ -34,7 +34,7 @@ const processUniswapV3SwapEvent = async (event, transaction, { logger }) => {
         amount: new BigNumber(event.data.makerAmount).toNumber(),
         tokenAddress: event.data.makerToken,
 
-        /* 
+        /*
           Uniswap V3 Bridge – this is a bit of a hack for tracking purposes and should
           be replaced longer-term with something better (e.g. liquidity source)
         */
@@ -52,8 +52,7 @@ const processUniswapV3SwapEvent = async (event, transaction, { logger }) => {
     eventId: event._id,
     logIndex: event.logIndex,
     maker: event.data.maker.toLowerCase(),
-    protocolVersion:
-      transaction.date >= new Date('2021-01-25T00:00:00Z') ? 4 : 3,
+    protocolVersion: 4,
     quoteDate: transaction.quoteDate,
     taker: event.data.taker.toLowerCase(),
     transactionHash: transaction.hash.toLowerCase(),
