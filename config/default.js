@@ -6,17 +6,6 @@ module.exports = {
   bugsnag: {
     token: _.get(process.env, 'BUGSNAG_TOKEN', null),
   },
-  consumers: {
-    bulkIndexFills: {
-      concurrency: _.get(process.env, 'BULK_INDEX_FILLS_CONCURRENCY', null),
-    },
-    fetchFillStatus: {
-      concurrency: _.get(process.env, 'FETCH_FILL_STATUS_CONCURRENCY', null),
-    },
-    indexFill: {
-      concurrency: _.get(process.env, 'INDEX_FILL_CONCURRENCY', null),
-    },
-  },
   cryptoCompare: {
     apiKey: process.env.CRYPTO_COMPARE_API_KEY,
   },
@@ -101,20 +90,7 @@ module.exports = {
       updateRelayerStats: ms('1 minute'),
     },
   },
-  queues: {
-    tokenProcessing: {
-      limiter: {
-        max: 5,
-        duration: 1000,
-      },
-      transactionProcessing: {
-        limiter: {
-          max: 1,
-          duration: 500,
-        },
-      },
-    },
-  },
+  queues: {},
   web3: {
     endpoint: process.env.WEB3_ENDPOINT,
   },

@@ -24,10 +24,14 @@ const initQueues = (queueNames, config) => {
     const queueConfig = _.get(config, _.camelCase(queueName), {});
 
     queues[queueName] = new Queue(queueName, {
-      ...queueConfig,
+      limiter: {
+        max: 1, // Max number of jobs processed
+        duration: 1000, // per duration in milliseconds
+      },
       redis: {
         host: process.env.REDIS_URL,
       },
+      ...queueConfig,
     })
       .on('error', logError)
       .on('failed', (job, error) => {

@@ -44,20 +44,13 @@ const consumers = [
   indexTradedTokens,
 ];
 
-// const initQueueConsumers = config => {
 const initQueueConsumers = () => {
   const queues = getQueues();
 
   _.each(consumers, ({ fn, jobName, queueName }) => {
-    // const concurrency = _.get(config, `${fn.name}.concurrency`, null);
     const jobLogger = signale.scope(`job-consumer/${_.kebabCase(jobName)}`);
     const fnWrapper = job => fn(job, { logger: jobLogger });
 
-    // if (concurrency === null) {
-    //   queues[queueName].process(jobName, fnWrapper);
-    // } else {
-    //   queues[queueName].process(jobName, concurrency, fnWrapper);
-    // }
     queues[queueName].process(jobName, 1, fnWrapper);
   });
 };
