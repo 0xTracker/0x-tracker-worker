@@ -27,7 +27,6 @@ const initQueues = (queueNames, config) => {
       limiter: {
         max: 5, // Max number of jobs processed
         duration: 1000, // per duration in milliseconds
-        bounceBack: true,
       },
       redis: {
         host: process.env.REDIS_URL,
