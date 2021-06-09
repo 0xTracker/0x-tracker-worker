@@ -50,7 +50,9 @@ const publishJob = async (queueName, jobName, jobData, options = {}) => {
       delay: ms('10 seconds'),
       type: 'exponential',
     },
+    lifo: true,
     removeOnComplete: true,
+    timeout: 10000,
   };
   const queue = getQueue(queueName);
 
