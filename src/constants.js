@@ -73,18 +73,10 @@ module.exports = {
     UNISWAP_V3_SWAP: 8,
   },
   JOB: {
-    BULK_UPDATE_TOKEN_METADATA: 'bulk-update-token-metadata',
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
     CONVERT_RELAYER_FEES: 'convert-relayer-fees',
     CREATE_FILLS_FOR_EVENT: 'create-fills-for-event',
-    CREATE_SUSHISWAP_SWAP_EVENT_FILL: 'create-sushiswap-swap-event-fill',
     CREATE_TOKEN: 'create-token',
-    CREATE_LIQUIDITY_PROVIDER_SWAP_EVENT_FILL:
-      'create-liquidity-provider-swap-event-fill',
-    CREATE_TRANSFORMED_ERC20_EVENT_FILLS:
-      'create-transformed-erc20-event-fills',
-    CREATE_UNISWAP_V2_SWAP_EVENT_FILL: 'create-uniswap-v2-swap-event-fill',
-    CREATE_UNISWAP_V3_SWAP_EVENT_FILL: 'create-uniswap-v3-swap-event-fill',
     FETCH_ADDRESS_TYPE: 'fetch-address-type',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
