@@ -2,7 +2,6 @@ const _ = require('lodash');
 const signale = require('signale');
 
 const { getQueues } = require('../queues');
-const bulkUpdateTokenMetadata = require('./bulk-update-token-metadata');
 const convertProtocolFee = require('./convert-protocol-fee');
 const convertRelayerFees = require('./convert-relayer-fees');
 const createFillsForEvent = require('./create-fills-for-event');
@@ -19,7 +18,6 @@ const indexFillValue = require('./index-fill-value');
 const indexTradedTokens = require('./index-traded-tokens');
 
 const consumers = [
-  bulkUpdateTokenMetadata,
   convertProtocolFee,
   convertRelayerFees,
   createFillsForEvent,
