@@ -142,8 +142,8 @@ describe('consumers/fetch-transaction', () => {
       {
         data: {
           transactionHash:
-            '0x29579558fecfef00a960a27f314c3e36003b0bbc7b95c462100e83b8836f718a',
-          blockNumber: 10141741,
+            '0x2be4f4bb9eca6bbdb33bc75a5d909a96554fe6a76c858030f730229842965620',
+          blockNumber: 11661026,
         },
       },
       mockOptions,
@@ -155,18 +155,18 @@ describe('consumers/fetch-transaction', () => {
 
     expect(events).toEqual([
       expect.objectContaining({
-        blockNumber: 10141741,
+        blockNumber: 11661026,
         data: {
           from: '0x36691C4F426Eb8F42f150ebdE43069A31cB080AD',
           fromToken: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-          fromTokenAmount: '25204118430346391',
-          to: '0x6958F5e95332D93D21af0D7B9Ca85B8212fEE0A5',
-          toToken: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-          toTokenAmount: '5049999',
+          fromTokenAmount: '1054989610000000000',
+          to: '0x1e4fD24985aD63b7e8A5587364bF5A548af5F6e2',
+          toToken: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          toTokenAmount: '1193031827645918275769',
         },
-        logIndex: 81,
+        logIndex: 104,
         transactionHash:
-          '0x29579558fecfef00a960a27f314c3e36003b0bbc7b95c462100e83b8836f718a',
+          '0x2be4f4bb9eca6bbdb33bc75a5d909a96554fe6a76c858030f730229842965620',
         type: 'ERC20BridgeTransfer',
         protocolVersion: 3,
       }),
