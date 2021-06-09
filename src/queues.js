@@ -25,7 +25,7 @@ const initQueues = (queueNames, config) => {
 
     queues[queueName] = new Queue(queueName, {
       limiter: {
-        max: 1, // Max number of jobs processed
+        max: 5, // Max number of jobs processed
         duration: 1000, // per duration in milliseconds
         bounceBack: true,
       },
