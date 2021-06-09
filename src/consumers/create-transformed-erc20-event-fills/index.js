@@ -71,7 +71,7 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
       logger.warn(
         `transaction not found for event: ${transformedERC20Event._id}`,
       );
-      await job.log(`transaction not found: ${transactionHash}`);
+      // await job.log(`transaction not found: ${transactionHash}`);
     }
 
     await publishJob(
@@ -109,9 +109,9 @@ const createTransformedERC20EventFills = async (job, { logger }) => {
       `Transaction contains both BridgeFill and ERC20BridgeTransfer events: ${transformedERC20Event.transactionHash}`,
     );
 
-    await job.log(
-      `Transaction contains both BridgeFill and ERC20BridgeTransfer events: ${transformedERC20Event.transactionHash}`,
-    );
+    // await job.log(
+    //   `Transaction contains both BridgeFill and ERC20BridgeTransfer events: ${transformedERC20Event.transactionHash}`,
+    // );
 
     await publishJob(
       QUEUE.EVENT_PROCESSING,
