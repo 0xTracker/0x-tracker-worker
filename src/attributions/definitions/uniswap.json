@@ -21,6 +21,10 @@
       "type": "liquidity-source"
     },
     {
+      "bridgeAddress": "0xe592427a0aece92de3edee1f18e0157c05861564",
+      "type": "liquidity-source"
+    },
+    {
       "tradeType": 2,
       "type": "liquidity-source"
     },
@@ -30,6 +34,10 @@
     },
     {
       "source": "17",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "19",
       "type": "liquidity-source"
     }
   ],

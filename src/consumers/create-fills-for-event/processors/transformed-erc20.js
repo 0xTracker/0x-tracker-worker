@@ -32,6 +32,7 @@ const SOURCE_BRIDGE_MAPPINGS = {
   '16': '0x36691c4f426eb8f42f150ebde43069a31cb080ad', // Uniswap v1
   '17': '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48', // Uniswap v2
   '18': '0xe9da66965a9344aab2167e6813c03f043cc7a6ca', // DODO v2
+  '19': '0xe592427a0aece92de3edee1f18e0157c05861564', // Uniswap v3
 
   // The following mappings are best guesses. Replace once mappings have been confirmed.
   '0x0000000000000000000000000000000442616c616e6365720000000000000000':
@@ -56,6 +57,7 @@ const SOURCE_BRIDGE_MAPPINGS = {
   '0x00000000000000000000000000000002556e6973776170563200000000000000':
     '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48', // Uniswap v2
   DODOV2: '0xe9da66965a9344aab2167e6813c03f043cc7a6ca', // DODO v2
+  UniswapV3: '0xe592427a0aece92de3edee1f18e0157c05861564', // Uniswap v3
 };
 
 const dedupeEvents = events => {
