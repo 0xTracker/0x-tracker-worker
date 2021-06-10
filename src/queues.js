@@ -24,10 +24,13 @@ const initQueues = (queueNames, config) => {
     const queueConfig = _.get(config, _.camelCase(queueName), {});
 
     queues[queueName] = new Queue(queueName, {
-      // limiter: {
-      //   max: 5, // Max number of jobs processed
-      //   duration: 1000, // per duration in milliseconds
-      // },
+      defaultJobOptions: {
+        attempts: 10,
+        backoff: { delay: ms('10 seconds'), type: 'exponential' },
+        lifo: true,
+        removeOnComplete: 1000,
+        timeout: 10000,
+      },
       redis: {
         host: process.env.REDIS_URL,
       },
@@ -43,19 +46,9 @@ const initQueues = (queueNames, config) => {
 };
 
 const publishJob = async (queueName, jobName, jobData, options = {}) => {
-  const defaultOptions = {
-    attempts: 999,
-    backoff: {
-      delay: ms('10 seconds'),
-      type: 'exponential',
-    },
-    lifo: true,
-    removeOnComplete: true,
-    timeout: 10000,
-  };
   const queue = getQueue(queueName);
 
-  await queue.add(jobName, jobData, { ...defaultOptions, ...options });
+  await queue.add(jobName, jobData, options);
 };
 
 module.exports = { getQueue, getQueues, initQueues, publishJob };
