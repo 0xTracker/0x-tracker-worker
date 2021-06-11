@@ -54,7 +54,7 @@ module.exports = {
       batchSize: 100,
     },
     batchScheduleTransactionFetch: {
-      batchSize: 100,
+      batchSize: 1000,
     },
     createFills: {
       batchSize: 1000,
@@ -77,6 +77,7 @@ module.exports = {
       aggregateDailyProtocolMetrics: ms('5 minutes'),
       aggregateDailyTokenMetrics: ms('5 minutes'),
       aggregateDailyTraderMetrics: ms('5 minutes'),
+      batchScheduleTransactionFetch: ms('10 seconds'),
       cacheAddressMetrics: ms('1 minute'),
       cacheProtocolMetrics: ms('1 minute'),
       cacheRelayerMetrics: ms('1 minute'),
