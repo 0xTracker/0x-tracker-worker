@@ -41,7 +41,7 @@ const initQueueConsumers = () => {
     const jobLogger = signale.scope(`job-consumer/${_.kebabCase(jobName)}`);
     const fnWrapper = job => fn(job, { logger: jobLogger });
 
-    queues[queueName].process(jobName, 5, fnWrapper);
+    queues[queueName].process(jobName, 1, fnWrapper);
   });
 };
 
