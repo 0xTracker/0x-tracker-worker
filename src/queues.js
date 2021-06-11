@@ -27,7 +27,6 @@ const initQueues = (queueNames, config) => {
       defaultJobOptions: {
         attempts: 10,
         backoff: { delay: ms('10 seconds'), type: 'exponential' },
-        lifo: true,
         removeOnComplete: 1000,
         timeout: 10000,
       },
