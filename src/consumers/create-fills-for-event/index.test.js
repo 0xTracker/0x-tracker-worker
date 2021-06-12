@@ -83,7 +83,10 @@ describe('consumers/create-fills-for-event', () => {
       },
     ]);
 
-    const job = { data: { eventId: '600e7823b1592424e2dadcc8' } };
+    const job = {
+      data: { eventId: '600e7823b1592424e2dadcc8' },
+      log: () => {},
+    };
 
     await createFillsForEvent.fn(job, mockOptions);
 
@@ -131,7 +134,10 @@ describe('consumers/create-fills-for-event', () => {
 
     timekeeper.freeze('2021-01-25T07:59:55.368Z');
 
-    const job = { data: { eventId: '600e7823b1592424e2dadcc8' } };
+    const job = {
+      data: { eventId: '600e7823b1592424e2dadcc8' },
+      log: () => {},
+    };
 
     await createFillsForEvent.fn(job, mockOptions);
 

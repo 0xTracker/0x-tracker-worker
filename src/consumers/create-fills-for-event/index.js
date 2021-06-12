@@ -40,6 +40,7 @@ const createFillsForEvent = async (job, { logger }) => {
      */
     if (moment().diff(event.dateIngested, 'minutes') >= 5) {
       logger.warn(`transaction not found for event: ${event._id}`);
+      job.log(`transaction not found: ${event.transactionHash}`);
     }
 
     await publishJob(
