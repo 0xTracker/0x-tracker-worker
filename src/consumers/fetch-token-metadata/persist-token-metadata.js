@@ -31,7 +31,7 @@ const persisTokenMetadata = async (tokenAddress, tokenMetadata) => {
 
   // If nothing has changed then we can bail out early
   if (!token.isModified()) {
-    return [];
+    return;
   }
 
   const modifiedFields = ['decimals', 'name', 'symbol'].filter(field =>
