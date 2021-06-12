@@ -1,10 +1,9 @@
-const parseTransactionData = require('../../transactions/parse-transaction-data');
+const getAffiliateAddress = require('../../transactions/get-affiliate-address');
+const getQuoteDate = require('../../transactions/get-quote-date');
 
 const buildTransaction = (rawTx, txReceipt, block) => {
-  const { affiliateAddress, quoteDate } = parseTransactionData(rawTx.data);
-
   return {
-    affiliateAddress,
+    affiliateAddress: getAffiliateAddress(rawTx.data),
     blockHash: rawTx.blockHash,
     blockNumber: rawTx.blockNumber,
     data: rawTx.data,
@@ -16,7 +15,7 @@ const buildTransaction = (rawTx, txReceipt, block) => {
     hash: rawTx.hash,
     index: txReceipt.transactionIndex,
     nonce: rawTx.nonce,
-    quoteDate,
+    quoteDate: getQuoteDate(rawTx.data),
     to: rawTx.to ? rawTx.to.toLowerCase() : undefined,
     value: rawTx.value.toString(),
   };
