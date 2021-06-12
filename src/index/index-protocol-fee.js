@@ -3,7 +3,7 @@ const { publishJob } = require('../queues');
 
 const indexProtocolFee = async (fillId, convertedFee) => {
   await publishJob(
-    QUEUE.FILL_INDEXING,
+    QUEUE.INDEXING,
     JOB.INDEX_FILL_PROTOCOL_FEE,
     {
       fillId,

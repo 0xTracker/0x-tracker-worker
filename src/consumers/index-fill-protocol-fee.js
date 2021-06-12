@@ -47,5 +47,5 @@ const indexFillProtocolFee = async (job, { logger }) => {
 module.exports = {
   fn: indexFillProtocolFee,
   jobName: JOB.INDEX_FILL_PROTOCOL_FEE,
-  queueName: QUEUE.FILL_INDEXING,
+  queueName: QUEUE.INDEXING,
 };

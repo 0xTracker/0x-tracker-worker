@@ -65,5 +65,5 @@ const indexFillValue = async (job, { logger }) => {
 module.exports = {
   fn: indexFillValue,
   jobName: JOB.INDEX_FILL_VALUE,
-  queueName: QUEUE.FILL_INDEXING,
+  queueName: QUEUE.INDEXING,
 };

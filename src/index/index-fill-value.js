@@ -5,7 +5,7 @@ const indexFillValue = async (fill, value) => {
   const fillId = fill._id.toString();
 
   await publishJob(
-    QUEUE.FILL_INDEXING,
+    QUEUE.INDEXING,
     JOB.INDEX_FILL_VALUE,
     {
       fillId,

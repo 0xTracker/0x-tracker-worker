@@ -63,5 +63,5 @@ const consumer = async (job, { logger }) => {
 module.exports = {
   fn: consumer,
   jobName: JOB.INDEX_TRADED_TOKENS,
-  queueName: QUEUE.TRADED_TOKEN_INDEXING,
+  queueName: QUEUE.INDEXING,
 };

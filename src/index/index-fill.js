@@ -3,7 +3,7 @@ const { publishJob } = require('../queues');
 
 const indexFill = async (fillId, delay) => {
   await publishJob(
-    QUEUE.FILL_INDEXING,
+    QUEUE.INDEXING,
     JOB.INDEX_FILL,
     {
       fillId,

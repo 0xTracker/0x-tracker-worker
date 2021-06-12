@@ -16,7 +16,7 @@ const indexTradedTokens = fill => {
   const fillId = fill._id.toString();
 
   publishJob(
-    QUEUE.TRADED_TOKEN_INDEXING,
+    QUEUE.INDEXING,
     JOB.INDEX_TRADED_TOKENS,
     {
       attributions: fill.attributions.map(attribution => ({
