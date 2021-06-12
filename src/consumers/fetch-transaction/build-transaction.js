@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const parseTransactionData = require('../../transactions/parse-transaction-data');
 
 const buildTransaction = (rawTx, txReceipt, block) => {
