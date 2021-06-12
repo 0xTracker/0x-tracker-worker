@@ -13,20 +13,6 @@ const persisTokenMetadata = async (tokenAddress, tokenMetadata) => {
     throw new Error(`Could not find token in MongoDB: ${tokenAddress}`);
   }
 
-  if (
-    tokenMetadata.circulatingSupply !== null &&
-    tokenMetadata.circulatingSupply !== token.circulatingSupply
-  ) {
-    token.set('circulatingSupply', tokenMetadata.circulatingSupply);
-  }
-
-  if (
-    tokenMetadata.totalSupply !== null &&
-    tokenMetadata.totalSupply !== token.totalSupply
-  ) {
-    token.set('totalSupply', tokenMetadata.totalSupply);
-  }
-
   // Only update decimals if its not already been set since it should never change.
   if (_.isNil(token.decimals) && tokenMetadata.decimals !== null) {
     token.set('decimals', tokenMetadata.decimals);
@@ -48,13 +34,9 @@ const persisTokenMetadata = async (tokenAddress, tokenMetadata) => {
     return [];
   }
 
-  const modifiedFields = [
-    'circulatingSupply',
-    'decimals',
-    'name',
-    'symbol',
-    'totalSupply',
-  ].filter(field => token.isModified(field));
+  const modifiedFields = ['decimals', 'name', 'symbol'].filter(field =>
+    token.isModified(field),
+  );
 
   await withTransaction(async session => {
     await token.save({ session });
@@ -84,8 +66,6 @@ const persisTokenMetadata = async (tokenAddress, tokenMetadata) => {
 
     tokenCache.addToken(token.toObject());
   });
-
-  return modifiedFields;
 };
 
 module.exports = persisTokenMetadata;
