@@ -84,7 +84,7 @@ module.exports = {
     },
   },
   scheduler: {
-    suspended: process.env.JOB_SCHEDULER_SUSPENDED === 'true',
+    suspended: process.env.SCHEDULER_SUSPENDED === 'true',
   },
   queues: {},
   web3: {
