@@ -30,10 +30,9 @@ const processLimitOrderFilledEvent = async (event, transaction, { logger }) => {
 
   const newFill = {
     _id: event._id,
-    affiliateAddress:
-      transaction.affiliateAddress !== undefined
-        ? transaction.affiliateAddress.toLowerCase()
-        : undefined,
+    affiliateAddress: transaction.affiliateAddress
+      ? transaction.affiliateAddress.toLowerCase()
+      : undefined,
     assets: [
       {
         actor: FILL_ACTOR.MAKER,

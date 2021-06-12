@@ -151,10 +151,9 @@ const processTransformedERC20Event = async (
   const fills = dedupeEvents(erc20BridgeTransferEvents)
     .map(bridgeTransferEvent => ({
       _id: bridgeTransferEvent._id,
-      affiliateAddress:
-        transaction.affiliateAddress !== undefined
-          ? transaction.affiliateAddress.toLowerCase()
-          : undefined,
+      affiliateAddress: transaction.affiliateAddress
+        ? transaction.affiliateAddress.toLowerCase()
+        : undefined,
       assets: [
         {
           actor: FILL_ACTOR.MAKER,
@@ -187,10 +186,9 @@ const processTransformedERC20Event = async (
     .concat(
       dedupeEvents(bridgeFillEvents).map(bridgeFillEvent => ({
         _id: bridgeFillEvent._id,
-        affiliateAddress:
-          transaction.affiliateAddress !== undefined
-            ? transaction.affiliateAddress.toLowerCase()
-            : undefined,
+        affiliateAddress: transaction.affiliateAddress
+          ? transaction.affiliateAddress.toLowerCase()
+          : undefined,
         assets: [
           {
             actor: FILL_ACTOR.MAKER,
