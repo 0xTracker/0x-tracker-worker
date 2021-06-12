@@ -10,16 +10,16 @@ const buildTransaction = (rawTx, txReceipt, block) => {
     blockNumber: rawTx.blockNumber,
     data: rawTx.data,
     date: new Date(block.timestamp * 1000),
-    from: _.lowerCase(rawTx.from),
-    gasLimit: _.toNumber(rawTx.gasLimit),
-    gasPrice: _.toString(rawTx.gasPrice),
-    gasUsed: _.toNumber(txReceipt.gasUsed),
+    from: rawTx.from.toLowerCase(),
+    gasLimit: rawTx.gasLimit.toNumber(),
+    gasPrice: rawTx.gasPrice.toString(),
+    gasUsed: txReceipt.gasUsed.toNumber(),
     hash: rawTx.hash,
     index: txReceipt.transactionIndex,
     nonce: rawTx.nonce,
     quoteDate,
-    to: _.lowerCase(rawTx.to),
-    value: _.toString(rawTx.value),
+    to: rawTx.to ? rawTx.to.toLowerCase() : undefined,
+    value: rawTx.value.toString(),
   };
 };
 
