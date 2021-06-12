@@ -12,11 +12,13 @@ const start = async () => {
 
   initQueueConsumers();
 
-  await runJobs(jobs, {
-    onError: (retriesRemaining, error) => {
-      logError(error);
-    },
-  });
+  if (!config.get('scheduler.suspended')) {
+    await runJobs(jobs, {
+      onError: (retriesRemaining, error) => {
+        logError(error);
+      },
+    });
+  }
 };
 
 module.exports = start;

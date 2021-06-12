@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const ms = require('ms');
 
+const aggregationEnabled = process.env.AGGREGATION_ENABLED === 'true';
+
 module.exports = {
   appVersion: _.get(process.env, 'HEROKU_RELEASE_VERSION', null),
   bugsnag: {
@@ -26,29 +28,19 @@ module.exports = {
   },
   jobs: {
     aggregateDailyLiquiditySourceMetrics: {
-      enabled: process.env.AGGREGATION_ENABLED
-        ? Boolean(process.env.AGGREGATION_ENABLED)
-        : false,
+      enabled: aggregationEnabled,
     },
     aggregateDailyNetworkMetrics: {
-      enabled: process.env.AGGREGATION_ENABLED
-        ? Boolean(process.env.AGGREGATION_ENABLED)
-        : false,
+      enabled: aggregationEnabled,
     },
     aggregateDailyProtocolMetrics: {
-      enabled: process.env.AGGREGATION_ENABLED
-        ? Boolean(process.env.AGGREGATION_ENABLED)
-        : false,
+      enabled: aggregationEnabled,
     },
     aggregateDailyTokenMetrics: {
-      enabled: process.env.AGGREGATION_ENABLED
-        ? Boolean(process.env.AGGREGATION_ENABLED)
-        : false,
+      enabled: aggregationEnabled,
     },
     aggregateDailyTraderMetrics: {
-      enabled: process.env.AGGREGATION_ENABLED
-        ? Boolean(process.env.AGGREGATION_ENABLED)
-        : false,
+      enabled: aggregationEnabled,
     },
     batchScheduleFillCreation: {
       batchSize: 100,
@@ -90,6 +82,9 @@ module.exports = {
       resolveTokens: ms('1 minute'),
       updateRelayerStats: ms('1 minute'),
     },
+  },
+  scheduler: {
+    suspended: process.env.JOB_SCHEDULER_SUSPENDED === 'true',
   },
   queues: {},
   web3: {
