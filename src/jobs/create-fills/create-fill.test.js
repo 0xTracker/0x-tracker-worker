@@ -111,7 +111,7 @@ describe('createFill', () => {
 
     // Ensure fill indexing job is published with 30 second delay
     expect(publishJob).toHaveBeenCalledWith(
-      'fill-indexing',
+      'indexing',
       'index-fill',
       {
         fillId: '5b602b3cfd9c10000491443c',
@@ -139,7 +139,7 @@ describe('createFill', () => {
 
     // Ensure traded token indexing job is published
     expect(publishJob).toHaveBeenCalledWith(
-      'traded-token-indexing',
+      'indexing',
       'index-traded-tokens',
       {
         attributions: [

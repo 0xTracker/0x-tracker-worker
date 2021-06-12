@@ -44,7 +44,7 @@ describe('jobs/measure-fills/measure-fill', () => {
     await measureFill(fill);
 
     expect(publishJob).toHaveBeenCalledWith(
-      'fill-indexing',
+      'indexing',
       'index-fill-value',
       {
         fillId: '5e3e9abbb2227b1f0e73be5f',

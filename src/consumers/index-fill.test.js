@@ -40,7 +40,7 @@ afterAll(async () => {
 
 describe('consumers/index-fill', () => {
   it('should consume indexing queue', () => {
-    expect(consumer.queueName).toBe('fill-indexing');
+    expect(consumer.queueName).toBe('indexing');
   });
 
   it('should consume index-fill-traders jobs', () => {
