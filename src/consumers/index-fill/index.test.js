@@ -12,7 +12,7 @@ const {
 const consumer = require('../index-fill');
 const elasticsearch = require('../../util/elasticsearch');
 
-jest.mock('../util/elasticsearch');
+jest.mock('../../util/elasticsearch');
 
 const elasticsearchMock = new Mock();
 const mockOptions = {
