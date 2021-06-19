@@ -2,10 +2,15 @@ const { Client } = require('@elastic/elasticsearch');
 const Mock = require('@elastic/elasticsearch-mock');
 const timekeeper = require('timekeeper');
 
-const { getModel } = require('../model');
-const { mockLogger, resetDb, setupDb, tearDownDb } = require('../test-utils');
-const consumer = require('./index-fill');
-const elasticsearch = require('../util/elasticsearch');
+const { getModel } = require('../../model');
+const {
+  mockLogger,
+  resetDb,
+  setupDb,
+  tearDownDb,
+} = require('../../test-utils');
+const consumer = require('../index-fill');
+const elasticsearch = require('../../util/elasticsearch');
 
 jest.mock('../util/elasticsearch');
 
