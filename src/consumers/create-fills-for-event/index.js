@@ -11,6 +11,8 @@ const processSushiswapSwapEvent = require('./processors/sushiswap-swap');
 const processTransformedERC20Event = require('./processors/transformed-erc20');
 const processUniswapV2SwapEvent = require('./processors/uniswap-v2-swap');
 const processUniswapV3SwapEvent = require('./processors/uniswap-v3-swap');
+const processLogFillEvent = require('./processors/log-fill');
+const processFillEvent = require('./processors/fill');
 
 const createFillsForEvent = async (job, { logger }) => {
   const { eventId } = job.data;
@@ -57,6 +59,16 @@ const createFillsForEvent = async (job, { logger }) => {
    * Delegate to the correct processor based on event type or throw
    * an error if the event type is unsupported.
    */
+
+  if (event.type === 'LogFill') {
+    await processLogFillEvent(event, transaction, { logger });
+    return;
+  }
+
+  if (event.type === 'Fill') {
+    await processFillEvent(event, transaction, { logger });
+  }
+
   if (event.type === 'LimitOrderFilled') {
     await processLimitOrderFilledEvent(event, transaction, { logger });
     return;

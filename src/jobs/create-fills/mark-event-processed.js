@@ -2,7 +2,10 @@ const { getModel } = require('../../model');
 
 const markEventProcessed = async eventId => {
   const Event = getModel('Event');
-  await Event.updateOne({ _id: eventId }, { fillCreated: true });
+  await Event.updateOne(
+    { _id: eventId },
+    { fillCreated: true, 'scheduler.fillCreationScheduled': true },
+  );
 };
 
 module.exports = markEventProcessed;
