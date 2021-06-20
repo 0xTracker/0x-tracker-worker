@@ -13,6 +13,7 @@ const indexFillProtocolFee = require('./index-fill-protocol-fee');
 const indexFillTraders = require('./index-fill-traders');
 const indexFillValue = require('./index-fill-value');
 const indexTradedTokens = require('./index-traded-tokens');
+const measureFill = require('./measure-fill');
 
 const consumers = [
   convertProtocolFee,
@@ -26,6 +27,7 @@ const consumers = [
   indexFillTraders,
   indexFillValue,
   indexTradedTokens,
+  measureFill,
 ];
 
 const initQueueConsumers = () => {
