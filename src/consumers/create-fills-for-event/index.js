@@ -67,6 +67,7 @@ const createFillsForEvent = async (job, { logger }) => {
 
   if (event.type === 'Fill') {
     await processFillEvent(event, transaction, { logger });
+    return;
   }
 
   if (event.type === 'LimitOrderFilled') {
