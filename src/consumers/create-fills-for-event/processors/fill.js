@@ -1,10 +1,26 @@
+const _ = require('lodash');
 const { FILL_TYPE } = require('../../../constants');
 const createFills = require('../../../fills/create-fills');
 const Fill = require('../../../model/fill');
 const createNewTokens = require('../../../tokens/create-new-tokens');
 const withTransaction = require('../../../util/with-transaction');
 const getEventData = require('../../../events/get-event-data');
-const getUniqTokens = require('../../../jobs/create-fills/get-uniq-tokens');
+
+const getUniqTokens = (assets, fees) => {
+  const tokens = assets
+    .map(asset => ({ address: asset.tokenAddress, type: asset.tokenType }))
+    .concat(
+      fees.map(fee => ({ address: fee.tokenAddress, type: fee.tokenType })),
+    );
+
+  const uniqTokens = _(tokens)
+    .map(token => token.address)
+    .uniq()
+    .map(tokenAddress => tokens.find(token => token.address === tokenAddress))
+    .value();
+
+  return uniqTokens;
+};
 
 const processFillEvent = async (event, transaction, { logger }) => {
   const eventId = event._id;

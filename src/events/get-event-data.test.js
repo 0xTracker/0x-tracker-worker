@@ -1,6 +1,5 @@
 const { UnsupportedAssetError } = require('../errors');
 const getEventData = require('./get-event-data');
-const V1_EVENT = require('../fixtures/events/v1');
 const V2_EVENT = require('../fixtures/events/v2');
 const V3_EVENT = require('../fixtures/events/v3');
 
@@ -16,11 +15,6 @@ const eventWithArgs = (event, args) => ({
 });
 
 describe('getEventData', () => {
-  it('should get data for V1 event', () => {
-    const normalized = getEventData(V1_EVENT);
-    expect(normalized).toMatchSnapshot();
-  });
-
   it('should get data for V2 event', () => {
     const normalized = getEventData(V2_EVENT);
     expect(normalized).toMatchSnapshot();
