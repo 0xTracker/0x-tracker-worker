@@ -83,7 +83,14 @@ module.exports = {
   scheduler: {
     suspended: process.env.SCHEDULER_SUSPENDED === 'true',
   },
-  queues: {},
+  queues: {
+    pricing: {
+      limiter: {
+        max: 1,
+        duration: 1000,
+      },
+    },
+  },
   web3: {
     endpoint: process.env.WEB3_ENDPOINT,
   },

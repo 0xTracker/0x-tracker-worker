@@ -1,6 +1,6 @@
 const bluebird = require('bluebird');
 const signale = require('signale');
-const measureFill = require('../../consumers/measure-fill');
+const measureFill = require('../../consumers/measure-fill/measure-fill');
 const checkIsFillMeasurable = require('../../consumers/measure-fill/check-is-fill-measurable');
 const fetchUnmeasuredFills = require('./fetch-unmeasured-fills');
 const markFillAsImmeasurable = require('./mark-fill-as-immeasurable');
