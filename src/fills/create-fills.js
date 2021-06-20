@@ -12,6 +12,7 @@ const hasRelayerFees = require('./has-relayer-fees');
 const indexFill = require('../index/index-fill');
 const indexFillTraders = require('../index/index-fill-traders');
 const indexTradedTokens = require('../index/index-traded-tokens');
+const measureFill = require('./measure-fill');
 
 const createFills = async (transaction, fills, { session } = {}) => {
   const attributedFills = fills.map(fill =>
@@ -65,6 +66,8 @@ const createFills = async (transaction, fills, { session } = {}) => {
       await indexFill(fillId, ms('30 seconds'));
       await indexTradedTokens(fill);
       await indexFillTraders(fill);
+
+      await measureFill(fillId);
 
       if (hasProtocolFee(fill)) {
         await convertProtocolFee(fill, ms('30 seconds'));
