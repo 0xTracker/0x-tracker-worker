@@ -10,7 +10,6 @@ const batchScheduleTransactionFetch = require('./batch-schedule-transaction-fetc
 const deriveFillPrices = require('./derive-fill-prices');
 const fetchArticles = require('./fetch-articles');
 const getMissingTokenImages = require('./get-missing-token-images');
-const measureFills = require('./measure-fills');
 const precomputeAppStats = require('./precompute-app-stats');
 
 const jobFns = {
@@ -24,7 +23,6 @@ const jobFns = {
   deriveFillPrices,
   fetchArticles,
   getMissingTokenImages,
-  measureFills,
   precomputeAppStats,
 };
 
