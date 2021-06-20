@@ -1,6 +1,5 @@
 const { UnsupportedAssetError } = require('../errors');
 const getFeesForEvent = require('./get-fees-for-event');
-const V1_EVENT = require('../fixtures/events/v1');
 const V2_EVENT = require('../fixtures/events/v2');
 const V3_EVENT = require('../fixtures/events/v3');
 
@@ -10,46 +9,6 @@ const eventWithArgs = (event, args) => ({
 });
 
 describe('getFeesFromEvent', () => {
-  it('should return fees for v1 fill event', () => {
-    const fees = getFeesForEvent(V1_EVENT);
-
-    expect(fees).toEqual([
-      {
-        amount: { token: 1200000000000000000 },
-        tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
-        tokenType: 0,
-        traderType: 0,
-      },
-      {
-        amount: { token: 2300000000000000000 },
-        tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
-        tokenType: 0,
-        traderType: 1,
-      },
-    ]);
-  });
-
-  it('should exclude zero value fees from v1 fill event', () => {
-    const event = eventWithArgs(V1_EVENT, { paidMakerFee: 0 });
-    const fees = getFeesForEvent(event);
-
-    expect(fees).toEqual([
-      {
-        amount: { token: 2300000000000000000 },
-        tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
-        tokenType: 0,
-        traderType: 1,
-      },
-    ]);
-  });
-
-  it('should return empty array for v1 fill event with no fees', () => {
-    const event = eventWithArgs(V1_EVENT, { paidMakerFee: 0, paidTakerFee: 0 });
-    const fees = getFeesForEvent(event);
-
-    expect(fees).toEqual([]);
-  });
-
   it('should return fees for v2 fill event', () => {
     const fees = getFeesForEvent(V2_EVENT);
 

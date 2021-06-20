@@ -17,8 +17,10 @@ const batchScheduleFillCreation = async ({ batchSize }, { logger }) => {
     'scheduler.fillCreationScheduled': null,
     type: {
       $in: [
+        'Fill',
         'LimitOrderFilled',
         'LiquidityProviderSwap',
+        'LogFill',
         'RfqOrderFilled',
         'SushiswapSwap',
         'TransformedERC20',

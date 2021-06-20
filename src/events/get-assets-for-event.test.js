@@ -1,6 +1,5 @@
 const { UnsupportedAssetError } = require('../errors');
 const getAssetsForEvent = require('./get-assets-for-event');
-const V1_EVENT = require('../fixtures/events/v1');
 const V2_EVENT = require('../fixtures/events/v2');
 
 const eventWithArgs = (event, args) => ({
@@ -12,33 +11,6 @@ const eventWithArgs = (event, args) => ({
       ...args,
     },
   },
-});
-
-it('should get assets for V1 event args', () => {
-  const event = eventWithArgs(V1_EVENT, {
-    makerToken: '0xe41d2489571d322189246dafa5ebde1f4699f498',
-    takerToken: '0x2956356cd2a2bf3202f771f50d3d14a367b48070',
-    filledMakerTokenAmount: 3.81909940372739e19,
-    filledTakerTokenAmount: 20000000000000000.0,
-  });
-  const assets = getAssetsForEvent(event);
-
-  expect(assets).toEqual([
-    {
-      actor: 0,
-      amount: 38190994037273900000,
-      tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
-      tokenResolved: false,
-      tokenType: 0,
-    },
-    {
-      actor: 1,
-      amount: 20000000000000000,
-      tokenAddress: '0x2956356cd2a2bf3202f771f50d3d14a367b48070',
-      tokenResolved: false,
-      tokenType: 0,
-    },
-  ]);
 });
 
 it('should get assets for V2 event with only ERC-20 assets', () => {

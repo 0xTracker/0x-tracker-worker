@@ -18,15 +18,6 @@ const getEventData = event => {
     transactionHash,
   };
 
-  if (protocolVersion === 1) {
-    return {
-      ...universalData,
-      feeRecipient: args.feeRecipient,
-      maker: args.maker,
-      taker: args.taker,
-    };
-  }
-
   if (protocolVersion === 2) {
     return {
       ...universalData,

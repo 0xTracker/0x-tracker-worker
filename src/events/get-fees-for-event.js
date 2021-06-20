@@ -13,30 +13,26 @@ const mapMakerFeeAsset = createFeeAssetMapper(TRADER_TYPE.MAKER);
 const mapTakerFeeAsset = createFeeAssetMapper(TRADER_TYPE.TAKER);
 
 const getFeesForEvent = event => {
-  const { data, protocolVersion } = event;
+  const { data } = event;
   const { args } = data;
   const { makerFeePaid, takerFeePaid } = args;
 
-  if (event.protocolVersion < 3) {
-    const { paidMakerFee, paidTakerFee } = args;
-    const makerFee = protocolVersion === 1 ? paidMakerFee : makerFeePaid;
-    const takerFee = protocolVersion === 1 ? paidTakerFee : takerFeePaid;
-
+  if (event.protocolVersion === 2) {
     return _.compact([
-      makerFee > 0
+      makerFeePaid > 0
         ? {
             amount: {
-              token: makerFee,
+              token: makerFeePaid,
             },
             tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
             tokenType: 0,
             traderType: 0,
           }
         : undefined,
-      takerFee > 0
+      takerFeePaid > 0
         ? {
             amount: {
-              token: takerFee,
+              token: takerFeePaid,
             },
             tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498',
             tokenType: 0,

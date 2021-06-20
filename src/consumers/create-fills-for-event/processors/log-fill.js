@@ -1,10 +1,81 @@
-const { FILL_TYPE } = require('../../../constants');
+const _ = require('lodash');
+const { FILL_TYPE, FILL_ACTOR, TOKEN_TYPE } = require('../../../constants');
 const createFills = require('../../../fills/create-fills');
 const Fill = require('../../../model/fill');
 const createNewTokens = require('../../../tokens/create-new-tokens');
 const withTransaction = require('../../../util/with-transaction');
-const getEventData = require('../../../events/get-event-data');
-const getUniqTokens = require('../../../jobs/create-fills/get-uniq-tokens');
+const { checkTokenResolved } = require('../../../tokens/token-cache');
+
+const getAssets = event => {
+  const { data } = event;
+  const { args } = data;
+
+  const {
+    filledMakerTokenAmount,
+    filledTakerTokenAmount,
+    makerToken,
+    takerToken,
+  } = args;
+
+  return [
+    {
+      actor: FILL_ACTOR.MAKER,
+      amount: filledMakerTokenAmount,
+      tokenAddress: makerToken,
+      tokenResolved: checkTokenResolved(makerToken),
+      tokenType: TOKEN_TYPE.ERC20,
+    },
+    {
+      actor: FILL_ACTOR.TAKER,
+      amount: filledTakerTokenAmount,
+      tokenAddress: takerToken,
+      tokenResolved: checkTokenResolved(takerToken),
+      tokenType: TOKEN_TYPE.ERC20,
+    },
+  ];
+};
+
+const getFees = event => {
+  const { data } = event;
+  const { args } = data;
+  const { paidMakerFee, paidTakerFee } = args;
+
+  return _.compact([
+    paidMakerFee > 0
+      ? {
+          amount: {
+            token: paidMakerFee,
+          },
+          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenType: 0,
+          traderType: 0,
+        }
+      : undefined,
+    paidTakerFee > 0
+      ? {
+          amount: {
+            token: paidTakerFee,
+          },
+          tokenAddress: '0xe41d2489571d322189246dafa5ebde1f4699f498', // ZRX
+          tokenType: 0,
+          traderType: 1,
+        }
+      : undefined,
+  ]);
+};
+
+const getEventData = event => {
+  const { data } = event;
+  const { args, logIndex } = data;
+
+  return {
+    logIndex,
+    orderHash: args.orderHash,
+    feeRecipient: args.feeRecipient,
+    maker: args.maker,
+    taker: args.taker,
+  };
+};
 
 const processLogFillEvent = async (event, transaction, { logger }) => {
   const eventId = event._id;
@@ -19,22 +90,24 @@ const processLogFillEvent = async (event, transaction, { logger }) => {
     return;
   }
 
+  const assets = getAssets(event);
+  const fees = getFees(event);
   const eventData = getEventData(event);
 
   const newFill = {
     _id: event._id,
     affiliateAddress: transaction.affiliateAddress,
-    assets: eventData.assets,
+    assets,
     blockHash: transaction.blockHash.toLowerCase(),
     blockNumber: transaction.blockNumber,
     date: transaction.date,
     eventId: event._id,
-    fees: eventData.fees,
+    fees,
     feeRecipient: eventData.feeRecipient.toLowerCase(),
     logIndex: eventData.logIndex,
     maker: eventData.maker.toLowerCase(),
     orderHash: eventData.orderHash,
-    protocolVersion: event.protocolVersion,
+    protocolVersion: 1,
     quoteDate: transaction.quoteDate,
     taker: eventData.taker.toLowerCase(),
     transactionHash: transaction.hash.toLowerCase(),
@@ -44,7 +117,13 @@ const processLogFillEvent = async (event, transaction, { logger }) => {
   /*
    * Create any tokens which haven't been seen before.
    */
-  const uniqTokens = getUniqTokens(eventData.assets, eventData.fees);
+  const uniqTokens = _(newFill.assets.map(asset => asset.tokenAddress))
+    .uniq()
+    .map(address => ({
+      address,
+      type: TOKEN_TYPE.ERC20,
+    }))
+    .value();
 
   await createNewTokens(uniqTokens);
 
