@@ -1,0 +1,14 @@
+{
+  "id": "c6eff7f7-606a-485f-b672-8119f32f75d0",
+  "name": "Maker Peg Stability Module",
+  "logo": "maker.png",
+  "urlSlug": "maker-psm",
+  "websiteUrl": "https://community-development.makerdao.com/en/learn/governance/module-psm/",
+  "mappings": [
+    {
+      "source": "0x000000000000000000000000000000104d616b657250736d0000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

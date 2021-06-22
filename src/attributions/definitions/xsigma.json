@@ -1,0 +1,14 @@
+{
+  "id": "981c15ee-433f-4a17-bc8a-442857a685b9",
+  "name": "xSigma",
+  "logo": "xsigma.png",
+  "urlSlug": "xsigma",
+  "websiteUrl": "https://www.xsigma.fi",
+  "mappings": [
+    {
+      "source": "0x00000000000000000000000000000001785369676d6100000000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}
