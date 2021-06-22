@@ -15,6 +15,10 @@
     {
       "source": "12",
       "type": "liquidity-source"
+    },
+    {
+      "source": "0x000000000000000000000000000000095368656c6c0000000000000000000000",
+      "type": "liquidity-source"
     }
   ],
   "categories": []

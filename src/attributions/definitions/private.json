@@ -39,6 +39,10 @@
     {
       "bridgeAddress": "0xae3641dffb712e917b9dc3e6c271b6657ff39818",
       "type": "liquidity-source"
+    },
+    {
+      "source": "0x000000000000000000000000000000004c500000000000000000000000000000",
+      "type": "liquidity-source"
     }
   ],
   "categories": []
