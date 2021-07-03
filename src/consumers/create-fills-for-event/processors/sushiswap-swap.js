@@ -31,12 +31,6 @@ const processSushiswapSwapEvent = async (event, transaction, { logger }) => {
         actor: FILL_ACTOR.MAKER,
         amount: new BigNumber(event.data.makerAmount).toNumber(),
         tokenAddress: event.data.makerToken,
-
-        /* 
-          Sushiswap Bridge – this is a bit of a hack for tracking purposes and should
-          be replaced longer-term with something better (e.g. liquidity source)
-        */
-        bridgeAddress: '0x47ed0262a0b688dcb836d254c6a2e96b6c48a9f5',
       },
       {
         actor: FILL_ACTOR.TAKER,

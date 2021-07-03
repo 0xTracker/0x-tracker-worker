@@ -32,12 +32,6 @@ const processUniswapV2SwapEvent = async (event, transaction, { logger }) => {
         actor: FILL_ACTOR.MAKER,
         amount: new BigNumber(event.data.makerAmount).toNumber(),
         tokenAddress: event.data.makerToken,
-
-        /* 
-          Uniswap V2 Bridge – this is a bit of a hack for tracking purposes and should
-          be replaced longer-term with something better (e.g. liquidity source)
-        */
-        bridgeAddress: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
       },
       {
         actor: FILL_ACTOR.TAKER,
