@@ -1,0 +1,16 @@
+{
+  "id": "f8a522b2-416f-41f3-af68-1fcec9cf5b4c",
+  "name": "Coinbase Wallet",
+  "logo": "coinbase-wallet.png",
+  "urlSlug": "coinbase-wallet",
+  "websiteUrl": "https://wallet.coinbase.com",
+  "mappings": [
+    {
+      "transactionToAddress": "0xe66b31678d6c16e9ebf358268a790b763c133750",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "wallet"
+  ]
+}
