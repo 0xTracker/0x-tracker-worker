@@ -5,7 +5,7 @@ const fetchFillStatus = async (fill, delay) => {
   const fillId = fill._id.toString();
 
   await publishJob(
-    QUEUE.FILL_PROCESSING,
+    QUEUE.PRICING,
     JOB.CONVERT_PROTOCOL_FEE,
     {
       fillId,

@@ -43,5 +43,5 @@ const convertProtocolFee = async (job, { logger }) => {
 module.exports = {
   fn: convertProtocolFee,
   jobName: JOB.CONVERT_PROTOCOL_FEE,
-  queueName: QUEUE.FILL_PROCESSING,
+  queueName: QUEUE.PRICING,
 };

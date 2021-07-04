@@ -61,7 +61,7 @@ const processTransformedERC20Event = async (
     );
 
     await publishJob(
-      QUEUE.EVENT_PROCESSING,
+      QUEUE.DEFAULT,
       JOB.CREATE_FILLS_FOR_EVENT,
       { eventId },
       { delay: 3600000 }, // Delay for an hour

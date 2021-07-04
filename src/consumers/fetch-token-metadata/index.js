@@ -22,5 +22,5 @@ const consumer = async (job, { logger }) => {
 module.exports = {
   fn: consumer,
   jobName: JOB.FETCH_TOKEN_METADATA,
-  queueName: QUEUE.TOKEN_PROCESSING,
+  queueName: QUEUE.ETH_DATA,
 };

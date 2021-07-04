@@ -44,7 +44,7 @@ const batchScheduleTransactionFetch = async ({ batchSize }, { logger }) => {
   // Schedule fetch of transaction data
   await Promise.all(
     txs.map(async tx => {
-      await publishJob(QUEUE.TRANSACTION_PROCESSING, JOB.FETCH_TRANSACTION, {
+      await publishJob(QUEUE.ETH_DATA, JOB.FETCH_TRANSACTION, {
         blockNumber: tx.blockNumber,
         transactionHash: tx.transactionHash,
       });

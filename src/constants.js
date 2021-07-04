@@ -71,7 +71,6 @@ module.exports = {
     CONVERT_PROTOCOL_FEE: 'convert-protocol-fee',
     CONVERT_RELAYER_FEES: 'convert-relayer-fees',
     CREATE_FILLS_FOR_EVENT: 'create-fills-for-event',
-    CREATE_TOKEN: 'create-token',
     FETCH_ADDRESS_TYPE: 'fetch-address-type',
     FETCH_TOKEN_METADATA: 'fetch-token-metadata',
     FETCH_TRANSACTION: 'fetch-transaction',
@@ -83,28 +82,14 @@ module.exports = {
     MEASURE_FILL: 'measure-fill',
   },
   QUEUE: {
-    ADDRESS_PROCESSING: 'address-processing',
-    EVENT_PROCESSING: 'event-processing',
-    FILL_PROCESSING: 'fill-processing',
+    DEFAULT: 'default',
+    ETH_DATA: 'eth-data',
     INDEXING: 'indexing',
     PRICING: 'pricing',
-    TOKEN_PROCESSING: 'token-processing',
-    TRANSACTION_PROCESSING: 'transaction-processing',
-  },
-  SYMBOL_MAPPINGS: {
-    DAIW: 'DAI',
-    ETHW: 'ETH',
-    USDTW: 'USDT',
-    'VEIL ETH': 'ETH',
-    WETH: 'ETH',
   },
   TOKEN_TYPE: {
     ERC20: 0,
     ERC721: 1,
     ERC1155: 2,
-  },
-  TRADER_TYPE: {
-    MAKER: 0,
-    TAKER: 1,
   },
 };

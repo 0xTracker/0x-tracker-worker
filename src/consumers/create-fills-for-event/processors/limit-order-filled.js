@@ -1,11 +1,6 @@
 const _ = require('lodash');
 const { BigNumber } = require('@0x/utils');
-const {
-  FILL_ACTOR,
-  FILL_TYPE,
-  TOKEN_TYPE,
-  TRADER_TYPE,
-} = require('../../../constants');
+const { FILL_ACTOR, FILL_TYPE, TOKEN_TYPE } = require('../../../constants');
 const createFills = require('../../../fills/create-fills');
 const Fill = require('../../../model/fill');
 const createNewTokens = require('../../../tokens/create-new-tokens');
@@ -55,7 +50,7 @@ const processLimitOrderFilledEvent = async (event, transaction, { logger }) => {
             {
               amount: { token: takerFee },
               tokenAddress: event.data.takerToken,
-              traderType: TRADER_TYPE.TAKER,
+              traderType: FILL_ACTOR.TAKER,
             },
           ]
         : [],
