@@ -1,28 +1,12 @@
 const _ = require('lodash');
 const { JOB, QUEUE, FILL_ATTRIBUTION_TYPE } = require('../constants');
+const getTradeCountContribution = require('../fills/get-trade-count-contribution');
 const { publishJob } = require('../queues');
-const relayerRegistry = require('../relayers/relayer-registry');
-
-const isOrderMatcher = relayerId => {
-  const relayer = _(relayerRegistry)
-    .values()
-    .find({ lookupId: relayerId });
-
-  return _.get(relayer, 'orderMatcher', false);
-};
-
-const calculateTradeCount = relayerId => {
-  if (isOrderMatcher(relayerId)) {
-    return 0.5;
-  }
-
-  return 1;
-};
 
 const indexFillTraders = async fill => {
   const fillId = fill._id.toString();
   const value = _.get(fill, 'conversions.USD.amount');
-  const tradeCount = calculateTradeCount(fill.relayerId);
+  const tradeCountContribution = getTradeCountContribution(fill);
 
   publishJob(QUEUE.INDEXING, JOB.INDEX_FILL_TRADERS, {
     appIds: fill.attributions
@@ -36,9 +20,8 @@ const indexFillTraders = async fill => {
     fillId,
     fillValue: value,
     maker: fill.maker,
-    relayerId: fill.relayerId,
     taker: fill.taker,
-    tradeCount,
+    tradeCount: tradeCountContribution,
     transactionHash: fill.transactionHash,
   });
 };

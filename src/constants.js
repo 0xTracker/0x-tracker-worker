@@ -56,11 +56,6 @@ module.exports = {
     PRICED: 0,
     UNPRICEABLE: 1,
   },
-  FILL_STATUS: {
-    FAILED: 2,
-    PENDING: 0,
-    SUCCESSFUL: 1,
-  },
   FILL_TYPE: {
     REGULAR: 0,
     TRANSFORMED_ERC20: 1,

@@ -116,7 +116,6 @@ describe('consumers/index-fill', () => {
       _id: '5f7b709a5a345268dec8d425',
       hasValue: true,
       immeasurable: false,
-      status: 1,
       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
       assets: [
         {
@@ -172,7 +171,6 @@ describe('consumers/index-fill', () => {
       transactionHash:
         '0xd1e01c31a2183107221ef094b3f7cbfedd13db0340df935464c1dddd2259a1ea',
       type: 0,
-      relayerId: 35,
       conversions: {
         USD: {
           amount: 4905.859567,
@@ -225,9 +223,7 @@ describe('consumers/index-fill', () => {
       protocolFeeETH: 5110000000000000,
       protocolFeeUSD: 1.7990777,
       protocolVersion: 3,
-      relayerId: 35,
       senderAddress: '0x0000008155f9986614d6fcba5388b624023bcb77',
-      status: 1,
       taker: '0xf9757222770d93f0f71c30098d12d4754209f4d4',
       tradeCountContribution: 1,
       tradeVolume: 4905.859567,
@@ -257,7 +253,6 @@ describe('consumers/index-fill', () => {
       _id: '5f7556972d14a83036966e50',
       hasValue: true,
       immeasurable: false,
-      status: 1,
       assets: [
         {
           tokenResolved: true,
@@ -312,7 +307,6 @@ describe('consumers/index-fill', () => {
         '0x8222bab3a43ebacc13df998bacedc36abf43da9462726fbec28c778ce981395a',
       type: 0,
       attributions: [],
-      relayerId: 28,
       conversions: {
         USD: {
           protocolFee: 1.70891525,

@@ -8,7 +8,6 @@ module.exports = {
   },
   hasValue: true,
   immeasurable: false,
-  status: 1,
   attributions: [],
   assets: [
     {
@@ -48,7 +47,6 @@ module.exports = {
     '0x0ccbf1bc14e19be3a4c422b18bb1c9870b5e0a75cfb75b694688b07380c13732',
   protocolFee: 1500000000150000.0,
   protocolVersion: 3,
-  relayerId: 31,
   senderAddress: '0x4ef40d1bf0983899892946830abf99eca2dbc5ce',
   taker: '0x4ef40d1bf0983899892946830abf99eca2dbc5ce',
   transactionHash:

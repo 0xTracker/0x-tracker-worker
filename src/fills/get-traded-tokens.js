@@ -1,18 +1,9 @@
 const _ = require('lodash');
 
 const formatTokenAmount = require('../tokens/format-token-amount');
+const getTradeCountContribution = require('./get-trade-count-contribution');
 
 const fixNaN = value => (_.isNaN(value) ? undefined : value);
-
-const calculateTradeCountContribution = fill => {
-  const isOrderMatcher = _.get(fill, 'relayer.orderMatcher', false);
-
-  if (isOrderMatcher) {
-    return 0.5;
-  }
-
-  return 1;
-};
 
 const getTradedTokens = fill => {
   const tradedTokens = _(fill.assets)
@@ -23,7 +14,7 @@ const getTradedTokens = fill => {
           ? formatTokenAmount(asset.amount, decimals).toNumber()
           : undefined;
       const amountUSD = _.get(asset, 'value.USD');
-      const tradeCountContribution = calculateTradeCountContribution(fill);
+      const tradeCountContribution = getTradeCountContribution(fill);
 
       return {
         address: asset.tokenAddress,

@@ -71,17 +71,6 @@ it.skip('should include any attributions associated with the fill', () => {
   ]);
 });
 
-it.skip('should halve trade volume for orderMatcher fill and set tradeCountContribution to 0.5', () => {
-  const fill = {
-    ...V2_FILL,
-    relayerId: 2,
-  };
-  const doc = createDocument(fill);
-
-  expect(doc.tradeVolume).toBe(329.44788459646225);
-  expect(doc.tradeCountContribution).toBe(0.5);
-});
-
 it.skip('should index protocol fee for V3 fills', () => {
   const doc = createDocument(V3_FILL);
 

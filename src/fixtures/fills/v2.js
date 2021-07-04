@@ -6,7 +6,6 @@ const V2_FILL = {
   conversions: { USD: { amount: 658.8957691929245 } },
   hasValue: true,
   immeasurable: false,
-  status: 1,
   attributions: [],
   assets: [
     {
@@ -53,7 +52,6 @@ const V2_FILL = {
   orderHash:
     '0xf186241e774ed0ecb6b6c101482f9a52d77caaf2db3165c9052f814e4c844f5e',
   protocolVersion: 2,
-  relayerId: 7,
   senderAddress: '0x8018280076d7fa2caa1147e441352e8a89e1ddbe',
   taker: '0x8018280076d7fa2caa1147e441352e8a89e1ddbe',
   transactionHash:

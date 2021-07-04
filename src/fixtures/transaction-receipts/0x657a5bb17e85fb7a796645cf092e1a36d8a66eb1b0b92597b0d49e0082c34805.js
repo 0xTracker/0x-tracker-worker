@@ -137,6 +137,5 @@ module.exports = {
   blockNumber: 11822241,
   confirmations: 425759,
   cumulativeGasUsed: { _hex: '0x8c1e86' },
-  status: 1,
   byzantium: true,
 };
