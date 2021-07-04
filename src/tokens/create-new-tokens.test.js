@@ -43,13 +43,13 @@ it('should create all tokens when they are all new', async () => {
 
   expect(publishJob).toHaveBeenCalledTimes(2);
   expect(publishJob).toHaveBeenCalledWith(
-    'token-processing',
+    'eth-data',
     'fetch-token-metadata',
     { tokenAddress: '0x123', tokenType: 0 },
     { delay: 30000, jobId: 'fetch-token-metadata-0x123' },
   );
   expect(publishJob).toHaveBeenCalledWith(
-    'token-processing',
+    'eth-data',
     'fetch-token-metadata',
     { tokenAddress: '0x567', tokenType: 1 },
     { delay: 30000, jobId: 'fetch-token-metadata-0x567' },
@@ -108,7 +108,7 @@ it('should create new tokens when some tokens already exist', async () => {
 
   expect(publishJob).toHaveBeenCalledTimes(1);
   expect(publishJob).toHaveBeenCalledWith(
-    'token-processing',
+    'eth-data',
     'fetch-token-metadata',
     { tokenAddress: '0x123', tokenType: 0 },
     { delay: 30000, jobId: 'fetch-token-metadata-0x123' },
