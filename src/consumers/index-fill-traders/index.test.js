@@ -128,7 +128,6 @@ describe('consumers/index-fill-traders', () => {
         fillId: '5f267c7b545e125452c56e14',
         fillValue: 500,
         maker: '0x903153f55770b7668a497180f7fa93471545ffe2',
-        relayerId: 28,
         taker: '0xd0f8715fda0c1b564c2087315fb55804eaf1fae9',
         tradeCount: 1,
         transactionHash:
@@ -168,7 +167,6 @@ describe('consumers/index-fill-traders', () => {
         address: '0x903153f55770b7668a497180f7fa93471545ffe2',
         fillId: '5f267c7b545e125452c56e14',
         date: '2020-08-02T07:47:28.000Z',
-        relayerId: 28,
         makerFillCount: 1,
         makerFillValue: 500,
         makerTradeCount: 1,
@@ -187,7 +185,6 @@ describe('consumers/index-fill-traders', () => {
         address: '0xd0f8715fda0c1b564c2087315fb55804eaf1fae9',
         fillId: '5f267c7b545e125452c56e14',
         date: '2020-08-02T07:47:28.000Z',
-        relayerId: 28,
         takerFillCount: 1,
         takerFillValue: 500,
         takerTradeCount: 1,
@@ -297,7 +294,7 @@ describe('consumers/index-fill-traders', () => {
     ]);
   });
 
-  it('should index without value and relayerId if not available', async () => {
+  it('should index without value if not available', async () => {
     const job = {
       data: {
         fillDate: new Date('2020-08-02T07:47:28Z'),

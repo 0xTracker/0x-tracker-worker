@@ -6,26 +6,9 @@ const { getModel } = require('../../model');
 const createDocument = require('../../index/fills/create-document');
 const elasticsearch = require('../../util/elasticsearch');
 const getIndexName = require('../../index/get-index-name');
-const relayerRegistry = require('../../relayers/relayer-registry');
-
-const isOrderMatcher = relayerId => {
-  const relayer = _(relayerRegistry)
-    .values()
-    .find({ lookupId: relayerId });
-
-  return _.get(relayer, 'orderMatcher', false);
-};
-
-const calculateTradeVolume = (value, relayerId) => {
-  if (isOrderMatcher(relayerId)) {
-    return value / 2;
-  }
-
-  return value;
-};
 
 const indexFillValue = async (job, { logger }) => {
-  const { fillId, relayerId, value } = job.data;
+  const { fillId, tradeValue, value } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {
     throw new Error(`Invalid fillId: ${fillId}`);
@@ -52,7 +35,7 @@ const indexFillValue = async (job, { logger }) => {
     index: getIndexName('fills'),
     body: {
       doc: {
-        tradeVolume: calculateTradeVolume(value, relayerId),
+        tradeVolume: tradeValue,
         value,
       },
       upsert: createDocument(fill),

@@ -25,7 +25,6 @@ const indexTradedTokens = fill => {
       })),
       date: fill.date,
       fillId,
-      relayerId: fill.relayerId,
       tradedTokens,
     },
     { jobId: `index-traded-tokens-${fillId}` },

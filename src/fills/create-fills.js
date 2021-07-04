@@ -31,7 +31,6 @@ const createFills = async (transaction, fills, { session } = {}) => {
   const newFills = await Fill.create(fillsWithTokenStatus, { session });
 
   await Fill.populate(newFills, [
-    { path: 'relayer' },
     { path: 'assets.token' },
     { path: 'fees.token' },
   ]);

@@ -253,7 +253,6 @@ describe('consumers/create-fills-for-event', () => {
         '0x0000000000000000000000000000000000000000000000000000000000000000',
       protocolFee: 8400000000000000,
       protocolVersion: 4,
-      status: 1,
       taker: '0x9016cc2122b52ff5d9937c0c1422b78d7e81ceea',
       transactionHash:
         '0x87b06f51b6e14c9edc26f9af246bc7b4ba3d82ae7b61597dda772a0a6547f934',
@@ -376,7 +375,6 @@ describe('consumers/create-fills-for-event', () => {
           '0x0000000000000000000000000000000000000000000000000000000000000000',
         protocolFee: 8400000000000000,
         protocolVersion: 4,
-        status: 1,
         taker: '0x9016cc2122b52ff5d9937c0c1422b78d7e81ceea',
         transactionHash:
           '0x87b06f51b6e14c9edc26f9af246bc7b4ba3d82ae7b61597dda772a0a6547f934',
@@ -493,7 +491,6 @@ describe('consumers/create-fills-for-event', () => {
       pool:
         '0x0000000000000000000000000000000000000000000000000000000000000017',
       protocolVersion: 4,
-      status: 1,
       taker: '0x975eac3e6da5281d00844b251cd146b9621ef824',
       transactionHash:
         '0x57247fbc2207d298bd161ccf4bdd37545c0baf3f92cb65ad82f25083577a07b1',
@@ -615,7 +612,6 @@ describe('consumers/create-fills-for-event', () => {
         pool:
           '0x0000000000000000000000000000000000000000000000000000000000000017',
         protocolVersion: 4,
-        status: 1,
         taker: '0x975eac3e6da5281d00844b251cd146b9621ef824',
         transactionHash:
           '0x57247fbc2207d298bd161ccf4bdd37545c0baf3f92cb65ad82f25083577a07b1',
@@ -736,8 +732,6 @@ describe('consumers/create-fills-for-event', () => {
       maker: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
       protocolVersion: 3,
       quoteDate: new Date('2020-09-23T06:07:44.000Z'),
-      relayerId: 35,
-      status: 1,
       taker: '0x000000f15851d0875e878a83451163999bf5da51',
       transactionHash:
         '0x2394b14050177589fc3177a5073c9e16f9e4d7d6e9905341e12371da188f0b0e',
@@ -857,8 +851,6 @@ describe('consumers/create-fills-for-event', () => {
         maker: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
         protocolVersion: 3,
         quoteDate: new Date('2020-09-23T06:07:44.000Z'),
-        relayerId: 35,
-        status: 1,
         taker: '0x000000f15851d0875e878a83451163999bf5da51',
         transactionHash:
           '0x2394b14050177589fc3177a5073c9e16f9e4d7d6e9905341e12371da188f0b0e',
@@ -977,8 +969,6 @@ describe('consumers/create-fills-for-event', () => {
       maker: '0x397ff1542f962076d0bfe58ea045ffa2d347aca0',
       protocolVersion: 3,
       quoteDate: new Date('2020-09-23T07:21:38.000Z'),
-      relayerId: 35,
-      status: 1,
       taker: '0xc40d16476380e4037e6b1a2594caf6a6cc8da967',
       transactionHash:
         '0x10f1684349206b53cdec4f35f1cff6bc7cd7487feba25513633b78e1d8737a46',
@@ -1097,8 +1087,6 @@ describe('consumers/create-fills-for-event', () => {
         maker: '0x397ff1542f962076d0bfe58ea045ffa2d347aca0',
         protocolVersion: 3,
         quoteDate: new Date('2020-09-23T07:21:38.000Z'),
-        relayerId: 35,
-        status: 1,
         taker: '0xc40d16476380e4037e6b1a2594caf6a6cc8da967',
         transactionHash:
           '0x10f1684349206b53cdec4f35f1cff6bc7cd7487feba25513633b78e1d8737a46',
@@ -1220,8 +1208,6 @@ describe('consumers/create-fills-for-event', () => {
       maker: '0xc340ef96449514cea4dfa11d847a06d7f03d437c',
       protocolVersion: 3,
       quoteDate: new Date('2020-12-03T04:29:42.000Z'),
-      relayerId: 35,
-      status: 1,
       taker: '0xd2e8f308a4305160fce7bde28865f6b551efcbcc',
       transactionHash:
         '0xcb75981a2bd35f014b00a97388842477dbc31365ceaa32e96ff19ab8f6d3481c',
@@ -1348,8 +1334,6 @@ describe('consumers/create-fills-for-event', () => {
         maker: '0xc340ef96449514cea4dfa11d847a06d7f03d437c',
         protocolVersion: 3,
         quoteDate: new Date('2020-12-03T04:29:42.000Z'),
-        relayerId: 35,
-        status: 1,
         taker: '0xd2e8f308a4305160fce7bde28865f6b551efcbcc',
         transactionHash:
           '0xcb75981a2bd35f014b00a97388842477dbc31365ceaa32e96ff19ab8f6d3481c',
@@ -1652,8 +1636,6 @@ describe('consumers/create-fills-for-event', () => {
       maker: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
       protocolVersion: 3,
       quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-      relayerId: 35,
-      status: 1,
       taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
       transactionHash:
         '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
@@ -1710,8 +1692,6 @@ describe('consumers/create-fills-for-event', () => {
       maker: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4',
       protocolVersion: 3,
       quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-      relayerId: 35,
-      status: 1,
       taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
       transactionHash:
         '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
@@ -1768,8 +1748,6 @@ describe('consumers/create-fills-for-event', () => {
       maker: '0x1c29670f7a77f1052d30813a0a4f632c78a02610',
       protocolVersion: 3,
       quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-      relayerId: 35,
-      status: 1,
       taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
       transactionHash:
         '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
@@ -1941,8 +1919,6 @@ describe('consumers/create-fills-for-event', () => {
         maker: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
         protocolVersion: 3,
         quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-        relayerId: 35,
-        status: 1,
         taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
         transactionHash:
           '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
@@ -1983,8 +1959,6 @@ describe('consumers/create-fills-for-event', () => {
         maker: '0xfe01821ca163844203220cd08e4f2b2fb43ae4e4',
         protocolVersion: 3,
         quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-        relayerId: 35,
-        status: 1,
         taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
         transactionHash:
           '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
@@ -2100,8 +2074,6 @@ describe('consumers/create-fills-for-event', () => {
         maker: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48',
         protocolVersion: 3,
         quoteDate: new Date('2020-07-29T21:25:10.000Z'),
-        relayerId: 35,
-        status: 1,
         taker: '0xfe2ecb650fabf37431cba75ec9545284ecfbb03c',
         transactionHash:
           '0x7444e18b2993978e7757ddf930a765b4839ed197751a3b2b4072df39c02183f4',
@@ -2331,9 +2303,7 @@ describe('consumers/create-fills-for-event', () => {
       logIndex: 190,
       protocolVersion: 4,
       quoteDate: new Date('2021-02-10T14:07:48.000Z'),
-      relayerId: 35,
       source: '3',
-      status: 1,
       taker: '0x09212c58107c8da21b0f67a63e2144bb68bee4eb',
       transactionHash:
         '0xfe220c86b626b1b25400e972b4162bb52878139fed8284882dc69ed13a42a04d',

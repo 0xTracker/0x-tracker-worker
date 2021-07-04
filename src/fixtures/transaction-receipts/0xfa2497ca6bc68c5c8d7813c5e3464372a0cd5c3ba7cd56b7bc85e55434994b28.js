@@ -264,6 +264,5 @@ module.exports = {
   cumulativeGasUsed: {
     _hex: '0x3f4f84',
   },
-  status: 1,
   byzantium: true,
 };

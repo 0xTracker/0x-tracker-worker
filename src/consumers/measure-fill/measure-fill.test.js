@@ -48,7 +48,7 @@ describe('jobs/measure-fills/measure-fill', () => {
       'index-fill-value',
       {
         fillId: '5e3e9abbb2227b1f0e73be5f',
-        relayerId: 31,
+        tradeValue: 1674.924411,
         value: 1674.924411,
       },
       {
@@ -71,7 +71,6 @@ describe('jobs/measure-fills/measure-fill', () => {
       fillDate: new Date('2020-02-08T11:21:14.000Z'),
       fillValue: 1674.924411,
       maker: '0x533344cfdf2a3e911e2cf4c6f5ed08e791f5355f',
-      relayerId: 31,
       taker: '0x4ef40d1bf0983899892946830abf99eca2dbc5ce',
       tradeCount: 1,
       transactionHash:

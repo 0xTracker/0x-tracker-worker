@@ -5,7 +5,7 @@ const elasticsearch = require('../../util/elasticsearch');
 const getIndexName = require('../../index/get-index-name');
 
 const consumer = async (job, { logger }) => {
-  const { attributions, date, fillId, relayerId, tradedTokens } = job.data;
+  const { attributions, date, fillId, tradedTokens } = job.data;
 
   logger.info(`indexing traded tokens for fill: ${fillId}`);
 
@@ -28,7 +28,6 @@ const consumer = async (job, { logger }) => {
             fillId,
             date,
             tokenAddress: tradedToken.address,
-            relayerId,
             tokenType: tradedToken.type,
             liquiditySourceId: liquiditySource ? liquiditySource.id : undefined,
             filledAmount: tradedToken.filledAmount,

@@ -5,7 +5,6 @@ const ArticleFeed = require('./article-feed');
 const AttributionEntity = require('./attribution-entity');
 const Event = require('./event');
 const Fill = require('./fill');
-const Relayer = require('./relayer');
 const Token = require('./token');
 const Transaction = require('./transaction');
 
@@ -48,7 +47,6 @@ const initModels = async () => {
     ArticleFeed,
     Event,
     Fill,
-    Relayer,
     Token,
     Transaction,
   };
