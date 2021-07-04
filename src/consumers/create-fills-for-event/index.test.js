@@ -31,7 +31,7 @@ const mockOptions = {
 
 describe('consumers/create-fills-for-event', () => {
   it('should consume event processing queue', () => {
-    expect(createFillsForEvent.queueName).toBe('event-processing');
+    expect(createFillsForEvent.queueName).toBe('default');
   });
 
   it('should consume create-fills-for-event jobs', () => {
@@ -92,7 +92,7 @@ describe('consumers/create-fills-for-event', () => {
 
     expect(publishJob).toHaveBeenCalledTimes(1);
     expect(publishJob).toHaveBeenCalledWith(
-      'event-processing',
+      'default',
       'create-fills-for-event',
       {
         eventId: '600e7823b1592424e2dadcc8',

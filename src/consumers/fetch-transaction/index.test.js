@@ -178,7 +178,7 @@ describe('consumers/fetch-transaction', () => {
 
     expect(publishJob).toHaveBeenCalledTimes(1);
     expect(publishJob).toHaveBeenCalledWith(
-      'address-processing',
+      'eth-data',
       'fetch-address-type',
       { address: '0x00000055a65c7b71f171659b8838e1a139b0e518' },
       {
@@ -196,7 +196,7 @@ describe('consumers/fetch-transaction', () => {
 
     expect(publishJob).toHaveBeenCalledTimes(1);
     expect(publishJob).toHaveBeenCalledWith(
-      'address-processing',
+      'eth-data',
       'fetch-address-type',
       { address: '0x00000055a65c7b71f171659b8838e1a139b0e518' },
       {

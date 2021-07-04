@@ -33,5 +33,5 @@ const fetchAddressType = async (job, { logger }) => {
 module.exports = {
   fn: fetchAddressType,
   jobName: JOB.FETCH_ADDRESS_TYPE,
-  queueName: QUEUE.ADDRESS_PROCESSING,
+  queueName: QUEUE.ETH_DATA,
 };

@@ -45,12 +45,9 @@ const createFillsForEvent = async (job, { logger }) => {
       job.log(`transaction not found: ${event.transactionHash}`);
     }
 
-    await publishJob(
-      QUEUE.EVENT_PROCESSING,
-      JOB.CREATE_FILLS_FOR_EVENT,
-      job.data,
-      { delay: 30000 },
-    );
+    await publishJob(QUEUE.DEFAULT, JOB.CREATE_FILLS_FOR_EVENT, job.data, {
+      delay: 30000,
+    });
 
     return;
   }
@@ -111,5 +108,5 @@ const createFillsForEvent = async (job, { logger }) => {
 module.exports = {
   fn: createFillsForEvent,
   jobName: JOB.CREATE_FILLS_FOR_EVENT,
-  queueName: QUEUE.EVENT_PROCESSING,
+  queueName: QUEUE.DEFAULT,
 };

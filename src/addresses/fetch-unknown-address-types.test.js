@@ -28,7 +28,7 @@ describe('addresses/fetch-unknown-address-types', () => {
     expect(publishJob).toHaveBeenCalledTimes(2);
 
     expect(publishJob).toHaveBeenCalledWith(
-      'address-processing',
+      'eth-data',
       'fetch-address-type',
       { address: '0x14e56cf9e6257475f9b6310adc98865fc24d6504' },
       {
@@ -37,7 +37,7 @@ describe('addresses/fetch-unknown-address-types', () => {
     );
 
     expect(publishJob).toHaveBeenCalledWith(
-      'address-processing',
+      'eth-data',
       'fetch-address-type',
       { address: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48' },
       {
@@ -62,7 +62,7 @@ describe('addresses/fetch-unknown-address-types', () => {
     expect(publishJob).toHaveBeenCalledTimes(1);
 
     expect(publishJob).toHaveBeenCalledWith(
-      'address-processing',
+      'eth-data',
       'fetch-address-type',
       { address: '0xdcd6011f4c6b80e470d9487f5871a0cba7c93f48' },
       {
@@ -108,7 +108,7 @@ describe('addresses/fetch-unknown-address-types', () => {
     expect(publishJob).toHaveBeenCalledTimes(1);
 
     expect(publishJob).toHaveBeenCalledWith(
-      'address-processing',
+      'eth-data',
       'fetch-address-type',
       { address: '0x14e56cf9e6257475f9b6310adc98865fc24d6504' },
       {

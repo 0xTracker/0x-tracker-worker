@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const { TRADER_TYPE } = require('../constants');
+const { FILL_ACTOR } = require('../constants');
 const parseAssetData = require('../util/parse-asset-data');
 
 const createFeeAssetMapper = traderType => asset => ({
@@ -9,8 +9,8 @@ const createFeeAssetMapper = traderType => asset => ({
   traderType,
 });
 
-const mapMakerFeeAsset = createFeeAssetMapper(TRADER_TYPE.MAKER);
-const mapTakerFeeAsset = createFeeAssetMapper(TRADER_TYPE.TAKER);
+const mapMakerFeeAsset = createFeeAssetMapper(FILL_ACTOR.MAKER);
+const mapTakerFeeAsset = createFeeAssetMapper(FILL_ACTOR.TAKER);
 
 const getFeesForEvent = event => {
   const { data } = event;

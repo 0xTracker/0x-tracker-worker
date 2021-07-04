@@ -60,5 +60,5 @@ const convertRelayerFees = async (job, { logger }) => {
 module.exports = {
   fn: convertRelayerFees,
   jobName: JOB.CONVERT_RELAYER_FEES,
-  queueName: QUEUE.FILL_PROCESSING,
+  queueName: QUEUE.PRICING,
 };

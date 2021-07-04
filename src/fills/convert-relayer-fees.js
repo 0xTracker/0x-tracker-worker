@@ -3,7 +3,7 @@ const { publishJob } = require('../queues');
 
 const convertRelayerFees = async (fillId, delay) => {
   await publishJob(
-    QUEUE.FILL_PROCESSING,
+    QUEUE.PRICING,
     JOB.CONVERT_RELAYER_FEES,
     {
       fillId,

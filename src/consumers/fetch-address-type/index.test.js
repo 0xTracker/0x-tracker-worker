@@ -27,8 +27,8 @@ afterAll(async () => {
 }, 30000);
 
 describe('consumers/fetch-address-type', () => {
-  it('should consume address-processing queue', () => {
-    expect(consumer.queueName).toBe('address-processing');
+  it('should consume eth-data queue', () => {
+    expect(consumer.queueName).toBe('eth-data');
   });
 
   it('should consume fetch-address-type jobs', () => {

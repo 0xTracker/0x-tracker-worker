@@ -3,7 +3,7 @@ const { publishJob } = require('../queues');
 
 const fetchTokenMetadata = async (tokenAddress, tokenType, delay) => {
   publishJob(
-    QUEUE.TOKEN_PROCESSING,
+    QUEUE.ETH_DATA,
     JOB.FETCH_TOKEN_METADATA,
     {
       tokenAddress,

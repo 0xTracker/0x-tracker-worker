@@ -20,9 +20,6 @@ module.exports = {
     url: process.env.ELASTIC_SEARCH_URL,
     username: _.get(process.env, 'ELASTIC_SEARCH_USERNAME', null),
   },
-  ercDex: {
-    feeRecipientPollingInterval: ms('1 minute'),
-  },
   jobs: {
     aggregateDailyLiquiditySourceMetrics: {
       enabled: aggregationEnabled,
@@ -45,20 +42,13 @@ module.exports = {
     batchScheduleTransactionFetch: {
       batchSize: 1000,
     },
-    createFills: {
-      batchSize: 1000,
-    },
     deriveFillPrices: {
       batchSize: 100,
-    },
-    measureFills: {
-      batchSize: 1000,
     },
   },
   pollingIntervals: {
     max: {
       default: ms('5 minutes'),
-      measureFills: ms('1 minute'),
     },
     min: {
       aggregateDailyLiquiditySourceMetrics: ms('5 minutes'),
@@ -67,17 +57,10 @@ module.exports = {
       aggregateDailyTokenMetrics: ms('5 minutes'),
       aggregateDailyTraderMetrics: ms('5 minutes'),
       batchScheduleTransactionFetch: ms('10 seconds'),
-      cacheAddressMetrics: ms('1 minute'),
-      cacheProtocolMetrics: ms('1 minute'),
-      cacheRelayerMetrics: ms('1 minute'),
-      cacheTokenMetrics: ms('1 minute'),
-      cacheTokenStats: ms('1 minute'),
       default: ms('30 seconds'),
+      fetchArticles: ms('10 minutes'),
       getMissingTokenImages: ms('1 minute'),
-      getNewArticles: ms('10 minutes'),
       precomputeAppStats: ms('5 minutes'),
-      resolveTokens: ms('1 minute'),
-      updateRelayerStats: ms('1 minute'),
     },
   },
   scheduler: {
@@ -86,7 +69,7 @@ module.exports = {
   queues: {
     pricing: {
       limiter: {
-        max: 1,
+        max: 10,
         duration: 1000,
       },
     },

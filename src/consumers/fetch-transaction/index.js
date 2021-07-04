@@ -81,5 +81,5 @@ const fetchTransaction = async (job, { logger }) => {
 module.exports = {
   fn: fetchTransaction,
   jobName: JOB.FETCH_TRANSACTION,
-  queueName: QUEUE.TRANSACTION_PROCESSING,
+  queueName: QUEUE.ETH_DATA,
 };

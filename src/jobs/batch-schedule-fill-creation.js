@@ -35,7 +35,7 @@ const batchScheduleFillCreation = async ({ batchSize }, { logger }) => {
 
   await Promise.all(
     events.map(event =>
-      publishJob(QUEUE.EVENT_PROCESSING, JOB.CREATE_FILLS_FOR_EVENT, {
+      publishJob(QUEUE.DEFAULT, JOB.CREATE_FILLS_FOR_EVENT, {
         eventId: event._id,
       }),
     ),

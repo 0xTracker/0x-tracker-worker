@@ -41,7 +41,7 @@ const createNewTokens = async tokens => {
     await Promise.all(
       newTokens.map(async token => {
         await publishJob(
-          QUEUE.TOKEN_PROCESSING,
+          QUEUE.ETH_DATA,
           JOB.FETCH_TOKEN_METADATA,
           {
             tokenAddress: token.address.toLowerCase(),
