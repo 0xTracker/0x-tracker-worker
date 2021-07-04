@@ -1,0 +1,20 @@
+{
+  "id": "6b597163-847e-47a8-b535-260c1bf75339",
+  "name": "Payrue",
+  "logo": "payrue.png",
+  "urlSlug": "payrue",
+  "websiteUrl": "https://payrue.finance",
+  "mappings": [
+    {
+      "affiliateAddress": "0x08EdDDF5307Fb2C6557DcB6e92FDbEb97762C4dD",
+      "type": "consumer"
+    },
+    {
+      "feeRecipientAddress": "0x08EdDDF5307Fb2C6557DcB6e92FDbEb97762C4dD",
+      "type": "relayer"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}
