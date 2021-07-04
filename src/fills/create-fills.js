@@ -62,18 +62,18 @@ const createFills = async (transaction, fills, { session } = {}) => {
     populatedFills.map(async fill => {
       const fillId = fill._id.toString();
 
-      await indexFill(fillId, ms('30 seconds'));
+      await indexFill(fillId, ms('5 seconds'));
       await indexTradedTokens(fill);
       await indexFillTraders(fill);
 
-      await measureFill(fillId);
+      await measureFill(fillId, ms('5 seconds'));
 
       if (hasProtocolFee(fill)) {
-        await convertProtocolFee(fill, ms('30 seconds'));
+        await convertProtocolFee(fill, ms('5 seconds'));
       }
 
       if (hasRelayerFees(fill)) {
-        await convertRelayerFees(fillId, ms('30 seconds'));
+        await convertRelayerFees(fillId, ms('5 seconds'));
       }
 
       await fetchUnknownAddressTypes(
