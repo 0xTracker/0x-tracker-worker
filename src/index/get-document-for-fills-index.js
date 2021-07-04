@@ -1,8 +1,9 @@
 const _ = require('lodash');
-const { FILL_ATTRIBUTION_TYPE } = require('../../constants');
-const getTradeCountContribution = require('../../fills/get-trade-count-contribution');
+const { FILL_ATTRIBUTION_TYPE } = require('../constants');
+const getTradeCountContribution = require('../fills/get-trade-count-contribution');
+const getTraderAddresses = require('../fills/get-trader-addresses');
 
-const createDocument = fill => {
+const getDocumentForFillsIndex = fill => {
   const value = _.get(fill, 'conversions.USD.amount');
   const protocolFeeUSD = _.get(fill, 'conversions.USD.protocolFee');
   const liquiditySource = _.find(
@@ -40,10 +41,7 @@ const createDocument = fill => {
 
     // This field helps to compute traderCount by allowing for cardinality
     // aggregation over maker & taker values.
-    traders: _.compact([
-      fill.maker,
-      fill.takerMetadata.isContract ? fill.transaction.from : fill.taker,
-    ]),
+    traders: getTraderAddresses(fill),
 
     // These fields help to compute tradeVolume and tradeCount metrics in
     // Elasticsearch without the need for a 'trades' index.
@@ -52,4 +50,4 @@ const createDocument = fill => {
   };
 };
 
-module.exports = createDocument;
+module.exports = getDocumentForFillsIndex;

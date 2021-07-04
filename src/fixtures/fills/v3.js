@@ -49,7 +49,12 @@ module.exports = {
   protocolVersion: 3,
   senderAddress: '0x4ef40d1bf0983899892946830abf99eca2dbc5ce',
   taker: '0x4ef40d1bf0983899892946830abf99eca2dbc5ce',
+  takerMetadata: { isContract: true },
   transactionHash:
     '0x846d405f1ab48414c9a32f537c7b247e87e5770cc41dfe4255bc480710ec46f6',
+  transaction: {
+    from: '0x67d1f31eeef182cfb40c0719a8c0000fa7ddcaa9',
+    to: '0x00000000b1786c9698c160d78232c78d6f6474fe',
+  },
   __v: 0,
 };

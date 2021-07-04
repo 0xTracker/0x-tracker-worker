@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 
 const { getModel } = require('../../model');
 const { JOB, QUEUE } = require('../../constants');
-const createDocument = require('../../index/fills/create-document');
 const elasticsearch = require('../../util/elasticsearch');
 const getIndexName = require('../../index/get-index-name');
+const getDocumentForFillsIndex = require('../../index/get-document-for-fills-index');
 
 const indexFillProtocolFee = async (job, { logger }) => {
   const { fillId, protocolFee } = job.data;
@@ -37,7 +37,10 @@ const indexFillProtocolFee = async (job, { logger }) => {
       doc: {
         protocolFeeUSD: protocolFee,
       },
-      upsert: createDocument(fill),
+      upsert: {
+        ...getDocumentForFillsIndex(fill),
+        protocolFeeUSD: protocolFee,
+      },
     },
   });
 
