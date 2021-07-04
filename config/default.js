@@ -86,7 +86,7 @@ module.exports = {
   queues: {
     pricing: {
       limiter: {
-        max: 1,
+        max: 10,
         duration: 1000,
       },
     },
