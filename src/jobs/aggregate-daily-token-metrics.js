@@ -1,92 +1,12 @@
 const _ = require('lodash');
 const moment = require('moment');
 const elasticsearch = require('../util/elasticsearch');
+const getCheckpoint = require('../aggregation/get-checkpoint');
 const getIndexName = require('../index/get-index-name');
-const model = require('../model');
+const saveCheckpoint = require('../aggregation/save-checkpoint');
 
 const BATCH_SIZE = 1000;
 const CHECKPOINT_ID = 'token_metrics_daily';
-
-const getCheckpoint = async () => {
-  const AggregationCheckpoint = model.getModel('AggregationCheckpoint');
-  const currentCheckpoint = await AggregationCheckpoint.findById(CHECKPOINT_ID);
-
-  if (!currentCheckpoint) {
-    const initialCheckpoint = await AggregationCheckpoint.create({
-      _id: CHECKPOINT_ID,
-      date: new Date(),
-      previous: null,
-      progressData: null,
-      complete: false,
-    });
-
-    return initialCheckpoint;
-  }
-
-  if (currentCheckpoint.complete) {
-    currentCheckpoint.set('previous', currentCheckpoint.date);
-    currentCheckpoint.set('date', new Date());
-    currentCheckpoint.set('progressData', null);
-    currentCheckpoint.set('complete', false);
-
-    await currentCheckpoint.save();
-  }
-
-  return currentCheckpoint;
-};
-
-const getFilters = async checkpoint => {
-  const MAX_TARGETS = 100;
-  const aggregationResponse = await elasticsearch.getClient().search({
-    index: 'traded_tokens',
-    size: 0,
-    body: {
-      aggs: {
-        earliestDate: {
-          min: {
-            field: 'date',
-          },
-        },
-        addresses: {
-          terms: {
-            field: 'tokenAddress',
-            size: MAX_TARGETS,
-          },
-        },
-      },
-      query: checkpoint.previous
-        ? {
-            range: {
-              updatedAt: {
-                gte: moment
-                  .utc(checkpoint.previous)
-                  .subtract(10, 'minutes') // Ensure we don't miss fills which have just been indexed but where the index hasn't refreshed
-                  .toDate(),
-              },
-            },
-          }
-        : undefined,
-    },
-  });
-
-  const addresses = aggregationResponse.body.aggregations.addresses.buckets.map(
-    x => x.key,
-  );
-
-  const earliestDate = aggregationResponse.body.aggregations.earliestDate.value;
-
-  if (earliestDate === null) {
-    return null;
-  }
-
-  return {
-    addresses: addresses.length !== MAX_TARGETS ? addresses : undefined,
-    dateFrom: moment
-      .utc(earliestDate)
-      .startOf('day')
-      .toDate(),
-  };
-};
 
 const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
   if (!enabled) {
@@ -94,44 +14,38 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
     return;
   }
 
-  const checkpoint = await getCheckpoint();
-  const filters = await getFilters(checkpoint);
+  const checkpoint = await getCheckpoint(CHECKPOINT_ID);
+  const processAfterDate = checkpoint ? checkpoint.date : null;
 
-  if (checkpoint.previous !== null) {
-    logger.info(`last checkpoint was ${checkpoint.previous.toISOString()}`);
-  } else {
-    logger.info('running for the first time');
-  }
-
-  if (filters === null) {
-    logger.info('no changes detected since last run');
-    checkpoint.set('complete', true);
-    checkpoint.set('progressData', null);
-    await checkpoint.save();
-    return;
-  }
-
-  if (filters.addresses) {
+  if (checkpoint !== null) {
+    logger.info(`last checkpoint was ${checkpoint.date.toISOString()}`);
     logger.info(
-      `aggregating metrics for ${
-        filters.addresses.length
-      } token(s) from ${filters.dateFrom.toISOString()} to now`,
+      `aggregating metrics for all trades made after ${processAfterDate.toISOString()}`,
     );
   } else {
-    logger.info(
-      `aggregating metrics for all tokens from ${filters.dateFrom.toISOString()} to now`,
-    );
+    logger.info('no checkpoint was found');
+    logger.info(`aggregating metrics for all trades`);
   }
 
-  const aggregateBatch = async () => {
+  const aggregateBatch = async after => {
+    const currentCheckpoint = await getCheckpoint(CHECKPOINT_ID);
+
+    /*
+      If the current checkpoint was deleted mid-run then stop any more executions
+      so that a full backfill is run on the next job iteration.
+    */
+    if (currentCheckpoint === null && checkpoint !== null) {
+      return;
+    }
+
     const aggregationResponse = await elasticsearch.getClient().search({
       index: 'traded_tokens',
       size: 0,
       body: {
         aggs: {
-          by_date: {
+          by_group: {
             composite: {
-              after: checkpoint.progressData || undefined,
+              after,
               size: BATCH_SIZE,
               sources: [
                 {
@@ -139,6 +53,7 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
                     date_histogram: {
                       field: 'date',
                       calendar_interval: 'day',
+                      order: 'asc',
                     },
                   },
                 },
@@ -185,26 +100,20 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
             },
           },
         },
-        query: {
-          bool: {
-            filter: _.compact([
-              {
+        query:
+          processAfterDate === null
+            ? undefined
+            : {
                 range: {
                   date: {
-                    gte: filters.dateFrom.toISOString(),
+                    gt: processAfterDate.toISOString(),
                   },
                 },
               },
-              filters.addresses
-                ? { terms: { tokenAddress: filters.addresses } }
-                : undefined,
-            ]),
-          },
-        },
       },
     });
 
-    const result = aggregationResponse.body.aggregations.by_date;
+    const result = aggregationResponse.body.aggregations.by_group;
 
     const dataPoints = result.buckets.map(x => ({
       date: new Date(x.key.day),
@@ -219,9 +128,6 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
 
     if (dataPoints.length === 0) {
       logger.info('no more data points to process');
-      checkpoint.set('complete', true);
-      checkpoint.set('progressData', null);
-      await checkpoint.save();
       return;
     }
 
@@ -237,7 +143,6 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
             doc: {
               address: dataPoint.address,
               date: dataPoint.date.toISOString(),
-              lastUpdated: new Date().toISOString(),
               avgPrice: dataPoint.avgPrice,
               minPrice: dataPoint.minPrice,
               maxPrice: dataPoint.maxPrice,
@@ -261,29 +166,29 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
     }
 
     const lastDate = _.last(dataPoints).date;
-
     logger.info(
       `processed ${
         dataPoints.length
       } data point(s) up to ${lastDate.toISOString()}`,
     );
 
-    if (dataPoints.length === BATCH_SIZE) {
-      checkpoint.set('progressData', result.after_key);
-      await checkpoint.save();
-    } else {
+    const newCheckpoint = moment
+      .utc(lastDate)
+      .subtract(48, 'hours')
+      .endOf('day')
+      .toDate();
+
+    await saveCheckpoint(CHECKPOINT_ID, newCheckpoint);
+
+    if (dataPoints.length < BATCH_SIZE) {
       logger.info('no more data points to process');
-      checkpoint.set('complete', true);
-      checkpoint.set('progressData', null);
-      await checkpoint.save();
+      return;
     }
+
+    await aggregateBatch(result.after_key);
   };
 
-  while (!checkpoint.complete) {
-    /* eslint-disable no-await-in-loop */
-    await aggregateBatch();
-    /* eslint-enable no-await-in-loop */
-  }
+  await aggregateBatch();
 };
 
 module.exports = aggregateDailyTokenMetrics;

@@ -1,77 +1,12 @@
+const _ = require('lodash');
 const moment = require('moment');
 const elasticsearch = require('../util/elasticsearch');
+const getCheckpoint = require('../aggregation/get-checkpoint');
 const getIndexName = require('../index/get-index-name');
-const model = require('../model');
+const saveCheckpoint = require('../aggregation/save-checkpoint');
 
-const BATCH_SIZE = 500;
+const BATCH_SIZE = 1000;
 const CHECKPOINT_ID = 'protocol_metrics_daily';
-
-const getCheckpoint = async () => {
-  const AggregationCheckpoint = model.getModel('AggregationCheckpoint');
-  const currentCheckpoint = await AggregationCheckpoint.findById(CHECKPOINT_ID);
-
-  if (!currentCheckpoint) {
-    const initialCheckpoint = await AggregationCheckpoint.create({
-      _id: CHECKPOINT_ID,
-      date: new Date(),
-      previous: null,
-      progressData: null,
-      complete: false,
-    });
-
-    return initialCheckpoint;
-  }
-
-  if (currentCheckpoint.complete) {
-    currentCheckpoint.set('previous', currentCheckpoint.date);
-    currentCheckpoint.set('date', new Date());
-    currentCheckpoint.set('progressData', null);
-    currentCheckpoint.set('complete', false);
-
-    await currentCheckpoint.save();
-  }
-
-  return currentCheckpoint;
-};
-
-const determineStartDate = async checkpoint => {
-  const aggregationResponse = await elasticsearch.getClient().search({
-    index: 'fills',
-    size: 0,
-    body: {
-      aggs: {
-        earliestDate: {
-          min: {
-            field: 'date',
-          },
-        },
-      },
-      query: checkpoint.previous
-        ? {
-            range: {
-              updatedAt: {
-                gte: moment
-                  .utc(checkpoint.previous)
-                  .subtract(10, 'minutes') // Ensure we don't miss fills which have just been indexed but where the index hasn't refreshed
-                  .toDate(),
-              },
-            },
-          }
-        : undefined,
-    },
-  });
-
-  const earliestDate = aggregationResponse.body.aggregations.earliestDate.value;
-
-  if (earliestDate === null) {
-    return null;
-  }
-
-  return moment
-    .utc(earliestDate)
-    .startOf('day')
-    .toDate();
-};
 
 const aggregateDailyProtocolMetrics = async ({ enabled }, { logger }) => {
   if (!enabled) {
@@ -79,26 +14,38 @@ const aggregateDailyProtocolMetrics = async ({ enabled }, { logger }) => {
     return;
   }
 
-  const checkpoint = await getCheckpoint();
-  const startDate = await determineStartDate(checkpoint);
+  const checkpoint = await getCheckpoint(CHECKPOINT_ID);
+  const processAfterDate = checkpoint ? checkpoint.date : null;
 
-  if (startDate === null) {
-    logger.info('no changes detected since last run');
-    checkpoint.set('complete', true);
-    checkpoint.set('progressData', null);
-    await checkpoint.save();
-    return;
+  if (checkpoint !== null) {
+    logger.info(`last checkpoint was ${checkpoint.date.toISOString()}`);
+    logger.info(
+      `aggregating metrics for all trades made after ${processAfterDate.toISOString()}`,
+    );
+  } else {
+    logger.info('no checkpoint was found');
+    logger.info(`aggregating metrics for all trades`);
   }
 
-  const aggregateBatch = async () => {
+  const aggregateBatch = async after => {
+    const currentCheckpoint = await getCheckpoint(CHECKPOINT_ID);
+
+    /*
+      If the current checkpoint was deleted mid-run then stop any more executions
+      so that a full backfill is run on the next job iteration.
+    */
+    if (currentCheckpoint === null && checkpoint !== null) {
+      return;
+    }
+
     const aggregationResponse = await elasticsearch.getClient().search({
       index: 'fills',
       size: 0,
       body: {
         aggs: {
-          by_date: {
+          by_group: {
             composite: {
-              after: checkpoint.progressData || undefined,
+              after,
               size: BATCH_SIZE,
               sources: [
                 {
@@ -106,6 +53,7 @@ const aggregateDailyProtocolMetrics = async ({ enabled }, { logger }) => {
                     date_histogram: {
                       field: 'date',
                       calendar_interval: 'day',
+                      order: 'asc',
                     },
                   },
                 },
@@ -132,17 +80,20 @@ const aggregateDailyProtocolMetrics = async ({ enabled }, { logger }) => {
             },
           },
         },
-        query: {
-          range: {
-            date: {
-              gte: startDate.toISOString(),
-            },
-          },
-        },
+        query:
+          processAfterDate === null
+            ? undefined
+            : {
+                range: {
+                  date: {
+                    gt: processAfterDate.toISOString(),
+                  },
+                },
+              },
       },
     });
 
-    const result = aggregationResponse.body.aggregations.by_date;
+    const result = aggregationResponse.body.aggregations.by_group;
 
     const dataPoints = result.buckets.map(x => ({
       date: new Date(x.key.day),
@@ -153,9 +104,6 @@ const aggregateDailyProtocolMetrics = async ({ enabled }, { logger }) => {
 
     if (dataPoints.length === 0) {
       logger.info('no more data points to process');
-      checkpoint.set('complete', true);
-      checkpoint.set('progressData', null);
-      await checkpoint.save();
       return;
     }
 
@@ -170,7 +118,6 @@ const aggregateDailyProtocolMetrics = async ({ enabled }, { logger }) => {
           JSON.stringify({
             doc: {
               date: dataPoint.date.toISOString(),
-              lastUpdated: new Date().toISOString(),
               protocolVersion: dataPoint.protocolVersion,
               tradeCount: dataPoint.tradeCount,
               tradeVolume: dataPoint.tradeVolume,
@@ -190,27 +137,30 @@ const aggregateDailyProtocolMetrics = async ({ enabled }, { logger }) => {
       throw new Error(`Indexing failed`);
     }
 
-    logger.info(`processed ${dataPoints.length} data point(s)`);
+    const lastDate = _.last(dataPoints).date;
+    logger.info(
+      `processed ${
+        dataPoints.length
+      } data point(s) up to ${lastDate.toISOString()}`,
+    );
 
-    if (dataPoints.length === BATCH_SIZE) {
-      checkpoint.set('progressData', result.after_key);
-      await checkpoint.save();
-    } else {
+    const newCheckpoint = moment
+      .utc(lastDate)
+      .subtract(48, 'hours')
+      .endOf('day')
+      .toDate();
+
+    await saveCheckpoint(CHECKPOINT_ID, newCheckpoint);
+
+    if (dataPoints.length < BATCH_SIZE) {
       logger.info('no more data points to process');
-      checkpoint.set('complete', true);
-      checkpoint.set('progressData', null);
-      await checkpoint.save();
+      return;
     }
+
+    await aggregateBatch(result.after_key);
   };
 
-  while (!checkpoint.complete) {
-    /* eslint-disable no-await-in-loop */
-    await aggregateBatch();
-    await new Promise(resolve => {
-      setTimeout(resolve, 2000);
-    });
-    /* eslint-enable no-await-in-loop */
-  }
+  await aggregateBatch();
 };
 
 module.exports = aggregateDailyProtocolMetrics;
