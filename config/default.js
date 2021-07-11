@@ -21,6 +21,9 @@ module.exports = {
     username: _.get(process.env, 'ELASTIC_SEARCH_USERNAME', null),
   },
   jobs: {
+    aggregateDailyAppMetrics: {
+      enabled: aggregationEnabled,
+    },
     aggregateDailyLiquiditySourceMetrics: {
       enabled: aggregationEnabled,
     },
@@ -51,11 +54,12 @@ module.exports = {
       default: ms('5 minutes'),
     },
     min: {
-      aggregateDailyLiquiditySourceMetrics: ms('5 minutes'),
+      aggregateDailyAppMetrics: ms('1 minutes'),
+      aggregateDailyLiquiditySourceMetrics: ms('1 minutes'),
       aggregateDailyNetworkMetrics: ms('1 minute'),
-      aggregateDailyProtocolMetrics: ms('5 minutes'),
-      aggregateDailyTokenMetrics: ms('5 minutes'),
-      aggregateDailyTraderMetrics: ms('5 minutes'),
+      aggregateDailyProtocolMetrics: ms('1 minutes'),
+      aggregateDailyTokenMetrics: ms('1 minutes'),
+      aggregateDailyTraderMetrics: ms('1 minutes'),
       batchScheduleTransactionFetch: ms('10 seconds'),
       default: ms('30 seconds'),
       fetchArticles: ms('10 minutes'),
