@@ -149,7 +149,6 @@ const aggregateDailyAppMetrics = async ({ enabled }, { logger }) => {
     });
 
     if (indexResponse.body.errors) {
-      console.error(JSON.stringify(indexResponse.body));
       throw new Error(`Indexing failed`);
     }
 
