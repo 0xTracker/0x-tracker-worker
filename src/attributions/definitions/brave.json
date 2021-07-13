@@ -1,0 +1,16 @@
+{
+  "id": "e9c9d7e5-f688-49d0-94d5-8b14d84a49bb",
+  "name": "Brave",
+  "logo": "brave.png",
+  "urlSlug": "brave",
+  "websiteUrl": "https://brave.com/",
+  "mappings": [
+    {
+      "affiliateAddress": "0xbd9420A98a7Bd6B89765e5715e169481602D9c3d",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "wallet"
+  ]
+}
