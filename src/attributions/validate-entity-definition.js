@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 
 const Ethereum = {
-  address: () => Joi.string().regex(/^0x[a-f0-9]{40}$/),
+  address: () => Joi.string().regex(/^0x[a-f0-9A-F]{40}$/),
 };
 
 const schema = Joi.object({
