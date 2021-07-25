@@ -44,6 +44,10 @@ const getIndexName = index => {
     );
   }
 
+  if (index === 'app_metrics_daily') {
+    return process.env.INDEX_NAME_APP_METRICS_DAILY || 'app_metrics_daily';
+  }
+
   throw new Error(`Unsupported index: ${index}`);
 };
 

@@ -1,16 +1,16 @@
 const _ = require('lodash');
 const moment = require('moment');
 const elasticsearch = require('../util/elasticsearch');
-const getIndexName = require('../index/get-index-name');
 const getCheckpoint = require('../aggregation/get-checkpoint');
+const getIndexName = require('../index/get-index-name');
 const saveCheckpoint = require('../aggregation/save-checkpoint');
 
 const BATCH_SIZE = 1000;
-const CHECKPOINT_ID = 'trader_metrics_daily';
+const CHECKPOINT_ID = 'app_metrics_daily';
 
-const aggregateDailyTraderMetrics = async ({ enabled }, { logger }) => {
+const aggregateDailyAppMetrics = async ({ enabled }, { logger }) => {
   if (!enabled) {
-    logger.warn(`aggregate daily trader metrics job disabled`);
+    logger.warn(`aggregate daily app metrics job disabled`);
     return;
   }
 
@@ -35,11 +35,11 @@ const aggregateDailyTraderMetrics = async ({ enabled }, { logger }) => {
       so that a full backfill is run on the next job iteration.
     */
     if (currentCheckpoint === null && checkpoint !== null) {
-      return null;
+      return;
     }
 
     const aggregationResponse = await elasticsearch.getClient().search({
-      index: 'trader_fills',
+      index: 'app_fills',
       size: 0,
       body: {
         aggs: {
@@ -58,44 +58,32 @@ const aggregateDailyTraderMetrics = async ({ enabled }, { logger }) => {
                   },
                 },
                 {
-                  address: {
+                  appId: {
                     terms: {
-                      field: 'address',
+                      field: 'appId',
+                      order: 'asc',
                     },
                   },
                 },
               ],
             },
             aggs: {
-              apps: {
-                terms: { field: 'appIds' },
-              },
-              makerTrades: {
+              relayedTradeCount: {
                 sum: {
-                  field: 'makerTradeCount',
+                  field: 'relayedTradeCount',
                 },
               },
-              makerTradeVolume: {
+              relayedTradeValue: {
                 sum: {
-                  field: 'makerTradeValue',
+                  field: 'relayedTradeValue',
                 },
               },
-              takerTrades: {
-                sum: {
-                  field: 'takerTradeCount',
-                },
-              },
-              takerTradeVolume: {
-                sum: {
-                  field: 'takerTradeValue',
-                },
-              },
-              totalTrades: {
+              totalTradeCount: {
                 sum: {
                   field: 'totalTradeCount',
                 },
               },
-              totalTradeVolume: {
+              totalTradeValue: {
                 sum: {
                   field: 'totalTradeValue',
                 },
@@ -120,19 +108,16 @@ const aggregateDailyTraderMetrics = async ({ enabled }, { logger }) => {
 
     const dataPoints = result.buckets.map(x => ({
       date: new Date(x.key.day),
-      address: x.key.address,
-      appIds: x.apps.buckets.map(y => y.key),
-      makerTrades: x.makerTrades.value,
-      makerTradeVolume: x.makerTradeVolume.value,
-      takerTrades: x.takerTrades.value,
-      takerTradeVolume: x.takerTradeVolume.value,
-      totalTrades: x.totalTrades.value,
-      totalTradeVolume: x.totalTradeVolume.value,
+      appId: x.key.appId,
+      relayedTradeCount: x.relayedTradeCount.value,
+      relayedTradeValue: x.relayedTradeValue.value,
+      totalTradeCount: x.totalTradeCount.value,
+      totalTradeValue: x.totalTradeValue.value,
     }));
 
     if (dataPoints.length === 0) {
       logger.info('no more data points to process');
-      return null;
+      return;
     }
 
     const body = dataPoints
@@ -140,20 +125,17 @@ const aggregateDailyTraderMetrics = async ({ enabled }, { logger }) => {
         return [
           JSON.stringify({
             update: {
-              _id: `${dataPoint.date.valueOf()}_${dataPoint.address}`,
+              _id: `${dataPoint.date.valueOf()}_${dataPoint.appId}`,
             },
           }),
           JSON.stringify({
             doc: {
-              address: dataPoint.address,
-              appIds: dataPoint.appIds,
+              appId: dataPoint.appId,
               date: dataPoint.date.toISOString(),
-              makerTrades: dataPoint.makerTrades,
-              makerTradeVolume: dataPoint.makerTradeVolume,
-              takerTrades: dataPoint.takerTrades,
-              takerTradeVolume: dataPoint.takerTradeVolume,
-              totalTrades: dataPoint.totalTrades,
-              totalTradeVolume: dataPoint.totalTradeVolume,
+              relayedTradeCount: dataPoint.relayedTradeCount,
+              relayedTradeValue: dataPoint.relayedTradeValue,
+              totalTradeCount: dataPoint.totalTradeCount,
+              totalTradeValue: dataPoint.totalTradeValue,
             },
             doc_as_upsert: true,
           }),
@@ -163,7 +145,7 @@ const aggregateDailyTraderMetrics = async ({ enabled }, { logger }) => {
 
     const indexResponse = await elasticsearch.getClient().bulk({
       body: `${body}\n`,
-      index: getIndexName('trader_metrics_daily'),
+      index: getIndexName('app_metrics_daily'),
     });
 
     if (indexResponse.body.errors) {
@@ -187,17 +169,13 @@ const aggregateDailyTraderMetrics = async ({ enabled }, { logger }) => {
 
     if (dataPoints.length < BATCH_SIZE) {
       logger.info('no more data points to process');
-      return null;
+      return;
     }
 
-    return result.after_key;
+    await aggregateBatch(result.after_key);
   };
 
-  let afterKey;
-  while (afterKey !== null) {
-    // eslint-disable-next-line no-await-in-loop
-    afterKey = await aggregateBatch(afterKey);
-  }
+  await aggregateBatch();
 };
 
-module.exports = aggregateDailyTraderMetrics;
+module.exports = aggregateDailyAppMetrics;

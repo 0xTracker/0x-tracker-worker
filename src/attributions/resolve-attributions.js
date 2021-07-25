@@ -57,18 +57,22 @@ const resolveAttributions = metadata => {
 
   const matches = mappings.filter(
     mapping =>
-      (mapping.affiliateAddress === affiliateAddress ||
+      (_.lowerCase(mapping.affiliateAddress) ===
+        _.lowerCase(affiliateAddress) ||
         mapping.affiliateAddress === undefined) &&
-      (mapping.feeRecipientAddress === feeRecipientAddress ||
+      (_.lowerCase(mapping.feeRecipientAddress) ===
+        _.lowerCase(feeRecipientAddress) ||
         mapping.feeRecipientAddress === undefined) &&
-      (mapping.takerAddress === takerAddress ||
+      (_.lowerCase(mapping.takerAddress) === _.lowerCase(takerAddress) ||
         mapping.takerAddress === undefined) &&
-      (mapping.senderAddress === senderAddress ||
+      (_.lowerCase(mapping.senderAddress) === _.lowerCase(senderAddress) ||
         mapping.senderAddress === undefined) &&
-      (mapping.transactionToAddress === transactionToAddress ||
+      (_.lowerCase(mapping.transactionToAddress) ===
+        _.lowerCase(transactionToAddress) ||
         mapping.transactionToAddress === undefined) &&
-      (mapping.source === source || mapping.source === undefined) &&
-      (mapping.bridgeAddress === bridgeAddress ||
+      (_.lowerCase(mapping.source) === _.lowerCase(source) ||
+        mapping.source === undefined) &&
+      (_.lowerCase(mapping.bridgeAddress) === _.lowerCase(bridgeAddress) ||
         mapping.bridgeAddress === undefined) &&
       (mapping.tradeType === tradeType || mapping.tradeType === undefined),
   );
