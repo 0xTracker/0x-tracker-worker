@@ -4,6 +4,7 @@ const { JOB, QUEUE, FILL_ATTRIBUTION_TYPE } = require('../../constants');
 const elasticsearch = require('../../util/elasticsearch');
 const getIndexName = require('../../index/get-index-name');
 
+// TODO: Move this logic into index-fill and index-fill-value consumers
 const consumer = async (job, { logger }) => {
   const { attributions, date, fillId, tradedTokens } = job.data;
 

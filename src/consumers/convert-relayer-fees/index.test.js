@@ -45,6 +45,8 @@ describe('consumers/convert-relayer-fees', () => {
     const fill = {
       ...V2_FILL,
       fees: [],
+      takerMetadata: undefined,
+      transaction: undefined,
     };
     const Fill = getModel('Fill');
     await Fill.create(fill);
@@ -75,6 +77,8 @@ describe('consumers/convert-relayer-fees', () => {
           traderType: 1,
         },
       ],
+      takerMetadata: undefined,
+      transaction: undefined,
     };
     const Fill = getModel('Fill');
     await Fill.create(fill);

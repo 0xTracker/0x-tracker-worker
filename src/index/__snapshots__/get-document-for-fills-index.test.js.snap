@@ -15,7 +15,7 @@ Array [
 
 exports[`should create Elasticsearch document for fill 1`] = `
 Object {
-  "attributions": Array [],
+  "affiliateAddress": undefined,
   "assets": Array [
     Object {
       "bridgeAddress": undefined,
@@ -26,6 +26,7 @@ Object {
       "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
     },
   ],
+  "attributions": Array [],
   "date": 2019-12-23T18:15:16.000Z,
   "feeRecipient": "0xa258b39954cef5cb142fd567a46cddb31a670124",
   "fees": Array [
@@ -36,6 +37,7 @@ Object {
       "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
     },
   ],
+  "liquiditySourceId": undefined,
   "maker": "0x6924a03bb710eaf199ab6ac9f2bb148215ae9b5d",
   "orderHash": "0xf186241e774ed0ecb6b6c101482f9a52d77caaf2db3165c9052f814e4c844f5e",
   "protocolFeeETH": undefined,
@@ -47,9 +49,11 @@ Object {
   "tradeVolume": 658.8957691929245,
   "traders": Array [
     "0x6924a03bb710eaf199ab6ac9f2bb148215ae9b5d",
-    "0x8018280076d7fa2caa1147e441352e8a89e1ddbe",
+    "0xffa5bfe92b6791dad23c7837abb790b48c2f8995",
   ],
+  "transactionFrom": "0xffa5bfe92b6791dad23c7837abb790b48c2f8995",
   "transactionHash": "0x36a35ae64def8beab677435be4762bf63977000172d47096230a94922383c856",
+  "transactionTo": "0x8018280076d7fa2caa1147e441352e8a89e1ddbe",
   "value": 658.8957691929245,
 }
 `;

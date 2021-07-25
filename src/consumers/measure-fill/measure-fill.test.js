@@ -48,7 +48,6 @@ describe('jobs/measure-fills/measure-fill', () => {
       'index-fill-value',
       {
         fillId: '5e3e9abbb2227b1f0e73be5f',
-        tradeValue: 1674.924411,
         value: 1674.924411,
       },
       {

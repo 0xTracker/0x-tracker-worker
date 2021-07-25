@@ -3,12 +3,11 @@ const mongoose = require('mongoose');
 
 const { JOB, QUEUE } = require('../../constants');
 const { getModel } = require('../../model');
-const createDocument = require('../../index/fills/create-document');
-const elasticsearch = require('../../util/elasticsearch');
-const getIndexName = require('../../index/get-index-name');
+const updateAppFillsIndex = require('./update-app-fills-index');
+const updateFillsIndex = require('./update-fills-index');
 
 const indexFillValue = async (job, { logger }) => {
-  const { fillId, tradeValue, value } = job.data;
+  const { fillId, value } = job.data;
 
   if (!mongoose.Types.ObjectId.isValid(fillId)) {
     throw new Error(`Invalid fillId: ${fillId}`);
@@ -30,17 +29,8 @@ const indexFillValue = async (job, { logger }) => {
     throw new Error(`Could not find fill: ${fillId}`);
   }
 
-  await elasticsearch.getClient().update({
-    id: fillId,
-    index: getIndexName('fills'),
-    body: {
-      doc: {
-        tradeVolume: tradeValue,
-        value,
-      },
-      upsert: createDocument(fill),
-    },
-  });
+  await updateFillsIndex(fill, value);
+  await updateAppFillsIndex(fill, value);
 
   logger.success(`indexed fill value: ${fillId}`);
 };

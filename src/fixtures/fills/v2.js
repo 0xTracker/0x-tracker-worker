@@ -54,8 +54,15 @@ const V2_FILL = {
   protocolVersion: 2,
   senderAddress: '0x8018280076d7fa2caa1147e441352e8a89e1ddbe',
   taker: '0x8018280076d7fa2caa1147e441352e8a89e1ddbe',
+  takerMetadata: {
+    isContract: true,
+  },
   transactionHash:
     '0x36a35ae64def8beab677435be4762bf63977000172d47096230a94922383c856',
+  transaction: {
+    from: '0xffa5bfe92b6791dad23c7837abb790b48c2f8995',
+    to: '0x8018280076d7fa2caa1147e441352e8a89e1ddbe',
+  },
   pricingStatus: 0,
 };
 

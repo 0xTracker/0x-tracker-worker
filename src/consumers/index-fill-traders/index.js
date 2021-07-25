@@ -7,6 +7,7 @@ const getAddressMetadata = require('../../addresses/get-address-metadata');
 const getIndexName = require('../../index/get-index-name');
 const getTransactionByHash = require('../../transactions/get-transaction-by-hash');
 
+// TODO: Move this logic into index-fill and index-fill-value consumers
 const indexFillTraders = async (job, { logger }) => {
   const delayJobProcessing = async () => {
     await publishJob(QUEUE.INDEXING, JOB.INDEX_FILL_TRADERS, job.data, {
