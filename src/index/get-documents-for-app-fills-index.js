@@ -18,18 +18,9 @@ const getDocumentsForAppFillsIndex = fill => {
     const isRelayer = attribution.type === FILL_ATTRIBUTION_TYPE.RELAYER;
 
     if (existing) {
-      existing.totalTradeCount += tradeCountContribution;
-
-      if (tradeValue) {
-        existing.totalTradeValue += tradeValue;
-      }
-
       if (isRelayer) {
-        existing.relayedTradeCount += tradeCountContribution;
-
-        if (tradeValue) {
-          existing.relayedTradeValue += tradeValue;
-        }
+        existing.relayedTradeCount = tradeCountContribution;
+        existing.relayedTradeValue = tradeValue;
       }
 
       return;
