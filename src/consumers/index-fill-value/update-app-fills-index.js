@@ -6,6 +6,11 @@ const getTradeCountContribution = require('../../fills/get-trade-count-contribut
 
 const updateAppFillsIndex = async (fill, value) => {
   const documents = getDocumentsForAppFillsIndex(fill);
+
+  if (documents.length === 0) {
+    return;
+  }
+
   const tradeCountContribution = getTradeCountContribution(fill);
 
   const requestBody = documents
