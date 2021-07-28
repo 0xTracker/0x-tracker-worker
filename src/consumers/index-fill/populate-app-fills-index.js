@@ -18,9 +18,7 @@ const populateAppFillsIndex = async fill => {
             _id: `${doc.fillId}_${doc.appId}`,
           },
         }),
-        JSON.stringify({
-          doc,
-        }),
+        JSON.stringify(doc),
       ].join('\n');
     })
     .join('\n');
