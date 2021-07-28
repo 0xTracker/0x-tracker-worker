@@ -7,9 +7,7 @@ const getDocumentsForAppFillsIndex = fill => {
   const tradeCountContribution = getTradeCountContribution(fill);
   const traders = getTraderAddresses(fill);
 
-  const tradeValue = fill.value
-    ? fill.value * tradeCountContribution
-    : undefined;
+  const value = _.get(fill, 'conversions.USD.amount') || undefined;
 
   const documents = [];
 
@@ -20,7 +18,7 @@ const getDocumentsForAppFillsIndex = fill => {
     if (existing) {
       if (isRelayer) {
         existing.relayedTradeCount = tradeCountContribution;
-        existing.relayedTradeValue = tradeValue;
+        existing.relayedTradeValue = value;
       }
 
       return;
@@ -31,9 +29,9 @@ const getDocumentsForAppFillsIndex = fill => {
       date: fill.date,
       fillId: fill._id,
       relayedTradeCount: isRelayer ? tradeCountContribution : 0,
-      relayedTradeValue: isRelayer ? tradeValue : undefined,
+      relayedTradeValue: isRelayer ? value : undefined,
       totalTradeCount: tradeCountContribution,
-      totalTradeValue: tradeValue,
+      totalTradeValue: value,
       traders,
     });
   });

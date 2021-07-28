@@ -264,6 +264,7 @@ describe('consumers/index-fill', () => {
           fillId: '5f7b709a5a345268dec8d425',
           relayedTradeCount: 0,
           totalTradeCount: 1,
+          totalTradeValue: 4905.859567,
           traders: [
             '0xc47b7094f378e54347e281aab170e8cca69d880a',
             '0xf9757222770d93f0f71c30098d12d4754209f4d4',
