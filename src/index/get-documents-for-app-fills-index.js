@@ -11,7 +11,14 @@ const getDocumentsForAppFillsIndex = fill => {
 
   const documents = [];
 
-  _.forEach(fill.attributions, attribution => {
+  const appAttributions = _.filter(
+    fill.attributions,
+    a =>
+      a.type === FILL_ATTRIBUTION_TYPE.CONSUMER ||
+      a.type === FILL_ATTRIBUTION_TYPE.RELAYER,
+  );
+
+  _.forEach(appAttributions, attribution => {
     const existing = documents.find(x => x.appId === attribution.entityId);
     const isRelayer = attribution.type === FILL_ATTRIBUTION_TYPE.RELAYER;
 

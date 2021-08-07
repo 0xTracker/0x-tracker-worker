@@ -147,6 +147,7 @@ describe('consumers/index-fill', () => {
         },
       ],
       attributions: [
+        { entityId: '052b4862-2142-4532-bdc0-416814b0a5fe', type: 0 },
         {
           entityId: '46807b2b-4d42-474f-a6b5-ce678071b805',
           type: 2,
@@ -215,6 +216,10 @@ describe('consumers/index-fill', () => {
       affiliateAddress: '0x86003b044f70dac0abc80ac8957305b6370893ed',
       attributions: [
         {
+          id: '052b4862-2142-4532-bdc0-416814b0a5fe',
+          type: 0,
+        },
+        {
           id: '46807b2b-4d42-474f-a6b5-ce678071b805',
           type: 2,
         },
@@ -254,14 +259,15 @@ describe('consumers/index-fill', () => {
     expect(appFillsIndexingBody).toEqual([
       {
         index: {
-          _id: '5f7b709a5a345268dec8d425_46807b2b-4d42-474f-a6b5-ce678071b805',
+          _id: '5f7b709a5a345268dec8d425_052b4862-2142-4532-bdc0-416814b0a5fe',
         },
       },
       {
-        appId: '46807b2b-4d42-474f-a6b5-ce678071b805',
+        appId: '052b4862-2142-4532-bdc0-416814b0a5fe',
         date: '2020-10-05T19:10:18.000Z',
         fillId: '5f7b709a5a345268dec8d425',
-        relayedTradeCount: 0,
+        relayedTradeCount: 1,
+        relayedTradeValue: 4905.859567,
         totalTradeCount: 1,
         totalTradeValue: 4905.859567,
         traders: [
