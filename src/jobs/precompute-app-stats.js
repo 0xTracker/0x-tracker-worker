@@ -137,6 +137,7 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
 };
 
 const precomputeAppStats = async (config, options) => {
+  await precomputeAppStatsForPeriod(1, options); // 24 hour stats
   await precomputeAppStatsForPeriod(7, options); // 7 day stats
   await precomputeAppStatsForPeriod(30, options); // 30 day stats
   await precomputeAppStatsForPeriod(365, options); // 365 day stats
