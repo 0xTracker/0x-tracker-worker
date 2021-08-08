@@ -53,19 +53,19 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
     periodInDays === null || appIds.length === 0
       ? null
       : await elasticsearch.getClient().search({
-          index: 'trader_metrics_daily',
+          index: 'app_fills',
           size: 0,
           body: {
             aggs: {
               apps: {
                 terms: {
-                  field: 'appIds',
+                  field: 'appId',
                   size: appIds.length,
                 },
                 aggs: {
                   activeTraders: {
                     cardinality: {
-                      field: 'address',
+                      field: 'traders',
                     },
                   },
                 },
@@ -82,7 +82,7 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
                       },
                     },
                   },
-                  { terms: { appIds } },
+                  { terms: { appId: appIds } },
                 ],
               },
             },
