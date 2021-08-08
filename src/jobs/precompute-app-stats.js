@@ -15,7 +15,7 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
     dates === null ? null : getPreviousPeriod(dates.dateFrom, dates.dateTo);
 
   const basicData = await elasticsearch.getClient().search({
-    index: 'app_metrics_daily',
+    index: 'app_fills',
     size: 0,
     body: {
       aggs: {
@@ -25,24 +25,9 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
             size: 100, // In future this may need to increased or be paginated
           },
           aggs: {
-            relayedTrades: {
-              sum: {
-                field: 'relayedTradeCount',
-              },
-            },
-            relayedVolume: {
-              sum: {
-                field: 'relayedTradeValue',
-              },
-            },
-            totalTrades: {
-              sum: {
-                field: 'totalTradeCount',
-              },
-            },
-            totalVolume: {
-              sum: {
-                field: 'totalTradeValue',
+            traderCount: {
+              cardinality: {
+                field: 'traders',
               },
             },
           },
@@ -64,54 +49,10 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
 
   const appIds = basicData.body.aggregations.apps.buckets.map(b => b.key);
 
-  const [
-    activeTradersData,
-    previousActiveTradersData,
-    previousStatsData,
-  ] = await Promise.all([
-    appIds.length === 0
-      ? null
-      : elasticsearch.getClient().search({
-          index: 'trader_metrics_daily',
-          size: 0,
-          body: {
-            aggs: {
-              apps: {
-                terms: {
-                  field: 'appIds',
-                  size: appIds.length,
-                },
-                aggs: {
-                  activeTraders: {
-                    cardinality: {
-                      field: 'address',
-                    },
-                  },
-                },
-              },
-            },
-            query: {
-              bool: {
-                filter: _.compact([
-                  dates === null
-                    ? null
-                    : {
-                        range: {
-                          date: {
-                            gte: dates.dateFrom,
-                            lte: dates.dateTo,
-                          },
-                        },
-                      },
-                  { terms: { appIds } },
-                ]),
-              },
-            },
-          },
-        }),
+  const previousActiveTradersData =
     periodInDays === null || appIds.length === 0
       ? null
-      : elasticsearch.getClient().search({
+      : await elasticsearch.getClient().search({
           index: 'trader_metrics_daily',
           size: 0,
           body: {
@@ -146,68 +87,10 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
               },
             },
           },
-        }),
-    periodInDays === null || appIds.length === 0
-      ? null
-      : elasticsearch.getClient().search({
-          index: 'app_metrics_daily',
-          size: 0,
-          body: {
-            aggs: {
-              apps: {
-                terms: {
-                  field: 'appId',
-                  size: appIds.length,
-                },
-                aggs: {
-                  relayedTrades: {
-                    sum: {
-                      field: 'relayedTradeCount',
-                    },
-                  },
-                  relayedVolume: {
-                    sum: {
-                      field: 'relayedTradeValue',
-                    },
-                  },
-                  totalTrades: {
-                    sum: {
-                      field: 'totalTradeCount',
-                    },
-                  },
-                  totalVolume: {
-                    sum: {
-                      field: 'totalTradeValue',
-                    },
-                  },
-                },
-              },
-            },
-            query: {
-              bool: {
-                filter: [
-                  {
-                    range: {
-                      date: {
-                        gte: previousPeriod.prevDateFrom,
-                        lte: previousPeriod.prevDateTo,
-                      },
-                    },
-                  },
-                  { terms: { appId: appIds } },
-                ],
-              },
-            },
-          },
-        }),
-  ]);
+        });
 
   const appStats = basicData.body.aggregations.apps.buckets.map(bucket => {
     const app = apps.find(a => a.id === bucket.key);
-
-    const activeTraders = activeTradersData.body.aggregations.apps.buckets.find(
-      b => b.key === bucket.key,
-    );
 
     const previousActiveTraders = _.get(
       previousActiveTradersData,
@@ -215,41 +98,15 @@ const precomputeAppStatsForPeriod = async (periodInDays, { logger }) => {
       [],
     ).find(b => b.key === app.id);
 
-    const previousStats = _.get(
-      previousStatsData,
-      'body.aggregations.apps.buckets',
-      [],
-    ).find(b => b.key === app.id);
-
     return {
       appId: bucket.key,
-      activeTraders: _.get(activeTraders, 'activeTraders.value', 0),
+      activeTraders: bucket.traderCount.value,
       activeTradersChange: getPercentageChange(
         _.get(previousActiveTraders, 'activeTraders.value', 0),
-        _.get(activeTraders, 'activeTraders.value', 0),
+        bucket.traderCount.value,
       ),
       appName: app.name,
       period: periodInDays === null ? 'all-time' : `${periodInDays}d`,
-      relayedTrades: bucket.relayedTrades.value,
-      relayedTradesChange: getPercentageChange(
-        _.get(previousStats, 'relayedTrades.value', 0),
-        _.get(bucket, 'relayedTrades.value', 0),
-      ),
-      relayedVolume: bucket.relayedVolume.value,
-      relayedVolumeChange: getPercentageChange(
-        _.get(previousStats, 'relayedVolume.value', 0),
-        _.get(bucket, 'relayedVolume.value', 0),
-      ),
-      totalTrades: bucket.totalTrades.value,
-      totalTradesChange: getPercentageChange(
-        _.get(previousStats, 'totalTrades.value', 0),
-        _.get(bucket, 'totalTrades.value', 0),
-      ),
-      totalVolume: bucket.totalVolume.value,
-      totalVolumeChange: getPercentageChange(
-        _.get(previousStats, 'totalVolume.value', 0),
-        _.get(bucket, 'totalVolume.value', 0),
-      ),
     };
   });
 
