@@ -61,7 +61,7 @@ const deriveTokenPriceFromFill = fill => {
     new BigNumber(0),
   );
 
-  if (rawTotal === 0) {
+  if (rawTotal.isZero()) {
     return null;
   }
 
