@@ -16,7 +16,7 @@ const deriveFillPrices = async ({ batchSize }) => {
 
   logger.info(`found unpriced fills: ${fills.length}`);
 
-  await bluebird.mapSeries(fills, async fill => {
+  await bluebird.each(fills, async fill => {
     const result = await priceFill(fill);
 
     if (result) {
