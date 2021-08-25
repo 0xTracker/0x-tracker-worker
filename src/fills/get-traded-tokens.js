@@ -18,8 +18,6 @@ const getTradedTokens = fill => {
 
       return {
         address: asset.tokenAddress,
-        filledAmount: amount,
-        filledAmountUSD: amountUSD,
         priceUSD: _.get(asset, 'price.USD'),
         tradeCountContribution,
         tradedAmount: amount * tradeCountContribution,
@@ -35,8 +33,6 @@ const getTradedTokens = fill => {
           i.address === value.address
             ? {
                 ...i,
-                filledAmount: i.filledAmount + value.filledAmount,
-                filledAmountUSD: i.filledAmountUSD + value.filledAmountUSD,
                 tradedAmount: i.tradedAmount + value.tradedAmount,
                 tradedAmountUSD: i.tradedAmountUSD + value.tradedAmountUSD,
               }
@@ -48,8 +44,6 @@ const getTradedTokens = fill => {
     }, [])
     .map(i => ({
       ...i,
-      filledAmount: fixNaN(i.filledAmount),
-      filledAmountUSD: fixNaN(i.filledAmountUSD),
       tradedAmount: fixNaN(i.tradedAmount),
       tradedAmountUSD: fixNaN(i.tradedAmountUSD),
     }));

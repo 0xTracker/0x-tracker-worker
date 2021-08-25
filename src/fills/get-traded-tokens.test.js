@@ -75,8 +75,6 @@ describe('getTradedTokens', () => {
     expect(tradedTokens).toEqual([
       {
         address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-        filledAmount: 1674.924411,
-        filledAmountUSD: 1674.924411,
         priceUSD: 1,
         tradeCountContribution: 1,
         tradedAmount: 1674.924411,
@@ -85,8 +83,6 @@ describe('getTradedTokens', () => {
       },
       {
         address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-        filledAmount: 7.45216100214005,
-        filledAmountUSD: undefined,
         priceUSD: undefined,
         tradeCountContribution: 1,
         tradedAmount: 7.45216100214005,
@@ -152,8 +148,6 @@ describe('getTradedTokens', () => {
     expect(tradedTokens).toEqual([
       {
         address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-        filledAmount: 2949.848822,
-        filledAmountUSD: 2949.848822,
         priceUSD: 1,
         tradeCountContribution: 1,
         tradedAmount: 2949.848822,
@@ -162,8 +156,6 @@ describe('getTradedTokens', () => {
       },
       {
         address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-        filledAmount: 7.45216100214005,
-        filledAmountUSD: undefined,
         priceUSD: undefined,
         tradeCountContribution: 1,
         tradedAmount: 7.45216100214005,
@@ -201,8 +193,6 @@ describe('getTradedTokens', () => {
     expect(tradedTokens).toEqual([
       {
         address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-        filledAmount: undefined,
-        filledAmountUSD: undefined,
         priceUSD: undefined,
         tradeCountContribution: 1,
         tradedAmount: undefined,
@@ -211,8 +201,6 @@ describe('getTradedTokens', () => {
       },
       {
         address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-        filledAmount: undefined,
-        filledAmountUSD: undefined,
         priceUSD: undefined,
         tradeCountContribution: 1,
         tradedAmount: undefined,
@@ -287,8 +275,6 @@ describe('getTradedTokens', () => {
     expect(tradedTokens).toEqual([
       {
         address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-        filledAmount: 2949.848822,
-        filledAmountUSD: 2949.848822,
         priceUSD: 1,
         tradedAmount: 1474.924411,
         tradedAmountUSD: 1474.924411,
@@ -297,8 +283,6 @@ describe('getTradedTokens', () => {
       },
       {
         address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-        filledAmount: 7.45216100214005,
-        filledAmountUSD: 14.9043220043,
         priceUSD: 2,
         tradedAmount: 3.726080501070025,
         tradedAmountUSD: 7.45216100215,
@@ -343,8 +327,6 @@ describe('getTradedTokens', () => {
     expect(tradedTokens).toEqual([
       {
         address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-        filledAmount: undefined,
-        filledAmountUSD: undefined,
         priceUSD: undefined,
         tradedAmount: undefined,
         tradedAmountUSD: undefined,
@@ -353,8 +335,6 @@ describe('getTradedTokens', () => {
       },
       {
         address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-        filledAmount: undefined,
-        filledAmountUSD: undefined,
         priceUSD: undefined,
         tradedAmount: undefined,
         tradedAmountUSD: undefined,
@@ -409,8 +389,6 @@ describe('getTradedTokens', () => {
     expect(tradedTokens).toEqual([
       {
         address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-        filledAmount: undefined,
-        filledAmountUSD: undefined,
         priceUSD: undefined,
         tradedAmount: undefined,
         tradedAmountUSD: undefined,
@@ -419,8 +397,6 @@ describe('getTradedTokens', () => {
       },
       {
         address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-        filledAmount: 7.45216100214005,
-        filledAmountUSD: 14.9043220043,
         priceUSD: 2,
         tradedAmount: 3.726080501070025,
         tradedAmountUSD: 7.45216100215,

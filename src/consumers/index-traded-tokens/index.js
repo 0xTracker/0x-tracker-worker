@@ -31,8 +31,6 @@ const consumer = async (job, { logger }) => {
             tokenAddress: tradedToken.address,
             tokenType: tradedToken.type,
             liquiditySourceId: liquiditySource ? liquiditySource.id : undefined,
-            filledAmount: tradedToken.filledAmount,
-            filledAmountUSD: tradedToken.filledAmountUSD,
             tradeCountContribution: tradedToken.tradeCountContribution,
             tradedAmount: tradedToken.tradedAmount,
             tradedAmountUSD: tradedToken.tradedAmountUSD,
