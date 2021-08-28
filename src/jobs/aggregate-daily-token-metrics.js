@@ -97,6 +97,39 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
                   field: 'tradedAmountUSD',
                 },
               },
+              priced: {
+                filter: {
+                  exists: { field: 'priceUSD' },
+                },
+                aggs: {
+                  lastTrade: {
+                    top_hits: {
+                      size: 1,
+                      sort: {
+                        date: {
+                          order: 'desc',
+                        },
+                      },
+                      _source: {
+                        includes: ['date', 'fillId', 'priceUSD'],
+                      },
+                    },
+                  },
+                  firstTrade: {
+                    top_hits: {
+                      size: 1,
+                      sort: {
+                        date: {
+                          order: 'asc',
+                        },
+                      },
+                      _source: {
+                        includes: ['date', 'fillId', 'priceUSD'],
+                      },
+                    },
+                  },
+                },
+              },
             },
           },
         },
@@ -121,6 +154,8 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
       avgPrice: x.avgPrice.value,
       minPrice: x.minPrice.value,
       maxPrice: x.maxPrice.value,
+      openPrice: _.get(x, 'priced.firstTrade.hits.hits[0]._source.priceUSD'),
+      closePrice: _.get(x, 'priced.lastTrade.hits.hits[0]._source.priceUSD'),
       tradeCount: x.tradeCount.value,
       tradeVolume: x.tradeVolume.value,
       tradeVolumeUsd: x.tradeVolumeUsd.value,
@@ -144,6 +179,8 @@ const aggregateDailyTokenMetrics = async ({ enabled }, { logger }) => {
               address: dataPoint.address,
               date: dataPoint.date.toISOString(),
               avgPrice: dataPoint.avgPrice,
+              openPrice: dataPoint.openPrice,
+              closePrice: dataPoint.closePrice,
               minPrice: dataPoint.minPrice,
               maxPrice: dataPoint.maxPrice,
               tradeCount: dataPoint.tradeCount,
