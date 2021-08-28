@@ -17,6 +17,19 @@ const consumer = async (job, { logger }) => {
 
   const body = tradedTokens
     .map(tradedToken => {
+      const doc = {
+        attributions,
+        fillId,
+        date,
+        tokenAddress: tradedToken.address,
+        tokenType: tradedToken.type,
+        liquiditySourceId: liquiditySource ? liquiditySource.id : undefined,
+        tradeCountContribution: tradedToken.tradeCountContribution,
+        tradedAmount: tradedToken.tradedAmount,
+        tradedAmountUSD: tradedToken.tradedAmountUSD,
+        priceUSD: tradedToken.priceUSD,
+      };
+
       return [
         JSON.stringify({
           update: {
@@ -24,19 +37,15 @@ const consumer = async (job, { logger }) => {
           },
         }),
         JSON.stringify({
-          doc: {
-            attributions,
-            fillId,
-            date,
-            tokenAddress: tradedToken.address,
-            tokenType: tradedToken.type,
-            liquiditySourceId: liquiditySource ? liquiditySource.id : undefined,
-            tradeCountContribution: tradedToken.tradeCountContribution,
-            tradedAmount: tradedToken.tradedAmount,
-            tradedAmountUSD: tradedToken.tradedAmountUSD,
-            priceUSD: tradedToken.priceUSD,
-          },
-          doc_as_upsert: true,
+          doc,
+
+          /* 
+            Note: doc_as_upsert cannot be used because of an ingest pipeline
+            that is configured on the index.
+
+            https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html#doc_as_upsert
+          */
+          upsert: doc,
         }),
       ].join('\n');
     })
