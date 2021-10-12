@@ -1,0 +1,16 @@
+{
+  "id": "3cd9b0cb-df03-4608-a14a-104f8a74b98b",
+  "name": "parsec",
+  "logo": "parsec.png",
+  "urlSlug": "parsec",
+  "websiteUrl": "https://parsec.finance/",
+  "mappings": [
+    {
+      "affiliateAddress": "0x87d9a3be5435a1dcadea99059ad6f50c0d6e8469",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "portfolio-manager"
+  ]
+}

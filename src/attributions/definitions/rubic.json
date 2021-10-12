@@ -1,0 +1,17 @@
+{
+  "id": "eea6a7d8-0ce0-4de6-8892-c9dba93b2284",
+  "name": "Rubic",
+  "logo": "rubic.png",
+  "urlSlug": "rubic",
+  "websiteUrl": "https://https://rubic.finance/",
+  "mappings": [
+    {
+      "type": "consumer",
+      "affiliateAddress": "0x19ebb148836b5f8a6320e42666912978b20d0dbb"
+    }
+  ],
+  "categories": [
+    "dex-aggregator",
+    "cross-chain"
+  ]
+}
