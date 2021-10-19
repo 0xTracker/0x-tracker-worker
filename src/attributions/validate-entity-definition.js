@@ -8,6 +8,7 @@ const schema = Joi.object({
   categories: Joi.array()
     .items(
       Joi.string().valid(
+        'cross-chain',
         'dex-aggregator',
         'other',
         'portfolio-manager',
