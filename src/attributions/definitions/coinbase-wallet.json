@@ -8,6 +8,14 @@
     {
       "transactionToAddress": "0xe66b31678d6c16e9ebf358268a790b763c133750",
       "type": "consumer"
+    },
+    {
+      "affiliateAddress": "0x382ffce2287252f930e1c8dc9328dac5bf282ba1",
+      "type": "consumer"
+    },
+    {
+      "affiliateAddress": "0xBe5998D3d0E9409474eF18AbC30436574604B0C5",
+      "type": "consumer"
     }
   ],
   "categories": [
