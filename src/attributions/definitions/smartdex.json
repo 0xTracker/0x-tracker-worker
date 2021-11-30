@@ -1,0 +1,17 @@
+{
+  "id": "531c3030-51dc-11ec-bf63-0242ac130002",
+  "name": "Smartdex",
+  "description": "Smartdex 2.0 looks to solve many of the pronounced issues of DeFi by aggregating liquidity across 0x exchanges, having a sleek easy-to-use interface, an invest section with access to liquidity and smartpools, and allowing users to connect and trade using their own wallets without the need to deposit funds into the exchange. Smartdex 2.0 will continue to advance the DeFi space with it's upcoming features and future integration of AI in order to improve investment pools and automated trading using its Maker tool.",
+  "logo": "smartdex.png",
+  "urlSlug": "Smartdex",
+  "websiteUrl": "https://smartdex.app",
+  "mappings": [
+    {
+      "type": "consumer",
+      "affiliateAddress": "0x9fd49daf92e29df8b5132c9a026b99b4281d4f7c"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}
