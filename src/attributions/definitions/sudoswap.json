@@ -1,0 +1,17 @@
+{
+  "id": "c0c42abe-96ff-4697-b318-24dfa33e1b3c",
+  "name": "sudoswap",
+  "logo": "sudoswap.png",
+  "urlSlug": "sudoswap",
+  "websiteUrl": "https://sudoswap.xyz",
+  "mappings": [
+    {
+
+      "type": "relayer",
+      "affiliateAddress": "0x4e2f98c96e2d595a83afa35888c4af58ac343e44"
+    }
+  ],
+  "categories": [
+    "other"
+  ]
+}
