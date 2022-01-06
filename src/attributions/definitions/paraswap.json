@@ -1,7 +1,7 @@
 {
   "id": "4c3854b7-95c3-4714-83ab-a8ed53d2967e",
   "name": "Paraswap",
-  "description": "Paraswap is a DEX aggregator which sources liquidity from various DEX protocols (including 0x) to offer users better prices.",
+  "description": "Paraswap is a DEX aggregator which leverages 0x RFQ packages, and settles transactions on 0x contracts.",
   "logo": "paraswap.png",
   "urlSlug": "paraswap",
   "websiteUrl": "https://paraswap.io",
@@ -29,6 +29,10 @@
     {
       "type": "consumer",
       "transactionToAddress": "0x1bd435f3c054b6e901b7b108a0ab7617c808677b"
+    },
+    {
+      "type": "consumer",
+      "transactionToAddress": "0xdef171fe48cf0115b1d80b88dc8eab59176fee57"
     }
   ],
   "categories": [
