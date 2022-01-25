@@ -1,0 +1,17 @@
+{
+  "id": "f6ea79a9-7a30-4c4d-8a6c-25cbf1d2ba8f",
+  "name": "Mean Finance",
+  "logo": "mean-finance.png",
+  "urlSlug": "mean-finance",
+  "websiteUrl": "https://mean.finance/",
+  "mappings": [
+    {
+      "type": "consumer",
+      "affiliateAddress": "0x1a00e1e311009e56e3b0b9ed6f86f5ce128a1c01"
+    }
+  ],
+  "categories": [
+    "dex-aggregator",
+    "cross-chain"
+  ]
+}
