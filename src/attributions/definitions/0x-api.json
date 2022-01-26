@@ -119,6 +119,11 @@
       "affiliateAddress": "0x1a00e1e311009e56e3b0b9ed6f86f5ce128a1c01",
       "feeRecipientAddress": null,
       "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x75542808465f2dfabf147247d645bddcfe18c623",
+      "feeRecipientAddress": null,
+      "type": "relayer"
     }
   ],
   "categories": [
