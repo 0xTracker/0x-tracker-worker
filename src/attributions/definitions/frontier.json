@@ -1,0 +1,16 @@
+{
+  "id": "5cf9f6f5-2489-47ba-9b60-282aade15c0d",
+  "name": "Frontier",
+  "logo": "frontier.png",
+  "urlSlug": "frontier",
+  "websiteUrl": "https://frontier.xyz/",
+  "mappings": [
+    {
+      "type": "consumer",
+      "affiliateAddress": "0x75542808465f2dfabf147247d645bddcfe18c623"
+    }
+  ],
+  "categories": [
+    "wallet"
+  ]
+}

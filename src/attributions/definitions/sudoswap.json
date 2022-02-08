@@ -8,7 +8,7 @@
     {
 
       "type": "relayer",
-      "affiliateAddress": "0x4e2f98c96e2d595a83afa35888c4af58ac343e44"
+      "feeRecipientAddress": "0x4e2f98c96e2d595a83afa35888c4af58ac343e44"
     }
   ],
   "categories": [
