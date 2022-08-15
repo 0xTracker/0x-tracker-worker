@@ -1,0 +1,16 @@
+{
+  "id": "fb7f1e4f-0dda-4ba2-b321-ce76109b3d98",
+  "name": "Merchcoins Exchange",
+  "logo": "merchcoins.png",
+  "urlSlug": "merchcoins-exchange",
+  "websiteUrl": "https://merchcoins.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x584860fe460a16cd11e6fdebb2e77146d1835be8"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

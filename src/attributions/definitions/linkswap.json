@@ -1,0 +1,17 @@
+{
+  "id": "e7731496-3986-4d62-b754-3f1ed1f420e9",
+  "name": "LINKSWAP",
+  "logo": "linkswap.png",
+  "urlSlug": "linkswap",
+  "mappings": [
+    {
+      "source": "19",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0x000000000000000000000000000000024c696e6b737761700000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

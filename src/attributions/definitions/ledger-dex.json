@@ -1,0 +1,16 @@
+{
+  "id": "decd1680-a212-48ff-8081-b1aa41877cf7",
+  "name": "LedgerDex",
+  "logo": "ledger-dex.png",
+  "urlSlug": "ledger-dex",
+  "websiteUrl": "https://ledgerdex.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x4524baa98f9a3b9dec57caae7633936ef96bd708"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "8941903a-f223-46bd-8409-f3ccfbd6d066",
+  "name": "SwitchDex",
+  "logo": "switch-dex.png",
+  "urlSlug": "switch-dex",
+  "websiteUrl": "https://switchdex.ag",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x10aa8c82e3656170baae80d189b8b7dcea6865c9"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

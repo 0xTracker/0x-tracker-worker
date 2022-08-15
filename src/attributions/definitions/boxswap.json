@@ -1,0 +1,16 @@
+{
+  "id": "16d85259-624d-488d-9f57-99bcb7b60fe1",
+  "name": "Boxswap",
+  "logo": "boxswap.png",
+  "urlSlug": "boxswap",
+  "websiteUrl": "https://boxswap.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x66a836664adc7c525c0cc4527dee8619d4faf669"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

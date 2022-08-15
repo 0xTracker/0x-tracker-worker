@@ -9,15 +9,24 @@ const logger = signale.scope('derive fill prices');
 const deriveFillPrices = async ({ batchSize }) => {
   const fills = await fetchUnpricedFills(batchSize);
 
-  logger.info(`found ${fills.length} unpriced fills`);
-
   if (fills.length === 0) {
+    logger.info('no unpriced fills were found');
     return;
   }
 
-  await bluebird.mapSeries(fills, async fill => {
-    await priceFill(fill);
+  logger.info(`found unpriced fills: ${fills.length}`);
+
+  await bluebird.each(fills, async fill => {
+    const result = await priceFill(fill);
+
+    if (result) {
+      logger.success(`priced fill: ${fill._id}`);
+    } else {
+      logger.info(`marked fill as unpriceable: ${fill._id}`);
+    }
   });
+
+  logger.info(`finished pricing fills: ${fills.length}`);
 };
 
 module.exports = deriveFillPrices;

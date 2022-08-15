@@ -1,0 +1,24 @@
+{
+  "id": "dda3bbb3-333b-437a-ae96-150987c33617",
+  "name": "Furucombo",
+  "logo": "furucombo.png",
+  "urlSlug": "furucombo",
+  "websiteUrl": "https://furucombo.app",
+  "mappings": [
+    {
+      "transactionToAddress": "0x57805e5a227937bac2b0fdacaa30413ddac6b8e1",
+      "type": "consumer"
+    },
+    {
+      "transactionToAddress": "0xeebec7874f46c4452610a11fa6be0264f7f0557f",
+      "type": "consumer"
+    },
+    {
+      "transactionToAddress": "0x17e8ca1b4798b97602895f63206afcd1fc90ca5f",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "other"
+  ]
+}

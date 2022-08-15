@@ -1,0 +1,21 @@
+{
+  "id": "3ada6641-bd00-44b8-be5a-4514a77c3254",
+  "name": "Swerve",
+  "logo": "swerve.png",
+  "urlSlug": "swerve",
+  "mappings": [
+    {
+      "bridgeAddress": "0xf9786d5eb1de47fa56a8f7bb387653c6d410bfee",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "15",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0x0000000000000000000000000000000153776572766500000000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

@@ -1,37 +1,31 @@
 const _ = require('lodash');
 
-// const backfillRelayerRelationships = require('./backfill-relayer-relationships');
-const cacheAddressMetrics = require('./cache-address-metrics');
-const cacheProtocolMetrics = require('./cache-protocol-metrics');
-const cacheRelayerMetrics = require('./cache-relayer-metrics');
-const cacheTokenMetrics = require('./cache-token-metrics');
-const cacheTokenStats = require('./cache-token-stats');
-const convertFees = require('./convert-fees');
-const convertProtocolFees = require('./convert-protocol-fees');
-const createFills = require('./create-fills');
+const aggregateDailyAppMetrics = require('./aggregate-daily-app-metrics');
+const aggregateDailyLiquiditySourceMetrics = require('./aggregate-daily-liquidity-source-metrics');
+const aggregateDailyNetworkMetrics = require('./aggregate-daily-network-metrics');
+const aggregateDailyProtocolMetrics = require('./aggregate-daily-protocol-metrics');
+const aggregateDailyTokenMetrics = require('./aggregate-daily-token-metrics');
+const aggregateDailyTraderMetrics = require('./aggregate-daily-trader-metrics');
+const batchScheduleFillCreation = require('./batch-schedule-fill-creation');
+const batchScheduleTransactionFetch = require('./batch-schedule-transaction-fetch');
 const deriveFillPrices = require('./derive-fill-prices');
+const fetchArticles = require('./fetch-articles');
 const getMissingTokenImages = require('./get-missing-token-images');
-const getNewArticles = require('./get-new-articles');
-const measureFills = require('./measure-fills');
-const resolveTokens = require('./resolve-tokens');
-const updateRelayerStats = require('./update-relayer-stats');
+const precomputeAppStats = require('./precompute-app-stats');
 
 const jobFns = {
-  // backfillRelayerRelationships,
-  cacheAddressMetrics,
-  cacheProtocolMetrics,
-  cacheRelayerMetrics,
-  cacheTokenMetrics,
-  cacheTokenStats,
-  convertFees,
-  convertProtocolFees,
-  createFills,
+  aggregateDailyAppMetrics,
+  aggregateDailyLiquiditySourceMetrics,
+  aggregateDailyNetworkMetrics,
+  aggregateDailyProtocolMetrics,
+  aggregateDailyTokenMetrics,
+  aggregateDailyTraderMetrics,
+  batchScheduleFillCreation,
+  batchScheduleTransactionFetch,
   deriveFillPrices,
+  fetchArticles,
   getMissingTokenImages,
-  getNewArticles,
-  measureFills,
-  resolveTokens,
-  updateRelayerStats,
+  precomputeAppStats,
 };
 
 const getJobs = ({ pollingIntervals }) =>

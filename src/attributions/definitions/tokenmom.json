@@ -1,0 +1,16 @@
+{
+  "id": "e34fc87a-4bba-48dd-a2a4-57672eb8068c",
+  "name": "Tokenmom",
+  "logo": "tokenmom.png",
+  "urlSlug": "tokenmom",
+  "websiteUrl": "https://tokenmom.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "takerAddress": "0x4a821aa1affbf7ee89a245bf750d1d7374e77409"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

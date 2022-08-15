@@ -1,0 +1,20 @@
+{
+  "id": "9d72a8f4-d944-41c9-96e4-2636ea26eba1",
+  "name": "Paradex",
+  "logo": "paradex.png",
+  "urlSlug": "paradex",
+  "websiteUrl": "https://paradex.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "takerAddress": "0x4969358e80cdc3d74477d7447bffa3b2e2acbe92"
+    },
+    {
+      "type": "relayer",
+      "takerAddress": "0xd2045edc40199019e221d71c0913343f7908d0d5"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

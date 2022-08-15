@@ -1,0 +1,16 @@
+{
+  "id": "5c8d3862-fe9b-43d3-bc73-1ee8f305b7a2",
+  "name": "Gods Unchained",
+  "logo": "gods-unchained.png",
+  "urlSlug": "gods-unchained",
+  "websiteUrl": "https://godsunchained.com/market",
+  "mappings": [
+    {
+      "type": "relayer",
+      "senderAddress": "0xb04239b53806ab31141e6cd47c63fb3480cac908"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

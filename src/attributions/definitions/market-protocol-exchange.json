@@ -1,0 +1,16 @@
+{
+  "id": "43c398a2-1059-4ba8-ae61-09ab11c4c16f",
+  "name": "MARKET Protocol Exchange",
+  "logo": "market-protocol-exchange.png",
+  "urlSlug": "market-protocol-exchange",
+  "websiteUrl": "https://mpexchange.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x8752d14a086cee9b8c108611ba9aefe04042c9f9"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

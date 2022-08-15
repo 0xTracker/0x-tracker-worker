@@ -1,0 +1,14 @@
+{
+  "id": "3daddb1c-c7e1-43ca-a439-794722badcab",
+  "name": "Component",
+  "logo": "component.png",
+  "urlSlug": "component",
+  "websiteUrl": "https://component.finance",
+  "mappings": [
+    {
+      "source": "0x00000000000000000000000000000009436f6d706f6e656e7400000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

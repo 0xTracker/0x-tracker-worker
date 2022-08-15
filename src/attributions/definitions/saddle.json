@@ -1,0 +1,14 @@
+{
+  "id": "40c01e81-3af6-4c50-9e7c-f4466b5d1683",
+  "name": "Saddle",
+  "logo": "saddle.png",
+  "urlSlug": "saddle",
+  "websiteUrl": "https://saddle.finance",
+  "mappings": [
+    {
+      "source": "0x0000000000000000000000000000000f536164646c6500000000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

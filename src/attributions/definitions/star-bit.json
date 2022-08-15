@@ -1,0 +1,20 @@
+{
+  "id": "a5808078-d297-4fbd-a818-dccd8a5438ed",
+  "name": "STAR BIT",
+  "logo": "star-bit.png",
+  "urlSlug": "star-bit",
+  "websiteUrl": "https://exchange.star-bit.io/zh-tw",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x8124071f810d533ff63de61d0c98db99eeb99d64"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xc370d2a5920344aa6b7d8d11250e3e861434cbdd"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

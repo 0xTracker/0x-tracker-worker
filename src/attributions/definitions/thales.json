@@ -1,0 +1,16 @@
+{
+  "id": "4b073218-b1ef-446d-8274-d08c63297f47",
+  "name": "Thales Market",
+  "logo": "thales.png",
+  "urlSlug": "thales-market",
+  "websiteUrl": "https://thales.market/",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x0f8c816a31daef932b9f8afc3fcaa62a557ba2f7"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

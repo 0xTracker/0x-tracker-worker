@@ -1,0 +1,16 @@
+{
+  "id": "861ba761-bcb4-4985-bb51-5b27e11b3156",
+  "name": "OneKey",
+  "logo": "onekey.png",
+  "urlSlug": "onekey",
+  "websiteUrl": "https://onekey.so",
+  "mappings": [
+    {
+      "type": "consumer",
+      "affiliateAddress": "0x4f5fc02be49bea15229041b87908148b04c14717"
+    }
+  ],
+  "categories": [
+    "wallet"
+  ]
+}

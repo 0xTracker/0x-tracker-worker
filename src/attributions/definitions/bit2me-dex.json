@@ -1,0 +1,16 @@
+{
+  "id": "cb07ce6e-0565-46e3-969f-b3bf511eb2a2",
+  "name": "Bit2Me DEX",
+  "logo": "bit2me-dex.png",
+  "urlSlug": "bit2me-dex",
+  "websiteUrl": "https://bit2me.com/dex",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x1b38d2613698488cbac0e7d21abb2fdbbe1d6704"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

@@ -1,30 +1,43 @@
 const _ = require('lodash');
+const signale = require('signale');
+
 const { getQueues } = require('../queues');
-const bulkIndexFills = require('./bulk-index-fills');
-const fetchFillStatus = require('./fetch-fill-status');
+const convertProtocolFee = require('./convert-protocol-fee');
+const convertRelayerFees = require('./convert-relayer-fees');
+const createFillsForEvent = require('./create-fills-for-event');
+const fetchAddressType = require('./fetch-address-type');
+const fetchTokenMetadata = require('./fetch-token-metadata');
+const fetchTransaction = require('./fetch-transaction');
 const indexFill = require('./index-fill');
-const indexFillStatus = require('./index-fill-status');
+const indexFillProtocolFee = require('./index-fill-protocol-fee');
+const indexFillTraders = require('./index-fill-traders');
 const indexFillValue = require('./index-fill-value');
+const indexTradedTokens = require('./index-traded-tokens');
+const measureFill = require('./measure-fill');
 
 const consumers = [
-  bulkIndexFills,
-  fetchFillStatus,
+  convertProtocolFee,
+  convertRelayerFees,
+  createFillsForEvent,
+  fetchAddressType,
+  fetchTokenMetadata,
+  fetchTransaction,
   indexFill,
-  indexFillStatus,
+  indexFillProtocolFee,
+  indexFillTraders,
   indexFillValue,
+  indexTradedTokens,
+  measureFill,
 ];
 
-const initQueueConsumers = config => {
+const initQueueConsumers = () => {
   const queues = getQueues();
 
   _.each(consumers, ({ fn, jobName, queueName }) => {
-    const concurrency = _.get(config, `${fn.name}.concurrency`, null);
+    const jobLogger = signale.scope(`job-consumer/${_.kebabCase(jobName)}`);
+    const fnWrapper = job => fn(job, { logger: jobLogger });
 
-    if (concurrency === null) {
-      queues[queueName].process(jobName, fn);
-    } else {
-      queues[queueName].process(jobName, concurrency, fn);
-    }
+    queues[queueName].process(jobName, 1, fnWrapper);
   });
 };
 

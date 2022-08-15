@@ -1,0 +1,16 @@
+{
+  "id": "1ceee29d-bf1b-4fb6-8fc9-46e599ba59ef",
+  "name": "VeriDEX",
+  "logo": "veridex.png",
+  "urlSlug": "veridex",
+  "websiteUrl": "https://dex.verisafe.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x5265bde27f57e738be6c1f6ab3544e82cdc92a8f"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

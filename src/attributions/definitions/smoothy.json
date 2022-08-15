@@ -1,0 +1,14 @@
+{
+  "id": "23c8df87-2cb4-4270-b952-2a69d4b12700",
+  "name": "Smoothy",
+  "logo": "smoothy.png",
+  "urlSlug": "smoothy",
+  "websiteUrl": "https://smoothy.finance",
+  "mappings": [
+    {
+      "source": "0x00000000000000000000000000000001536d6f6f746879000000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

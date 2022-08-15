@@ -1,0 +1,16 @@
+{
+  "id": "b9701f26-7f5f-481a-8ed7-1621f6b864db",
+  "name": "TokenTrove",
+  "logo": "token-trove.png",
+  "urlSlug": "token-trove",
+  "websiteUrl": "https://tokentrove.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x0d056bb17ad4df5593b93a1efc29cb35ba4aa38d"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

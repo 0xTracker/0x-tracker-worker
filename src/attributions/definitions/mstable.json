@@ -1,0 +1,21 @@
+{
+  "id": "26aa7d52-dd12-41ae-876c-06ab634431fe",
+  "name": "mStable",
+  "logo": "mstable.png",
+  "urlSlug": "mstable",
+  "mappings": [
+    {
+      "bridgeAddress": "0x2bf04fcea05f0989a14d9afa37aa376baca6b2b3",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "10",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0x000000000000000000000000000000074d537461626c65000000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

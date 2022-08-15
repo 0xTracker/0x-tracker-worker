@@ -1,0 +1,21 @@
+{
+  "id": "9675f606-58cc-4b25-ba27-75902912ee6d",
+  "name": "Mooniswap",
+  "logo": "mooniswap.png",
+  "urlSlug": "mooniswap",
+  "mappings": [
+    {
+      "bridgeAddress": "0x02b7eca484ad960fca3f7709e0b2ac81eec3069c",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "9",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0x000000000000000000000000000000064d6f6f6e697377617000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

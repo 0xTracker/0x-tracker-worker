@@ -1,0 +1,16 @@
+{
+  "id": "706a6313-dd9c-4e41-9aa2-6189e699bd9b",
+  "name": "Instex",
+  "logo": "instex.png",
+  "urlSlug": "instex",
+  "websiteUrl": "https://instex.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x3151e8ab9bfe754ada6682b9d75906e06a18a741"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

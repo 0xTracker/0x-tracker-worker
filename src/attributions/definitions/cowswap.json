@@ -1,0 +1,14 @@
+{
+  "id": "8ed8bf9b-76aa-4ebf-a766-ae5007542940",
+  "name": "Cowswap",
+  "logo": "cowswap.png",
+  "urlSlug": "cowswap",
+  "websiteUrl": "https://cowswap.exchange",
+  "mappings": [
+    {
+      "type": "consumer",
+      "affiliateAddress": "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
+    }
+  ],
+  "categories": ["dex-aggregator"]
+}

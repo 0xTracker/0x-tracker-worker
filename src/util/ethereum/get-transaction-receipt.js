@@ -15,7 +15,7 @@ const getTransactionReceipt = async transactionHash => {
   });
 
   const receipt = await Promise.race([
-    web3Wrapper.getTransactionReceiptIfExistsAsync(transactionHash),
+    web3Wrapper.getTransactionReceipt(transactionHash),
     timeout,
   ]);
 

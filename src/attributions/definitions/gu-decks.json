@@ -1,0 +1,20 @@
+{
+  "id": "a110ed15-055e-4bb6-892a-8f39d0e7d769",
+  "name": "GUDecks",
+  "logo": "gudecks.png",
+  "urlSlug": "gu-decks",
+  "websiteUrl": "https://gudecks.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x013ec57d1237e7727f818b1a35e3506f754304e4"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xd9c3ed92520a2f3076a9bd5ea9d4a2c2a0cf6457"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

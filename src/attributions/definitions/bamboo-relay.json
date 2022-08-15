@@ -1,0 +1,20 @@
+{
+  "id": "b8cc40a9-0a1e-4cb1-a8e2-064b56b38fa7",
+  "name": "Bamboo Relay",
+  "logo": "bamboo-relay.png",
+  "urlSlug": "bamboo-relay",
+  "websiteUrl": "https://bamboorelay.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x5dd835a893734b8d556eccf87800b76dda5aedc5"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xc898fbee1cc94c0ff077faa5449915a506eff384"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

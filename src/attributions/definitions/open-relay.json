@@ -1,0 +1,20 @@
+{
+  "id": "1f72a70f-3e55-4517-b020-df87a034b60d",
+  "name": "Open Relay",
+  "logo": "open-relay.png",
+  "urlSlug": "open-relay",
+  "websiteUrl": "https://openrelay.xyz",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xc22d5b2951db72b44cfb8089bb8cd374a3c354ea"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x89db81c2dc4adaf10a93705b69289d479d576635"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

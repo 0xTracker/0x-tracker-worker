@@ -1,0 +1,17 @@
+{
+  "id": "5caa43d9-6b18-4110-9062-89cd9ec35858",
+  "name": "Veil",
+  "logo": "veil.png",
+  "urlSlug": "veil",
+  "websiteUrl": "https://veil.co",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x0000000000000000000000000000000000000000",
+      "takerAddress": "0xdf1bc6498338135de5ffdbcb98817d81e2665912"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "3b8d45b4-aa7c-4bc4-b1d8-fb78e1b5b2b8",
+  "name": "EtherBlockchain.io",
+  "logo": "ether-blockchain.png",
+  "urlSlug": "ether-blockchain",
+  "websiteUrl": "https://www.etherblockchain.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x2a5f5f36c20d7e56358db78bbfac0bace25c1198"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

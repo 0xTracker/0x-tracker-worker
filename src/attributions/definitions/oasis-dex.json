@@ -1,0 +1,30 @@
+{
+  "id": "7b0d1e1e-6f92-44c3-b99b-80193b9333ff",
+  "name": "Oasis",
+  "logo": "oasis.png",
+  "urlSlug": "oasis",
+  "websiteUrl": "https://oasis.app",
+  "mappings": [
+    {
+      "bridgeAddress": "0x991c745401d5b5e469b8c3e2cb02c748f08754f1",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xe3379a1956f4a79f39eb2e87bb441419e167538e",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0x0ac2d6f5f5afc669d3ca38f830dad2b4f238ad3f",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "11",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0x0000000000000000000000000000000845746832446169000000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

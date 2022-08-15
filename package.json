@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "test": "jest --coverage",
+    "test": "jest --coverage --maxWorkers 4",
     "test:watch": "jest --watch"
   },
   "repository": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://0xtracker.com",
   "devDependencies": {
+    "@elastic/elasticsearch-mock": "0.3.0",
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-config-prettier": "6.9.0",
@@ -33,38 +34,37 @@
     "husky": "2.4.1",
     "jest": "24.9.0",
     "lint-staged": "8.2.1",
-    "prettier": "1.19.1"
+    "mongodb-memory-server": "6.6.1",
+    "prettier": "1.19.1",
+    "timekeeper": "2.2.0"
   },
   "dependencies": {
-    "@0x/order-utils": "10.0.1",
-    "@0x/subproviders": "4.1.0",
-    "@0x/utils": "4.3.3",
-    "@0x/web3-wrapper": "6.0.7",
+    "@0x/order-utils": "10.4.11",
+    "@0x/utils": "6.1.1",
     "@bugsnag/js": "6.4.2",
     "@elastic/elasticsearch": "7.5.0",
-    "aws-elasticsearch-connector": "8.2.0",
-    "aws-sdk": "2.585.0",
+    "@hapi/joi": "17.1.1",
     "axios": "0.19.0",
-    "bignumber.js": "9.0.0",
     "bluebird": "3.5.5",
     "bull": "3.12.1",
     "cheerio": "1.0.0-rc.3",
     "config": "3.1.0",
     "dotenv-safe": "6.1.0",
-    "flat": "4.1.0",
+    "ethers": "5.0.24",
     "lodash": "4.17.15",
     "memory-cache": "0.2.0",
+    "metaget": "1.0.7",
     "moment": "2.24.0",
     "moment-round": "1.0.1",
     "mongoose": "5.7.4",
     "ms": "2.1.2",
     "promise-poller": "1.7.0",
     "rss-parser": "3.7.1",
-    "seamless-immutable": "7.1.4",
-    "signale": "1.4.0"
+    "signale": "1.4.0",
+    "slugify": "1.4.0"
   },
   "engines": {
-    "node": "10.17.0",
+    "node": "12.19.0",
     "npm": "6.x.x"
   }
 }

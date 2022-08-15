@@ -14,25 +14,25 @@ const getMissingTokenImages = async () => {
   logger.pending('fetching images from Trust Wallet repository');
 
   const response = await axios.get(
-    'https://api.github.com/repos/TrustWallet/assets/git/trees/master?recursive=1',
+    'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/allowlist.json',
   );
 
-  if (!_.isArray(_.get(response, 'data.tree'))) {
+  if (!_.isArray(_.get(response, 'data'))) {
     throw new Error(
       'Data returned by Trust Wallet repository was in unexpected format',
     );
   }
 
+  const addressesWithImages = response.data;
+
   const operations = flow(
     map(token => {
-      const image = _.find(
-        response.data.tree,
-        item =>
-          item.path.toUpperCase() ===
-          `blockchains/ethereum/assets/${token.address}/logo.png`.toUpperCase(),
+      const match = _.find(
+        addressesWithImages,
+        address => address.toUpperCase() === token.address.toUpperCase(),
       );
 
-      if (_.isUndefined(image) || token.imageUrl !== null) {
+      if (_.isNil(match) || _.isString(token.imageUrl)) {
         return null;
       }
 
@@ -41,7 +41,7 @@ const getMissingTokenImages = async () => {
           filter: { _id: token._id },
           update: {
             $set: {
-              imageUrl: `https://raw.githubusercontent.com/TrustWallet/assets/master/${image.path}`,
+              imageUrl: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${match}/logo.png`,
             },
           },
         },

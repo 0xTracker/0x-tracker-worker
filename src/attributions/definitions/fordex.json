@@ -1,0 +1,16 @@
+{
+  "id": "44bde452-9bca-4175-96c7-d206f55531bc",
+  "name": "Fordex",
+  "logo": "fordex.png",
+  "urlSlug": "fordex",
+  "websiteUrl": "https://www.fordex.co",
+  "mappings": [
+    {
+      "type": "relayer",
+      "takerAddress": "0x853da5cecc1ea601ab978c2001565a0377a7dca6"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

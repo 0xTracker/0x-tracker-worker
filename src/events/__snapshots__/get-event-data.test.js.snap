@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getEventData should get data for V2 event 1`] = `
+Object {
+  "assets": Array [
+    Object {
+      "actor": 0,
+      "amount": 1,
+      "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+      "tokenResolved": false,
+      "tokenType": 0,
+    },
+    Object {
+      "actor": 1,
+      "amount": 1650162000000000,
+      "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "tokenResolved": false,
+      "tokenType": 0,
+    },
+  ],
+  "blockHash": "0x592bdb8653f20b291b3cf927314344f299c6e37a3a2887a558b29584d60730d6",
+  "blockNumber": 6286241,
+  "feeRecipient": "0x173a2467cece1f752eb8416e337d0f0b58cad795",
+  "fees": Array [
+    Object {
+      "amount": Object {
+        "token": 1200000000000000000,
+      },
+      "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+      "tokenType": 0,
+      "traderType": 0,
+    },
+    Object {
+      "amount": Object {
+        "token": 2800000000000000000,
+      },
+      "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+      "tokenType": 0,
+      "traderType": 1,
+    },
+  ],
+  "logIndex": 42,
+  "maker": "0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44",
+  "orderHash": "0x8739c67a2a559205a7c8c7b24713ec21f35fed8b565a225a998375b1dae1bb14",
+  "senderAddress": "0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44",
+  "taker": "0x7447dab10325f902725191a34eb8288abe02c7f4",
+  "transactionHash": "0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc",
+}
+`;
+
+exports[`getEventData should get data for V3 event 1`] = `
+Object {
+  "assets": Array [
+    Object {
+      "actor": 0,
+      "amount": 1,
+      "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+      "tokenResolved": false,
+      "tokenType": 0,
+    },
+    Object {
+      "actor": 1,
+      "amount": 1650162000000000,
+      "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "tokenResolved": false,
+      "tokenType": 0,
+    },
+  ],
+  "blockHash": "0x592bdb8653f20b291b3cf927314344f299c6e37a3a2887a558b29584d60730d6",
+  "blockNumber": 6286241,
+  "feeRecipient": "0x173a2467cece1f752eb8416e337d0f0b58cad795",
+  "fees": Array [
+    Object {
+      "amount": Object {
+        "token": 500000000000,
+      },
+      "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+      "tokenType": 0,
+      "traderType": 0,
+    },
+    Object {
+      "amount": Object {
+        "token": 300000000,
+      },
+      "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "tokenType": 0,
+      "traderType": 1,
+    },
+  ],
+  "logIndex": 42,
+  "maker": "0xd3d0474124c1013ed6bfcfd9a49cfedb8c78fc44",
+  "orderHash": "0x8739c67a2a559205a7c8c7b24713ec21f35fed8b565a225a998375b1dae1bb14",
+  "protocolFee": 100000000000,
+  "senderAddress": "0xe33c8e3a0d14a81f0dd7e174830089e82f65fc85",
+  "taker": "0x7447dab10325f902725191a34eb8288abe02c7f4",
+  "transactionHash": "0x28ffb48f354997d384eee49d326c13a10c4584ca3bced4632053b201d3a0cbbc",
+}
+`;

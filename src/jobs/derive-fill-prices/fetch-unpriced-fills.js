@@ -9,7 +9,9 @@ const fetchUnpricedFills = async batchSize => {
         $not: { $elemMatch: { tokenResolved: false } },
       },
     })
-    .limit(batchSize);
+    .sort({ date: -1 })
+    .limit(batchSize)
+    .populate([{ path: 'assets.token' }]);
 
   return fills;
 };

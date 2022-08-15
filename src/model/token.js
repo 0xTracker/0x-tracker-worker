@@ -2,36 +2,18 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const statsShape = {
-  trades: Number,
-  volume: {
-    token: String,
-    USD: Number,
+const schema = Schema(
+  {
+    address: { lowercase: true, required: true, trim: true, type: String },
+    decimals: Number,
+    imageUrl: { type: String, trim: true },
+    name: String,
+    resolved: { default: false, type: Boolean },
+    symbol: String,
+    type: { required: true, type: Number },
   },
-  volumeShare: { type: Number, index: true },
-};
-
-const schema = Schema({
-  address: String,
-  decimals: Number,
-  imageUrl: { type: String, trim: true },
-  name: String,
-  price: {
-    lastTrade: {
-      date: Date,
-      id: { type: Schema.Types.ObjectId, Ref: 'Fill' },
-    },
-    lastPrice: Number,
-  },
-  resolved: Boolean,
-  stats: {
-    '1m': statsShape,
-    '7d': statsShape,
-    '24h': statsShape,
-  },
-  symbol: String,
-  type: Number,
-});
+  { strict: true, timestamps: true },
+);
 
 schema.index({ address: 1 }, { unique: true });
 schema.index({ resolved: 1 });

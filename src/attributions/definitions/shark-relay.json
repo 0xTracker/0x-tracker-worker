@@ -1,0 +1,16 @@
+{
+  "id": "eb6be975-6cc0-4d98-8b5d-0bf898d742e1",
+  "name": "Shark Relay",
+  "logo": "shark-relay.png",
+  "urlSlug": "shark-relay",
+  "websiteUrl": "https://sharkrelay.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x55890b06f0877a01bb5349d93b202961f8e27a9b"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

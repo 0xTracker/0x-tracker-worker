@@ -1,0 +1,20 @@
+{
+  "id": "12e8b02c-2a92-4989-9fea-b6e24dd6b704",
+  "name": "Zapper",
+  "logo": "zapper-fi.png",
+  "urlSlug": "zapper",
+  "websiteUrl": "https://zapper.fi",
+  "mappings": [
+    {
+      "affiliateAddress": "0x3ce37278de6388532c3949ce4e886f365b14fb56",
+      "type": "consumer"
+    },
+    {
+      "affiliateAddress": "0xf4e386b070a18419b5d3af56699f8a438dd18e89",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "portfolio-manager"
+  ]
+}

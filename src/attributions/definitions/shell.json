@@ -1,0 +1,25 @@
+{
+  "id": "01b36a11-cf8a-4bad-a659-8dc1feaa0fe1",
+  "name": "Shell",
+  "logo": "shell.png",
+  "urlSlug": "shell",
+  "mappings": [
+    {
+      "bridgeAddress": "0x21fb3862eed7911e0f8219a077247b849846728d",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xf1c0811e3788caae7dbfae43da9d9131b1a8a148",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "12",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0x000000000000000000000000000000095368656c6c0000000000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

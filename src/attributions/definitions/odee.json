@@ -1,0 +1,16 @@
+{
+  "id": "9aa7a3eb-8010-4668-a665-9bd70e129b1b",
+  "name": "Odee",
+  "logo": "odee.png",
+  "urlSlug": "odee",
+  "websiteUrl": "https://odee.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x382310cbb159b64c2e7c5675d110202701a436dd"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

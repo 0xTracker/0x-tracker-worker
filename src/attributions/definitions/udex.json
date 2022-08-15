@@ -1,0 +1,16 @@
+{
+  "id": "9b225e4e-3896-4677-a04b-02bb78d07dc0",
+  "name": "UDEX",
+  "logo": "udex.png",
+  "urlSlug": "udex",
+  "websiteUrl": "https://fridayte.ch",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xa5004c8b2d64ad08a80d33ad000820d63aa2ccc9"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

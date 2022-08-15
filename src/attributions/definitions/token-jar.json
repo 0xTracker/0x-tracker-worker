@@ -1,0 +1,16 @@
+{
+  "id": "d3f0c7c3-c54a-4ee4-9bc2-a970f66f2208",
+  "name": "Token Jar",
+  "logo": "token-jar.png",
+  "urlSlug": "token-jar",
+  "websiteUrl": "https://tokenjar.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x5e150a33ffa97a8d22f59c77ae5487b089ef62e9"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

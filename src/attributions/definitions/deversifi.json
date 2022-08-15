@@ -1,0 +1,20 @@
+{
+  "id": "c59944e9-e753-4108-af27-62996745c8f5",
+  "name": "DeversiFi",
+  "logo": "deversifi.png",
+  "urlSlug": "deversifi",
+  "websiteUrl": "https://www.deversifi.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xaf8ae6955d07776ab690e565ba6fbc79b8de3a5d"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

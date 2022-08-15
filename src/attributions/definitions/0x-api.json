@@ -1,0 +1,122 @@
+{
+  "id": "052b4862-2142-4532-bdc0-416814b0a5fe",
+  "name": "0x API",
+  "description": "Built by the 0x core team – 0x API makes accessing DEX liquidity easy through the use of smart order routing which aggregates liquidity from 0x Mesh, Kyber, Uniswap, and more.",
+  "logo": "0x-api.png",
+  "urlSlug": "0x-api",
+  "websiteUrl": "https://0x.org/api",
+  "mappings": [
+    {
+      "feeRecipientAddress": "0x1000000000000000000000000000000000000011",
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x1000000000000000000000000000000000000011",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x1000000000000000000000000000000000000011",
+      "feeRecipientAddress": "0x0000000000000000000000000000000000000000",
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x86003b044f70dac0abc80ac8957305b6370893ed",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x322d58b9e75a6918f7e7849aee0ff09369977e08",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x11ededebf63bef0ea2d2d071bdf88f71543ec6fb",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0xa258b39954cef5cb142fd567a46cddb31a670124",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x3ce37278de6388532c3949ce4e886f365b14fb56",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x5bd68b4d6f90bcc9f3a9456791c0db5a43df676d",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0xe4b5c336adb606f7ff14e8e80c6731619feef5f9",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x221d5c4993297fd95fa17743b9297e2e49fce9d2",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0xf4e386b070a18419b5d3af56699f8a438dd18e89",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x52427b0035f494a21a0a4a1abe04d679f789c821",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0xc770eefad204b5180df6a14ee197d99d808ee52d",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0xd3d555bb655acba9452bfc6d7cea8cc7b3628c55",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x720c9244473dfc596547c1f7b6261c7112a3dad4",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x7cba0eb7a94068324583be7771c5ecda25e4c4d1",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x4f5fc02be49bea15229041b87908148b04c14717",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x9008d19f58aabd9ed0d60971565aa8510560ab41",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x382ffce2287252f930e1c8dc9328dac5bf282ba1",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0xBe5998D3d0E9409474eF18AbC30436574604B0C5",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    },
+    {
+      "affiliateAddress": "0x19ebb148836b5f8a6320e42666912978b20d0dbb",
+      "feeRecipientAddress": null,
+      "type": "relayer"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

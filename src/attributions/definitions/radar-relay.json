@@ -1,0 +1,20 @@
+{
+  "id": "048f757c-42b5-4403-86da-5a298cac8c04",
+  "name": "Radar Relay",
+  "logo": "radar-relay.png",
+  "urlSlug": "radar-relay",
+  "websiteUrl": "https://radarrelay.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xa258b39954cef5cb142fd567a46cddb31a670124"
+    },
+    {
+      "type": "consumer",
+      "affiliateAddress": "0xa258b39954cef5cb142fd567a46cddb31a670124"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

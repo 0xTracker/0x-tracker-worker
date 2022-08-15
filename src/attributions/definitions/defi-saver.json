@@ -1,0 +1,17 @@
+{
+  "id": "b986d2ba-77bf-420b-99e3-28e592d476e2",
+  "name": "DeFi Saver",
+  "description": "DeFi Saver is a crypto-portfolio manager which sources liquidity from the 0x ecosystem.",
+  "logo": "defi-saver.png",
+  "urlSlug": "defi-saver",
+  "websiteUrl": "https://defisaver.com/",
+  "mappings": [
+    {
+      "affiliateAddress": "0x322d58b9e75a6918f7e7849aee0ff09369977e08",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "portfolio-manager"
+  ]
+}

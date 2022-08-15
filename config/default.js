@@ -1,21 +1,12 @@
 const _ = require('lodash');
 const ms = require('ms');
 
+const aggregationEnabled = process.env.AGGREGATION_ENABLED === 'true';
+
 module.exports = {
   appVersion: _.get(process.env, 'HEROKU_RELEASE_VERSION', null),
   bugsnag: {
     token: _.get(process.env, 'BUGSNAG_TOKEN', null),
-  },
-  consumers: {
-    bulkIndexFills: {
-      concurrency: _.get(process.env, 'BULK_INDEX_FILLS_CONCURRENCY', null),
-    },
-    fetchFillStatus: {
-      concurrency: _.get(process.env, 'FETCH_FILL_STATUS_CONCURRENCY', null),
-    },
-    indexFill: {
-      concurrency: _.get(process.env, 'INDEX_FILL_CONCURRENCY', null),
-    },
   },
   cryptoCompare: {
     apiKey: process.env.CRYPTO_COMPARE_API_KEY,
@@ -25,33 +16,36 @@ module.exports = {
     poolSize: process.env.POOL_SIZE || 30,
   },
   elasticsearch: {
-    password: process.env.ELASTIC_SEARCH_PASSWORD,
+    password: _.get(process.env, 'ELASTIC_SEARCH_PASSWORD', null),
     url: process.env.ELASTIC_SEARCH_URL,
-    username: process.env.ELASTIC_SEARCH_USERNAME,
-  },
-  ercDex: {
-    feeRecipientPollingInterval: ms('1 minute'),
-  },
-  ethplorer: {
-    apiKey: process.env.ETHPLORER_API_KEY,
+    username: _.get(process.env, 'ELASTIC_SEARCH_USERNAME', null),
   },
   jobs: {
-    convertFees: {
+    aggregateDailyAppMetrics: {
+      enabled: aggregationEnabled,
+    },
+    aggregateDailyLiquiditySourceMetrics: {
+      enabled: aggregationEnabled,
+    },
+    aggregateDailyNetworkMetrics: {
+      enabled: aggregationEnabled,
+    },
+    aggregateDailyProtocolMetrics: {
+      enabled: aggregationEnabled,
+    },
+    aggregateDailyTokenMetrics: {
+      enabled: aggregationEnabled,
+    },
+    aggregateDailyTraderMetrics: {
+      enabled: aggregationEnabled,
+    },
+    batchScheduleFillCreation: {
       batchSize: 100,
     },
-    convertProtocolFees: {
-      batchSize: 100,
-    },
-    createFills: {
-      batchSize: 500,
+    batchScheduleTransactionFetch: {
+      batchSize: 1000,
     },
     deriveFillPrices: {
-      batchSize: 100,
-    },
-    measureFills: {
-      batchSize: 100,
-    },
-    updateFillStatuses: {
       batchSize: 100,
     },
   },
@@ -60,17 +54,28 @@ module.exports = {
       default: ms('5 minutes'),
     },
     min: {
-      backfillRelayerRelationships: ms('1 minute'),
-      cacheAddressMetrics: ms('1 minute'),
-      cacheProtocolMetrics: ms('1 minute'),
-      cacheRelayerMetrics: ms('1 minute'),
-      cacheTokenMetrics: ms('1 minute'),
-      cacheTokenStats: ms('1 minute'),
+      aggregateDailyAppMetrics: ms('1 minutes'),
+      aggregateDailyLiquiditySourceMetrics: ms('1 minutes'),
+      aggregateDailyNetworkMetrics: ms('1 minute'),
+      aggregateDailyProtocolMetrics: ms('1 minutes'),
+      aggregateDailyTokenMetrics: ms('1 minutes'),
+      aggregateDailyTraderMetrics: ms('1 minutes'),
+      batchScheduleTransactionFetch: ms('10 seconds'),
       default: ms('30 seconds'),
+      fetchArticles: ms('10 minutes'),
       getMissingTokenImages: ms('1 minute'),
-      getNewArticles: ms('10 minutes'),
-      resolveTokens: ms('1 minute'),
-      updateRelayerStats: ms('1 minute'),
+      precomputeAppStats: ms('5 minutes'),
+    },
+  },
+  scheduler: {
+    suspended: process.env.SCHEDULER_SUSPENDED === 'true',
+  },
+  queues: {
+    pricing: {
+      limiter: {
+        max: 10,
+        duration: 1000,
+      },
     },
   },
   web3: {

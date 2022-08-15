@@ -1,0 +1,16 @@
+{
+  "id": "f6a543cc-539e-4040-8885-4fb961be29e4",
+  "name": "The Ocean",
+  "logo": "the-ocean.png",
+  "urlSlug": "the-ocean",
+  "websiteUrl": "https://theocean.trade",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x7219612be7036d1bfa933e16ca1246008f38c5fe"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

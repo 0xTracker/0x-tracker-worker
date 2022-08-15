@@ -1,0 +1,16 @@
+{
+  "id": "1d45a35f-11fe-47be-84d9-03db561c14ee",
+  "name": "DDEX",
+  "logo": "ddex.png",
+  "urlSlug": "ddex",
+  "websiteUrl": "https://ddex.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "takerAddress": "0xe269e891a2ec8585a378882ffa531141205e92e9"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "1f4c1bf3-10a9-4413-a534-81c53a318aba",
+  "name": "Curve",
+  "logo": "curve.png",
+  "urlSlug": "curve",
+  "mappings": [
+    {
+      "bridgeAddress": "0x1796cd592d19e3bcd744fbb025bb61a6d8cb2c09",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0x1cf6ccc7e15d0d99a9498f37e16ba65b5c54bdd0",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0x6dc7950423ada9f56fb2c93a23edb787f1e29088",
+      "type": "liquidity-source"
+    },
+    {
+      "bridgeAddress": "0xe335bdd1fb0ee30f9a9a434f18f8b118dec32df7",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "3",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0x0000000000000000000000000000000143757276650000000000000000000000",
+      "type": "liquidity-source"
+    },
+    {
+      "source": "0x0000000000000000000000000000001443757276655632000000000000000000",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

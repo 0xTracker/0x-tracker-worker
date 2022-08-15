@@ -1,0 +1,13 @@
+{
+  "id": "6bc14bd5-84f9-4747-b3b4-a01da40b8b7d",
+  "name": "CoFiX",
+  "logo": "cofix.png",
+  "urlSlug": "cofix",
+  "mappings": [
+    {
+      "source": "2",
+      "type": "liquidity-source"
+    }
+  ],
+  "categories": []
+}

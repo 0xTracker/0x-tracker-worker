@@ -1,0 +1,20 @@
+{
+  "id": "cddb2062-a2cf-4f1e-b320-07d567692334",
+  "name": "Oc2 DEX",
+  "logo": "oc2-dex.png",
+  "urlSlug": "oc2-dex",
+  "websiteUrl": "https://oc2realm.com",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x1af29de80f743be444aa195e2cae38ee9bc74c4c"
+    },
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0x879047421625b87b5895ef1ac0d9dbd241805aa3"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

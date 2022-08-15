@@ -19,12 +19,21 @@ const getQueues = () => {
   return queues;
 };
 
-const initQueues = queueNames => {
+const initQueues = (queueNames, config) => {
   queueNames.forEach(queueName => {
+    const queueConfig = _.get(config, _.camelCase(queueName), {});
+
     queues[queueName] = new Queue(queueName, {
+      defaultJobOptions: {
+        attempts: 10,
+        backoff: { delay: ms('10 seconds'), type: 'exponential' },
+        removeOnComplete: 1000,
+        timeout: 10000,
+      },
       redis: {
         host: process.env.REDIS_URL,
       },
+      ...queueConfig,
     })
       .on('error', logError)
       .on('failed', (job, error) => {
@@ -36,17 +45,9 @@ const initQueues = queueNames => {
 };
 
 const publishJob = async (queueName, jobName, jobData, options = {}) => {
-  const defaultOptions = {
-    attempts: 999,
-    backoff: {
-      delay: ms('10 seconds'),
-      type: 'exponential',
-    },
-    removeOnComplete: true,
-  };
   const queue = getQueue(queueName);
 
-  await queue.add(jobName, jobData, { ...defaultOptions, ...options });
+  await queue.add(jobName, jobData, options);
 };
 
 module.exports = { getQueue, getQueues, initQueues, publishJob };

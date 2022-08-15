@@ -1,0 +1,16 @@
+{
+  "id": "fb392c58-8287-4d8f-a2e2-07c1584f60a9",
+  "name": "Emoon",
+  "logo": "emoon.png",
+  "urlSlug": "emoon",
+  "websiteUrl": "https://emoon.io",
+  "mappings": [
+    {
+      "type": "relayer",
+      "feeRecipientAddress": "0xb0d7398d779ee9ffc727d2d5b045a5b441da8233"
+    }
+  ],
+  "categories": [
+    "relayer"
+  ]
+}

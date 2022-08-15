@@ -1,21 +1,31 @@
 const mongoose = require('mongoose');
 
-const { FILL_STATUS } = require('../constants');
-
 const { Schema } = mongoose;
 
-const createModel = () => {
-  const schema = Schema({
+const schema = Schema(
+  {
+    affiliateAddress: { lowercase: true, trim: true, type: String },
+    attributions: [
+      {
+        entityId: String,
+        type: { type: Number },
+      },
+    ],
     assets: [
       {
         actor: Number,
         amount: Number,
-        bridgeAddress: String,
+        bridgeAddress: { lowercase: true, trim: true, type: String },
         bridgeData: String,
         price: {
           USD: Number,
         },
-        tokenAddress: String,
+        tokenAddress: {
+          lowercase: true,
+          required: true,
+          trim: true,
+          type: String,
+        },
         tokenId: Number,
         tokenResolved: { default: false, type: Boolean },
         value: {
@@ -23,14 +33,12 @@ const createModel = () => {
         },
       },
     ],
-    blockHash: String,
+    blockHash: { lowercase: true, required: true, trim: true, type: String },
     blockNumber: Number,
     conversions: {
       USD: {
         amount: Number,
-        makerFee: Number,
         protocolFee: Number,
-        takerFee: Number,
       },
     },
     date: Date,
@@ -38,70 +46,90 @@ const createModel = () => {
     fees: [
       {
         amount: { token: Number, USD: Number },
-        bridgeAddress: String,
+        bridgeAddress: { lowercase: true, trim: true, type: String },
         bridgeData: String,
-        tokenAddress: String,
+        tokenAddress: {
+          lowercase: true,
+          required: true,
+          trim: true,
+          type: String,
+        },
         tokenId: Number,
         traderType: Number,
       },
     ],
-    feeRecipient: String,
+    feeRecipient: { lowercase: true, trim: true, type: String },
     hasValue: { default: false, type: Boolean },
     immeasurable: { default: false, type: Boolean },
     logIndex: Number,
-    maker: String,
-    makerFee: Number,
-    orderHash: String,
+    maker: { lowercase: true, trim: true, type: String },
+    orderHash: { lowercase: true, trim: true, type: String },
+    pool: String,
     pricingStatus: Number,
     protocolFee: Number,
     protocolVersion: Number,
+    quoteDate: Date,
     rates: {
       data: Schema.Types.Mixed,
     },
-    relayerId: Number,
-    senderAddress: String,
-    status: {
-      default: FILL_STATUS.PENDING,
-      type: Number,
+    senderAddress: { lowercase: true, trim: true, type: String },
+    source: String,
+    taker: { lowercase: true, required: true, trim: true, type: String },
+    transactionHash: {
+      lowercase: true,
+      required: true,
+      trim: true,
+      type: String,
     },
-    taker: String,
-    takerFee: Number,
-    transactionHash: String,
-  });
+    type: { type: Number },
+  },
+  { toJSON: { virtuals: true } },
+);
 
-  // TODO: Work out what this index was for. Sorting?
-  schema.index({ date: -1 });
+// TODO: Work out what this index was for. Sorting?
+schema.index({ date: -1 });
 
-  // Used for fetching fills related to a particular token
-  schema.index({ 'assets.tokenAddress': 1, date: -1 });
+// Used for fetching fills related to a particular token
+schema.index({ 'assets.tokenAddress': 1, date: -1 });
 
-  // Used by convert-fees job
-  schema.index({ 'conversions.USD.makerFee': 1 });
-  schema.index({ 'conversions.USD.takerFee': 1 });
-  schema.index({ 'conversions.USD.protocolFee': 1, protocolVersion: 1 });
+// Used to enforce data integrity
+schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
 
-  // Used to enforce data integrity
-  schema.index({ logIndex: 1, transactionHash: 1 }, { unique: true });
+// Used by derive-fill-prices job
+schema.index({
+  hasValue: -1,
+  pricingStatus: 1,
+  'assets.tokenResolved': -1,
+});
 
-  // Used for fetching fills associated with a particular relayer
-  schema.index({ relayerId: 1, date: -1 });
+schema.virtual('assets.token', {
+  ref: 'Token',
+  localField: 'assets.tokenAddress',
+  foreignField: 'address',
+  justOne: true,
+});
 
-  // Used for fetching fills associated with a particular token
-  schema.index({ 'assets.tokenAddress': 1, date: -1 });
+schema.virtual('fees.token', {
+  ref: 'Token',
+  localField: 'fees.tokenAddress',
+  foreignField: 'address',
+  justOne: true,
+});
 
-  // Used by determine-fill-values job
-  schema.index({ hasValue: 1, 'assets.tokenAddress': 1, immeasurable: -1 });
+schema.virtual('takerMetadata', {
+  ref: 'AddressMetadata',
+  localField: 'taker',
+  foreignField: 'address',
+  justOne: true,
+});
 
-  // Used by derive-fill-prices job
-  schema.index({
-    hasValue: -1,
-    pricingStatus: 1,
-    'assets.tokenResolved': -1,
-  });
+schema.virtual('transaction', {
+  ref: 'Transaction',
+  localField: 'transactionHash',
+  foreignField: 'hash',
+  justOne: true,
+});
 
-  const Model = mongoose.model('Fill', schema);
+const Model = mongoose.model('Fill', schema);
 
-  return Model;
-};
-
-module.exports = createModel;
+module.exports = Model;

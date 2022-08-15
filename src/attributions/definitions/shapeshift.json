@@ -1,0 +1,16 @@
+{
+  "id": "ef319eaa-9d5f-44ae-b113-1c8f641eb85d",
+  "name": "ShapeShift",
+  "logo": "shapeshift.png",
+  "urlSlug": "shapeshift",
+  "websiteUrl": "https://shapeshift.com/",
+  "mappings": [
+    {
+      "type": "consumer",
+      "affiliateAddress": "0xc770eefad204b5180df6a14ee197d99d808ee52d"
+    }
+  ],
+  "categories": [
+    "dex-aggregator"
+  ]
+}

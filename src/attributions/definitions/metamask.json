@@ -1,0 +1,24 @@
+{
+  "id": "a8fb0ca3-f4d8-4914-a191-08a6bcdb299c",
+  "name": "MetaMask",
+  "logo": "metamask.png",
+  "urlSlug": "metamask",
+  "websiteUrl": "https://metamask.io",
+  "mappings": [
+    {
+      "affiliateAddress": "0xfee5f86a8737ff816ba3f6adb5fc6027c1cb3f75",
+      "type": "consumer"
+    },
+    {
+      "affiliateAddress": "0x11ededebf63bef0ea2d2d071bdf88f71543ec6fb",
+      "type": "consumer"
+    },
+    {
+      "transactionToAddress": "0x881d40237659c251811cec9c364ef91dc08d300c",
+      "type": "consumer"
+    }
+  ],
+  "categories": [
+    "wallet"
+  ]
+}
