@@ -48,7 +48,7 @@
     "bluebird": "3.5.5",
     "bull": "3.12.1",
     "cheerio": "1.0.0-rc.3",
-    "config": "3.1.0",
+    "config": "3.3.2",
     "dotenv-safe": "6.1.0",
     "ethers": "5.0.24",
     "lodash": "4.17.15",
